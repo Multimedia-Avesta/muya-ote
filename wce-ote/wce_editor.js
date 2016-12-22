@@ -45,12 +45,11 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 		theme : "modern",
 		menubar: false,
 		skin_url: tinymce.baseURL + "../../../wce-ote/skin/",
-		extended_valid_elements : 'span[class|wce_orig|style|wce|ext|id]',
+		extended_valid_elements : 'span[class|wce_orig|style|wce|ext|id|language]',
 		forced_root_block : false,
 		force_br_newlines : true,
 		force_p_newlines : false,
 		entity_encoding : "raw",
-		//entities : "62,diple,8224,obelus",
 		theme_advanced_path : false,
 		execcommand_callback : 'wceExecCommandHandler',
 		save_onsavecallback : function() {
@@ -64,7 +63,7 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 		// invalid_elements:'p',
 		plugins : "pagebreak,save,layer,print,contextmenu,fullscreen,wordcount,autosave,paste,charmap,code,noneditable",
 		contextmenu: 'cut copy paste',
-		charmap : charmap_greek.concat(charmap_latin).concat(charmap_slavistic),
+		charmap : charmap_greek.concat(charmap_latin),
 //		plugins : "compat3x,pagebreak,save,layer,print,contextmenu,fullscreen,wordcount,autosave,paste",
 		external_plugins: {
 			'wce' : '../../wce-ote/plugin/plugin.js'
@@ -74,7 +73,7 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 		init_instance_callback : "wceReload",
 		// Theme options
 		toolbar : "undo redo charmap | code | save print contextmenu cut copy pastetext pasteword fullscreen | "+
-		"breaks correction illegible decoration abbreviation paratext note punctuation versemodify | showTeiByHtml help | info showHtmlByTei",
+		"breaks correction illegible decoration abbreviation paratext note punctuation language versemodify | showTeiByHtml help | info showHtmlByTei",
 		theme_advanced_buttons2 : "",
 		theme_advanced_toolbar_location : "top",
 		theme_advanced_toolbar_align : "left",
@@ -246,7 +245,8 @@ function addMenuItems(ed) {
 		}).renderTo();
 	
 		// added my options
-		if (ed.selection.getNode().getAttribute('wce') != null && ed.selection.getNode().getAttribute('wce').substring(4, 16) == 'verse_number') {
+		if (ed.selection.getNode().getAttribute('wce') != null 
+			&& ed.selection.getNode().getAttribute('wce').substring(4, 16) == 'verse_number') {
 			//wceAttr = ed.selection.getNode().getAttribute('wce');
 			menu.add({ text : '|'});
 			menu.add({
@@ -277,7 +277,24 @@ function addMenuItems(ed) {
 					ed.execCommand('mce_partial_remove');
 				}
 			});
-		} else if (ed.selection.getNode().getAttribute('wce') != null && ed.selection.getNode().getAttribute('wce').indexOf('break_type=pb') > -1 
+		/*menu.addSeparator();
+			menu.add({
+				title : 'Zoroastrian Middle Persian in Pahlavi Script',
+				icon : '',
+				cmd : 'mce_palPhlv'
+			});
+			menu.add({
+				title : 'Zoroastrian Middle Persian in Avesta Script',
+				icon : '',
+				cmd : 'mce_palAvst'
+			});
+			menu.add({
+				title : 'Middle Persian in inscriptional Pahlavi Script',
+				icon : '',
+				cmd : 'mce_palPhli'
+			});*/			
+		} else if (ed.selection.getNode().getAttribute('wce') != null 
+			&& ed.selection.getNode().getAttribute('wce').indexOf('break_type=pb') > -1 
 			&& ed.selection.getNode().textContent.indexOf('PB') > -1) {
 			isPreviousActive = (ed.selection.getNode().getAttribute('wce').indexOf('hasBreak=yes') > -1);
 			menu.add({ text : '|'});
@@ -297,12 +314,21 @@ function addMenuItems(ed) {
 				}
 			});
 			menu.items()[menu.items().length-1].disabled(!isPreviousActive);
+		} else if (ed.selection.getNode().getAttribute('class') != null 
+			&& (ed.selection.getNode().hasClass('lang') 
+			|| (ed.selection.getNode().hasClass('formatting_rubrication')))) {
+			menu.add({
+				text : tinymce.translate('wce.removeLanguage'),
+				icon : '',
+				onclick : function() {
+					ed.execCommand('mce_remove_language', true);
+				}
+			});
 		}
 		menu.renderNew();
 		menu.moveTo($(contextMenu.getEl()).position().left, $(contextMenu.getEl()).position().top);
 		contextMenu.hide();
 	});
-
 	ed.addCommand('mce_partialI', function() {
 		ed.selection.getNode().setAttribute('wce', '__t=verse_number' + '&partial=I');
 	});
@@ -315,6 +341,20 @@ function addMenuItems(ed) {
 	ed.addCommand('mce_partial_remove', function() {
 		ed.selection.getNode().setAttribute('wce', '__t=verse_number');
 	});
+	ed.addCommand('mce_remove_language', function() {
+		ed.execCommand('wceDelNode', true, true);
+	});
+		
+	/*ed.addCommand('mce_palPhlv', function() {
+		ed.selection.getNode().setAttribute('wce', '__t=verse_number' + '&lang=pal-Phlv');
+	});
+	ed.addCommand('mce_palAvst', function() {
+		ed.selection.getNode().setAttribute('wce', '__t=verse_number' + '&lang=pal-Avst');
+	});
+	ed.addCommand('mce_palPhli', function() {
+		ed.selection.getNode().setAttribute('wce', '__t=verse_number' + '&lang=pal-Phli');
+	});*/
+	
 	ed.addCommand('mce_previous_hyphenation', function(b) {
 		var oldwce = ed.selection.getNode().getAttribute('wce');
 		var pos = oldwce.indexOf("number=");

@@ -44,6 +44,110 @@
 		<input type="button" id="help" name="help" value="{#help}"
 				onclick="wce_openWindow('docu.htm#verse')" style="margin-bottom:100px" />
 		<div id="insertDiv">
+			<div id="insertBookDiv">
+				<table border="0" cellpadding="2" cellspacing="0" width="100%">
+                <tr>
+				<td width="200">
+				<input type="radio" id="insertBookRadio" name="versemodify" onclick="canInsertBook();"/>{#wce.book_insert}
+				</td>
+				<td>
+				<select id="insertBookName" name="insertBookName" onchange="checkstatus_book_name()">
+			                <option value="A">Afrinagan</option>
+					<option value="ABu">Afrin i Buzorgan</option>
+					<option value="AD">Afrin i Dahman</option>
+					<option value="AG">Afrin i Gahambar</option>
+					<option value="As">Asirvad</option>
+					<option value="AvAlph">Avestan alphabet</option>
+					<option value="Col">Colophon</option>
+					<option value="DuP">Du&#702;a Paymani</option>					
+					<option value="FiO">Frahang i Oim</option>
+					<option value="FrW">Fragment Westergard</option>					
+					<option value="G">Gah</option>
+					<option value="H">Herbedestan</option>
+					<option value="HB">Hosbam</option>
+					<option value="HN ">Hadoxt Nask</option>
+					<option value="N">Nerangestan</option>
+					<option value="NiAs">Nirang Asoan</option>
+					<option value="Nirang">Nirang</option>
+					<option value="NiSY">Nirang Sangriza Yastan</option>					
+					<option value="NkB">Nerang i kustig bastan</option>
+					<option value="NS">Nam Stayisn</option>					
+					<option value="Ny">Nyayisn</option>
+					<option value="Par">Paragna</option>
+					<option value="PaIr">Patet Irani</option>
+					<option value="PaPas">Patet Pasemanih</option>
+					<option value="PaXw">Patet Xwad</option>
+					<option value="PazT">Pazand texts</option>
+					<option value="PPhl">Payman i Pahlawi</option>
+					<option value="PS">Payman i Sanskrit</option>					
+					<option value="S">Siroza</option>
+					<option value="SrB">Sros Baj</option>					
+					<option value="V">Videvdad</option>					
+					<option value="VN">Vae&#977;a Nask</option>					
+					<option value="Vr">Visparad</option>
+					<option value="VrS">Visperad Sade</option>
+					<option value="VS">Videvdad Sade</option>
+					<!--<option value="VrS">Additions in Visperad Sade ceremony</option>					
+					<option value="VS">Additions in Videvdad Sade ceremony</option>-->
+					<option value="Vyt">Vistasp Yast</option>					
+					<option value="VytS">Vishtasp Yasht Sade</option>
+					<option value="Y">Yasna</option>					
+					<option value="Yt">Yast</option>			
+					<!--<option value="YVr">Variants of the Yasna in the Visperad ceremony</option>-->
+					<option value="YVr">Yasna Visperad</option>
+					<option value="Y-gah">Yazisn-gah</option>																		
+					<option value="other">{#wce.other}</option>
+                </select>
+				</td>
+				</tr>
+				<tr>
+				<td></td>
+				<td><input id="insertBookName_other"
+					name="insertBookName_other" type="text" value="" size="20"
+                    maxlength="" class="required number min1 mceFocus" />
+				<!--<input id="insertBookNumber" type="text" />-->
+				</td></tr>
+				</table>
+			</div>
+			<div id="insertChapterDiv">
+				<table border="0" cellpadding="2" cellspacing="0" width="100%">
+                <tr>
+				<td width="200">
+				<input type="radio" id="insertChapterRadio" name="versemodify" onclick="canInsertChapter();"/>{#wce.chapter_insert}
+				</td>
+				<td><input id="insertChapterNumber" type="text" /></td>
+				</tr>
+				</table>
+			</div>
+			<div id="insertStanzaDiv">
+				<table border="0" cellpadding="2" cellspacing="0" width="100%">
+                <tr>
+				<td width="200">
+				<input type="radio" id="insertStanzaRadio" name="versemodify" onclick="canInsertStanza();"/>{#wce.stanza_insert}
+				</td>
+				<td>
+				<input id="insertStanzaNumber" type="text" />
+				</td>
+				</tr>
+				</table>
+			</div>
+			<div id="insertVerseDiv">
+				<table border="0" cellpadding="2" cellspacing="0" width="100%">
+                <tr>
+				<td width="200">
+				<input type="radio" id="insertVerseRadio" name="versemodify" onclick="canInsertVerse();"/>{#wce.verse_insert}
+				</td>
+				<td>
+				<input id="insertVerseNumber" type="text" />
+				</td>
+				</tr>
+				</table>
+			</div>
+			<!--<div id="insertInscriptioDiv">
+				<input type="radio" id="insertInscriptioRadio" name="versemodify" onclick="canInsertInscriptio();"/>{#wce.inscriptio_insert}
+			</div>
+			<div id="insertSubscriptioDiv">
+				<input type="radio" id="insertSubscriptioRadio" name="versemodify" onclick="canInsertSubscriptio();"/>{#wce.subscriptio_insert}
 			<div id="insertVerseDiv">
 				<input type="radio" id="insertVerseRadio" name="versemodify" onclick="canInsertVerse();"/>{#verse_insert}&nbsp;&nbsp;&nbsp;
 				<input id="insertVerseNumber" type="text" />
@@ -66,7 +170,7 @@
 				<input type="radio" id="insertLectionRadio" name="versemodify" onclick="canInsertLection();"/>{#lection_insert}&nbsp;&nbsp;&nbsp;
 				<input id="insertLectionNumber" type="text" />
 			</div>
-		</div>
+		</div>-->
 		<div id="deleteVerseDiv" style="margin-top:10px">
 			<div>
 				<input type="radio" id="deleteVerseRadio" onclick="canDeleteVerse();" name="versemodify"/>{#verse_remove}
@@ -85,12 +189,12 @@
 			</div>
 			<fieldset style="border:1px solid #ccc;width:auto; height:auto; overflow-y:auto" id="bookList"></fieldset>
 		</div>
-		<div id="deleteLectionDiv" style="margin-top:10px">
+		<!--<div id="deleteLectionDiv" style="margin-top:10px">
 			<div>
 				<input type="radio" id="deleteLectionRadio" onclick="canDeleteLection();" name="versemodify"/>{#lection_remove}
 			</div>
 			<fieldset style="border:1px solid #ccc;width:auto; height:auto; overflow-y:auto" id="lectionList"></fieldset>
-		</div>
+		</div>-->
 		<div class="mceActionPanel" style="margin-bottom:10px">
 			<input type="button" id="insert" name="insert" value="{#apply}"
 				onclick="update();parent.tinymce.activeEditor.windowManager.close();" />
@@ -138,7 +242,7 @@ var spanValue_old = '';
 		$('#insertVerseNumber').prop('disabled', false);
 		$('#insertVerseNumber').focus();
 		$('#insertChapterNumber').prop('disabled', true);
-		$('#insertBookNumber').prop('disabled', true);
+		$('#insertBookName').prop('disabled', true);
 		$('#insertLectionNumber').prop('disabled', true);
 		$('#verseList').prop('disabled', true);
 		$('#chapterList').prop('disabled', true);
@@ -150,7 +254,7 @@ var spanValue_old = '';
 		$('#insertInscriptioRadio').prop('checked', true);
 		$('#insertVerseNumber').prop('disabled', true);
 		$('#insertChapterNumber').prop('disabled', true);
-		$('#insertBookNumber').prop('disabled', true);
+		$('#insertBookName').prop('disabled', true);
 		$('#insertLectionNumber').prop('disabled', true);
 		$('#verseList').prop('disabled', true);
 		$('#chapterList').prop('disabled', true);
@@ -162,7 +266,7 @@ var spanValue_old = '';
 		$('#insertSubscriptioRadio').prop('checked', true);
 		$('#insertVerseNumber').prop('disabled', true);
 		$('#insertChapterNumber').prop('disabled', true);
-		$('#insertBookNumber').prop('disabled', true);
+		$('#insertBookName').prop('disabled', true);
 		$('#insertLectionNumber').prop('disabled', true);
 		$('#verseList').prop('disabled', true);
 		$('#chapterList').prop('disabled', true);
@@ -174,7 +278,7 @@ var spanValue_old = '';
 		$('#insertLectionRadio').prop('checked', true);
 		$('#insertLectionNumber').prop('disabled', false); 
 		$('#insertLectionNumber').focus();
-		$('#insertBookNumber').prop('disabled', true);
+		$('#insertBookName').prop('disabled', true);
 		$('#insertChapterNumber').prop('disabled', true);
 		$('#insertVerseNumber').prop('disabled', true);
 		$('#verseList').prop('disabled', true);
@@ -184,8 +288,9 @@ var spanValue_old = '';
 	
 	function canInsertBook(){
 		$('#insertBookRadio').prop('checked', true);
-		$('#insertBookNumber').prop('disabled', false); 
-		$('#insertBookNumber').focus(); 
+		$('#insertBookName').prop('disabled', false); 
+		//checkstatus_book_name();
+		$('#insertBookName').focus(); 
 		$('#insertLectionNumber').prop('disabled', true);
 		$('#insertChapterNumber').prop('disabled', true);
 		$('#insertVerseNumber').prop('disabled', true);
@@ -200,7 +305,7 @@ var spanValue_old = '';
 		$('#insertChapterNumber').prop('disabled', false); 
 		$('#insertChapterNumber').focus(); 
 		$('#insertVerseNumber').prop('disabled', true);
-		$('#insertBookNumber').prop('disabled', true);
+		$('#insertBookName').prop('disabled', true);
 		$('#insertLectionNumber').prop('disabled', true);
 		$('#verseList').prop('disabled', true);
 		$('#chapterList').prop('disabled', true);
@@ -208,12 +313,26 @@ var spanValue_old = '';
 		$('#lectionList').prop('disabled', true);
 	}
 	
+	function canInsertStanza(){
+		$('#insertStanzaRadio').attr('checked','checked');
+		$('#insertStanzaNumber').removeAttr('disabled'); 
+		$('#insertStanzaNumber').focus(); 
+		$('#insertChapterNumber').attr('disabled','disabled');
+		$('#insertVerseNumber').attr('disabled','disabled');
+		$('#insertBookName').attr('disabled','disabled');
+		$('#insertLectionNumber').attr('disabled','disabled');
+		$('#verseList').attr('disabled','disabled');
+		$('#chapterList').attr('disabled','disabled');
+		$('#bookList').attr('disabled','disabled');
+		$('#lectionList').attr('disabled','disabled');
+	}
+	
 	function canDeleteVerse(){
 		$('#deleteVerseRadio').prop('checked', true);
 		$('#verseList').prop('disabled', false);
 		$('#insertVerseNumber').prop('disabled', true);
 		$('#insertChapterNumber').prop('disabled', true);
-		$('#insertBookNumber').prop('disabled', true);
+		$('#insertBookName').prop('disabled', true);
 		$('#insertLectionNumber').prop('disabled', true);
 		$('#chapterList').prop('disabled', true);
 		$('#bookList').prop('disabled', true);
@@ -225,7 +344,7 @@ var spanValue_old = '';
 		$('#chapterList').prop('disabled', false);
 		$('#insertVerseNumber').prop('disabled', true);
 		$('#insertChapterNumber').prop('disabled', true);
-		$('#insertBookNumber').prop('disabled', true);
+		$('#insertBookName').prop('disabled', true);
 		$('#insertLectionNumber').prop('disabled', true);
 		$('#verseList').prop('disabled', true);
 		$('#bookList').prop('disabled', true);
@@ -237,7 +356,7 @@ var spanValue_old = '';
 		$('#bookList').prop('disabled', false);
 		$('#insertVerseNumber').prop('disabled', true);
 		$('#insertChapterNumber').prop('disabled', true);
-		$('#insertBookNumber').prop('disabled', true);
+		$('#insertBookName').prop('disabled', true);
 		$('#insertLectionNumber').prop('disabled', true);
 		$('#verseList').prop('disabled', true);
 		$('#chapterList').prop('disabled', true);
@@ -249,7 +368,7 @@ var spanValue_old = '';
 		$('#lectionList').prop('disabled', false);
 		$('#insertVerseNumber').prop('disabled', true);
 		$('#insertChapterNumber').prop('disabled', true);
-		$('#insertBookNumber').prop('disabled', true);
+		$('#insertBookName').prop('disabled', true);
 		$('#insertLectionNumber').prop('disabled', true);
 		$('#verseList').prop('disabled', true);
 		$('#chapterList').prop('disabled', true);
@@ -257,7 +376,7 @@ var spanValue_old = '';
 	}
 	
 	function init() {
-		canDeleteVerse();
+		canInsertBook();
 		contentWithVerse=$('<div/>').html(ed.getContent())[0]; //selects everything starting the complete chapter
 		$('#verseList').html(getVerseList(contentWithVerse));
 		$('#chapterList').html(getChapterList(contentWithVerse));
@@ -268,6 +387,7 @@ var spanValue_old = '';
 		       $('#insertDiv input').prop('disabled', true);
 		   }
 		}
+		checkstatus_book_name();
 	}
 	
 	function getVerseList(node){
@@ -386,11 +506,21 @@ var spanValue_old = '';
 		}	
 		return out;		
 	}
-		
-	function update(){ 
+
+	function checkstatus_book_name() {
+		if ($('#insertBookName').val() == 'other') {
+				$('#insertBookName_other').attr('disabled', false);
+				$('#insertBookName_other').css('background', '#fff');
+			} else {
+				$('#insertBookName_other').attr('disabled', true);
+				$('#insertBookName_other').css('background', '#ccc');
+			}
+	}	
+	
+	function update() { 
 		if ($('#insertVerseRadio').is(':checked')){
 			var newVerseNr = $('#insertVerseNumber').val().trim();
-			newVerseNr = newVerseNr.replace(/\D/g,'');
+			//newVerseNr = newVerseNr.replace(/\D/g,'');
 			if (newVerseNr != ''){
 				ed.insertContent('<span class="verse_number mceNonEditable" wce="__t=verse_number"> ' + newVerseNr + '</span> ');
 			}
@@ -403,16 +533,18 @@ var spanValue_old = '';
 			return;
 		} else if ($('#insertChapterRadio').is(':checked')){
 			var newChapterNr = $('#insertChapterNumber').val().trim();
-			newChapterNr = newChapterNr.replace(/\D/g,'');
+			//newChapterNr = newChapterNr.replace(/\D/g,'');
 			if (newChapterNr != ''){
 				ed.insertContent('<span class="chapter_number mceNonEditable" wce="__t=chapter_number" id="' + ed.dom.uniqueId('chap') + '"> ' + newChapterNr + '</span> ');
 			}
 			return;
 		} else if ($('#insertBookRadio').is(':checked')){
-			var newBookNr = $('#insertBookNumber').val().trim();
-			newBookNr = newBookNr.replace(/\D/g,'');
-			if (newBookNr != ''){
-				ed.insertContent('<span class="book_number mceNonEditable" wce="__t=book_number" id="' + ed.dom.uniqueId('book') + '"> ' + newBookNr + '</span> ');
+			var newBookName = $('#insertBookName').val().trim();
+			//	newBookNr = newBookNr.replace(/\D/g,'');
+			if (newBookName != ''){
+				if (newBookName == 'other')
+					newBookName = $('#insertBookName_other').val().trim();
+				ed.selection.setContent('<span class="book_number" wce="__t=book_number"> ' + newBookName + '</span> ');
 			}
 			return;
 		} else if ($('#insertLectionRadio').is(':checked')){
@@ -420,6 +552,13 @@ var spanValue_old = '';
 			//newLectionNr = newLectionNr.replace(/\D/g,'');
 			if (newLectionNr != ''){
 				ed.insertContent('<span class="lection_number mceNonEditable" wce="__t=lection_number&__n=&number=' + newLectionNr + '"> ' + 'Lec' + '</span> ');
+			}
+			return;
+		} else if ($('#insertStanzaRadio').attr('checked')){
+			var newStanzaNr = $('#insertStanzaNumber').val().trim();
+			newStanzaNr = newStanzaNr.replace(/\D/g,'');
+			if (newStanzaNr != ''){
+				ed.selection.setContent('<span class="stanza_number" wce="__t=stanza_number"> ' + newStanzaNr + '</span> ');
 			}
 			return;
 		} else if ($('#deleteVerseRadio').is(':checked')){

@@ -405,67 +405,280 @@ var charmap_latin = [
 	['865', 'Slur']
 ];
 
-var charmap_slavistic = [
-	['1030', ''],
-	['1031', ''],
-	['1066', ''],
-	['1067', ''],
-	['1068', ''],
-	['1070', ''],
-	['1098', ''],
-	['1099', ''],
-	['1100', ''],
-	['1102', ''],
-	['1120', ''],
-	['1121', ''],
-	['1122', ''],
-	['1123', ''],
-	['1124', ''],
-	['1125', ''],
-	['1126', ''],
-	['1127', ''],
-	['1128', ''],
-	['1129', ''],
-	['1130', ''],
-	['1131', ''],
-	['1132', ''],
-	['1133', ''],
-	['1134', ''],
-	['1135', ''],
-	['1136', ''],
-	['1137', ''],
-	['1138', ''],
-	['1139', ''],
-	['1140', ''],
-	['1141', ''],
-	['1142', ''],
-	['1143', ''],
-	['1144', ''],
-	['1145', ''],
-	['1146', ''],
-	['1147', ''],
-	['1148', ''],
-	['1149', ''],
-	['1150', ''],
-	['1151', ''],
-	['1152', ''],
-	['1153', ''],
-	['1154', ''],
-	['1155', ''],
-	['1156', ''],
-	['1157', ''],
-	['1158', ''],
-	['1159', ''],
-	['1160', ''],
-	['1161', ''],
-	['1162', ''],
-	['1163', ''],
-	['1164', ''],
-	['1165', ''],
-	['1166', ''],
-
-	['1248', ''],
-	['1249', ''],
-	['779', ''],
+var charmap_gujarati = [
+	['', '&#2693;', true, 'GUJARATI LETTER A'],
+	['', '&#2694;', true, 'GUJARATI LETTER AA'],
+	['', '&#2695;', true, 'GUJARATI LETTER I'],
+	['', '&#2696;', true, 'GUJARATI LETTER II'],
+	['', '&#2697;', true, 'GUJARATI LETTER U'],
+	['', '&#2698;', true, 'GUJARATI LETTER UU'],
+	['', '&#2699;', true, 'GUJARATI LETTER VOCALIC R'],
+	['', '&#2784;', true, 'GUJARATI LETTER VOCALIC RR'],
+	['', '&#2701;', true, 'GUJARATI VOWEL CANDRA E'],
+	['', '&#2703;', true, 'GUJARATI LETTER E'],
+	['', '&#2704;', true, 'GUJARATI LETTER AI'],
+	['', '&#2705;', true, 'GUJARATI VOWEL CANDRA O'],
+	['', '&#2707;', true, 'GUJARATI LETTER O'],
+	['', '&#2708;', true, 'GUJARATI LETTER AU'],
+	['', '&#2709;', true, 'GUJARATI LETTER KA'],
+	['', '&#2710;', true, 'GUJARATI LETTER KHA'],
+	['', '&#2711;', true, 'GUJARATI LETTER GA'],
+	['', '&#2712;', true, 'GUJARATI LETTER GHA'],
+	['', '&#2713;', true, 'GUJARATI LETTER NGA'],
+	['', '&#2714;', true, 'GUJARATI LETTER CA'],
+	['', '&#2715;', true, 'GUJARATI LETTER CHA'],
+	['', '&#2716;', true, 'GUJARATI LETTER JA'],
+	['', '&#2717;', true, 'GUJARATI LETTER JHA'],
+	['', '&#2718;', true, 'GUJARATI LETTER NYA'],
+	['', '&#2719;', true, 'GUJARATI LETTER TTA'],
+	['', '&#2720;', true, 'GUJARATI LETTER TTHA'],
+	['', '&#2721;', true, 'GUJARATI LETTER DDA'],
+	['', '&#2722;', true, 'GUJARATI LETTER DDHA'],
+	['', '&#2723;', true, 'GUJARATI LETTER NNA'],
+	['', '&#2724;', true, 'GUJARATI LETTER TA'],
+	['', '&#2725;', true, 'GUJARATI LETTER THA'],
+	['', '&#2726;', true, 'GUJARATI LETTER DA'],
+	['', '&#2727;', true, 'GUJARATI LETTER DHA'],
+	['', '&#2728;', true, 'GUJARATI LETTER NA'],
+	['', '&#2730;', true, 'GUJARATI LETTER PA'],
+	['', '&#2731;', true, 'GUJARATI LETTER PHA'],
+	['', '&#2732;', true, 'GUJARATI LETTER BA'],
+	['', '&#2733;', true, 'GUJARATI LETTER BHA'],
+	['', '&#2734;', true, 'GUJARATI LETTER MA'],
+	['', '&#2735;', true, 'GUJARATI LETTER YA'],
+	['', '&#2736;', true, 'GUJARATI LETTER RA'],
+	['', '&#2738;', true, 'GUJARATI LETTER LA'],
+	['', '&#2739;', true, 'GUJARATI LETTER LLA'],
+	['', '&#2741;', true, 'GUJARATI LETTER VA'],
+	['', '&#2742;', true, 'GUJARATI LETTER SHA'],
+	['', '&#2743;', true, 'GUJARATI LETTER SSA'],
+	['', '&#2744;', true, 'GUJARATI LETTER SA'],
+	['', '&#2745;', true, 'GUJARATI LETTER HA'],
 ];
+
+
+/*GUJARATI SIGN CANDRABINDU	??	Option+0A81	ALT+2689	&#2689;	&#x0A81
+GUJARATI SIGN ANUSVARA	??	Option+0A82	ALT+2690	&#2690;	&#x0A82
+GUJARATI SIGN VISARGA	??	Option+0A83	ALT+2691	&#2691;	&#x0A83
+GUJARATI SIGN NUKTA	??	Option+0ABC	ALT+2748	&#2748;	&#x0ABC
+GUJARATI SIGN AVAGRAHA	??	Option+0ABD	ALT+2749	&#2749;	&#x0ABD
+GUJARATI VOWEL SIGN AA	??	Option+0ABE	ALT+2750	&#2750;	&#x0ABE
+GUJARATI VOWEL SIGN I	??	Option+0ABF	ALT+2751	&#2751;	&#x0ABF
+GUJARATI VOWEL SIGN II	??	Option+0AC0	ALT+2752	&#2752;	&#x0AC0
+GUJARATI VOWEL SIGN U	??	Option+0AC1	ALT+2753	&#2753;	&#x0AC1
+GUJARATI VOWEL SIGN UU	??	Option+0AC2	ALT+2754	&#2754;	&#x0AC2
+GUJARATI VOWEL SIGN VOCALIC R	??	Option+0AC3	ALT+2755	&#2755;	&#x0AC3
+GUJARATI VOWEL SIGN VOCALIC RR	??	Option+0AC4	ALT+2756	&#2756;	&#x0AC4
+GUJARATI VOWEL SIGN CANDRA E	??	Option+0AC5	ALT+2757	&#2757;	&#x0AC5
+GUJARATI VOWEL SIGN E	??	Option+0AC7	ALT+2759	&#2759;	&#x0AC7
+GUJARATI VOWEL SIGN AI	??	Option+0AC8	ALT+2760	&#2760;	&#x0AC8
+GUJARATI VOWEL SIGN CANDRA O	??	Option+0AC9	ALT+2761	&#2761;	&#x0AC9
+GUJARATI VOWEL SIGN O	??	Option+0ACB	ALT+2763	&#2763;	&#x0ACB
+GUJARATI VOWEL SIGN AU	??	Option+0ACC	ALT+2764	&#2764;	&#x0ACC
+GUJARATI SIGN VIRAMA	??	Option+0ACD	ALT+2765	&#2765;	&#x0ACD
+
+
+GUJARATI OM	?	Option+0AD0	ALT+2768	&#2768;	&#x0AD0
+GUJARATI RUPEE SIGN	?	Option+0AF1	ALT+2801	&#2801;	&#x0AF1
+GUJARATI DIGIT ZERO	?	Option+0AE6	ALT+2790	&#2790;	&#x0AE6
+GUJARATI DIGIT ONE	?	Option+0AE7	ALT+2791	&#2791;	&#x0AE7
+GUJARATI DIGIT TWO	?	Option+0AE8	ALT+2792	&#2792;	&#x0AE8
+GUJARATI DIGIT THREE	?	Option+0AE9	ALT+2793	&#2793;	&#x0AE9
+GUJARATI DIGIT FOUR	?	Option+0AEA	ALT+2794	&#2794;	&#x0AEA
+GUJARATI DIGIT FIVE	?	Option+0AEB	ALT+2795	&#2795;	&#x0AEB
+GUJARATI DIGIT SIX	?	Option+0AEC	ALT+2796	&#2796;	&#x0AEC
+GUJARATI DIGIT SEVEN	?	Option+0AED	ALT+2797	&#2797;	&#x0AED
+GUJARATI DIGIT EIGHT	?	Option+0AEE	ALT+2798	&#2798;	&#x0AEE
+GUJARATI DIGIT NINE	?	Option+0AEF	ALT+2799	&#2799;	&#x0AEF
+*/
+
+var charmap_avesta = [
+	['', '&#x0061;', true, 'AVESTAN LETTER A'],
+	['', '&#x00E5;', true, 'AVESTAN LETTER AA'],
+	['', '&#x101;', true, 'AVESTAN LETTER AO'],
+	['', '&#x0061;&#772;&#778;', true, 'AVESTAN LETTER AAO'],
+	['', '&#x105;', true, 'AVESTAN LETTER AN'],
+	['', '&#x105;&#x307;', true, 'AVESTAN LETTER AAN'],
+	['', '&#x01dd;', true, 'AVESTAN LETTER AE'],
+	['', '&#x1dd;&#x0304;', true, 'AVESTAN LETTER AEE'],
+	['', '&#x0065;', true, 'AVESTAN LETTER E'],
+	['', '&#x0113;', true, 'AVESTAN LETTER EE'],
+	['', '&#x006F;', true, 'AVESTAN LETTER O'],
+	['', '&#x014d;', true, 'AVESTAN LETTER OO'],
+	['', '&#x0069;', true, 'AVESTAN LETTER I'],
+	['', '&#x012b;', true, 'AVESTAN LETTER II'],
+	['', '&#x0075;', true, 'AVESTAN LETTER U'],
+	['', '&#x016b;', true, 'AVESTAN LETTER UU'],
+	['', '&#x006b;', true, 'AVESTAN LETTER KE'],
+	['', '&#x0078;', true, 'AVESTAN LETTER XE'],
+	['', '&#x0078;&#x0301;', true, 'AVESTAN LETTER XYE'],
+	['', '&#x0078;&#x200b;&#x036e;', true, 'AVESTAN LETTER XVE'],
+	['', '&#x0067;', true, 'AVESTAN LETTER GE'],
+	['', '&#x0121;', true, 'AVESTAN LETTER GGE'],
+	['', '&#x03b3;', true, 'AVESTAN LETTER GHE'],
+	['', '&#x0063;', true, 'AVESTAN LETTER CE'],
+	['', '&#x006a;', true, 'AVESTAN LETTER JE'],
+	['', '&#x0074;', true, 'AVESTAN LETTER TE'],
+	['', '&#x03b8;', true, 'AVESTAN LETTER THE'],
+	['', '&#x03d1;', true, 'AVESTAN LETTER THE'],
+	['', '&#x0064;', true, 'AVESTAN LETTER DE'],
+	['', '&#x03b4;', true, 'AVESTAN LETTER DHE'],
+	['', '&#x03b4;&#x0301;', true, 'AVESTAN LETTER DHE'],
+	['', '&#x0074;&#x0330;', true, 'AVESTAN LETTER TTE'],
+	['', '&#x0070;', true, 'AVESTAN LETTER PE'],
+	['', '&#x0066;', true, 'AVESTAN LETTER FE'],
+	['', '&#x0062;', true, 'AVESTAN LETTER BE'],
+	['', '&#x03b2;', true, 'AVESTAN LETTER BHE'],
+	['', '&#x014b;', true, 'AVESTAN LETTER NGE'],
+	['', '&#x014b;&#x0301;', true, 'AVESTAN LETTER NGYE'],
+	['', '&#x014b;&#x200b;&#x0367;', true, 'AVESTAN LETTER NGVE'],
+	['', '&#x006e;', true, 'AVESTAN LETTER NE'],
+	['', '&#x0144;', true, 'AVESTAN LETTER NYE'],
+	['', '&#x1e45;', true, 'AVESTAN LETTER NYE'],
+	['', '&#x1e47;', true, 'AVESTAN LETTER NNE'],
+	['', '&#x006d;', true, 'AVESTAN LETTER ME'],
+	['', '&#x006d;&#x0328;', true, 'AVESTAN LETTER HME'],
+	['', '&#x1e8f;', true, 'AVESTAN LETTER YYE'],
+	['', '&#x0079;', true, 'AVESTAN LETTER YE'],
+	['', '&#x0076;', true, 'AVESTAN LETTER VE'],
+	['', '&#x0076;&#x0307;', true, 'AVESTAN LETTER VE'],
+	['', '&#x0072;', true, 'AVESTAN LETTER RE'],
+	['', '&#x006c;', true, 'AVESTAN LETTER LE'],
+	['', '&#x0073;', true, 'AVESTAN LETTER SE'],
+	['', '&#x007a;', true, 'AVESTAN LETTER ZE'],
+	['', '&#x0161;', true, 'AVESTAN LETTER SHE'],
+	['', '&#x0161;&#x0301;', true, 'AVESTAN LETTER ZHE'],
+	['', '&#x0161;&#x0323;', true, 'AVESTAN LETTER SHYE'],
+	['', '&#x017e;', true, 'AVESTAN LETTER SSHE'],
+	['', '&#x0068;', true, 'AVESTAN LETTER HE'],
+	['', '&#x0068;&#x0301;', true, 'AVESTAN LETTER HE'],
+	['', '&#x002e;', true, 'AVESTAN LETTER '],
+	['', '&#x10b3b;', true, 'AVESTAN LETTER '],
+];
+
+var charmap_pahlavi = [
+	['', '&#x02be;', true, 'Aleph'],
+	['', '&#x02bf;', true, 'Ayin'],
+	['', 'b&#x0331;', true, 'Small letter b with macron below'],
+	['', 'B&#x0331;', true, 'Capital letter B with macron below'],
+	['', 'B&#x0302;&#x0331;', true, 'Capital letter B with circumflex and macron below'],
+	['', 'd&#x0331;', true, 'Small letter d with macron below'],
+	['', 'D&#x0331;', true, 'Capital letter D with macron below'],
+	['', 'd&#x0302;', true, 'Small letter d with circumflex'],
+	['', 'D&#x0302;', true, 'Capital letter D with circumflex'],
+	['', 'd&#x0308;', true, 'Small letter d with diaeresis'],
+	['', 'D&#x0308;', true, 'Capital letter D with diaeresis'],
+	['', 'g&#x0304;', true, 'Small letter g with macron'],
+	['', 'G&#x0331;', true, 'Capital letter G with macron below'],
+	['', 'g&#x0302;', true, 'Small letter g with circumflex'],
+	['', 'G&#x0302;', true, 'Capital letter G with circumflex'],
+	['', 'g&#x0308;', true, 'Small letter g with diaeresis'],
+	['', 'G&#x0308;', true, 'Capital letter G with diaeresis'],
+	['', 'H&#x0323;', true, 'Capital letter H with dot below'],
+	['', 'k&#x0331;', true, 'Small letter k with macron below'],
+	['', 'K&#x0331;', true, 'Capital letter K with macron below'],
+	['', 'l&#x0335;', true, 'Small letter l with short stroke overlay'],
+	['', 'L&#x0335;', true, 'Capital letter L with short stroke overlay'],
+	['', 'n&#x0331;', true, 'Small letter n with macron below'],
+	['', 'p&#x0304;', true, 'Small letter p with macron'],
+	['', 'P&#x0304;', true, 'Capital letter P with macron'],
+	['', 'R&#x0331;', true, 'Capital letter R with macron below'],
+	['', 's&#x0331;', true, 'Small letter s with macron below'],
+	['', 's&#x030C;', true, 'Small letter s with caron'],
+	['', 'S&#x030C;', true, 'Capital letter S with caron'],
+	['', '&#x0745;s', true, 'Small letter s with three dots above'],
+	['', 't&#x0302;', true, 'Small letter t with circumflex'],
+	['', 'x&#x2081;', true, 'Small letter x with subscript 1'],
+	['', 'x&#x2082;', true, 'Small letter x with subscript 2'],
+	['', 'y&#x0304;', true, 'Small letter y with macron'],
+	['', 'Y&#x0304;', true, 'Small letter Y with macron'],
+	['', 'y&#x0302;', true, 'Small letter y with circumflex'],
+	['', 'Y&#x0302;', true, 'Capital letter Y with circumflex'],
+	['', 'y&#x0323;', true, 'Small letter y with dot below'],
+	['', 'y&#x0308;', true, 'Small letter y with diaeresis'],
+	['', 'Y&#x0308;', true, 'Capital letter Y with diaeresis'],
+	['', 'y&#x0324;', true, 'Small letter y with diaeresis below'],
+	['', 'Y&#x0324;', true, 'Capital letter Y with diaeresis below'],
+	['', 'z&#x0331;', true, 'Small letter z with macron below'],
+	['', 'Z&#x0331;', true, 'Capital letter Z with macron below'],
+];
+
+tinyMCEPopup.onInit.add(function() { 
+	cmap = checkstatus_charmap();
+	tinyMCEPopup.dom.setHTML('charmapView', renderCharMapHTML(cmap));
+});
+
+function renderCharMapHTML(charmap) {
+	var charsPerRow = 20, tdWidth=20, tdHeight=20, i;
+	var html = '<table border="0" cellspacing="1" cellpadding="0" width="' + (tdWidth*charsPerRow) + '"><tr height="' + tdHeight + '">';
+	var cols=-1;
+	
+
+	for (i=0; i<charmap.length; i++) {
+		if (charmap[i][2]==true) {
+			cols++;
+			html += ''
+				+ '<td class="charmap" style="font-family:Times">'
+				+ '<a onmouseover="previewChar(\'' + charmap[i][1].substring(1,charmap[i][1].length) + '\',\'' + charmap[i][0].substring(1,charmap[i][0].length) + '\',\'' + charmap[i][3] + '\');" onfocus="previewChar(\'' + charmap[i][1].substring(1,charmap[i][1].length) + '\',\'' + charmap[i][0].substring(1,charmap[i][0].length) + '\',\'' + charmap[i][3] + '\');" href="javascript:void(0)" onclick="insertChar(\'' + charmap[i][1] + '\');" onclick="return false;" onmousedown="return false;" title="' + charmap[i][3] + '">'
+				+ charmap[i][1]
+				+ '</a></td>';
+			if ((cols+1) % charsPerRow == 0)
+				html += '</tr><tr height="' + tdHeight + '">';
+		}
+	 }
+
+	if (cols % charsPerRow > 0) {
+		var padd = charsPerRow - (cols % charsPerRow);
+		for (var i=0; i<padd-1; i++)
+			html += '<td width="' + tdWidth + '" height="' + tdHeight + '" class="charmap">&nbsp;</td>';
+	}
+
+	html += '</tr></table>';
+
+	return html;
+}
+
+function insertChar(chr) {
+	tinyMCEPopup.execCommand('mceInsertContent', false, chr);
+
+	// Refocus in window
+	if (tinyMCEPopup.isWindow)
+		window.focus();
+
+	tinyMCEPopup.editor.focus();
+	tinyMCEPopup.close();
+}
+
+function previewChar(codeA, codeB, codeN) {
+	var elmA = document.getElementById('codeA');
+	var elmB = document.getElementById('codeB');
+	var elmV = document.getElementById('codeV');
+	var elmN = document.getElementById('codeN');
+
+	if (codeA=='#160;') {
+		elmV.innerHTML = '__';
+	} else {
+			elmV.innerHTML = '&' + codeA;
+	}
+
+	elmB.innerHTML = '&amp;' + codeA;
+	elmA.innerHTML = '&amp;' + codeB;
+	elmN.innerHTML = codeN;
+}
+
+function checkstatus_charmap() {
+	var a = getCharmapType();
+	if (a == 'charmap=charmap_g') {
+		return	charmap_greek;
+	} else if (a == 'charmap=charmap_l') {
+		return	charmap_latin;
+	} else if (a == 'charmap=charmap_av') {
+		return charmap_avesta;
+	} else if (a == 'charmap=charmap_pa') {
+		return	charmap_pahlavi;
+	} else if (a == 'charmap=charmap_gu') {
+		return	charmap_gujarati;
+	} 
+	return charmap_greek.concat(charmap_latin).concat(charmap_avesta).concat(charmap_pahlavi).concat(charmap_gujarati);
+}
 

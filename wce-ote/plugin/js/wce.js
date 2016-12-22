@@ -85,9 +85,7 @@ function setConstants(_type) {
  *
  */
 function wceInfoInit(wp) {
-
 	wce_type = wp;
-
 	if (wce_node) {
 		wce_node_text = $(wce_node).text();
 		var wceAttr = wce_node.getAttribute('wce');
@@ -138,7 +136,7 @@ function writeWceNodeInfo(val) {
 		info_arr = [];
 		info_arr[0] = formSerialize();
 	}
-
+	
 	var newWceAttr = arrayToString(info_arr);
 	if (wce_type != 'note' || other_info_str != '@__t=verse_number') //exception
 		newWceAttr += other_info_str;
@@ -157,7 +155,7 @@ function writeWceNodeInfo(val) {
 		parent.tinymce.activeEditor.windowManager.close();
 		return;
 	}
-
+	
 	var startFormatHtml = ed.WCE_CON.startFormatHtml;
 	var endFormatHtml = ed.WCE_CON.endFormatHtml;
 
@@ -195,8 +193,7 @@ function writeWceNodeInfo(val) {
 							break;
 						}
 						gap_parent=gap_parent.parentNode;						
-					}				
-					 
+					}
 				} else {
 					gap_unit = document.getElementById('unit').value;
 					gap_extent = document.getElementById('extent').value;
@@ -330,7 +327,26 @@ function writeWceNodeInfo(val) {
 			case 'formatting_ornamentation_other': 
 				wceClass = ' class="formatting_ornamentation_other"';
 				break;
-
+			case 'lang': 
+				/*var langID = '';
+				if (document.getElementById('language_name').value.indexOf("Avst") > -1)
+					langID = 'A';
+				else if (document.getElementById('language_name').value.indexOf("pal") > -1)
+					langID = 'P';
+				else if (document.getElementById('language_name').value.indexOf("gu") > -1)
+					langID = 'G';
+				else if (document.getElementById('language_name').value.indexOf("fa") > -1 
+							|| document.getElementById('language_name').value.indexOf("per") > -1)
+					langID = 'PER';
+				else if (document.getElementById('language_name').value.indexOf("sa") > -1)
+					langID = 'S';
+				else
+					langID = 'O';*/
+				if (document.getElementById('reason_for_language_change').value == 'ritual' && document.getElementById('color').value == 'red') 
+					new_content = '<span wce="' + newWceAttr + '"' + wceClass + '>' + '<span class="format_start" language="' + document.getElementById('language_name').value + '">' + '\u2039' + '</span>' + '<span class="formatting_rubrication" wce_orig="' + encodeURI(selected_content) + '" wce="__t=formatting_rubrication">' + selected_content + '</span>' + '<span class="format_end" language="' + document.getElementById('language_name').value + '">' + '\u203a' + '</span>' + '</span>';
+				else
+					new_content = '<span wce="' + newWceAttr + '"' + wceClass + '>' + '<span class="format_start" language="' + document.getElementById('language_name').value + '">' + '\u2039' + '</span>' + selected_content + '<span class="format_end" language="' + document.getElementById('language_name').value + '">' + '\u203a' + '</span>' + '</span>';
+				break;
 			default:
 				break;
 
@@ -349,7 +365,8 @@ function writeWceNodeInfo(val) {
 		//when one adds a new element via the menu
 		var wcevar = ed.WCE_VAR;
 		if (wcevar.isc && wcevar.isInBE && wcevar.isCaretAtNodeEnd && 
-			(wcevar.type == ed.WCE_CON.formatEnd || wcevar.type == 'chapter_number' || wcevar.type === 'book_number' || wcevar.type == 'verse_number' || wcevar.type == 'brea')) {
+			(wcevar.type == ed.WCE_CON.formatEnd || wcevar.type == 'chapter_number' || wcevar.type === 'book_number' || wcevar.type == 'verse_number'
+			|| wcevar-type == 'stanza_number' || wcevar.type == 'brea')) {
 			var selNode = wcevar.selectedNode;
 			if (wcevar.type == ed.WCE_CON.formatEnd) {
 				$(new_content).insertAfter(selNode.parentNode);
@@ -385,7 +402,6 @@ function writeWceNodeInfo(val) {
 			wceUtils.setWCEVariable(ed);
 			wceUtils.redrawContols(ed);
 		}
-
 	} else {//edit mode
 		// update wce
 		if (wce_node != null) {
@@ -471,6 +487,10 @@ function writeWceNodeInfo(val) {
 						wce_node.textContent = '[...]';
 					}
 				}*/
+			} else if (wce_type == 'lang') {
+				selected_content=ed.execCommand('wceDelNode', false, true);
+				add_new_wce_node = true;
+				return writeWceNodeInfo(val);
 			}
 			wce_node.setAttribute('wce', newWceAttr);
 		}

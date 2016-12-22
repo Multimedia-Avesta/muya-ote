@@ -33,7 +33,7 @@
 */
 
 (function() {
-	var wfce_editor = "2.0.1beta (2016-10-25)";
+	var wfce_editor = "0.1beta (2016-12-22)";
 
 	// Load plugin specific language pack
 	tinymce.PluginManager.requireLangPack('wce');
@@ -59,7 +59,8 @@
 
 			//blocked elements :If the Caret is inside, this will prohibit the key operation
 			c.blockedElements = new Array('gap', 'corr', 'lection_number', 'book_number', 
-				'chapter_number', 'verse_number', 'abbr', 'spaces', 'note', 'unclear', 'brea', 'paratext', 'pc');
+				'chapter_number', 'stanza_number', 'verse_number', 'abbr', 'spaces', 'note', 
+				'unclear', 'brea', 'paratext', 'pc');
  	 
 			// not blocked elements
 			// c.normalElemente = new Array('unclear');
@@ -221,7 +222,9 @@
 			var nodeName = node.nodeName;
 			if (nodeName && nodeName.toLowerCase() == 'span') {
 				// TODO
-				if (typeName == 'verse_number' || typeName == 'chapter_number' || typeName == 'book_number' || typeName == 'lection_number') {
+				if (typeName == 'chapter_number' 
+					|| typeName == 'book_number' || typeName == 'lection_number'
+					|| typeName == 'stanza_number') {
 					return $(node).hasClass(typeName);
 				}
 
@@ -824,6 +827,8 @@
 			w.not_N = b;
 			// control P setActive?
 			w.not_PC = b;
+			// control L setActive?
+			w.not_L = b;
 		},
 
 		/*
@@ -856,6 +861,9 @@
 			}
 			if (w.buttons['punctuation']) {
 				w.buttons['punctuation'].disabled(v.not_PC);
+			}
+			if (w.buttons['language']) {
+				w.buttons['language'].disabled(v.not_L);
 			}
 
 // TODO: What are these?
@@ -1078,6 +1086,7 @@
 					w.not_C = true;
 				w.not_A = true;
 				w.not_O = true;
+				w.not_L = true;
 
 				// move caret to EndOfPreviousSibling, mainly for IE:
 				/* TODO: What the frick is this? puts us in the wrong span when we are at the start of a text node
@@ -1122,6 +1131,7 @@
 				w.not_B = true;
 				w.not_N = true;
 				w.not_C = true;
+				w.not_L = true;
 					
 				var adaptiveCheckbox = tinymce.DOM.get(ed.id + '_adaptive_selection');
 				if (adaptiveCheckbox && adaptiveCheckbox.checked) {
@@ -1245,9 +1255,10 @@
 			
 			if (canMakeCorrection) {
 				w.not_C = false;
+				w.not_L = false;
 			} 
 			
-			w.not_P = !w.isc;   
+			w.not_P = !w.isc;
 			switch (w.type) {
 				case 'gap':
 					_disableAllControls(ed, true);
@@ -1276,6 +1287,10 @@
 						w.not_O = false;
 						w.not_D = false;
 					}
+					break;
+				
+				case 'lang':
+					w.not_L = !wholeSelect;
 					break;
 				
 				case 'lection_number':
@@ -1360,7 +1375,7 @@
 		hasWceParentNode: function (node){
 			var p=node.parentNode;
 			while(p){
-				if(p.nodeName.toLowerCase()=='span'){
+				if (p.nodeName.toLowerCase() == 'span' && !p.hasClass('lang')){
 					return true;
 				}
 				p=p.parentNode;
@@ -1400,7 +1415,7 @@
 		},
 		
 		
-		canMakeCorrection :function (rng, ed){
+		canMakeCorrection : function (rng, ed){
 			var sc = rng.startContainer;
 			var ec = rng.endContainer;
 			var w=ed.WCE_VAR;
@@ -2081,23 +2096,45 @@
 						case 'pc':
 							info_text = '<div>' + tinymce.translate('infotext_punctuation_mark') + '</div>';
 							break;
+						/*case 'format':	
+							alert(sele_node.getAttribute('language'));
+							info_text = '<div>'; 
+							if (ar['language'] == 'pal-Phlv')
+								info_text += 'Zoroastrian Middle Persian in Pahlavi Script';
+							else if (ar['language'] == 'pal-Avst')
+								info_text += 'Zoroastrian Middle Persian in Avesta Script';
+							else if (ar['language_name'] == 'pal-Phli')
+								info_text += 'Middle Persian in inscriptional Pahlavi Script';
+							else if (ar['language_name'] == 'fa')
+								info_text += 'Persian';
+							else if (ar['language_name'] == 'gu')
+								info_text += 'Gujarati';
+							else if (ar['language_name'] == 'sa')
+								info_text += 'Sanskrit';
+							else if (ar['language_name'] == 'other')
+								info_text += ar['language_name_other'];
+							info_text += '</div>';
+							break;*/							
 						case 'verse':
 							info_text = '<div>' + 'Verse';
 							if (ar['partial']) {
 								if (ar['partial'] == 'I')
 									info_text += ' (initial portion)';
-								if (ar['partial'] == 'M')
+								else if (ar['partial'] == 'M')
 									info_text += ' (medial portion)';
-								if (ar['partial'] == 'F')
+								else if (ar['partial'] == 'F')
 									info_text += ' (final portion)';
 							}
 							info_text += '</div>';
+							break;
+						case 'stanza':
+							info_text = '<div>' + 'Stanza number' + '</div>';
 							break;
 						case 'chapter':
 							info_text = '<div>' + 'Chapter number' + '</div>';
 							break;
 						case 'book':
-							info_text = '<div>' + 'Book number' + '</div>';
+							info_text = '<div>' + 'Book name' + '</div>';
 							break;
 						case 'lection':
 							info_text = '<div>' + 'Lection ' + ar['number'] + '</div>';
@@ -2270,7 +2307,7 @@
 		getNodeTypeName : function(node) {
 			var nodeName = node.nodeName;
 			if (nodeName && nodeName.toLowerCase() == 'span') {
-				var class_types = ['verse_number', 'chapter_number', 'format_start', 'format_end'];
+				var class_types = ['book_number', 'stanza_number', 'chapter_number', 'format_start', 'format_end'];
 				for (var i = 0; i < class_types.length; ++i) {
 					if ($(node).hasClass(class_types[i])) return class_types[i];
 				}
@@ -2505,7 +2542,8 @@
 				// keydown for insert letter
 				if (wcevar.isCaretAtNodeEnd && ek != 8 && ek != 46
 					&& (wcevar.type == ed.WCE_CON.formatEnd || wcevar.type == 'chapter_number' 
-						|| wcevar.type === 'book_number' || wcevar.type == 'verse_number'|| wcevar.type == 'lection_number')
+						|| wcevar.type === 'book_number' || wcevar.type == 'stanza_number'
+						|| wcevar.type == 'lection_number')
 				) {
 					//wenn selectednode in andere BlockElement
 					if (WCEUtils.isWceBE(ed, wcevar.selectedNode.parentNode.parentNode)) {
@@ -2535,8 +2573,10 @@
 					//caret in the middle of two elements
 					return stopEvent(ed, e);
 				} else if ((ek == 46 && !wcevar.isCaretAtFormatStart) || (ek == 8 && wcevar.type != ed.WCE_CON.formatEnd && !wcevar.isCaretAtFormatStart)) {
-					WCEUtils.wceDelNode(ed);
-					return stopEvent(ed, e);
+					if (wcevar.type !== 'lang') {
+						WCEUtils.wceDelNode(ed);
+						return stopEvent(ed, e);
+					}
 				} else if (wcevar.isc) {
 					//Allow text input at begin of the editor #1362
 					var ancestor = WCEUtils.isCaretAtBeginOfEditor(ed);
@@ -2671,11 +2711,13 @@
 					return;
 				}
 				//verse chapter
-				if ($(wceNode).hasClass('verse_number') || $(wceNode).hasClass('chapter_number') || $(wceNode).hasClass('book_number') || $(wceNode).hasClass('lection_number')) {
+				if ($(wceNode).hasClass('stanza_number') || $(wceNode).hasClass('chapter_number') || $(wceNode).hasClass('book_number') || $(wceNode).hasClass('lection_number')) {
 					return;
 				}
-
-				ed.selection.select(wceNode);
+				if ($(wceNode).hasClass('formatting_rubrication') && wceNode.parentNode && wceNode.parentNode.hasClass('lang'))
+					ed.selection.select(wceNode.parentNode);
+				else
+					ed.selection.select(wceNode);
 
 				var wceAttr = wceNode.getAttribute('wce');
 				var originalText = decodeURIComponent(wceNode.getAttribute('wce_orig'));
@@ -2726,6 +2768,13 @@
 						}
 					}
 					isDel=true;
+				} else if ($(wceNode).hasClass('lang') || ($(wceNode).hasClass('formatting_rubrication') && wceNode.parentNode && wceNode.parentNode.hasClass('lang'))) {
+					originalText = WCEUtils.getTextWithoutFormat(wceNode);
+					if (arg0)
+						ed.selection.setContent(originalText);
+					else
+						ed.selection.setContent('');
+					//isDel = true;
 				}
 
 				/* else {
@@ -2917,9 +2966,9 @@
 
 			// add verse modify button
 			ed.addButton('versemodify', {
-				title : tinymce.translate('menu_verses') + ' (Ctrl+Alt+V)',
+				title : tinymce.translate('menu_structure') + ' (Ctrl+Alt+S)',
 				cmd : 'mceVerseModify',
-				image : url + '/img/button_V.png',
+				image : url + '/img/button_S.png',
 				onPostRender : function() { ed.WCE_CON.buttons[this.settings.icon] = this; },
 			});
 
@@ -3131,13 +3180,13 @@
 						items[1].disabled(!b);
 						items[2].disabled(!b);
 					}
-				},
+				}]/*,
 				{ text : tinymce.translate('menu_witnessend'),
 					id : 'menu-illegible-witnessend',
 					onclick : function() {
 						ed.execCommand('mceAddWitnessend');
 					}
-				}]
+				}]*/
 			});
 
 
@@ -3282,61 +3331,18 @@
 						items[2].disabled(b);
 					}
 				},
-
-						/*
-						 sub = m.addMenu({
-						 title : tinymce.translate('menu_special_chars')
-						 });
-						 sub.onShowMenu.add(function(m) {
-						 var items = m.items;
-						 var b = !ed.selection.isCollapsed();
-						 items['menu-decoration-insert1'].setDisabled(b);
-						 items['menu-decoration-insert2'].setDisabled(b);
-						 items['menu-decoration-insert3'].setDisabled(b);
-						 items['menu-decoration-insert4'].setDisabled(b);
-						 items['menu-decoration-insert5'].setDisabled(b);
-						 });
-
-						 sub.add({
-						 title : '\u203B	(cross with dots)',
-						 id : 'menu-decoration-insert1',
-						 onclick : function() {
-						 ed.execCommand('mceAdd_pc', '\u203B');
-						 }
-						 });
-
-						 sub.add({
-						 title : '\u003E (diple)',
-						 id : 'menu-decoration-insert2',
-						 onclick : function() {
-						 ed.execCommand('mceAdd_pc', '\u003E');
-						 }
-						 });
-
-						 sub.add({
-						 title : '\u2020	(obelus)',
-						 id : 'menu-decoration-insert3',
-						 onclick : function() {
-						 ed.execCommand('mceAdd_pc', '\u2020');
-						 }
-						 });
-
-						 sub.add({
-						 title : '\u00B6	(paragraphus)',
-						 id : 'menu-decoration-insert4',
-						 onclick : function() {
-						 ed.execCommand('mceAdd_pc', '\u00B6');
-						 }
-						 });
-
-						 sub.add({
-						 title : '\u03A1\u0336    (staurogram)',
-						 id : 'menu-decoration-insert5',
-						 onclick : function() {
-						 ed.execCommand('mceAdd_pc', '\u03A1\u0336');
-						 }
-						 });*/
-						
+				{ text : tinymce.translate('menu_subscript'),
+					id : 'menu-decoration-subscript',
+					onclick : function() {
+						ed.execCommand('mceAdd_formatting', 'subscript');
+					}
+				},
+				{ text : tinymce.translate('wce.menu_superscript'),
+					id : 'menu-decoration-superscript',
+					onclick : function() {
+						ed.execCommand('mceAdd_formatting', 'superscript');
+					}
+				},
 				{ text : tinymce.translate('menu_hl_other'),
 					id : 'menu-decoration-other',
 					onclick : function() {
@@ -3344,9 +3350,6 @@
 					}
 				}]
 			});
-
-
-
 
 			ed.addButton('abbreviation', {
 				title : tinymce.translate('menu_abbreviations'),
@@ -3604,7 +3607,7 @@
 					}
 					],
 				},
-				{ text : tinymce.translate('menu_blank_spaces') + ' (Ctrl+Alt+S)',
+				{ text : tinymce.translate('menu_blank_spaces'),
 					id : 'menu-punctuation-blankspaces',
 					menu : [
 					{ text : tinymce.translate('menu_add'),
@@ -3641,9 +3644,17 @@
 					}
 				}]
 			});
-
-
-
+			
+			ed.addButton('language', {
+				title : tinymce.translate('menu_language') + ' (Ctrl+Alt+L)' ,
+				image : url + '/img/button_L.png',
+				icons : false,
+				onPostRender : function() { ed.WCE_CON.buttons[this.settings.icon] = this; },
+				onclick : function() {
+					ed.execCommand('mceAddLanguage_Shortcut');
+				}
+			});	
+			
 			ed.on('init', function() {
 				WCEUtils.initWCEConstants(ed);
 				WCEUtils.initWCEVariable(ed);
@@ -3710,9 +3721,10 @@
 				ed.addShortcut('ctrl+alt+a', 'Add abbreviation', 'mceAddAbbr_Shortcut');
 				ed.addShortcut('ctrl+alt+e', 'Add expansion', 'mceAddExp_Shortcut');
 				ed.addShortcut('ctrl+alt+m', 'Add marginalia', 'mceAddParatext_Shortcut');
-				ed.addShortcut('ctrl+alt+s', 'Add blank spaces', 'mceAddSpaces_Shortcut');
+				//ed.addShortcut('ctrl+alt+s', 'Add blank spaces', 'mceAddSpaces_Shortcut');
 				ed.addShortcut('ctrl+alt+n', 'Add note', 'mceAddNote_Shortcut');
-				ed.addShortcut('ctrl+alt+v', 'Modify verses', 'mceVerseModify_Shortcut');
+				ed.addShortcut('ctrl+alt+l', 'Set language', 'mceAddLanguage_Shortcut');
+				ed.addShortcut('ctrl+alt+s', 'Modify structure', 'mceVerseModify_Shortcut');
 			
 //				$(ed.getDoc()).on('hover', function (evt) {
 				ed.on('mousemove', function (evt) {
@@ -3983,10 +3995,32 @@
 			ed.addCommand('mceAdd_formatting', function(c) {
 				doWithoutDialog(ed, 'formatting_' + c, '');
 			});
+			
+			ed.addCommand('mceAddLanguage', function() {
+				doWithDialog(ed, url, '/language.htm', 800, 320, 1, true, tinymce.translate('language_title'));
+			});
+
+			ed.addCommand('mceEditLanguage', function() {
+				doWithDialog(ed, url, '/language.htm', 800, 320, 1, false, tinymce.translate('language_title'));
+			});
+			
+			ed.addCommand('mceAddLanguage_Shortcut', function() {
+				var w = ed.WCE_VAR;
+				if (w.not_L) {
+					return;
+				}
+				
+				if (w.type == 'lang') {
+					ed.execCommand('mceEditLanguage');
+				} else {
+					ed.execCommand('mceAddLanguage');
+				}
+			});
+
 
 			// verse modify
 			ed.addCommand('mceVerseModify', function() {
-				doWithDialog(ed, url, '/verse.htm', 480, 1024, 1, true, tinymce.translate('verses_title'));
+				doWithDialog(ed, url, '/verse.htm', 640, 1024, 1, true, tinymce.translate('verses_title'));
 			});
 
 			ed.addCommand('mceVerseModify_Shortcut', function() {
