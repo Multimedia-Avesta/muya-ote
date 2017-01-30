@@ -139,6 +139,8 @@ tinymce.addI18n('en',{
 	del_underdot : "Underdot",
 	del_striketrough : "Strikethrough",
 	del_vertical_line : "Vertical line",
+	del_overdots : "Overdots",
+	del_ringedcircled : "Ringed/Circled",
 	gap_title : "Please specify the gap",
 	gap_data : "Information about the gap",
 	gap_type: "Writing material is",
@@ -188,6 +190,7 @@ tinymce.addI18n('en',{
 	faded_ink : "Faded ink",
 	damage_to_page : "Damage to page",
 	obscured_in_image : "Obscured in image",
+	covered_by_tape : "Covered by tape",
 	supplied_source_title : "Please specify the supplied source",
 	supplied_source_data : "Information about the supplied source",
 	supplied_source : "Supplied source",
@@ -318,6 +321,7 @@ tinymce.addI18n('en',{
 	menu_dt_other : 'Other',
 	menu_subscript : 'Subscript',
 	menu_superscript : 'Superscript',
+	menu_upsidedown : 'Upside down',
 	menu_special_chars : 'Insert special characters',
 	menu_abbreviations : 'Abbreviated text',
 	menu_expansion : 'Expansion of symbol',
@@ -393,6 +397,7 @@ tinymce.addI18n('en',{
 	sanskrit : 'Sanskrit',
 	ritual : 'Ritual direction',
 	translation : 'Translation',
+	section : 'Section heading; dedication',
 	removeLanguage : 'Remove language information',
 	language_title : 'Please specify the language'
 });

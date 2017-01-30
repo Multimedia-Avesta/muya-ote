@@ -671,7 +671,7 @@ function getHtmlByTei(inputString) {
 		} else {
 			var mapping = {
 				'reason' : {
-					'0' : '@poor image@faded ink@damage to page',
+					'0' : '@poor image@faded ink@damage to page@covered by tape',
 					'1' : '&unclear_text_reason_other=&unclear_text_reason=',
 					'2' : '&unclear_text_reason=other&unclear_text_reason_other='
 				},
@@ -1042,6 +1042,9 @@ function getHtmlByTei(inputString) {
 				break;
 			case 'superscript':
 				className = 'formatting_superscript';
+				break;
+			case 'upsidedown':
+				className = 'formatting_upsidedown';
 				break;
 			default:
 				className = 'formatting_ornamentation_other';
@@ -1729,7 +1732,8 @@ function getHtmlByTei(inputString) {
 				// &deletion_vertical_line=0
 				// &deletion_other=0
 				var deletionstr = '';
-				var deletionArr = new Array('erased', 'underline', 'underdot', 'strikethrough', 'vertical_line', 'other');
+				var deletionArr = new Array('erased', 'underline', 'underdot', 'strikethrough', 
+					'vertical_line', 'overdots', 'ringed_circled', 'other');
 				for (var d = 0; d < deletionArr.length; d++) {
 					var deletionItem = deletionArr[d];
 					if (deletionValue.indexOf(deletionItem) > -1) {
@@ -1742,7 +1746,7 @@ function getHtmlByTei(inputString) {
 				wceAttr += '&deletion=' + encodeURIComponent(deletionstr.substring(1));
 				// to get rid of very first ","
 			} else {// no deletion given
-				wceAttr += '&deletion_erased=0&deletion_underline=0&deletion_underdot=0&deletion_strikethrough=0&deletion_vertical_line=0&deletion_other=0&deletion=null';
+				wceAttr += '&deletion_erased=0&deletion_underline=0&deletion_underdot=0&deletion_strikethrough=0&deletion_vertical_line=0&deletion_overdots=0&deletion_ringed_circled=0&deletion_other=0&deletion=null';
 			}
 			wceAttr += '&firsthand_partial=' + firsthandPartialValue + '&partial=' + partialValue;
 
@@ -3182,6 +3186,9 @@ function getTeiByHtml(inputString, args) {
 			case 'formatting_superscript':
 				formatting_rend = 'superscript';
 				break;
+			case 'formatting_upsidedown':
+				formatting_rend = 'upsidedown';
+				break;
 			case 'formatting_ornamentation_other':
 				formatting_rend = decodeURIComponent(arr['formatting_ornamentation_other']);
 				break;
@@ -4320,6 +4327,10 @@ function getTeiByHtml(inputString, args) {
 		} else if (arr['reason_for_language_change'] == 'ritual') { //ritual direction
 			$ab.setAttribute('subtype', 'ritual');
 			$ab.setAttribute('xml:id', g_bookNumber + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + '-ritual-' + langID);
+			$ab.setAttribute('n', String.fromCharCode(count_verse));
+		} else if (arr['reason_for_language_change'] == 'section') { 
+			$ab.setAttribute('subtype', 'section');
+			$ab.setAttribute('xml:id', g_bookNumber + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + langID);
 			$ab.setAttribute('n', String.fromCharCode(count_verse));
 		} else { //other
 			$ab.setAttribute('subtype', decodeURI(arr['reason_for_language_change_other']));

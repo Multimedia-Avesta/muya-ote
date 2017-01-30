@@ -1,5 +1,5 @@
 /*  
-	Copyright (C) 2012-2016 Trier Center for Digital Humanities, Trier (Germany)
+	Copyright (C) 2012-2017 Trier Center for Digital Humanities, Trier (Germany)
 	
 	This file is part of the Online Transcription Editor (OTE).
 
@@ -33,7 +33,7 @@
 */
 
 (function() {
-	var wfce_editor = "0.1beta (2016-12-22)";
+	var wfce_editor = "0.2beta (2017-01-26)";
 
 	// Load plugin specific language pack
 	tinymce.PluginManager.requireLangPack('wce');
@@ -2971,6 +2971,8 @@
 				image : url + '/img/button_S.png',
 				onPostRender : function() { ed.WCE_CON.buttons[this.settings.icon] = this; },
 			});
+			
+			ed.addShortcut("ctrl+alt+s","Verse modify","mceVerseModify");
 
 			// add showTeiByHtml button
 			ed.addButton('showTeiByHtml', {
@@ -3046,9 +3048,6 @@
 			});
 
 
-
-
-
 				/*
 				 * case 'metadata': var c = cm.createButton('menu-metadata', { title : 'Metadata', image : tinyMCE.baseURL+'/plugins/wce/img/button_meta.gif', onclick : function() { tinyMCE.activeEditor.execCommand('mceAddMetadata'); } }); return c;
 				 */
@@ -3091,6 +3090,8 @@
 					}
 				}]
 			});
+			
+			ed.addShortcut("ctrl+alt+b","Add break","mceAddBreak");
 
 			ed.addButton('correction', {
 				title : tinymce.translate('menu_corrections') + ' (Ctrl+Alt+C)',
@@ -3101,6 +3102,8 @@
 					ed.execCommand('mceAddCorrection');
 				}
 			});
+			
+			ed.addShortcut("ctrl+alt+c","Add correction","mceAddCorrection_Shortcut");
 
 			ed.addButton('illegible', {
 				title : tinymce.translate('menu_deficiency'),
@@ -3188,7 +3191,8 @@
 					}
 				}]*/
 			});
-
+			ed.addShortcut("ctrl+alt+u","Add unclear text","mceAddUnclearText_Shortcut");
+			ed.addShortcut("ctrl+alt+g","Add gap","mceAddGap_Shortcut");
 
 			ed.addButton('decoration', {
 				title : tinymce.translate('menu_ornamentation'),
@@ -3337,10 +3341,16 @@
 						ed.execCommand('mceAdd_formatting', 'subscript');
 					}
 				},
-				{ text : tinymce.translate('wce.menu_superscript'),
+				{ text : tinymce.translate('menu_superscript'),
 					id : 'menu-decoration-superscript',
 					onclick : function() {
 						ed.execCommand('mceAdd_formatting', 'superscript');
+					}
+				},
+				{ text : tinymce.translate('menu_upsidedown'),
+					id : 'menu-decoration-upsidedown',
+					onclick : function() {
+						ed.execCommand('mceAdd_formatting', 'upsidedown');
 					}
 				},
 				{ text : tinymce.translate('menu_hl_other'),
@@ -3433,6 +3443,9 @@
 					}
 				}]
 			});
+			ed.addShortcut("ctrl+alt+e","Add expansion","mceAddExp_Shortcut");
+			ed.addShortcut("ctrl+alt+a","Add abbreviation","mceAddAbbr_Shortcut");
+			
 
 			ed.addButton('paratext', {
 				title : tinymce.translate('menu_marginalia') + ' (Ctrl+Alt+M)',
@@ -3473,6 +3486,8 @@
 					}
 				}]
 			});
+			
+			ed.addShortcut("ctrl+alt+p","Add paratext","mceAddParatext_Shortcut");
 
 			ed.addButton('note', {
 				title : tinymce.translate('menu_note') + ' (Ctrl+Alt+N)',
@@ -3513,6 +3528,7 @@
 					}
 				}]
 			});
+			ed.addShortcut("ctrl+alt+n","Add note","mceAddNote_Shortcut");
 
 			ed.addButton('punctuation', {
 				title : tinymce.translate('menu_punctuation'),
@@ -3539,7 +3555,7 @@
 						}
 					},
 					// \u00B7
-					{ text : '\u0387 (Greek Ano Teleia)',
+					/*{ text : '\u0387 (Greek Ano Teleia)',
 						onclick : function() {
 							ed.execCommand('mceAdd_pc', '\u0387');
 						}
@@ -3549,7 +3565,7 @@
 						onclick : function() {
 							ed.execCommand('mceAdd_pc', '\u037E');
 						}
-					},
+					},*/
 					{ text : '\u02D9 (high dot)',
 						onclick : function() {
 							ed.execCommand('mceAdd_pc', '\u02D9');
@@ -3653,7 +3669,8 @@
 				onclick : function() {
 					ed.execCommand('mceAddLanguage_Shortcut');
 				}
-			});	
+			});
+			ed.addShortcut("ctrl+alt+l","Set language","mceAddLanguage_Shortcut");
 			
 			ed.on('init', function() {
 				WCEUtils.initWCEConstants(ed);
@@ -3714,7 +3731,7 @@
 				});
 
 				// Add shortcuts for wce
-				ed.addShortcut('ctrl+alt+b', 'Add break', 'mceAddBreak_Shortcut');
+				/*ed.addShortcut('ctrl+alt+b', 'Add break', 'mceAddBreak_Shortcut');
 				ed.addShortcut('ctrl+alt+c', 'Add correction', 'mceAddCorrection_Shortcut');
 				ed.addShortcut('ctrl+alt+u', 'Add unclear text', 'mceAddUnclearText_Shortcut');
 				ed.addShortcut('ctrl+alt+g', 'Add gap', 'mceAddGap_Shortcut');
@@ -3724,7 +3741,7 @@
 				//ed.addShortcut('ctrl+alt+s', 'Add blank spaces', 'mceAddSpaces_Shortcut');
 				ed.addShortcut('ctrl+alt+n', 'Add note', 'mceAddNote_Shortcut');
 				ed.addShortcut('ctrl+alt+l', 'Set language', 'mceAddLanguage_Shortcut');
-				ed.addShortcut('ctrl+alt+s', 'Modify structure', 'mceVerseModify_Shortcut');
+				ed.addShortcut('ctrl+alt+s', 'Modify structure', 'mceVerseModify_Shortcut');*/
 			
 //				$(ed.getDoc()).on('hover', function (evt) {
 				ed.on('mousemove', function (evt) {
@@ -4131,7 +4148,7 @@
 				author : 'WCE',
 				authorurl : 'http://wce',
 				infourl : 'http://wce',
-				version : "0.1"
+				version : "0.2"
 			};
 		}
 	}

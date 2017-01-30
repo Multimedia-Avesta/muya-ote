@@ -1,5 +1,5 @@
 ﻿/* 
-	Copyright (C) 2012-2016 Trier Center for Digital Humanities, Trier (Germany)
+	Copyright (C) 2012-2017 Trier Center for Digital Humanities, Trier (Germany)
 	
 	This file is part of the Online Transcription Editor (OTE).
 
@@ -37,7 +37,7 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 		tinymce.baseURL = myBaseURL;
 		tinymce.baseURI = new tinymce.util.URI(tinymce.baseURL);
 	}
-	
+
 	tinymce.init({
 		// General options
 		mode : "exact",
@@ -61,9 +61,10 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 		witness : (getWitness) ? getWitness : "",
 		manuscriptLang : (getWitnessLang) ? getWitnessLang : "",
 		// invalid_elements:'p',
-		plugins : "pagebreak,save,layer,print,contextmenu,fullscreen,wordcount,autosave,paste,charmap,code,noneditable",
+		plugins : "pagebreak,save,layer,print,contextmenu,fullscreen,wordcount,charmap,autosave,paste,code,noneditable",
 		contextmenu: 'cut copy paste',
-		charmap : charmap_greek.concat(charmap_latin),
+		//charmap_append: [["0256","A - kahako"],["0257","a - kahako"]],
+		//charmap_append: charmap_gu,
 //		plugins : "compat3x,pagebreak,save,layer,print,contextmenu,fullscreen,wordcount,autosave,paste",
 		external_plugins: {
 			'wce' : '../../wce-ote/plugin/plugin.js'
@@ -79,6 +80,7 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 		theme_advanced_toolbar_align : "left",
 		theme_advanced_statusbar_location : "bottom",
 		theme_advanced_resizing : false,
+		//content_css : '../wce-ote/skin/content.css',
 		setup : function(ed) {
 			ed.on('change', wceOnContentsChange);
 			ed.on('init', function(e) {// Once initialized, tell the editor to go fullscreen

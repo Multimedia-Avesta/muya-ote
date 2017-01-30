@@ -1,5 +1,5 @@
 <!-- 
-	Copyright (C) 2012-2016 Trier Center for Digital Humanities, Trier (Germany)
+	Copyright (C) 2012-2017 Trier Center for Digital Humanities, Trier (Germany)
 	
 	This file is part of the Online Transcription Editor (OTE).
 
@@ -57,6 +57,7 @@
 							<option value="poor image">{#poor_image}</option>
 							<option value="faded ink">{#faded_ink}</option>
 							<option value="damage to page">{#damage_to_page}</option>
+							<option value="covered by tape">{#covered_by_tape}</option>
 							<option value="other">{#other}</option>
 					</select></td>
 					<td><!--<input id="original_text" name="original_text" value=""
@@ -110,7 +111,7 @@
 	}
 
 	function checkstatus_unclear_text_reason() {
-		if (document.unclear_text_info.unclear_text_reason.options[4].selected == true) {
+		if (document.unclear_text_info.unclear_text_reason.options[5].selected == true) {
 			document.unclear_text_info.unclear_text_reason_other.disabled = false;
 			document.getElementById('unclear_text_reason_other').style.backgroundColor = "white";
 		} else {
@@ -120,7 +121,7 @@
 	}
 
 	function testOther() {
-		if (document.unclear_text_info.unclear_text_reason.options[4].selected == true && document.getElementById('unclear_text_reason_other').value == '') 
+		if (document.unclear_text_info.unclear_text_reason.options[5].selected == true && document.getElementById('unclear_text_reason_other').value == '') 
 			return false;
 	return true;
 	}

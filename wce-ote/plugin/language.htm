@@ -58,6 +58,7 @@
 									onchange="checkstatus_reason()">
 								<option value="trans">{#translation}</option>
 								<option value="ritual">{#ritual}</option>
+								<option value="section">{#section}</option>
 								<option value="other">{#other}</option>
 							</select></td>
 						<td>
@@ -148,7 +149,7 @@
 
 		function testOther() {
 			if ((document.languageinfo.language_name.options[8].selected == true && document.getElementById('language_name_other').value == '')
-			|| (document.languageinfo.reason_for_language_change.options[2].selected == true && document.getElementById('reason_for_language_change_other').value == ''))
+			|| (document.languageinfo.reason_for_language_change.options[3].selected == true && document.getElementById('reason_for_language_change_other').value == ''))
 				return false;
 			return true;
 		}

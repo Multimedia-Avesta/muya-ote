@@ -287,6 +287,174 @@ tinymce.PluginManager.add('charmap', function(editor) {
 			['8207', 'right-to-left mark']
 		];
 	}
+	
+	function getGuCharMap() {
+		return [
+			['2693', 'GUJARATI LETTER A'],
+			['2694', 'GUJARATI LETTER AA'],
+			['2695', 'GUJARATI LETTER I'],
+			['2696', 'GUJARATI LETTER II'],
+			['2697', 'GUJARATI LETTER U'],
+			['2698', 'GUJARATI LETTER UU'],
+			['2699', 'GUJARATI LETTER VOCALIC R'],
+			['2784', 'GUJARATI LETTER VOCALIC RR'],
+			['2701', 'GUJARATI VOWEL CANDRA E'],
+			['2703', 'GUJARATI LETTER E'],
+			['2704', 'GUJARATI LETTER AI'],
+			['2705', 'GUJARATI VOWEL CANDRA O'],
+			['2707', 'GUJARATI LETTER O'],
+			['2708', 'GUJARATI LETTER AU'],
+			['2709', 'GUJARATI LETTER KA'],
+			['2710', 'GUJARATI LETTER KHA'],
+			['2711', 'GUJARATI LETTER GA'],
+			['2712', 'GUJARATI LETTER GHA'],
+			['2713', 'GUJARATI LETTER NGA'],
+			['2714', 'GUJARATI LETTER CA'],
+			['2715', 'GUJARATI LETTER CHA'],
+			['2716', 'GUJARATI LETTER JA'],
+			['2717', 'GUJARATI LETTER JHA'],
+			['2718', 'GUJARATI LETTER NYA'],
+			['2719', 'GUJARATI LETTER TTA'],
+			['2720', 'GUJARATI LETTER TTHA'],
+			['2721', 'GUJARATI LETTER DDA'],
+			['2722', 'GUJARATI LETTER DDHA'],
+			['2723', 'GUJARATI LETTER NNA'],
+			['2724', 'GUJARATI LETTER TA'],
+			['2725', 'GUJARATI LETTER THA'],
+			['2726', 'GUJARATI LETTER DA'],
+			['2727', 'GUJARATI LETTER DHA'],
+			['2728', 'GUJARATI LETTER NA'],
+			['2730', 'GUJARATI LETTER PA'],
+			['2731', 'GUJARATI LETTER PHA'],
+			['2732', 'GUJARATI LETTER BA'],
+			['2733', 'GUJARATI LETTER BHA'],
+			['2734', 'GUJARATI LETTER MA'],
+			['2735', 'GUJARATI LETTER YA'],
+			['2736', 'GUJARATI LETTER RA'],
+			['2738', 'GUJARATI LETTER LA'],
+			['2739', 'GUJARATI LETTER LLA'],
+			['2741', 'GUJARATI LETTER VA'],
+			['2742', 'GUJARATI LETTER SHA'],
+			['2743', 'GUJARATI LETTER SSA'],
+			['2744', 'GUJARATI LETTER SA'],
+			['2745', 'GUJARATI LETTER HA'],
+		];
+	}
+	
+	function getAvCharMap() {
+		return [
+			['0x0061', 'AVESTAN LETTER A'],
+			['0x00E5', 'AVESTAN LETTER AA'],
+			['0x101', 'AVESTAN LETTER AO'],
+			['0x0061+772+778', 'AVESTAN LETTER AAO'],
+			['0x105', 'AVESTAN LETTER AN'],
+			['0x105+0x307', 'AVESTAN LETTER AAN'],
+			['0x01dd', 'AVESTAN LETTER AE'],
+			['0x1dd+0x0304', 'AVESTAN LETTER AEE'],
+			['0x0065', 'AVESTAN LETTER E'],
+			['0x0113', 'AVESTAN LETTER EE'],
+			['0x006F', 'AVESTAN LETTER O'],
+			['0x014d', 'AVESTAN LETTER OO'],
+			['0x0069', 'AVESTAN LETTER I'],
+			['0x012b', 'AVESTAN LETTER II'],
+			['0x0075', 'AVESTAN LETTER U'],
+			['0x016b', 'AVESTAN LETTER UU'],
+			['0x006b', 'AVESTAN LETTER KE'],
+			['0x0078', 'AVESTAN LETTER XE'],
+			['0x0078+0x0301', 'AVESTAN LETTER XYE'],
+			['0x0078+0x200b+0x036e', 'AVESTAN LETTER XVE'],
+			['0x0067', 'AVESTAN LETTER GE'],
+			['0x0121', 'AVESTAN LETTER GGE'],
+			['0x03b3', 'AVESTAN LETTER GHE'],
+			['0x0063', 'AVESTAN LETTER CE'],
+			['0x006a', 'AVESTAN LETTER JE'],
+			['0x0074', 'AVESTAN LETTER TE'],
+			['0x03b8', 'AVESTAN LETTER THE'],
+			['0x03d1', 'AVESTAN LETTER THE'],
+			['0x0064', 'AVESTAN LETTER DE'],
+			['0x03b4', 'AVESTAN LETTER DHE'],
+			['0x03b4+0x0301', 'AVESTAN LETTER DHE'],
+			['0x0074+0x0330', 'AVESTAN LETTER TTE'],
+			['0x0070', 'AVESTAN LETTER PE'],
+			['0x0066', 'AVESTAN LETTER FE'],
+			['0x0062', 'AVESTAN LETTER BE'],
+			['0x03b2', 'AVESTAN LETTER BHE'],
+			['0x014b', 'AVESTAN LETTER NGE'],
+			['0x014b+0x0301', 'AVESTAN LETTER NGYE'],
+			['0x014b+0x200b+0x0367', 'AVESTAN LETTER NGVE'],
+			['0x006e', 'AVESTAN LETTER NE'],
+			['0x0144', 'AVESTAN LETTER NYE'],
+			['0x1e45', 'AVESTAN LETTER NYE'],
+			['0x1e47', 'AVESTAN LETTER NNE'],
+			['0x006d', 'AVESTAN LETTER ME'],
+			['0x006d+0x0328', 'AVESTAN LETTER HME'],
+			['0x1e8f', 'AVESTAN LETTER YYE'],
+			['0x0079', 'AVESTAN LETTER YE'],
+			['0x0076', 'AVESTAN LETTER VE'],
+			['0x0076+0x0307', 'AVESTAN LETTER VE'],
+			['0x0072', 'AVESTAN LETTER RE'],
+			['0x006c', 'AVESTAN LETTER LE'],
+			['0x0073', 'AVESTAN LETTER SE'],
+			['0x007a', 'AVESTAN LETTER ZE'],
+			['0x0161', 'AVESTAN LETTER SHE'],
+			['0x0161+0x0301', 'AVESTAN LETTER ZHE'],
+			['0x0161+0x0323', 'AVESTAN LETTER SHYE'],
+			['0x017e', 'AVESTAN LETTER SSHE'],
+			['0x0068', 'AVESTAN LETTER HE'],
+			['0x0068+0x0301', 'AVESTAN LETTER HE'],
+//			['0x002e', 'AVESTAN LETTER '],
+//			['0x10b3b', 'AVESTAN LETTER '],
+		];
+	}
+
+	function getPaCharMap() {
+		return [
+			['0x02be', 'Aleph'],
+			['0x02bf', 'Ayin'],
+			['b+0x0331', 'Small letter b with macron below'],
+			['B+0x0331', 'Capital letter B with macron below'],
+			['B+0x0302+0x0331', 'Capital letter B with circumflex and macron below'],
+			['d+0x0331', 'Small letter d with macron below'],
+			['D+0x0331', 'Capital letter D with macron below'],
+			['d+0x0302', 'Small letter d with circumflex'],
+			['D+0x0302', 'Capital letter D with circumflex'],
+			['d+0x0308', 'Small letter d with diaeresis'],
+			['D+0x0308', 'Capital letter D with diaeresis'],
+			['g+0x0304', 'Small letter g with macron'],
+			['G+0x0331', 'Capital letter G with macron below'],
+			['g+0x0302', 'Small letter g with circumflex'],
+			['G+0x0302', 'Capital letter G with circumflex'],
+			['g+0x0308', 'Small letter g with diaeresis'],
+			['G+0x0308', 'Capital letter G with diaeresis'],
+			['H+0x0323', 'Capital letter H with dot below'],
+			['k+0x0331', 'Small letter k with macron below'],
+			['K+0x0331', 'Capital letter K with macron below'],
+			['l+0x0335', 'Small letter l with short stroke overlay'],
+			['L+0x0335', 'Capital letter L with short stroke overlay'],
+			['n+0x0331', 'Small letter n with macron below'],
+			['p+0x0304', 'Small letter p with macron'],
+			['P+0x0304', 'Capital letter P with macron'],
+			['R+0x0331', 'Capital letter R with macron below'],
+			['s+0x0331', 'Small letter s with macron below'],
+			['s+0x030C', 'Small letter s with caron'],
+			['S+0x030C', 'Capital letter S with caron'],
+			['0x0745+s', 'Small letter s with three dots above'],
+			['t+0x0302', 'Small letter t with circumflex'],
+			['x+0x2081', 'Small letter x with subscript 1'],
+			['x+0x2082', 'Small letter x with subscript 2'],
+			['y+0x0304', 'Small letter y with macron'],
+			['Y+0x0304', 'Small letter Y with macron'],
+			['y+0x0302', 'Small letter y with circumflex'],
+			['Y+0x0302', 'Capital letter Y with circumflex'],
+			['y+0x0323', 'Small letter y with dot below'],
+			['y+0x0308', 'Small letter y with diaeresis'],
+			['Y+0x0308', 'Capital letter Y with diaeresis'],
+			['y+0x0324', 'Small letter y with diaeresis below'],
+			['Y+0x0324', 'Capital letter Y with diaeresis below'],
+			['z+0x0331', 'Small letter z with macron below'],
+			['Z+0x0331', 'Capital letter Z with macron below'],
+		];
+	}
 
 	function charmapFilter(charmap) {
 		return tinymce.util.Tools.grep(charmap, function(item) {
@@ -321,7 +489,7 @@ tinymce.PluginManager.add('charmap', function(editor) {
 	}
 
 	function getCharMap() {
-		return extendCharMap(getDefaultCharMap());
+		return extendCharMap(getPaCharMap().concat(getAvCharMap()).concat(getGuCharMap()));
 	}
 
 	function insertChar(chr) {
@@ -356,7 +524,7 @@ tinymce.PluginManager.add('charmap', function(editor) {
 					var chr = charmap[index];
 
 					gridHtml += '<td title="' + chr[1] + '"><div tabindex="-1" title="' + chr[1] + '" role="button">' +
-						(chr ? String.fromCharCode(parseInt(chr[0], 10)) : '&nbsp;') + '</div></td>';
+						(chr ? parseSomeInt(chr[0]) : '&nbsp;') + '</div></td>';
 				} else {
 					gridHtml += '<td />';
 				}
@@ -408,16 +576,16 @@ tinymce.PluginManager.add('charmap', function(editor) {
 					direction: 'column',
 					align: 'center',
 					spacing: 5,
-					minWidth: 160,
+					minWidth: 220,
 					minHeight: 160,
 					items: [
 						{
 							type: 'label',
 							name: 'preview',
 							text: ' ',
-							style: 'font-size: 40px; text-align: center',
+							style: 'font-size: 72px; text-align: center',
 							border: 1,
-							minWidth: 140,
+							minWidth: 200,
 							minHeight: 80
 						},
 						{
@@ -426,7 +594,7 @@ tinymce.PluginManager.add('charmap', function(editor) {
 							text: ' ',
 							style: 'text-align: center',
 							border: 1,
-							minWidth: 140,
+							minWidth: 200,
 							minHeight: 80
 						}
 					]
@@ -455,6 +623,19 @@ tinymce.PluginManager.add('charmap', function(editor) {
 		context: 'insert'
 	});
 
+	function parseSomeInt(charcodes) {
+		var str = charcodes.split('+');
+		var out = '';
+		for (i = 0; i < str.length; i++) {
+			if (isNaN(parseFloat(str[i]))) {
+				out += str[i];
+			} else {
+				out += String.fromCharCode(parseInt(str[i]));
+			}
+		}	
+		return out;
+	}
+	
 	return {
 		getCharMap: getCharMap,
 		insertChar: insertChar

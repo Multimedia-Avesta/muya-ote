@@ -1,5 +1,5 @@
 /* 
-	Copyright (C) 2012-2016 Center for Digital Humanities, Trier
+	Copyright (C) 2012-2017 Center for Digital Humanities, Trier
 	
 	This file is part of the Online Transcription Editor (OTE).
 
@@ -134,6 +134,8 @@ tinymce.addI18n('de',{
 	del_underdot : "Unterpunktet",
 	del_striketrough : "Durchgestrichen",
 	del_vertical_line : "Vertikaler Strich",
+	del_overdots : "Überpunkted",
+	del_ringedcircled : "Kreise",
 	gap_title : "Bitte die Leerstelle bestimmen",
 	gap_data : "Informationen über die Lücke",
 	lacuna : "Lücke (Beschreibstoff fehlt)",
@@ -175,6 +177,7 @@ tinymce.addI18n('de',{
 	poor_image : "Schlechtes Bild",
 	faded_ink : "Verblichene Tinte",
 	damage_to_page : "Materialschaden",
+	covered_by_tape : "Durch Tape verdeckt",
 	na27 : "NA28",
 	TR : "Textus Receptus",
 	transcriber : "Vorschlag des Transkribenten",
@@ -259,6 +262,9 @@ tinymce.addI18n('de',{
 	menu_dt_above : 'über der Zeile',
 	menu_dt_below : 'unter der Zeile',
 	menu_dt_other : 'Anders',
+	menu_subscript : 'Subscript',
+	menu_superscript : 'Superscript',
+	menu_upsidedown : 'Auf dem Kopf stehend',
 	menu_special_chars : 'Füge spezielle Zeichen ein',
 	menu_abbreviations : 'Abkürzung',
 	menu_expansion : 'Expansion des Zeichens',
@@ -316,8 +322,23 @@ tinymce.addI18n('de',{
 	clipboard_note : 'Bitte nutzen Sie Ctrl+C bzw. Cmd+C, um das XML sicher in die Zwischenablage zu kopieren.',
 	other_ornamentation : 'Verzierungsart',
 	title_other_ornamentation : 'Andere Verzierung',
-	insert : 'Insert', /*TODO: someone needs to translate these into German*/
-	cancel : 'Cancel',
-	new_hand: 'New',
-	close : 'Close',
+	insert : 'Einfügen', /*TODO: someone needs to translate these into German*/
+	cancel : 'Abbruch',
+	new_hand: 'Neu',
+	close : 'Schließen',
+	reason_for_language_change : 'Grund für Sprachwechsel',
+	language_name : 'Sprache',
+	avestan_avst : 'Avestisch',
+	avestan_phlv : 'Avestisch (Pahlavi script)',
+	gujarati : 'Gujarati',
+	pahlavi_avst : 'Zoroastrian Middle Persian in Avesta Script',
+	pahlavi_phlv : 'Zoroastrian Middle Persian in Pahlavi Script',
+	pahlavi_phli : 'Middle Persian in inscriptional Pahlavi Script',
+	persian : 'Persisch',
+	sanskrit : 'Sanskrit',
+	ritual : 'Rituelle Handlung',
+	translation : 'Übersetzung',
+	section : 'Überschrift; Widmung',
+	removeLanguage : 'Entferne Sprachinformationen',
+	language_title : 'Bitte geben Sie die Sprache an'
 });
