@@ -116,6 +116,7 @@ tinymce.addI18n('de',{
 	alternative : "Alternative Lesart",
 	corrector_name : "Korrektor",
     firsthand : "Schreiberkorrektur",
+	secunda_manu : "Secunda manu",
 	blank_firsthand : "Auslassung in ursprünglicher Lesart",
 	blank_correction : "Tilgung",
 	corrector : "Korrektor",

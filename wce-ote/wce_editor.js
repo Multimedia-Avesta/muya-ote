@@ -51,9 +51,11 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 		force_p_newlines : false,
 		entity_encoding : "raw",
 		theme_advanced_path : false,
+		//noneditable_noneditable_class: 'fa',
 		execcommand_callback : 'wceExecCommandHandler',
 		save_onsavecallback : function() {
-			if (saveDataToDB) saveDataToDB(true);
+				saveToDisc();
+			//if (saveDataToDB) saveDataToDB(true);
 		},
 		directionality : (rtl) ? "rtl" : "ltr",
 		language : (lang) ? (lang.indexOf('de') == 0 ? "de" : "en") : "en",
@@ -61,7 +63,7 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 		witness : (getWitness) ? getWitness : "",
 		manuscriptLang : (getWitnessLang) ? getWitnessLang : "",
 		// invalid_elements:'p',
-		plugins : "pagebreak,save,layer,print,contextmenu,fullscreen,wordcount,charmap,autosave,paste,code,noneditable",
+		plugins : "pagebreak,save,layer,print,contextmenu,fullscreen,wordcount,charmap,autosave,paste,code, noneditable",
 		contextmenu: 'cut copy paste',
 		//charmap_append: [["0256","A - kahako"],["0257","a - kahako"]],
 		//charmap_append: charmap_gu,
@@ -69,11 +71,12 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 		external_plugins: {
 			'wce' : '../../wce-ote/plugin/plugin.js'
 		},
+		//content_css: 'font-awesome.min.css',//'https://netdna.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css',
 //		ignoreShiftNotEn: [188, 190],
 		keyboardDebug: true,
 		init_instance_callback : "wceReload",
 		// Theme options
-		toolbar : "undo redo charmap | code | save print contextmenu cut copy pastetext pasteword fullscreen | "+
+		toolbar : "undo redo charmap | code | LoadFile save | print contextmenu cut copy pastetext pasteword fullscreen | "+
 		"breaks correction illegible decoration abbreviation paratext note punctuation language versemodify | showTeiByHtml help | info showHtmlByTei",
 		theme_advanced_buttons2 : "",
 		theme_advanced_toolbar_location : "top",
@@ -188,6 +191,42 @@ function saveDataToDB() {
 		if (gadgets.util.hasFeature('pubsub-2'))
 			gadgets.Hub.publish("interedition.transcription.saved", null);
 	});
+}
+
+function saveToDisc() {
+	if ('Blob' in window) {
+		var fileName = prompt('Please enter file name to save', 'untitled.xml');
+		if (fileName) {
+		  var textToWrite = getTEI();
+		  var textFileAsBlob = new Blob([textToWrite], { type: 'text/xml' });
+
+		  if ('msSaveOrOpenBlob' in navigator) {
+			navigator.msSaveOrOpenBlob(textFileAsBlob, fileName);
+		  } else {
+			var downloadLink = document.createElement('a');
+			downloadLink.download = fileName;
+			downloadLink.innerHTML = 'Download File';
+			if ('webkitURL' in window) {
+			  // Chrome allows the link to be clicked without actually adding it to the DOM.
+			  downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+			} else {
+			  // Firefox requires the link to be added to the DOM before it can be clicked.
+			  downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+			  downloadLink.onclick = destroyClickedElement;
+			  downloadLink.style.display = 'none';
+			  document.body.appendChild(downloadLink);
+			}
+
+			downloadLink.click();
+		  }
+		}
+	  } else {
+		alert('Your browser does not support the HTML5 Blob.');
+	  }
+};
+
+function destroyClickedElement(event) {
+  document.body.removeChild(event.target);
 }
 
 function setPreferredFontFamily(fontFamily) {

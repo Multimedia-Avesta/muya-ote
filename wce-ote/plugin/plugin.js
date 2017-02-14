@@ -33,7 +33,7 @@
 */
 
 (function() {
-	var wfce_editor = "0.2beta (2017-01-26)";
+	var wfce_editor = "0.3beta (2017-02-14)";
 
 	// Load plugin specific language pack
 	tinymce.PluginManager.requireLangPack('wce');
@@ -3671,6 +3671,17 @@
 				}
 			});
 			ed.addShortcut("ctrl+alt+l","Set language","mceAddLanguage_Shortcut");
+			
+			ed.addButton('LoadFile', {
+				title : 'Load local file from disk',
+				image : url + '/img/folder.png',
+				//icon: 'fa fa-folder',
+				icons : false,
+				onPostRender : function() { ed.WCE_CON.buttons[this.settings.icon] = this; },
+				onclick : function() {
+					doWithDialog(ed, url, '/loadlocalxml.htm', 1100, 700, 1, false, tinymce.translate('Data to load transcription file'));
+				}
+			});
 			
 			ed.on('init', function() {
 				WCEUtils.initWCEConstants(ed);
