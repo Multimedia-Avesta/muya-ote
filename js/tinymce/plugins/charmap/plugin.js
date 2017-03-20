@@ -369,7 +369,7 @@ tinymce.PluginManager.add('charmap', function(editor) {
 			['0x0063', 'AVESTAN LETTER CE'],
 			['0x006a', 'AVESTAN LETTER JE'],
 			['0x0074', 'AVESTAN LETTER TE'],
-			['0x03b8', 'AVESTAN LETTER THE'],
+//			['0x03b8', 'AVESTAN LETTER THE'],
 			['0x03d1', 'AVESTAN LETTER THE'],
 			['0x0064', 'AVESTAN LETTER DE'],
 			['0x03b4', 'AVESTAN LETTER DHE'],
@@ -455,6 +455,17 @@ tinymce.PluginManager.add('charmap', function(editor) {
 			['Z+0x0331', 'Capital letter Z with macron below'],
 		];
 	}
+	
+	function getInterpunctionSigns() {
+		return [
+			['0x10B3D', 'Three dots (pyramid shape)'],
+			['0x10B3E', 'Three dots (v-shape)'],
+		];
+	}
+	
+	function isInterpunctionSign(currindex) {
+		return (currindex >= getPaCharMap().length + getAvCharMap().length + getGuCharMap().length);
+	}	
 
 	function charmapFilter(charmap) {
 		return tinymce.util.Tools.grep(charmap, function(item) {
@@ -489,14 +500,17 @@ tinymce.PluginManager.add('charmap', function(editor) {
 	}
 
 	function getCharMap() {
-		return extendCharMap(getPaCharMap().concat(getAvCharMap()).concat(getGuCharMap()));
+		return extendCharMap(getPaCharMap().concat(getAvCharMap()).concat(getGuCharMap().concat(getInterpunctionSigns())));
 	}
 
-	function insertChar(chr) {
+	function insertChar(chr,chrindex) {
 		editor.fire('insertCustomChar', {chr: chr}).chr;
-		editor.execCommand('mceInsertContent', false, chr);
+		if (isInterpunctionSign(chrindex))
+			editor.execCommand('mceAdd_pc', chr);
+		else
+			editor.execCommand('mceInsertContent', false, chr);
 	}
-
+	
 	function showDialog() {
 		var gridHtml, x, y, win;
 
@@ -523,7 +537,7 @@ tinymce.PluginManager.add('charmap', function(editor) {
 				if (index < charmap.length) {
 					var chr = charmap[index];
 
-					gridHtml += '<td title="' + chr[1] + '"><div tabindex="-1" title="' + chr[1] + '" role="button">' +
+					gridHtml += '<td title="' + chr[1] + '"><div tabindex="' + index + '" title="' + chr[1] + '" role="button">' +
 						(chr ? parseSomeInt(chr[0]) : '&nbsp;') + '</div></td>';
 				} else {
 					gridHtml += '<td />';
@@ -543,8 +557,8 @@ tinymce.PluginManager.add('charmap', function(editor) {
 
 				if (/^(TD|DIV)$/.test(target.nodeName)) {
 					if (getParentTd(target).firstChild) {
-						insertChar(tinymce.trim(target.innerText || target.textContent));
-
+						insertChar(tinymce.trim(target.innerText || target.textContent), 
+							target.getAttribute("tabindex"));
 						if (!e.ctrlKey) {
 							win.close();
 						}
@@ -630,7 +644,7 @@ tinymce.PluginManager.add('charmap', function(editor) {
 			if (isNaN(parseFloat(str[i]))) {
 				out += str[i];
 			} else {
-				out += String.fromCharCode(parseInt(str[i]));
+				out += String.fromCodePoint(parseInt(str[i]));
 			}
 		}	
 		return out;

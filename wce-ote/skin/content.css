@@ -1,5 +1,5 @@
 /* 
-	Copyright (C) 2012-2014 Center for Digital Humanities, Trier
+	Copyright (C) 2012-2017 Center for Digital Humanities, Trier
 	
 	This file is part of the Online Transcription Editor (OTE).
 
@@ -68,9 +68,12 @@ body, td, pre {
 	 font-size:24px;
 	 margin:8px;
 	 line-height:48px;
-	 font-family: "Times New Roman",Times,"TITUS Cyberbit Basic",Avesta,GentiumPlus;
+	 font-family: Avesta,"Times New Roman",Times,"TITUS Cyberbit Basic",Avesta,GentiumPlus;
 }
 
+.mce-container {
+	 font-family: Avesta,"Times New Roman",Times,"TITUS Cyberbit Basic",Avesta,GentiumPlus;
+}
 
 body {
 	background-color:#FFE6BB;

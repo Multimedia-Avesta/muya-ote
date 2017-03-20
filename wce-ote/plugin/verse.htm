@@ -1,5 +1,5 @@
 <!-- 
-	Copyright (C) 2012-2016 Trier Center for Digital Humanities, Trier (Germany)
+	Copyright (C) 2012-2017 Trier Center for Digital Humanities, Trier (Germany)
 	
 	This file is part of the Online Transcription Editor (OTE).
 
@@ -48,7 +48,7 @@
 				<table border="0" cellpadding="2" cellspacing="0" width="100%">
                 <tr>
 				<td width="200">
-				<input type="radio" id="insertBookRadio" name="versemodify" onclick="canInsertBook();"/>{#wce.book_insert}
+				<input type="radio" id="insertBookRadio" name="versemodify" onclick="canInsertBook();"/>{#book_insert}
 				</td>
 				<td>
 				<select id="insertBookName" name="insertBookName" onchange="checkstatus_book_name()">
@@ -96,7 +96,7 @@
 					<!--<option value="YVr">Variants of the Yasna in the Visperad ceremony</option>-->
 					<option value="YVr">Yasna Visperad</option>
 					<option value="Y-gah">Yazisn-gah</option>																		
-					<option value="other">{#wce.other}</option>
+					<option value="other">{#other}</option>
                 </select>
 				</td>
 				</tr>
@@ -113,7 +113,7 @@
 				<table border="0" cellpadding="2" cellspacing="0" width="100%">
                 <tr>
 				<td width="200">
-				<input type="radio" id="insertChapterRadio" name="versemodify" onclick="canInsertChapter();"/>{#wce.chapter_insert}
+				<input type="radio" id="insertChapterRadio" name="versemodify" onclick="canInsertChapter();"/>{#chapter_insert}
 				</td>
 				<td><input id="insertChapterNumber" type="text" /></td>
 				</tr>
@@ -123,7 +123,7 @@
 				<table border="0" cellpadding="2" cellspacing="0" width="100%">
                 <tr>
 				<td width="200">
-				<input type="radio" id="insertStanzaRadio" name="versemodify" onclick="canInsertStanza();"/>{#wce.stanza_insert}
+				<input type="radio" id="insertStanzaRadio" name="versemodify" onclick="canInsertStanza();"/>{#stanza_insert}
 				</td>
 				<td>
 				<input id="insertStanzaNumber" type="text" />
@@ -135,7 +135,7 @@
 				<table border="0" cellpadding="2" cellspacing="0" width="100%">
                 <tr>
 				<td width="200">
-				<input type="radio" id="insertVerseRadio" name="versemodify" onclick="canInsertVerse();"/>{#wce.verse_insert}
+				<input type="radio" id="insertVerseRadio" name="versemodify" onclick="canInsertVerse();"/>{#verse_insert}
 				</td>
 				<td>
 				<input id="insertVerseNumber" type="text" />
@@ -235,6 +235,21 @@ var spanValue_old = '';
 			return (c != b) ? c : '{#' + b + '}';
 		});
 		if(a!=d){document.title=d=a}
+	}
+	
+	function init() {
+		canInsertBook();
+		contentWithVerse=$('<div/>').html(ed.getContent())[0]; //selects everything starting the complete chapter
+		$('#verseList').html(getVerseList(contentWithVerse));
+		$('#chapterList').html(getChapterList(contentWithVerse));
+		$('#bookList').html(getBookList(contentWithVerse));
+		$('#lectionList').html(getLectionList(contentWithVerse));
+		if (wce_node) { 
+		   if (wce_node.nodeName.toLowerCase()=='span') {
+		       $('#insertDiv input').prop('disabled', true);
+		   }
+		}
+		checkstatus_book_name();
 	}
 	
 	function canInsertVerse(){
@@ -373,21 +388,6 @@ var spanValue_old = '';
 		$('#verseList').prop('disabled', true);
 		$('#chapterList').prop('disabled', true);
 		$('#bookList').prop('disabled', true);
-	}
-	
-	function init() {
-		canInsertBook();
-		contentWithVerse=$('<div/>').html(ed.getContent())[0]; //selects everything starting the complete chapter
-		$('#verseList').html(getVerseList(contentWithVerse));
-		$('#chapterList').html(getChapterList(contentWithVerse));
-		$('#bookList').html(getBookList(contentWithVerse));
-		$('#lectionList').html(getLectionList(contentWithVerse));
-		if (wce_node) { 
-		   if (wce_node.nodeName.toLowerCase()=='span') {
-		       $('#insertDiv input').prop('disabled', true);
-		   }
-		}
-		checkstatus_book_name();
 	}
 	
 	function getVerseList(node){

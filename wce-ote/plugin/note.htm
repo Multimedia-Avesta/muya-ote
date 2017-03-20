@@ -54,7 +54,7 @@
 						onchange="checkstatus_notetype()">
 							<option value="local">{#local}</option>
 							<option value="editorial">{#editorial}</option>
-							<option value="canonRef">{#canon}</option>
+							<!--<option value="canonRef">{#canon}</option>-->
 							<option value="changeOfHand">{#changeOfHand}</option>
 							<option value="other">{#other}</option>
 					</select>
@@ -123,14 +123,14 @@
 		document.noteinfo.note_text.focus();
 	}
 	function checkstatus_notetype() {
-		if (document.noteinfo.note_type.options[4].selected == true) {
+		if (document.noteinfo.note_type.options[3].selected == true) {
 			document.noteinfo.note_type_other.disabled = false;
 			document.getElementById('note_type_other').style.backgroundColor = "white";
 		} else {
 			document.noteinfo.note_type_other.disabled = true;
 			document.getElementById('note_type_other').style.backgroundColor = "#CCCCCC";
 		}
-		if (document.noteinfo.note_type.options[3].selected == true) {
+		if (document.noteinfo.note_type.options[2].selected == true) {
 			document.noteinfo.newHand.disabled = false;
 			document.getElementById('newHand').style.backgroundColor = "white";
 			document.getElementById('newHand').focus();
@@ -148,7 +148,7 @@
 	function testOther() {
 		//if (document.noteinfo.note_type.options[3].selected == true && document.getElementById('newHand').value == '')
 			//return false;
-		if (document.noteinfo.note_type.options[4].selected == true && document.getElementById('note_type_other').value == '') 
+		if (document.noteinfo.note_type.options[3].selected == true && document.getElementById('note_type_other').value == '') 
 			return false;
 	return true;
 	}

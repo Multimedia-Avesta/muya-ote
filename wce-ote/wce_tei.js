@@ -512,9 +512,9 @@ function getHtmlByTei(inputString) {
 				return Tei2Html_break($htmlParent, $teiNode, 'pb');
 			// page break
 
-			case 'cb':
+			/*case 'cb':
 				return Tei2Html_break($htmlParent, $teiNode, 'cb');
-			// column break
+			// column break*/
 
 			case 'lb':
 				return Tei2Html_break($htmlParent, $teiNode, 'lb');
@@ -1265,24 +1265,16 @@ function getHtmlByTei(inputString) {
 				var n = '';
 				if (number) {
 					n = number.substring(1,number.lastIndexOf("-"));
-					number = removeArrows(number); // Replace arrows for fibre type by "x" and "y" resp. => use for "xml:id"
+					//number = removeArrows(number); // Replace arrows for fibre type by "x" and "y" resp. => use for "xml:id"
 					number = number.substring(1,number.lastIndexOf("-"));
 				} else
 					number = '';
 				var page_type = $teiNode.getAttribute('type');
 				if (page_type) {
 					if (page_type == "page") {
-						if (number.match("[0-9]$")) {// ends with a digit => no fibre type
-							wceAttr += '&number=' + number + '&rv=' + '&fibre_type=';
-						} else {
-							wceAttr += '&number=' + number.substring(0, number.length - 1) + '&rv=' + '&fibre_type=' + number.substring(number.length - 1);
-						}
+						wceAttr += '&number=' + number + '&rv=';
 					} else { //folio
-						if (number.match("[rv]$")) {// ends with r|v => no fibre type
-							wceAttr += '&number=' + number.substring(0, number.length - 1) + '&rv=' + number.substring(number.length - 1) + '&fibre_type=';
-						} else {
-							wceAttr += '&number=' + number.substring(0, number.length - 2) + '&rv=' + number.substring(number.length - 2, number.length - 1) + '&fibre_type=' + number.substring(number.length - 1);
-						}
+						wceAttr += '&number=' + number.substring(0, number.length - 1) + '&rv=' + number.substring(number.length - 1);
 					}
 				}
 				wceAttr += '&facs=';
@@ -1290,7 +1282,7 @@ function getHtmlByTei(inputString) {
 					wceAttr += $teiNode.getAttribute('facs');
 				wceAttr += '&lb_alignment=';
 				break;
-			case 'cb':
+			/*case 'cb':
 				wceAttr += '&number=';
 				var n = '';
 				if ($teiNode.getAttribute('n')) {
@@ -1306,7 +1298,7 @@ function getHtmlByTei(inputString) {
 				if ($teiNode.getAttribute('rend'))
 					wceAttr += $teiNode.getAttribute('rend');
 				wceAttr += '&rv=&fibre_type=&facs=';
-				break;
+				break;*/
 			case 'lb':
 				wceAttr += '&number=';
 				var n = '';
@@ -1322,7 +1314,7 @@ function getHtmlByTei(inputString) {
 				wceAttr += '&lb_alignment=';
 				if ($teiNode.getAttribute('rend'))
 					wceAttr += $teiNode.getAttribute('rend');
-				wceAttr += '&rv=&fibre_type=&facs=';
+				wceAttr += '&rv=&facs=';
 				break;
 			case 'gb':
 				wceAttr += '&number=';
@@ -1335,7 +1327,7 @@ function getHtmlByTei(inputString) {
 				wceAttr += '&lb_alignment=';
 				if ($teiNode.getAttribute('rend'))
 					wceAttr += $teiNode.getAttribute('rend');
-				wceAttr += '&rv=&fibre_type=&facs=';
+				wceAttr += '&rv=&facs=';
 				break;
 		}
 
@@ -1363,12 +1355,12 @@ function getHtmlByTei(inputString) {
 				$newNode.appendChild($br);
 				nodeAddText($newNode, 'PB' + ' ' + n);
 				break;
-			case 'cb':
+			/*case 'cb':
 				// column break
 				var $br = $newDoc.createElement('br');
 				$newNode.appendChild($br);
 				nodeAddText($newNode, 'CB' + ' ' + n);
-				break;
+				break;*/
 			case 'lb':
 				// line break
 				var $br = $newDoc.createElement('br');
@@ -1582,7 +1574,7 @@ function getHtmlByTei(inputString) {
 				var mapping = {
 					'xml:id' : null,
 					'type' : {
-						'0' : '@editorial@local@canonRef',
+						'0' : '@editorial@local',
 						'1' : '&note_type=',
 						'2' : '&note_type=other&note_type_other='
 					}
@@ -3647,20 +3639,20 @@ function getTeiByHtml(inputString, args) {
 					if (arr['lb_alignment'] != '') {
 						$newNode.setAttribute('rend', arr['lb_alignment']);
 					}
-					xml_id = 'P' + g_pageNumber_id + 'C' + g_columnNumber + 'L' + g_lineNumber + '-' + g_witValue;
+					xml_id = 'P' + g_pageNumber_id + 'L' + g_lineNumber + '-' + g_witValue;
 					break;
-				case 'cb':
+				/*case 'cb':
 					g_columnNumber = arr['number'];
 					if (!isSeg)
 						$newNode.setAttribute('n', g_columnNumber);
 					xml_id = 'P' + g_pageNumber_id + 'C' + g_columnNumber + '-' + g_witValue;
-					break;
+					break;*/
 				case 'pb':
 					var breaPage = '';
 					// Set page number and decide which type (folio|page)
 					if (arr['rv'] != '') { //recto or verso
 						// folio
-						g_pageNumber = arr['number'] + arr['rv'] + arr['fibre_type'];
+						g_pageNumber = arr['number'] + arr['rv'];
 						g_pageNumber = addArrows(g_pageNumber);
 						g_pageNumber_id = removeArrows(g_pageNumber);
 						if (!isSeg)
@@ -3668,7 +3660,7 @@ function getTeiByHtml(inputString, args) {
 						$newNode.setAttribute('type', 'folio');
 					} else {
 						// page
-						g_pageNumber = arr['number'] + arr['fibre_type'];
+						g_pageNumber = arr['number'];
 						g_pageNumber = addArrows(g_pageNumber);
 						g_pageNumber_id = removeArrows(g_pageNumber);
 						if (!isSeg)
@@ -3695,13 +3687,13 @@ function getTeiByHtml(inputString, args) {
 		if ($teiParent.nodeName == 'w' && !$newNode.getAttribute('break')) { //Complete word
 			switch ($newNode.nodeName) {
 				case 'lb':
-					if ($teiParent.lastChild.nodeName != 'cb') // no cb above lb
+					if ($teiParent.lastChild.nodeName != 'pb') // no pb above lb
 						$teiParent = $teiParent.parentNode;
 					break;
-				case 'cb':
+				/*case 'cb':
 					if ($teiParent.lastChild.nodeName != 'pb') // no pb above cb
 						$teiParent = $teiParent.parentNode;
-					break;
+					break;*/
 				case 'pb':
 					if ($teiParent.lastChild.nodeName != 'gb') // no gb above pb
 						$teiParent = $teiParent.parentNode;

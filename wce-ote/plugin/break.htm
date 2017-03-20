@@ -56,7 +56,7 @@
                         <select id="break_type" name="break_type"
                         onchange="checkstatus_break('new')">
                             <option value="lb">{#linebreak}</option>
-                            <option value="cb">{#columnbreak}</option>
+                            <!--<option value="cb">{#columnbreak}</option>-->
                             <option value="pb">{#pagebreak}</option>
                             <option value="gb">{#quire}</option>
                         </select></td>
@@ -75,13 +75,13 @@
                             <option value="v">{#page_verso}</option>
                         </select></td>
                         <td width=10></td>
-                        <td><label id="fibre_type_label" for="fibre_type">{#fibre_type}</label></td>
+                        <!--<td><label id="fibre_type_label" for="fibre_type">{#fibre_type}</label></td>
                         <td>
                         <select id="fibre_type" name="fibre_type">
                             <option value=""></option>
                             <option value="x">{#papyrus_fibre_h}</option>
                             <option value="y">{#papyrus_fibre_v}</option>
-
+						</select></td>-->
                     </tr>
                     <tr>
                         <td><label id="lb_alignment_label" for="lb_alignment">{#alignment}</label></td>
@@ -151,7 +151,7 @@
 			qsParm['mode'] = add_new_wce_node ? 'new' : '';
 			qsParm['quire'] = parseInt(v.qcnt) + 1;
 			qsParm['page'] = parseInt(v.pcnt) + 1
-			qsParm['column'] = parseInt(v.ccnt) + 1;
+			//qsParm['column'] = parseInt(v.ccnt) + 1;
 			//qsParm['line'] = parseInt(v.lcnt) + 1;
 			qsParm['rectoverso'] = v.rectoverso;
 
@@ -170,9 +170,9 @@
 					case 'pb':
 						qsParm['page'] = document.breakinfo.number.value;
 						break;
-					case 'cb':
+					/*case 'cb':
 						qsParm['column'] = document.breakinfo.number.value;
-						break;
+						break;*/
 					case 'lb':
 						qsParm['line'] = document.breakinfo.number.value;
 						break;
@@ -219,14 +219,14 @@
 				document.breakinfo.lb_alignment.disabled = true;
 				document.getElementById('lb_alignment').style.backgroundColor = "#CCCCCC";
 			}
-			if (document.breakinfo.break_type.options[1].selected == true) {//CB
+			/*if (document.breakinfo.break_type.options[1].selected == true) {//CB
 				document.breakinfo.number.value = qsParm['column'];
-			}
-			if (document.breakinfo.break_type.options[2].selected == true) {//PB
+			}*/
+			if (document.breakinfo.break_type.options[1].selected == true) {//PB
 				document.breakinfo.rv.disabled = false;
 				document.getElementById('rv').style.backgroundColor = "white";
-				document.breakinfo.fibre_type.disabled = false;
-				document.getElementById('fibre_type').style.backgroundColor = "white";
+				//document.breakinfo.fibre_type.disabled = false;
+				//document.getElementById('fibre_type').style.backgroundColor = "white";
 				document.breakinfo.facs.disabled = false;
 				document.getElementById('facs').style.backgroundColor = "white";
 				if (qsParm['mode'] == 'new' && qsParm['rectoverso'] == 'true') {//only for new entries; old ones keep their counting
@@ -240,12 +240,12 @@
 			} else {
 				document.breakinfo.rv.disabled = true;
 				document.getElementById('rv').style.backgroundColor = "#CCCCCC";
-				document.breakinfo.fibre_type.disabled = true;
-				document.getElementById('fibre_type').style.backgroundColor = "#CCCCCC";
+				//document.breakinfo.fibre_type.disabled = true;
+				//document.getElementById('fibre_type').style.backgroundColor = "#CCCCCC";
 				document.breakinfo.facs.disabled = true;
 				document.getElementById('facs').style.backgroundColor = "#CCCCCC";
 			}
-			if (document.breakinfo.break_type.options[3].selected == true) {//QB
+			if (document.breakinfo.break_type.options[2].selected == true) {//QB
 				document.breakinfo.number.value = qsParm['quire'];
 			}
 

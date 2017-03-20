@@ -79,7 +79,7 @@
 }*/
 
 .mce-content-body .mce-reset {
-	font-family: "Times New Roman",Times,"TITUS Cyberbit Basic",Avesta,GentiumPlus;
+	font-family: Avesta,"Times New Roman",Times,"TITUS Cyberbit Basic",Avesta,GentiumPlus;
 }
 
 body, td, pre {
@@ -87,7 +87,7 @@ body, td, pre {
 	font-size:24px;
 	margin:8px;
 	line-height:48px;
-	font-family: "Times New Roman",Times,"TITUS Cyberbit Basic",Avesta,GentiumPlus;
+	font-family: Avesta,"Times New Roman",Times,"TITUS Cyberbit Basic",Avesta,GentiumPlus;
 }
 
 
