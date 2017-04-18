@@ -33,7 +33,7 @@
 */
 
 (function() {
-	var wfce_editor = "0.4beta (2017-03-20)";
+	var wfce_editor = "0.4beta (2017-04-10)";
 
 	// Load plugin specific language pack
 	tinymce.PluginManager.requireLangPack('wce');
@@ -2935,22 +2935,24 @@
 			
 			$(document.body).append(infoBox);
 
-			// add adaptive selection checkbox
-			ed.on('postRender', function() {
-				var ed = $(this)[0];
-				var id = ed.id + '_adaptive_selection';
-				var statusbar= $(tinymce.activeEditor.iframeElement.parentElement.parentElement).children('.mce-statusbar').children('div');
-				if (statusbar) {
-					tinymce.DOM.insertAfter(
-						tinymce.DOM.add(statusbar, 'div', {
+			// add adaptive selection checkbox if we are the main editor and not an internal one in a dialogue box
+			if (ed.getParam('internal_editor') !== true) {
+				ed.on('postRender', function() {
+					var ed = $(this)[0];
+					var id = ed.id + '_adaptive_selection';
+					var statusbar= $(tinymce.activeEditor.iframeElement.parentElement.parentElement).children('.mce-statusbar').children('div');
+					if (statusbar) {
+						tinymce.DOM.insertAfter(
+							tinymce.DOM.add(statusbar, 'div', {
 								'class' : 'mce-flow-layout-item',
 								'style' : 'padding:8px;'
 							}, '<input type="checkbox" id="' + id + '"> Adaptive selection</input><span style="margin: 0 100px">Version: ' + wfce_editor +'</span><span style="">Transcription Editor by <img style="height:2em;margin-top:-0.5em;" src="'+url+'/trier-logo-TCDH.png"/></span>', true
-						),
-						$(statusbar).find('.mce-first')[0]
-					);
-				}
-			});
+							),
+							$(statusbar).find('.mce-first')[0]
+						);
+					}
+				});
+			}
 
 			// html to tei
 			ed.addCommand('mceHtml2Tei', function() {
@@ -3439,7 +3441,6 @@
 			});
 			ed.addShortcut("ctrl+alt+e","Add expansion","mceAddExp_Shortcut");
 			ed.addShortcut("ctrl+alt+a","Add abbreviation","mceAddAbbr_Shortcut");
-			
 
 			ed.addButton('paratext', {
 				title : tinymce.translate('menu_marginalia') + ' (Ctrl+Alt+M)',
@@ -3677,6 +3678,18 @@
 				}
 			});
 			
+			ed.addButton('docinfo', {
+				title : tinymce.translate('menu_docInfo') + ' (Ctrl+Alt+I)',
+				image : url + '/img/button_I.png',
+				icons : false,
+				onPostRender : function() { ed.WCE_CON.buttons[this.settings.icon] = this; },
+				onclick : function() {
+					ed.execCommand('mceDocInfo');
+				}
+			});
+			
+			ed.addShortcut("ctrl+alt+i","Document information","mceDocInfo_Shortcut");
+			
 			ed.on('init', function() {
 				WCEUtils.initWCEConstants(ed);
 				WCEUtils.initWCEVariable(ed);
@@ -3735,19 +3748,6 @@
 					}
 				});
 
-				// Add shortcuts for wce
-				/*ed.addShortcut('ctrl+alt+b', 'Add break', 'mceAddBreak_Shortcut');
-				ed.addShortcut('ctrl+alt+c', 'Add correction', 'mceAddCorrection_Shortcut');
-				ed.addShortcut('ctrl+alt+u', 'Add unclear text', 'mceAddUnclearText_Shortcut');
-				ed.addShortcut('ctrl+alt+g', 'Add gap', 'mceAddGap_Shortcut');
-				ed.addShortcut('ctrl+alt+a', 'Add abbreviation', 'mceAddAbbr_Shortcut');
-				ed.addShortcut('ctrl+alt+e', 'Add expansion', 'mceAddExp_Shortcut');
-				ed.addShortcut('ctrl+alt+m', 'Add marginalia', 'mceAddParatext_Shortcut');
-				//ed.addShortcut('ctrl+alt+s', 'Add blank spaces', 'mceAddSpaces_Shortcut');
-				ed.addShortcut('ctrl+alt+n', 'Add note', 'mceAddNote_Shortcut');
-				ed.addShortcut('ctrl+alt+l', 'Set language', 'mceAddLanguage_Shortcut');
-				ed.addShortcut('ctrl+alt+s', 'Modify structure', 'mceVerseModify_Shortcut');*/
-			
 //				$(ed.getDoc()).on('hover', function (evt) {
 				ed.on('mousemove', function (evt) {
 					WCEUtils.showWceInfo(ed, evt)
@@ -4007,7 +4007,7 @@
 			});
 
 			ed.addCommand('mceAddCapitals', function() {
-				doWithDialog(ed, url, '/capitals.htm', 480, 320, 1, true), tinymce.translate('capitals_title');
+				doWithDialog(ed, url, '/capitals.htm', 480, 320, 1, true, tinymce.translate('capitals_title'));
 			});
 
 			ed.addCommand('mceEditCapitals', function() {
@@ -4049,6 +4049,10 @@
 				ed.execCommand('mceVerseModify');
 			});
 
+			ed.addCommand('mceDocInfo', function() {
+				doWithDialog(ed, url, '/docinfo.htm', 640, 480, 1, false, tinymce.translate('docinfo_title'));	
+			});
+			
 			ed.addCommand('printData', function() {// Problem in IE
 				var ed = tinyMCE.activeEditor;
 				var oldcontent = "";

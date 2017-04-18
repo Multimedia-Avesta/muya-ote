@@ -45,10 +45,12 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 		theme : "modern",
 		menubar: false,
 		skin_url: tinymce.baseURL + "../../../wce-ote/skin/",
+		//custom_elements : 'muyahead,manid,folid,textid',
 		extended_valid_elements : 'span[class|wce_orig|style|wce|ext|id|language]',
+		//valid_children : '+muyahead[manid|folid|textid]',
 		forced_root_block : false,
 		force_br_newlines : true,
-		force_p_newlines : false,
+		//force_p_newlines : false, //DEPRECATED!
 		entity_encoding : "raw",
 		theme_advanced_path : false,
 		//noneditable_noneditable_class: 'fa',
@@ -97,7 +99,7 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 
 // wenn brower reload, set editor blank
 function wceReload() {
-	// for test
+	
 }
 
 // get dirty-value of editor

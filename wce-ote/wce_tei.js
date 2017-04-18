@@ -1,5 +1,5 @@
 /*  
-	Copyright (C) 2012-2016 Trier Center for Digital Humanities, Trier (Germany)
+	Copyright (C) 2012-2017 Trier Center for Digital Humanities, Trier (Germany)
 	
 	This file is part of the Online Transcription Editor (OTE).
 
@@ -1916,7 +1916,7 @@ function getTeiByHtml(inputString, args) {
 			}
 		}
  
-	 	html2Tei_mergeNodes($newRoot, true); 	 
+	 	html2Tei_mergeNodes($newRoot, true);
 	 	html2Tei_removeBlankW_addAttributePartI($newRoot);
 		
 		// DOM to String
@@ -2414,9 +2414,19 @@ function getTeiByHtml(inputString, args) {
 						readAllHtmlNodes(newParent, c);
 				}
 			}
+		//} else if ($htmlNode.nodeType == 8 || $htmlNode.nodeValue.startsWith("HEADER")) {
+		//	getMetaData($teiParent, $htmlNode);
 		}
 		
+		
 	};
+	
+	/*
+	* read meta data and add them to the <teiHeader> element
+	*/
+	var getMetaData = function($teiParent, $htmlNode) {
+		$newNode = $newDoc.createElement('gap');
+		$teiParent.appendChild(nw'<teiHeader><fileDesc><titleStmt><title/></titleStmt><publicationStmt><publisher/></publicationStmt><sourceDesc><msDesc><msIdentifier></msIdentifier></msDesc></sourceDesc></fileDesc></teiHeader><text><body>'
 	
 	/*
 	 * append wce node into <w>, only for supplied, unclear,  highlight etc.

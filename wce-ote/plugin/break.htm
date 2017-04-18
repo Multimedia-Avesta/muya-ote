@@ -1,5 +1,5 @@
 <!-- 
-	Copyright (C) 2012-2016 Trier Center for Digital Humanities, Trier (Germany)
+	Copyright (C) 2012-2017 Trier Center for Digital Humanities, Trier (Germany)
 	
 	This file is part of the Online Transcription Editor (OTE).
 
@@ -38,6 +38,8 @@
         <title id="break_title">{#break_title}</title>
         <script type="text/javascript" src="../jquery.js"></script>
         <script type="text/javascript" src="js/wce.js"></script>
+		<link rel="stylesheet" type="text/css" href="../skin/dialog.css"/>
+		<link rel="stylesheet" type="text/css" href="../skin/ui.css"/>
     </head>
 
     <body id="table">
@@ -53,8 +55,7 @@
                     <tr>
                         <td><label id="break_type_label" for="break_type">{#break_type}</label></td>
                         <td colspan="2">
-                        <select id="break_type" name="break_type"
-                        onchange="checkstatus_break('new')">
+                        <select id="break_type" name="break_type" onchange="checkstatus_break('new')">
                             <option value="lb">{#linebreak}</option>
                             <!--<option value="cb">{#columnbreak}</option>-->
                             <option value="pb">{#pagebreak}</option>
@@ -74,14 +75,6 @@
                             <option value="r">{#page_recto}</option>
                             <option value="v">{#page_verso}</option>
                         </select></td>
-                        <td width=10></td>
-                        <!--<td><label id="fibre_type_label" for="fibre_type">{#fibre_type}</label></td>
-                        <td>
-                        <select id="fibre_type" name="fibre_type">
-                            <option value=""></option>
-                            <option value="x">{#papyrus_fibre_h}</option>
-                            <option value="y">{#papyrus_fibre_v}</option>
-						</select></td>-->
                     </tr>
                     <tr>
                         <td><label id="lb_alignment_label" for="lb_alignment">{#alignment}</label></td>

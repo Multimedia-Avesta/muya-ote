@@ -192,7 +192,7 @@ function writeWceNodeInfo(val) {
 							wceClass=' ext="inabbr" '+wceClass;
 							break;
 						}
-						gap_parent=gap_parent.parentNode;						
+						gap_parent=gap_parent.parentNode;
 					}
 				} else {
 					gap_unit = document.getElementById('unit').value;
@@ -233,7 +233,6 @@ function writeWceNodeInfo(val) {
 
 				selected_content = gap_text;
 				break;
-
 			case 'brea':
 				if (break_type) {
 					new_content = wceUtils.getBreakHtml(ed, break_type, break_lbpos, break_indention, 'wce="' + newWceAttr + '"', null);
@@ -241,14 +240,12 @@ function writeWceNodeInfo(val) {
 					new_content = 'Error:test'; //TODO: Add error message
 				}
 				break;
-
 			case 'corr':
 				if (document.getElementById('blank_firsthand').checked) {
 					selected_content = 'T';
 					wceClass = ' class="corr_blank_firsthand"';
 				}
 				break;
-
 			case 'unclear':
 				//if (selected_content.indexOf('span class="spaces"') == -1) { // take care of spaces element
 				if (selected_content.indexOf('<span') == -1) { // take care of spaces element
@@ -263,7 +260,6 @@ function writeWceNodeInfo(val) {
 					selected_content = unclear_text;
 				}
 				break;
-
 			case 'note':
 				new_content = selected_content + '<span wce="' + newWceAttr + '"' + original_text + wceClass + '>' + startFormatHtml + 'Note' + endFormatHtml + '</span>';
 				if (ed.WCE_VAR.isInBE) {
@@ -272,7 +268,6 @@ function writeWceNodeInfo(val) {
 					wceUtils.insertSpace(ed);
 				}
 				break;
-
 			case 'abbr':
 				if (document.getElementById('add_overline').checked == true) {
 					wceClass = ' class="abbr_add_overline"';
@@ -376,11 +371,9 @@ function writeWceNodeInfo(val) {
 			} else {
 				$(new_content).insertAfter(selNode);
 			}
-
 		} else {
 			wceUtils.setContent(ed, new_content);
 		}
-
 		if (wce_type == 'gap') {
 			if (gap_unit == "line") {
 				if (gap_extent !== 'part' && gap_extent !== 'unspecified') {
@@ -500,6 +493,19 @@ function writeWceNodeInfo(val) {
 	parent.tinymce.activeEditor.windowManager.close();
 }
 
+
+function writeDocInfos(metadata) {
+	ed = parent.tinymce.activeEditor;
+	current = ed.getContent();
+	current.replace("<!--HEADER.*-->","");
+	wceUtils.setContent(ed, "");
+	wceUtils.setContent(ed, "<!--HEADER manID=" 
+		+ metadata[0] + "folID="
+		+ metadata[1] + "textID="
+		+ metadata[2] + " -->\n\n" + current.replace("<!--HEADER.*-->",""));
+	ed.isNotDirty = 0;
+	ed.windowManager.close();
+}
 /**
  * form unserialize
  *
@@ -663,8 +669,7 @@ function comboBindReturnEvent(id1) {
 	}
 }
 
-function wce_openWindow(txt)
-{
+function wce_openWindow(txt) {
     var smallwindow;
 	if ((smallwindow == null)||(smallwindow.closed)) {
 		if (parent.tinyMCE.activeEditor.settings.language == 'de')

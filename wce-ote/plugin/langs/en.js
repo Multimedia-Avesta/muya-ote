@@ -333,6 +333,7 @@ tinymce.addI18n('en',{
 	menu_verses : 'Modify verses',
 	menu_structure : 'Structure',
 	menu_language : 'Language',
+	menu_docInfo : 'Document information',
 	infotext_numeral : 'Numeral',
 	infotext_editorial_expansion : 'Editorial expansion',
 	infotext_rendition : 'Rendition',
@@ -399,5 +400,10 @@ tinymce.addI18n('en',{
 	translation : 'Translation',
 	section : 'Section heading; dedication',
 	removeLanguage : 'Remove language information',
-	language_title : 'Please specify the language'
+	language_title : 'Please specify the language',
+	manID : 'Manuscript ID',
+	textID : 'Text ID',
+	folioID : 'Folio ID',
+	docinfo_label : 'Document information',
+	docinfo_text : 'TEST',
 });
