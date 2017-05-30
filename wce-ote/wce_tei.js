@@ -444,14 +444,19 @@ function getHtmlByTei(inputString) {
 
 		switch (teiNodeName) {
 			case 'teiHeader': //ignore teiHeader
-				while ($teiNode.firstChild) {
+				return Tei2Html_teiHeader($htmlParent, $teiNode);
+				/*while ($teiNode.firstChild) {
 					$teiNode.removeChild($teiNode.firstChild);
 				}
-				return $htmlParent;
+				return $htmlParent;*/
+			
+			case 'msDesc':
+				return Tei2Html_msDesc($htmlParent, $teiNode);
+				
 			case 'w':
 				return $htmlParent;
 				//return Tei2Html_w($htmlParent, $teiNode);
-				
+
 			case 'ex':
 				return Tei2Html_ex($htmlParent, $teiNode);
 			// ex
@@ -621,6 +626,39 @@ function getHtmlByTei(inputString) {
 		}
 		return $htmlParent;
 	}; */
+	
+	var Tei2Html_teiHeader = function($htmlParent, $teiNode) {
+		var $newNode = $newDoc.createElement('header');
+		var $nnewNode = $newDoc.createElement('trans');
+		var trans = '';
+		for (var i = 0; i < $teiNode.childNodes.length; i++) { 
+			if ($teiNode.childNodes[i].nodeName == 'revisionDesc') {
+				trans = $teiNode.childNodes[i].childNodes[0].getAttribute('who');
+			}
+		}
+		//var $t = $newDoc.createTextNode(trans);
+		//$nnewNode.appendChild($t);
+		$newNode.appendChild($nnewNode);
+		nodeAddText($nnewNode, trans);
+		$htmlParent.appendChild($newNode);
+		return $newNode;
+	};	
+	
+	var Tei2Html_msDesc = function($htmlParent, $teiNode) {
+		var $newNode = $newDoc.createElement('ms');
+		var ms = '';
+		for (var i = 0; i < $teiNode.children.length; i++) { 
+			if ($teiNode.childNodes[i].nodeName == 'msIdentifier') {
+				ms = $teiNode.childNodes[i].childNodes[1].nodeValue;
+			}
+		}
+		//var $t = $newDoc.createE(ms);
+		nodeAddText($newNode, ms);
+		//$newNode.appendChild($t);
+		$htmlParent.appendChild($newNode);
+		return $newNode;
+	};	
+	
 	/*
 	 * **** <ex>
 	 */
@@ -1926,10 +1964,12 @@ function getTeiByHtml(inputString, args) {
 
 		//
 		// add an required header to get a valid XML
-		str = str.replace('<TEI>', '<?xml  version="1.0" encoding="utf-8"?><!DOCTYPE TEI [<!ENTITY om ""><!ENTITY lac ""><!ENTITY lacorom "">]><?xml-model href="TEI-NTMSS.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?><TEI xmlns="http://www.tei-c.org/ns/1.0"><teiHeader><fileDesc><titleStmt><title/></titleStmt><publicationStmt><publisher/></publicationStmt><sourceDesc><msDesc><msIdentifier></msIdentifier></msDesc></sourceDesc></fileDesc></teiHeader><text><body>');
-		if (g_manuscriptLang && g_manuscriptLang != '')// set manuscript language if there are information
+		//str = str.replace('<TEI>', '<?xml  version="1.0" encoding="utf-8"?><!DOCTYPE TEI [<!ENTITY om ""><!ENTITY lac ""><!ENTITY lacorom "">]><?xml-model href="TEI-NTMSS.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?><TEI xmlns="http://www.tei-c.org/ns/1.0">');
+		str = str.replace('<TEI>', '<?xml  version="1.0" encoding="utf-8"?><TEI xmlns="http://www.tei-c.org/ns/1.0">');
+		str = str.replace("</teiHeader>", "</teiHeader><body><text>");
+				if (g_manuscriptLang && g_manuscriptLang != '')// set manuscript language if there are information
 			str = str.replace("<text>", '<text xml:lang="' + g_manuscriptLang + '">');
-		str = str.replace("</TEI>", "</body></text></TEI>");
+		str = str.replace("</TEI>", "</text></body></TEI>");
 		str = str.replace(/OMISSION/g, "");
 		str = str.replace(//g, $("<div />").html("a&#772;&#778;").text());
 		str = str.replace(//g, $("<div />").html("H&#803;").text());
@@ -2398,7 +2438,10 @@ function getTeiByHtml(inputString, args) {
 				//$htmlNode.setAttribute('id',++global_id);//only for test
 				$teiParent.appendChild($htmlNode.cloneNode(true)); 
 				return;
-			}   
+			} else if ($htmlNode.nodeName == 'header') {
+				getMetaData($teiParent, $htmlNode);
+				return;
+			}
 			var arr = getTeiNodeByHtmlNode($teiParent, $htmlNode);  
 			if (arr == null || arr[1]) {
 				return;
@@ -2414,19 +2457,67 @@ function getTeiByHtml(inputString, args) {
 						readAllHtmlNodes(newParent, c);
 				}
 			}
-		//} else if ($htmlNode.nodeType == 8 || $htmlNode.nodeValue.startsWith("HEADER")) {
-		//	getMetaData($teiParent, $htmlNode);
 		}
-		
-		
 	};
 	
 	/*
 	* read meta data and add them to the <teiHeader> element
 	*/
 	var getMetaData = function($teiParent, $htmlNode) {
-		$newNode = $newDoc.createElement('gap');
-		$teiParent.appendChild(nw'<teiHeader><fileDesc><titleStmt><title/></titleStmt><publicationStmt><publisher/></publicationStmt><sourceDesc><msDesc><msIdentifier></msIdentifier></msDesc></sourceDesc></fileDesc></teiHeader><text><body>'
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth()+1; //January is 0!
+		var yyyy = today.getFullYear();
+
+		if (dd < 10) {
+			dd = '0' + dd;
+		} 
+
+		if (mm < 10) {
+			mm = '0' + mm;
+		} 
+		today = yyyy + '-' + mm + '-' + dd;
+		
+		var transcriber = ($htmlNode.firstElementChild||$htmlNode.firstChild).textContent.replace("_"," ");
+		var manID = ($htmlNode.lastElementChild||$htmlNode.lastChild).textContent;
+		
+		var $newNodeH = $newDoc.createElement('teiHeader');
+		var $newNodeF = $newDoc.createElement('fileDesc');
+		var $newNodeT = $newDoc.createElement('titleStmt');
+		var $newNodeTt = $newDoc.createElement('title');
+		$newNodeT.appendChild($newNodeTt);
+		$newNodeF.appendChild($newNodeT);
+		$newNodeP = $newDoc.createElement('publicationStmt');
+		$newNodeF.appendChild($newNodeP);
+		$newNodeS = $newDoc.createElement('sourceDesc');
+		$newNodeF.appendChild($newNodeS);
+		$newNodeH.appendChild($newNodeF);
+		$newNodeR = $newDoc.createElement('revisionDesc');
+		$newNodeC = $newDoc.createElement('change');
+		$newNodeC.setAttribute('when', today);
+		$newNodeC.setAttribute('who', transcriber);
+		$newNodeR.appendChild($newNodeC);
+		$newNodeH.appendChild($newNodeR);
+		$teiParent.appendChild($newNodeH);
+		
+		//$newNodeT = $newDoc.createElement('text');
+		//$newNodeB = $newDoc.createElement('body');
+		$newNodeMd = $newDoc.createElement('msDesc');
+		$newNodeMi = $newDoc.createElement('msIdentifier');
+		$newNodeR = $newDoc.createElement('repository');
+		$newNodeRt = $newDoc.createTextNode('The MUYA Workspace');
+		$newNodeR.appendChild($newNodeRt);
+		$newNodeI = $newDoc.createElement('idno');
+		$newNodeIt = $newDoc.createTextNode(manID);
+		$newNodeI.appendChild($newNodeIt);
+		$newNodeMi.appendChild($newNodeR);
+		$newNodeMi.appendChild($newNodeI);
+		$newNodeMd.appendChild($newNodeMi);
+		//$newNodeB.appendChild($newNodeMd);
+		//$newNodeT.appendChild($newNodeB);
+		$teiParent.appendChild($newNodeMd);
+     	return;
+	}
 	
 	/*
 	 * append wce node into <w>, only for supplied, unclear,  highlight etc.
@@ -2809,7 +2900,7 @@ function getTeiByHtml(inputString, args) {
 		if (!wceAttrValue) {
 			if ($($htmlNode).hasClass('verse_number')) {
 				wceAttrValue = 'verse_number';
-			} else if ($htmlNode.hasClass('stanza_number')) {
+			} else if ($($htmlNode).hasClass('stanza_number')) {
 				wceAttrValue = 'stanza_number';
 			} else if ($($htmlNode).hasClass('chapter_number')) {
 				wceAttrValue = 'chapter_number';

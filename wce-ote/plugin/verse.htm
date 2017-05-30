@@ -1,6 +1,6 @@
-<!-- 
+<!--
 	Copyright (C) 2012-2017 Trier Center for Digital Humanities, Trier (Germany)
-	
+
 	This file is part of the Online Transcription Editor (OTE).
 
     OTE is free software: you can redistribute it and/or modify
@@ -54,16 +54,16 @@
 				</td>
 				<td>
 				<select id="insertBookName" name="insertBookName" onchange="checkstatus_book_name()">
-			                <option value="A">Afrinagan</option>
+			        <option value="A">Afrinagan</option>
 					<option value="ABu">Afrin i Buzorgan</option>
 					<option value="AD">Afrin i Dahman</option>
 					<option value="AG">Afrin i Gahambar</option>
 					<option value="As">Asirvad</option>
 					<option value="AvAlph">Avestan alphabet</option>
 					<option value="Col">Colophon</option>
-					<option value="DuP">Du&#702;a Paymani</option>					
+					<option value="DuP">Du&#702;a Paymani</option>
 					<option value="FiO">Frahang i Oim</option>
-					<option value="FrW">Fragment Westergard</option>					
+					<option value="FrW">Fragment Westergard</option>
 					<option value="G">Gah</option>
 					<option value="H">Herbedestan</option>
 					<option value="HB">Hosbam</option>
@@ -71,9 +71,9 @@
 					<option value="N">Nerangestan</option>
 					<option value="NiAs">Nirang Asoan</option>
 					<option value="Nirang">Nirang</option>
-					<option value="NiSY">Nirang Sangriza Yastan</option>					
+					<option value="NiSY">Nirang Sangriza Yastan</option>
 					<option value="NkB">Nerang i kustig bastan</option>
-					<option value="NS">Nam Stayisn</option>					
+					<option value="NS">Nam Stayisn</option>
 					<option value="Ny">Nyayisn</option>
 					<option value="Par">Paragna</option>
 					<option value="PaIr">Patet Irani</option>
@@ -81,23 +81,23 @@
 					<option value="PaXw">Patet Xwad</option>
 					<option value="PazT">Pazand texts</option>
 					<option value="PPhl">Payman i Pahlawi</option>
-					<option value="PS">Payman i Sanskrit</option>					
+					<option value="PS">Payman i Sanskrit</option>
 					<option value="S">Siroza</option>
-					<option value="SrB">Sros Baj</option>					
-					<option value="V">Videvdad</option>					
-					<option value="VN">Vae&#977;a Nask</option>					
+					<option value="SrB">Sros Baj</option>
+					<option value="V">Videvdad</option>
+					<option value="VN">Vae&#977;a Nask</option>
 					<option value="Vr">Visparad</option>
 					<option value="VrS">Visperad Sade</option>
 					<option value="VS">Videvdad Sade</option>
-					<!--<option value="VrS">Additions in Visperad Sade ceremony</option>					
+					<!--<option value="VrS">Additions in Visperad Sade ceremony</option>
 					<option value="VS">Additions in Videvdad Sade ceremony</option>-->
-					<option value="Vyt">Vistasp Yast</option>					
+					<option value="Vyt">Vistasp Yast</option>
 					<option value="VytS">Vishtasp Yasht Sade</option>
-					<option value="Y">Yasna</option>					
-					<option value="Yt">Yast</option>			
+					<option value="Y">Yasna</option>
+					<option value="Yt">Yast</option>
 					<!--<option value="YVr">Variants of the Yasna in the Visperad ceremony</option>-->
 					<option value="YVr">Yasna Visperad</option>
-					<option value="Y-gah">Yazisn-gah</option>																		
+					<option value="Y-gah">Yazisn-gah</option>
 					<option value="other">{#other}</option>
                 </select>
 				</td>
@@ -206,7 +206,7 @@
 	</form>
 </body>
 <script type="text/javascript">
-var verseNode; 
+var verseNode;
 var contentWithVerse;
 var chapterNr, bookNr;
 var subverse = 96;
@@ -218,10 +218,10 @@ var spanValue_old = '';
 		var _ed = parent.tinymce.activeEditor;
 		ed=_ed;
 		translate();
-		setConstants(); 
+		setConstants();
 		init();
-	});	
-	
+	});
+
 	function translate() {
 		var c=document.body.innerHTML;
 		var d=document.title;
@@ -238,7 +238,7 @@ var spanValue_old = '';
 		});
 		if(a!=d){document.title=d=a}
 	}
-	
+
 	function init() {
 		canInsertBook();
 		contentWithVerse=$('<div/>').html(ed.getContent())[0]; //selects everything starting the complete chapter
@@ -246,14 +246,14 @@ var spanValue_old = '';
 		$('#chapterList').html(getChapterList(contentWithVerse));
 		$('#bookList').html(getBookList(contentWithVerse));
 		$('#lectionList').html(getLectionList(contentWithVerse));
-		if (wce_node) { 
+		if (wce_node) {
 		   if (wce_node.nodeName.toLowerCase()=='span') {
 		       $('#insertDiv input').prop('disabled', true);
 		   }
 		}
 		checkstatus_book_name();
 	}
-	
+
 	function canInsertVerse(){
 		$('#insertVerseRadio').prop('checked', true);
 		$('#insertVerseNumber').prop('disabled', false);
@@ -266,7 +266,7 @@ var spanValue_old = '';
 		$('#bookList').prop('disabled', true);
 		$('#lectionList').prop('disabled', true);
 	}
-	
+
 	function canInsertInscriptio(){
 		$('#insertInscriptioRadio').prop('checked', true);
 		$('#insertVerseNumber').prop('disabled', true);
@@ -278,7 +278,7 @@ var spanValue_old = '';
 		$('#bookList').prop('disabled', true);
 		$('#lectionList').prop('disabled', true);
 	}
-	
+
 	function canInsertSubscriptio(){
 		$('#insertSubscriptioRadio').prop('checked', true);
 		$('#insertVerseNumber').prop('disabled', true);
@@ -290,10 +290,10 @@ var spanValue_old = '';
 		$('#bookList').prop('disabled', true);
 		$('#lectionList').prop('disabled', true);
 	}
-	
+
 	function canInsertLection(){
 		$('#insertLectionRadio').prop('checked', true);
-		$('#insertLectionNumber').prop('disabled', false); 
+		$('#insertLectionNumber').prop('disabled', false);
 		$('#insertLectionNumber').focus();
 		$('#insertBookName').prop('disabled', true);
 		$('#insertChapterNumber').prop('disabled', true);
@@ -302,12 +302,12 @@ var spanValue_old = '';
 		$('#chapterList').prop('disabled', true);
 		$('#bookList').prop('disabled', true);
 	}
-	
+
 	function canInsertBook(){
 		$('#insertBookRadio').prop('checked', true);
-		$('#insertBookName').prop('disabled', false); 
+		$('#insertBookName').prop('disabled', false);
 		//checkstatus_book_name();
-		$('#insertBookName').focus(); 
+		$('#insertBookName').focus();
 		$('#insertLectionNumber').prop('disabled', true);
 		$('#insertChapterNumber').prop('disabled', true);
 		$('#insertVerseNumber').prop('disabled', true);
@@ -316,11 +316,11 @@ var spanValue_old = '';
 		$('#bookList').prop('disabled', true);
 		$('#lectionList').prop('disabled', true);
 	}
-		
+
 	function canInsertChapter(){
 		$('#insertChapterRadio').prop('checked', true);
-		$('#insertChapterNumber').prop('disabled', false); 
-		$('#insertChapterNumber').focus(); 
+		$('#insertChapterNumber').prop('disabled', false);
+		$('#insertChapterNumber').focus();
 		$('#insertVerseNumber').prop('disabled', true);
 		$('#insertBookName').prop('disabled', true);
 		$('#insertLectionNumber').prop('disabled', true);
@@ -329,11 +329,11 @@ var spanValue_old = '';
 		$('#bookList').prop('disabled', true);
 		$('#lectionList').prop('disabled', true);
 	}
-	
+
 	function canInsertStanza(){
 		$('#insertStanzaRadio').attr('checked','checked');
-		$('#insertStanzaNumber').removeAttr('disabled'); 
-		$('#insertStanzaNumber').focus(); 
+		$('#insertStanzaNumber').removeAttr('disabled');
+		$('#insertStanzaNumber').focus();
 		$('#insertChapterNumber').attr('disabled','disabled');
 		$('#insertVerseNumber').attr('disabled','disabled');
 		$('#insertBookName').attr('disabled','disabled');
@@ -343,7 +343,7 @@ var spanValue_old = '';
 		$('#bookList').attr('disabled','disabled');
 		$('#lectionList').attr('disabled','disabled');
 	}
-	
+
 	function canDeleteVerse(){
 		$('#deleteVerseRadio').prop('checked', true);
 		$('#verseList').prop('disabled', false);
@@ -355,7 +355,7 @@ var spanValue_old = '';
 		$('#bookList').prop('disabled', true);
 		$('#lectionList').prop('disabled', true);
 	}
-	
+
 	function canDeleteChapter(){
 		$('#deleteChapterRadio').prop('checked', true);
 		$('#chapterList').prop('disabled', false);
@@ -367,7 +367,7 @@ var spanValue_old = '';
 		$('#bookList').prop('disabled', true);
 		$('#lectionList').prop('disabled', true);
 	}
-	
+
 	function canDeleteBook(){
 		$('#deleteBookRadio').prop('checked', true);
 		$('#bookList').prop('disabled', false);
@@ -379,7 +379,7 @@ var spanValue_old = '';
 		$('#chapterList').prop('disabled', true);
 		$('#lectionList').prop('disabled', true);
 	}
-	
+
 	function canDeleteLection(){
 		$('#deleteLectionRadio').prop('checked', true);
 		$('#lectionList').prop('disabled', false);
@@ -391,24 +391,24 @@ var spanValue_old = '';
 		$('#chapterList').prop('disabled', true);
 		$('#bookList').prop('disabled', true);
 	}
-	
+
 	function getVerseList(node){
 		var out="";
 		bookNr = (bookNr) ? bookNr : '';
 		chapterNr = (chapterNr) ? chapterNr : '';
-		
+
 		if (!node || node.nodeType != 1) {
 			return out;
 		}
-		
+
 		var list=node.childNodes;
 		for (var i=0,len=list.length; i<len; i++) {
 			var n=list[i];
 			if (n.nodeType == 1) {
-				out += getVerseList(n); 
+				out += getVerseList(n);
 			}
 		}
-		
+
 		if ($(node).hasClass('book_number')) {
 			bookNr = $.trim(node.innerHTML);
 		} else if ($(node).hasClass('chapter_number')) {
@@ -417,7 +417,7 @@ var spanValue_old = '';
 			var v = $.trim(node.innerHTML);
 			if (v) {
 				if (v === 'Inscriptio' || v === 'Subscriptio') //Special handling for Inscriptio and Subscriptio
-					out += '<input type="checkbox" value="'+v+'">'+v+'</input><br />'; 
+					out += '<input type="checkbox" value="'+v+'">'+v+'</input><br />';
 				else
 					chapterNr = v;
 			}
@@ -426,87 +426,87 @@ var spanValue_old = '';
 			if (v && v!='') {
 				if (v_old == v)
 					subverse++;
-				else 
+				else
 					subverse = 96;
 				if (subverse == 96)
-					out += '<input type="checkbox" value="' + bookNr + '.' + chapterNr + '.' + v + '">Verse ' + bookNr + '.' + chapterNr + '.' + v + '</input><br />'; 
+					out += '<input type="checkbox" value="' + bookNr + '.' + chapterNr + '.' + v + '">Verse ' + bookNr + '.' + chapterNr + '.' + v + '</input><br />';
 				else
-					out += '<input type="checkbox" value="' + bookNr + '.' + chapterNr + '.' + v + '-' + String.fromCharCode(subverse) + '">Verse ' + bookNr + '.' + chapterNr + '.' + v + '</input><br />'; 
+					out += '<input type="checkbox" value="' + bookNr + '.' + chapterNr + '.' + v + '-' + String.fromCharCode(subverse) + '">Verse ' + bookNr + '.' + chapterNr + '.' + v + '</input><br />';
 				v_old = v;
 			}
-		}	
-		return out;		
+		}
+		return out;
 	}
-	
+
 	function getChapterList(node){
 		var out="";
 		if (!node || node.nodeType != 1) {
 			return out;
 		}
-		
+
 		var list=node.childNodes;
 		for (var i=0,len=list.length; i<len; i++) {
 			var n=list[i];
 			if (n.nodeType==1) {
-				out+=getChapterList(n); 
+				out+=getChapterList(n);
 			}
 		}
-		
+
 		if ($(node).hasClass('book_number')){
 			bookNr = $.trim(node.innerHTML);
 		} else if ($(node).hasClass('chapter_number') && $.trim(node.innerHTML) !== 'Inscriptio' && $.trim(node.innerHTML) !== 'Subscriptio') {
 			var v = $.trim(node.innerHTML);
 			var id = node.getAttribute('id');
 			if (v && v!='')
-				out += '<input type="checkbox" value="' + bookNr + '.' + v + '" id="' + id + '">Chapter ' + bookNr + '.' + v + '</input><br />'; 
-		}	
-		return out;		
+				out += '<input type="checkbox" value="' + bookNr + '.' + v + '" id="' + id + '">Chapter ' + bookNr + '.' + v + '</input><br />';
+		}
+		return out;
 	}
-		
+
 	function getBookList(node){
 		var out="";
 		if(!node || node.nodeType != 1){
 			return out;
 		}
-		
+
 		var list=node.childNodes;
 		for(var i=0,len=list.length; i<len; i++){
 			var n=list[i];
 			if(n.nodeType==1){
-				out+=getBookList(n); 
+				out+=getBookList(n);
 			}
 		}
-		
+
 		if ($(node).hasClass('book_number')) {
 			var v=$.trim(node.innerHTML);
 			var id = node.getAttribute('id');
 			if(v && v!='')
-				out+='<input type="checkbox" value="' + v + '" id="' + id + '">Book ' + v + '</input><br />'; 
-		}	
-		return out;		
+				out+='<input type="checkbox" value="' + v + '" id="' + id + '">Book ' + v + '</input><br />';
+		}
+		return out;
 	}
-	
+
 	function getLectionList(node){
 		var out="";
 		if(!node || node.nodeType != 1){
 			return out;
 		}
-		
+
 		var list=node.childNodes;
 		for (var i=0,len=list.length; i<len; i++) {
 			var n=list[i];
 			if (n.nodeType==1) {
-				out+=getLectionList(n); 
+				out+=getLectionList(n);
 			}
 		}
-		
+
 		if ($(node).hasClass('lection_number')) {
 			//var v=$.trim(node.innerHTML);
 			var v=$.trim(node.getAttribute('wce').substring(node.getAttribute('wce').lastIndexOf("=")+1));
 			if (v && v!='')
-				out+='<input type="checkbox" value="'+v+'">Lection '+v+'</input><br />'; 
-		}	
-		return out;		
+				out+='<input type="checkbox" value="'+v+'">Lection '+v+'</input><br />';
+		}
+		return out;
 	}
 
 	function checkstatus_book_name() {
@@ -517,9 +517,9 @@ var spanValue_old = '';
 				$('#insertBookName_other').attr('disabled', true);
 				$('#insertBookName_other').css('background', '#ccc');
 			}
-	}	
-	
-	function update() { 
+	}
+
+	function update() {
 		if ($('#insertVerseRadio').is(':checked')){
 			var newVerseNr = $('#insertVerseNumber').val().trim();
 			//newVerseNr = newVerseNr.replace(/\D/g,'');
@@ -565,7 +565,7 @@ var spanValue_old = '';
 			return;
 		} else if ($('#deleteVerseRadio').is(':checked')){
 			var verseList=$('#verseList').find('input:checkbox');
-			for (var i=0,len=verseList.length; i<len; i++){ 
+			for (var i=0,len=verseList.length; i<len; i++){
 				var cb=verseList[i];
 				var currentBook = '';
 				if ($(cb).is(':checked')){
@@ -607,7 +607,7 @@ var spanValue_old = '';
 							}
 							if (currentChapter == chapterNr && verseNr == '') //Inscriptio or Subscriptio
 								startNode=span; // set startNode; next verse number element will be endNode
-						} else if ($(span).hasClass('verse_number')) {						
+						} else if ($(span).hasClass('verse_number')) {
 							if (spanValue_old == spanValue) {
 								spanValue_cnt++;
 								spanValue=spanValue+'-'+String.fromCharCode(spanValue_cnt);
@@ -618,7 +618,7 @@ var spanValue_old = '';
 								endNode=span;
 								break;
 							} else if (spanValue==verseNr && currentChapter == chapterNr && currentBook == bookNr && verseNr != ''){
-								startNode=span; 
+								startNode=span;
 							}
 							spanValue_old = spanValue;
 						}
@@ -627,22 +627,22 @@ var spanValue_old = '';
 						endNode = ed.dom.getRoot().childNodes[ed.dom.getRoot().childNodes.length-1];
 					delVerse(startNode,endNode);
 				}
-			}	 
+			}
 		} else if ($('#deleteChapterRadio').is(':checked')){
 			var chapterList=$('#chapterList').find('input:checkbox');
-			for (var i=0,len=chapterList.length; i<len; i++){ 
+			for (var i=0,len=chapterList.length; i<len; i++){
 				var cb=chapterList[i];
 				if ($(cb).is(':checked')){
 					var id=$(cb).attr('id');
 					var pos=$(cb).val().indexOf('.');
-					var chapterNr=$(cb).val().substr(pos+1);// bookNr.chapterNr				
+					var chapterNr=$(cb).val().substr(pos+1);// bookNr.chapterNr
 					var startNode=null,endNode=null;
 					var spanList=$(contentWithVerse).find('span');
 					// Loop through all <span> elements
 					for (var j=0,len2=spanList.length; j<len2; j++){
 						var span=spanList[j]; //actual <span>
 						var spanValue=$(span).html().trim();
-						if ($(span).hasClass('chapter_number')) {						
+						if ($(span).hasClass('chapter_number')) {
 							if (spanValue == chapterNr && span.id == id)
 								$(span).remove();
 						}
@@ -651,7 +651,7 @@ var spanValue_old = '';
 			}
 		} else if ($('#deleteBookRadio').is(':checked')){
 			var bookList=$('#bookList').find('input:checkbox');
-			for (var i=0,len=bookList.length; i<len; i++){ 
+			for (var i=0,len=bookList.length; i<len; i++){
 				var cb=bookList[i];
 				if ($(cb).is(':checked')){
 					var id=$(cb).attr('id');
@@ -662,7 +662,7 @@ var spanValue_old = '';
 					for (var j=0,len2=spanList.length; j<len2; j++){
 						var span=spanList[j]; //actual <span>
 						var spanValue=$(span).html().trim();
-						if ($(span).hasClass('book_number')){						
+						if ($(span).hasClass('book_number')){
 							if (spanValue == bookNr && span.id == id)
 								$(span).remove();
 						}
@@ -671,17 +671,17 @@ var spanValue_old = '';
 			}
 		} else if ($('#deleteLectionRadio').is(':checked')){
 			var lectionList=$('#lectionList').find('input:checkbox');
-			for (var i=0,len=lectionList.length; i<len; i++){ 
+			for (var i=0,len=lectionList.length; i<len; i++){
 				var cb=lectionList[i];
 				if ($(cb).is(':checked')){
-					var lectionNr=$(cb).val();				
+					var lectionNr=$(cb).val();
 					var startNode=null,endNode=null;
 					var spanList=$(contentWithVerse).find('span');
 					// Loop through all <span> elements
 					for (var j=0,len2=spanList.length; j<len2; j++){
 						var span=spanList[j]; //actual <span>
 						var spanValue=span.getAttribute('wce');
-						if ($(span).hasClass('lection_number')) {						
+						if ($(span).hasClass('lection_number')) {
 							if (spanValue.substring(spanValue.lastIndexOf('=')+1) == lectionNr)
 								$(span).remove();
 						}
@@ -691,7 +691,7 @@ var spanValue_old = '';
 		}
 		ed.setContent($(contentWithVerse).html());
 	}
-	
+
 	function getCursorPositionInTextOf(element) {
     var range = document.createRange(),
         curRange = window.getSelection().getRangeAt(0);
@@ -700,7 +700,7 @@ var spanValue_old = '';
     //Measure the length of the text from the start of the given element to the start of the current range (position of the cursor)
     return document.createElement("div").appendChild(range.cloneContents()).textContent.length;
 	}
-	
+
 	function delVerse(startNode,endNode){
 		var start;
 		var _delVerse=function(node){
@@ -714,7 +714,7 @@ var spanValue_old = '';
 				var list=new Array();
 				for(var i=0,len=temp.length;i<len;i++){
 					list[i]=temp[i];
-				}				
+				}
 				for(var i=0,len=list.length;i<len;i++){
 					var n=list[i];
 					if(_delVerse(n)){
@@ -722,14 +722,14 @@ var spanValue_old = '';
 					}
 				}
 			}
-			if(start){				
+			if(start){
 				$(node).remove();
 			}
 		}
-		
+
 		_delVerse(contentWithVerse);
 	}
-	
+
 	if (!parent.tinymce.isIE) {
 		$(document).keydown(function(e) {
 			var evt = e || window.event

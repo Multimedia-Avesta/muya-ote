@@ -45,9 +45,9 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 		theme : "modern",
 		menubar: false,
 		skin_url: tinymce.baseURL + "../../../wce-ote/skin/",
-		//custom_elements : 'muyahead,manid,folid,textid',
-		extended_valid_elements : 'span[class|wce_orig|style|wce|ext|id|language]',
-		//valid_children : '+muyahead[manid|folid|textid]',
+		custom_elements : 'header,ms,trans',
+		extended_valid_elements : 'span[class|wce_orig|style|wce|ext|id|language],header,ms,trans',
+		valid_children : '+header[ms|trans]',
 		forced_root_block : false,
 		force_br_newlines : true,
 		//force_p_newlines : false, //DEPRECATED!
@@ -78,8 +78,9 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 		keyboardDebug: true,
 		init_instance_callback : "wceReload",
 		// Theme options
-		toolbar : "undo redo charmap | code | LoadFile save | print contextmenu cut copy pastetext pasteword fullscreen | "+
-		"breaks correction illegible decoration abbreviation paratext note punctuation language versemodify | showTeiByHtml help | info showHtmlByTei",
+		toolbar : "undo redo charmap | code | LoadFile save | print contextmenu cut copy pastetext pasteword fullscreen | " +
+		"breaks correction illegible decoration abbreviation paratext note punctuation language versemodify | " +
+		"docinfo | showTeiByHtml help | info showHtmlByTei",
 		theme_advanced_buttons2 : "",
 		theme_advanced_toolbar_location : "top",
 		theme_advanced_toolbar_align : "left",
@@ -99,7 +100,13 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 
 // wenn brower reload, set editor blank
 function wceReload() {
-	
+	tinyMCE.activeEditor.windowManager.open({
+		title : 'Welcome to the OTE',
+		url : './plugin/start.htm',
+		width : screen.width,
+		height : 50,
+		}, {
+		});
 }
 
 // get dirty-value of editor

@@ -38,7 +38,7 @@
     Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
 */
 
-@font-face{
+/*@font-face{
 	font-family: "TITUS Cyberbit Basic";
 	src: local('TITUS Cyberbit Basic'), local('TITUS Cyberbit Basic'),
 	url(fonts/TITUSCBZ.TTF) format('truetype');
@@ -55,7 +55,7 @@
 	src: local('ave_bl_l4'), local('ave_bl_l4'),
 	url(fonts/ave_bl_l4.otf) format('opentype');
 }
-
+*/
 @font-face{
 	font-family: GentiumPlus;
 	src: url(fonts/GentiumPlus-R.woff) format('woff');
@@ -557,7 +557,6 @@ span.formatting_capitals{
 	width: .75em;
 	font-size: 48px;
 	line-height: 24px;
-
 }
 
 span.formatting_subscript{
@@ -583,86 +582,55 @@ span.formatting_upsidedown{
 /*+++++++*/
 
 span[class*='wce_break_page']{
-	
 	display: block;
-	
 	padding: 0;
-	
 	margin: 0;
-	
 	text-align: center;
-	
-
 }
 
 
 
 span[class*='wce_paratext_incipit']{
-	
 	display: block;
-	
 	padding: 0;
-	
 	margin: 0;
-	
 	text-align: center;
-	
 	font-weight: bold;
-	 
-
 }
 
 
 
 span[class*='wce_paratext_num_chapnum']{
-	
 	color: purple;
-	
-
 }
 
 
 
 span[class*='wce_paratext_num_ammsec']{
-	
 	color: green;
-	
-
 }
 
 
 
 span[class*='wce_supplied_source']{
-	
 	color: red;
-	
-
 }
 
  
 
 span[class*='wce_abbr_nomenSacrum_Overline']{
-	
 	text-decoration: overline;
-	
-
 }
 
 
 
 span[class*='wce_abbr_numeral_Overline']{
-	
 	text-decoration: overline;
-	
-
 }
 
 
 .rubrication {
-	
-color : red;
-	
-
+	color : red;
 }
 
 
@@ -684,5 +652,9 @@ color : red;
 }
 
 .mceHideBrInPre pre br {
+	display: none
+}
+
+header {
 	display: none
 }
