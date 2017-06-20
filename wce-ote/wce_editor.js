@@ -65,20 +65,21 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 		witness : (getWitness) ? getWitness : "",
 		manuscriptLang : (getWitnessLang) ? getWitnessLang : "",
 		// invalid_elements:'p',
-		plugins : "pagebreak,save,layer,print,contextmenu,fullscreen,wordcount,charmap,autosave,paste,code, noneditable",
+		plugins : "pagebreak,save,layer,print,contextmenu,fullscreen,wordcount,muyacharmap,autosave,paste,code, noneditable",
 		contextmenu: 'cut copy paste',
 		//charmap_append: [["0256","A - kahako"],["0257","a - kahako"]],
 		//charmap_append: charmap_gu,
 //		plugins : "compat3x,pagebreak,save,layer,print,contextmenu,fullscreen,wordcount,autosave,paste",
 		external_plugins: {
-			'wce' : '../../wce-ote/plugin/plugin.js'
+			'wce' : '../../wce-ote/plugin/plugin.js',
+			'muyacharmap' : '../../wce-ote/plugin/muya_charmap.js'
 		},
 		//content_css: 'font-awesome.min.css',//'https://netdna.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css',
 //		ignoreShiftNotEn: [188, 190],
 		keyboardDebug: true,
 		init_instance_callback : "wceReload",
 		// Theme options
-		toolbar : "undo redo charmap | code | LoadFile save | print contextmenu cut copy pastetext pasteword fullscreen | "+
+		toolbar : "undo redo muyacharmap | code | LoadFile save | print contextmenu cut copy pastetext pasteword fullscreen | "+
 		"breaks correction illegible decoration abbreviation paratext note punctuation language versemodify | showTeiByHtml help | info showHtmlByTei",
 		theme_advanced_buttons2 : "",
 		theme_advanced_toolbar_location : "top",
