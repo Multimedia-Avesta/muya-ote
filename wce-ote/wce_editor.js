@@ -65,8 +65,8 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 		witness : (getWitness) ? getWitness : "",
 		manuscriptLang : (getWitnessLang) ? getWitnessLang : "",
 		// invalid_elements:'p',
-		plugins : "pagebreak,save,layer,print,contextmenu,fullscreen,wordcount,muyacharmap,autosave,paste,code, noneditable",
-		contextmenu: 'cut copy paste',
+		plugins : "pagebreak,save,layer,print,fullscreen,wordcount,muyacharmap,autosave,paste,code, noneditable",
+		//contextmenu: 'cut copy paste',
 		//charmap_append: [["0256","A - kahako"],["0257","a - kahako"]],
 		//charmap_append: charmap_gu,
 //		plugins : "compat3x,pagebreak,save,layer,print,contextmenu,fullscreen,wordcount,autosave,paste",
@@ -79,7 +79,7 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 		keyboardDebug: true,
 		init_instance_callback : "wceReload",
 		// Theme options
-		toolbar : "undo redo muyacharmap | code | LoadFile save | print contextmenu cut copy pastetext pasteword fullscreen | "+
+		toolbar : "undo redo muyacharmap | code | LoadFile save | print cut copy pastetext pasteword fullscreen | "+
 		"breaks correction illegible decoration abbreviation paratext note punctuation language versemodify | showTeiByHtml help | info showHtmlByTei",
 		theme_advanced_buttons2 : "",
 		theme_advanced_toolbar_location : "top",
@@ -282,6 +282,7 @@ function addMenuItems(ed) {
 
 	console.log('fix context menu');
 	ed.on('contextmenu', function(event) {
+	  return false;
 		var ed = $(this)[0];
 		var items = contextMenu.items();
 		var menu = new tinymce.ui.Menu({
