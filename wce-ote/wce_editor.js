@@ -72,7 +72,8 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 //		plugins : "compat3x,pagebreak,save,layer,print,contextmenu,fullscreen,wordcount,autosave,paste",
 		external_plugins: {
 			'wce' : '../../wce-ote/plugin/plugin.js',
-			'muyacharmap' : '../../wce-ote/plugin/muya_charmap.js'
+			'muyacharmap' : '../../wce-ote/plugin/js/muya_charmap.js',
+			'punctuation' : '../../wce-ote/plugin/js/punctuation.js'
 		},
 		//content_css: 'font-awesome.min.css',//'https://netdna.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css',
 //		ignoreShiftNotEn: [188, 190],

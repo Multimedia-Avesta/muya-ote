@@ -1678,6 +1678,49 @@
 
 			return false;
 		},
+		
+		insertPunctuation : function(ed){
+       var sel = WCEUtils.getSEL(ed);
+       var rng = sel.getRangeAt(0);         
+       var rng1 = rng.cloneRange();     
+       var startContainer=rng.startContainer; 
+       var startOffset=rng.startOffset;
+       var str=startContainer.textContent;
+       var newStartOffset;
+       if(startOffset<3 || startContainer!=rng.endContainer){
+         return;
+       }
+       var idx=startOffset;
+       while(idx>=0){
+         var c=str.charAt(idx);
+         if(c==' '){
+             break;
+         }
+         if(c=='['){
+             newStartOffset=idx;  
+          }          
+          idx--;
+        }
+        
+        if(typeof newStartOffset==undefined || newStartOffset<0 || (startOffset-newStartOffset)<=2){
+          return;
+        }
+      
+        var innerStr=str.substr(newStartOffset+1,startOffset-newStartOffset-2);        
+        if(!innerStr.match(/^P\+\d{2}$/)){
+          return;          
+        }
+        innerStr=innerStr.replace(/\D*/gi,'');
+        rng.setStart(startContainer, newStartOffset);
+        if (sel.setSingleRange) {
+           sel.setSingleRange(rng);
+        } else {
+           sel.removeAllRanges();
+           sel.addRange(rng);
+        }
+        ed.execCommand('mceAdd_pc', innerStr);    
+		},
+		
 		setInfoBoxOffset : function(ed, node) {
 			var el = ed.getContentAreaContainer();
 			var _x = 0;
@@ -2835,7 +2878,13 @@
 
 			// TODO: check. Was addToTop
 			ed.on('keyup', function(e) {
-				var ed = this;
+			  var ed = this;
+				
+				var ek = e.keyCode || e.charCode || 0;
+        if(ek==57 && e.altKey){
+           WCEUtils.insertPunctuation(ed);
+        }
+        				
 				if (ed.hasTempText) {
 					var dataList = ed.undoManager.data;
 					if (dataList) {
@@ -2858,6 +2907,8 @@
 				}
 
 				ed.WCE_VAR.isRedrawn = false;
+				
+			
 			});
 
 			if (tinymce.isOpera) {
@@ -3525,137 +3576,137 @@
 			});
 			ed.addShortcut("ctrl+alt+n","Add note","mceAddNote_Shortcut");
 
-			ed.addButton('punctuation', {
-				title : tinymce.translate('menu_punctuation'),
-				image : url + '/img/button_P.png',
-				icons : false,
-				type  : 'menubutton',
-				onPostRender : function() { ed.WCE_CON.buttons[this.settings.icon] = this; },
-				menu : [
-				{ text : tinymce.translate('menu_punctuation_add'),
-					menu : [
-					{ text : ': (colon)',
-						onclick : function() {
-							ed.execCommand('mceAdd_pc', ':');
-						}
-					},
-					{ text : ', (comma)',
-						onclick : function() {
-							ed.execCommand('mceAdd_pc', ',');
-						}
-					},
-					{ text : '. (full stop)',
-						onclick : function() {
-							ed.execCommand('mceAdd_pc', '.');
-						}
-					},
-					// \u00B7
-					/*{ text : '\u0387 (Greek Ano Teleia)',
-						onclick : function() {
-							ed.execCommand('mceAdd_pc', '\u0387');
-						}
-					},
-					// \u003B
-					{ text : '\u037E (Greek question mark)',
-						onclick : function() {
-							ed.execCommand('mceAdd_pc', '\u037E');
-						}
-					},*/
-					{ text : '\u02D9 (high dot)',
-						onclick : function() {
-							ed.execCommand('mceAdd_pc', '\u02D9');
-						}
-					},
-					{ text : '\u0387 (middle dot)',
-						onclick : function() {
-							ed.execCommand('mceAdd_pc', '\u0387');
-						}
-					},
-					{ text : '\u02BC (modifier letter apostrophe)',
-						onclick : function() {
-							ed.execCommand('mceAdd_pc', '\u02BC');
-						}
-					},
-					{ text : '? (question mark)',
-						onclick : function() {
-							ed.execCommand('mceAdd_pc', '?');
-						}
-					},
-					{ text : '; (semicolon)',
-						onclick : function() {
-							ed.execCommand('mceAdd_pc', '&semicolon;');
-						}
-					},
-					{ text : '\u203B	(cross with dots)',
-						onclick : function() {
-							ed.execCommand('mceAdd_pc', '\u203B');
-						}
-					},
-					{ text : '\u003E (diple)',
-						onclick : function() {
-							ed.execCommand('mceAdd_pc', '\u003E');
-						}
-					},
-					{ text : '\u2020	(obelus)',
-						onclick : function() {
-							ed.execCommand('mceAdd_pc', '\u2020');
-						}
-					},
-					{ text : '\u00B6	(paragraphus)',
-						onclick : function() {
-							ed.execCommand('mceAdd_pc', '\u00B6');
-						}
-					},
-					{ text : '\u03A1\u0336    (staurogram)',
-						onclick : function() {
-							ed.execCommand('mceAdd_pc', '\u03A1\u0336');
-						}
-					},
-					{ text : '\u030B    (combining double acute accent)',
-						onclick : function() {
-							ed.execCommand('mceAdd_pc', '\u030B');
-						}
-					}
-					],
-				},
-				{ text : tinymce.translate('menu_blank_spaces'),
-					id : 'menu-punctuation-blankspaces',
-					menu : [
-					{ text : tinymce.translate('menu_add'),
-						id : 'menu-punctuation-blankspaces-add',
-						icons : false,
-						onclick : function() {
-							ed.execCommand('mceAddSpaces');
-						}
-					},
-					{ text : tinymce.translate('menu_edit'),
-						id : 'menu-punctuation-blankspaces-edit',
-						onclick : function() {
-							ed.execCommand('mceEditSpaces');
-						}
-					},
-					{ text : tinymce.translate('menu_delete'),
-						id : 'menu-punctuation-blankspaces-delete',
-						onclick : function() {
-							WCEUtils.wceDelNode(ed);
-						}
-					}],
-					onshow : function(a) {
-						var items = a.control.items();
-						var w = ed.WCE_VAR;
-						if (w.type == 'spaces') {
-							items[0].disabled(true);
-							items[1].disabled(false);
-							items[2].disabled(false);
-						} else {
-							items[0].disabled(false);
-							items[1].disabled(true);
-							items[2].disabled(true);
-						}
-					}
-				}]
-			});
-			
+//			ed.addButton('punctuation', {
+//				title : tinymce.translate('menu_punctuation'),
+//				image : url + '/img/button_P.png',
+//				icons : false,
+//				type  : 'menubutton',
+//				onPostRender : function() { ed.WCE_CON.buttons[this.settings.icon] = this;},
+//				menu : [
+//				{ text : tinymce.translate('menu_punctuation_add'),
+//					menu : [
+//					{ text : ': (colon)',
+//						onclick : function() {
+//							ed.execCommand('mceAdd_pc', ':');
+//						}
+//					},
+//					{ text : ', (comma)',
+//						onclick : function() {
+//							ed.execCommand('mceAdd_pc', ',');
+//						}
+//					},
+//					{ text : '. (full stop)',
+//						onclick : function() {
+//							ed.execCommand('mceAdd_pc', '.');
+//						}
+//					},
+//					// \u00B7
+//					/*{ text : '\u0387 (Greek Ano Teleia)',
+//						onclick : function() {
+//							ed.execCommand('mceAdd_pc', '\u0387');
+//						}
+//					},
+//					// \u003B
+//					{ text : '\u037E (Greek question mark)',
+//						onclick : function() {
+//							ed.execCommand('mceAdd_pc', '\u037E');
+//						}
+//					},*/
+//					{ text : '\u02D9 (high dot)',
+//						onclick : function() {
+//							ed.execCommand('mceAdd_pc', '\u02D9');
+//						}
+//					},
+//					{ text : '\u0387 (middle dot)',
+//						onclick : function() {
+//							ed.execCommand('mceAdd_pc', '\u0387');
+//						}
+//					},
+//					{ text : '\u02BC (modifier letter apostrophe)',
+//						onclick : function() {
+//							ed.execCommand('mceAdd_pc', '\u02BC');
+//						}
+//					},
+//					{ text : '? (question mark)',
+//						onclick : function() {
+//							ed.execCommand('mceAdd_pc', '?');
+//						}
+//					},
+//					{ text : '; (semicolon)',
+//						onclick : function() {
+//							ed.execCommand('mceAdd_pc', '&semicolon;');
+//						}
+//					},
+//					{ text : '\u203B	(cross with dots)',
+//						onclick : function() {
+//							ed.execCommand('mceAdd_pc', '\u203B');
+//						}
+//					},
+//					{ text : '\u003E (diple)',
+//						onclick : function() {
+//							ed.execCommand('mceAdd_pc', '\u003E');
+//						}
+//					},
+//					{ text : '\u2020	(obelus)',
+//						onclick : function() {
+//							ed.execCommand('mceAdd_pc', '\u2020');
+//						}
+//					},
+//					{ text : '\u00B6	(paragraphus)',
+//						onclick : function() {
+//							ed.execCommand('mceAdd_pc', '\u00B6');
+//						}
+//					},
+//					{ text : '\u03A1\u0336    (staurogram)',
+//						onclick : function() {
+//							ed.execCommand('mceAdd_pc', '\u03A1\u0336');
+//						}
+//					},
+//					{ text : '\u030B    (combining double acute accent)',
+//						onclick : function() {
+//							ed.execCommand('mceAdd_pc', '\u030B');
+//						}
+//					}
+//					],
+//				},
+//				{ text : tinymce.translate('menu_blank_spaces'),
+//					id : 'menu-punctuation-blankspaces',
+//					menu : [
+//					{ text : tinymce.translate('menu_add'),
+//						id : 'menu-punctuation-blankspaces-add',
+//						icons : false,
+//						onclick : function() {
+//							ed.execCommand('mceAddSpaces');
+//						}
+//					},
+//					{ text : tinymce.translate('menu_edit'),
+//						id : 'menu-punctuation-blankspaces-edit',
+//						onclick : function() {
+//							ed.execCommand('mceEditSpaces');
+//						}
+//					},
+//					{ text : tinymce.translate('menu_delete'),
+//						id : 'menu-punctuation-blankspaces-delete',
+//						onclick : function() {
+//							WCEUtils.wceDelNode(ed);
+//						}
+//					}],
+//					onshow : function(a) {
+//						var items = a.control.items();
+//						var w = ed.WCE_VAR;
+//						if (w.type == 'spaces') {
+//							items[0].disabled(true);
+//							items[1].disabled(false);
+//							items[2].disabled(false);
+//						} else {
+//							items[0].disabled(false);
+//							items[1].disabled(true);
+//							items[2].disabled(true);
+//						}
+//					}
+//				}]
+//			});
+//			
 			ed.addButton('language', {
 				title : tinymce.translate('menu_language') + ' (Ctrl+Alt+L)' ,
 				image : url + '/img/button_L.png',
@@ -3978,6 +4029,10 @@
 				doWithDialog(ed, url, '/spaces.htm', 480, 320, 1, false, tinymce.translate('spaces_title'));
 			});
 			
+			ed.addCommand('mcdAddPunctuationOther',function(){
+			   doWithDialog(ed, url, '/punctuation_other.htm', 480, 320, 1, false, tinymce.translate('menu_punctuation_add'));      
+			})
+			
 			ed.addCommand('mceAddSpaces_Shortcut', function() {
 				var w = ed.WCE_VAR;
 				if (w.not_S) {
@@ -4034,7 +4089,7 @@
 			});
 
 			ed.addCommand('mceAdd_pc', function(c) {
-				doWithoutDialog(ed, 'pc', c);
+				doWithoutDialog(ed, 'pc', 'P+'+c);
 			});
 
 			ed.addCommand('mceAddCapitals', function() {
@@ -4196,6 +4251,9 @@
 	tinymce.create('tinymce.plugins.wceplugin', WCEPlugin);
 	// Register plugin
 	tinymce.PluginManager.add('wce', tinymce.plugins.wceplugin);
+	if(!window.WCEUtils){
+	  window.WCEUtils=WCEUtils;
+	}
 
 })();
 

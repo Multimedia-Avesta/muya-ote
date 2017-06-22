@@ -853,13 +853,13 @@ function getHtmlByTei(inputString) {
 	 */
 	var Tei2Html_pc = function($htmlParent, $teiNode) {
 		var $newNode = $newDoc.createElement('span');
-		if($teiNode.getAttribute('rend')=='punctuation'){//todo: Feature/extension #5579
-      $newNode.setAttribute('class','punctuation');
-      $htmlParent.appendChild($newNode);
-      nodeAddText($newNode,'['+$teiNode.textContent+']');
-      addFormatElement($newNode);
-      return null;
-    }
+//		if($teiNode.getAttribute('rend')=='punctuation'){//todo: Feature/extension #5579
+//    $newNode.setAttribute('class','punctuation');
+//    $htmlParent.appendChild($newNode);
+//    nodeAddText($newNode,'['+$teiNode.textContent+']');
+//    addFormatElement($newNode);
+//    return null;
+//  }
 		$newNode.setAttribute('class', 'pc');
 		$newNode.setAttribute('wce', '__t=pc');
 		addFormatElement($newNode);
@@ -1899,13 +1899,13 @@ function getTeiByHtml(inputString, args) {
 	  //TODO
 	  //add punctuation span 
 	  //Feature/extension #5579
-    var reg=/\[O\+\d*\]/i;
-    var found=inputString.match(reg);
-    for(var i=0,f, p;i<found.length;i++){
-        f=found[i];
-        p=f.replace('[','<span class="punctuation">').replace(']','</span>');
-       inputString=inputString.split(f).join(p);
-    }
+//  var reg=/\[O\+\d*\]/i;
+//  var found=inputString.match(reg);
+//  for(var i=0,f, p;i<found.length;i++){
+//      f=found[i];
+//      p=f.replace('[','<span class="punctuation">').replace(']','</span>');
+//     inputString=inputString.split(f).join(p);
+//  }
 	  
 		inputString = inputString.replace(/>\s+</g, '> <');//after initHtmlContent get <w before="1" after="1" />
 		inputString = '<TEI>' + inputString + '</TEI>';
@@ -2836,14 +2836,15 @@ function getTeiByHtml(inputString, args) {
 				wceAttrValue = 'book_number';
 			} else if ($($htmlNode).hasClass('lection_number')) {
 				wceAttrValue = 'lection_number';
-			}else if ($($htmlNode).hasClass('punctuation')){
-			  //Feature/extension #5579
-			  //TODO			  
-        var punc = $newDoc.createElement('pc');
-        nodeAddText(punc,getDomNodeText($htmlNode));
-        punc.setAttribute('rend','punctuation');        
-        $teiParent.appendChild(punc);
-      }
+			}
+//			else if ($($htmlNode).hasClass('punctuation')){
+//			  //Feature/extension #5579
+//			  //TODO			  
+//      var punc = $newDoc.createElement('pc');
+//      nodeAddText(punc,getDomNodeText($htmlNode));
+//      punc.setAttribute('rend','punctuation');        
+//      $teiParent.appendChild(punc);
+//    }
 		}
 
 		// ******************* verse *******************
@@ -3959,6 +3960,7 @@ function getTeiByHtml(inputString, args) {
 		}
 		
 		var pc = $newDoc.createElement('pc');
+		pc.setAttribute('rend','punctuation');
 		nodeAddText(pc,getDomNodeText($htmlNode));
 		$teiParent.appendChild(pc);
 		//appendNodeInW($teiParent, pc, $htmlNode);
