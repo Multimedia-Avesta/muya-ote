@@ -45,9 +45,9 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 		theme : "modern",
 		menubar: false,
 		skin_url: tinymce.baseURL + "../../../wce-ote/skin/",
-		custom_elements : 'header,ms,trans',
+		custom_elements : 'header,ms,trans,book,folio',
 		extended_valid_elements : 'span[class|wce_orig|style|wce|ext|id|language],header,ms,trans',
-		valid_children : '+header[ms|trans]',
+		valid_children : '+header[ms|trans|book|folio]',
 		forced_root_block : false,
 		force_br_newlines : true,
 		//force_p_newlines : false, //DEPRECATED!

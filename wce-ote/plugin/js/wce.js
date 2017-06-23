@@ -495,18 +495,29 @@ function writeWceNodeInfo(val) {
 
 function readDocInfos() {
 	ed = parent.tinymce.activeEditor;
-	var current = ed.getContent();
-	alert (current);
-	var header = current.substring(current.indexOf("<!--HEADER"),current.indexOf("-->")).split(" ");
-	var transcriber = header[1].split("=")[1].replace(new RegExp(/\"/, 'g'), '');
-	var manID = header[2].split("=")[1].replace(new RegExp(/\"/, 'g'), '');
-	//alert(ed.dom.select('span[1]').getContent());
-	//var $root = tinymce.dom.DomQuery(':root');
-	//alert($('span').attr('class','book_number').first().text());
-	textID = '';
-	folID = '';
-	//var textID = header[3].split("=")[1].replace(new RegExp(/\"/, 'g'), '');
-	//var folID = header[4].split("=")[1].replace(new RegExp(/\"/, 'g'), '');
+	var selection = ed.selection.getContent();
+	var $head = ed.dom.getParent(ed.selection.getNode(), 'header');
+	//var $root = ed.dom.getRoot().
+	//var $head = ed.dom.select('$root > header');
+	var child = $head.firstChild;
+	while(child){
+    switch (child.nodeName.toLowerCase()) {
+		case 'trans':
+			var transcriber = child.textContent.replace(new RegExp(/\"/, 'g'), '');
+			break;
+		case 'ms':
+			var manID = child.textContent.replace(new RegExp(/\"/, 'g'), '');
+			break;
+		case 'book':
+			var textID = child.textContent;
+			break;
+		case 'folio':
+			var folID = child.textContent;
+			break;
+    }
+    child = child.nextSibling;
+	}
+
 	return [transcriber,manID,textID,folID];
 }
 
@@ -515,60 +526,36 @@ function writeDocInfos(metadata) {
 	newWceAttr = '__t=brea&amp;__n=&amp;hasBreak=no&amp;break_type=pb&amp;number='
 		+ metadata[3] + '&amp;rv=' + metadata[4] + '&amp;page_number=&amp;facs=&amp';
 	
-	$newDoc = loadXMLString("");
+	$newDoc = loadXMLString("<TEMP></TEMP>");
 	$newRoot = $newDoc.documentElement;
 	
-	
-	//var parser = new tinymce.html.DomParser({validate: true});
-	//var current = parser.parse(ed.getContent());
-	//current.empty();
-	/*ed.selection.select(ed.dom.select('header')).empty();
-	ed.selection.select(ed.dom.select('span')[0]).empty();
-	ed.selection.select(ed.dom.select('span')[1]).empty();*/
-	
-	//var headerNode = parser.parse('<header></header>');
 	var $header = $newDoc.createElement('header');
 	var $tr = $newDoc.createElement('trans');
 	$tr.appendChild($tr.ownerDocument.createTextNode(metadata[0].replace(" ","_")));
 	$header.append($tr);
-	//var commentNode = parser.parse('<tr>' + metadata[0].replace(" ","_") + '</tr>');
-	//headerNode.append(commentNode);
 	var $ms = $newDoc.createElement('ms');
 	$ms.appendChild($ms.ownerDocument.createTextNode(metadata[1]));
-	//commentNode = parser.parse('<ms>' + metadata[1] + '</ms>');
-	//headerNode.append(commentNode);
-    //current.append(headerNode);
 	$header.append($ms);
+	var $book = $newDoc.createElement('book');
+	$book.appendChild($book.ownerDocument.createTextNode(metadata[2]));
+	$header.append($book);
+	var $fol = $newDoc.createElement('folio');
+	$fol.appendChild($book.ownerDocument.createTextNode(metadata[3]+metadata[4]));
+	$header.append($fol);
 	$newRoot.append($header);
 	
 	var $bookNode = $newDoc.createElement('span');
 	$bookNode.setAttribute('class',"book_number");
 	$bookNode.setAttribute('wce',"__t=book_number");
 	$bookNode.appendChild($bookNode.ownerDocument.createTextNode(metadata[2]));
+	$newRoot.append($bookNode);
 	
-	$newRoot.append($bookNode)
-	var $pbNode = $newDoc.createElement('pb');
-	$pbNode.setAttribute('class', 'brea');
-	$pbNode.setAttribute('wce', '"' + newWceAttr + '"');
-	$newRoot.append($pbNode);
+	ed.setContent(xml2String($newDoc) + wceUtils.getBreakHtml(ed, 'pb', 'lb', null, 'wce="' + newWceAttr + '"', null, false) + '&nbsp;');
 	
-	/*firstPB = ed.selection.select(ed.dom.select('span')[0]);
-		if (firstPB.getAttribute("class") == 'mceNonEditable brea'
-			|| firstPB.getAttribute("class") == 'brea')
-			ed.dom.replace(pbNode,firstPB,false);*/
-	//current = ed.getContent({format: 'html'});
-	//alert (firstPB.innerHTML);
-	
-	//ed.setContent('');
-	/*ed.setContent("<!--HEADER"
-		+ " transcriber=\"" + metadata[0].replace(" ","_") 
-		+ "\" manID=\"" + metadata[1]
-		+ "\"-->\n\n"
-		+ '<span class="book_number" wce="__t=book_number"> ' + metadata[2] + '</span> '
-		+ wceUtils.getBreakHtml(ed, 'pb', '', '', 'wce="' + newWceAttr + '"', null)
-		+ current.replace(/<!--HEADER.*?-->/,""));
-	*/
-	ed.setContent(xml2String($newDoc));
+	if (wceUtils) {
+		wceUtils.setWCEVariable(ed);
+		wceUtils.redrawContols(ed);
+	}
 	ed.isNotDirty = 0;
 	ed.windowManager.close();
 }

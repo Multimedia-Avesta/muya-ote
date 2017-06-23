@@ -761,7 +761,7 @@
 				out = out + _this(ed, 'lb', 'ignore', indention, null, baseID);
 				v.lcnt = 1;*/
 			} else if (bType == 'lb'&& lbpos != 'lbm') {
-				out += '&nbsp;';	
+				out += '&nbsp;';
 			}
 			return out;
 		},

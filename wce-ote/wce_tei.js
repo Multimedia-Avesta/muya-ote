@@ -2454,7 +2454,7 @@ function getTeiByHtml(inputString, args) {
 				if (!c) {
 					continue;
 				} else {  
-						readAllHtmlNodes(newParent, c);
+					readAllHtmlNodes(newParent, c);
 				}
 			}
 		}
