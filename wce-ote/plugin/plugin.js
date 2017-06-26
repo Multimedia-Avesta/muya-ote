@@ -3735,7 +3735,7 @@
             fileInput.setAttribute('type', 'file');
             var $fi = $(fileInput).on('change', function() {
               var fileName = fileInput.files[0];
-              document.body.removeChild(fileInput);
+            //  document.body.removeChild(fileInput);
               var reader = new FileReader();
               reader.onloadend = function(e) {
                 var res = reader.result;

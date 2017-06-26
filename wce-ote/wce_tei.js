@@ -845,7 +845,7 @@ function getHtmlByTei(inputString) {
 			addFormatElement($newNode);
 		$htmlParent.appendChild($newNode);
 		nodeAddText($htmlParent, ' ');
-		return $null;
+		return null;
 	};
 
 	/*
