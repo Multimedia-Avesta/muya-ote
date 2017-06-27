@@ -12,109 +12,109 @@
 
 tinymce.PluginManager.add('punctuation', function(ed, jsUrl) {
   var menuItemsAdd = [{
-    id: '01',
+    id: '001',
     title: 'single dot'
   }, {
-    id: '02',
+    id: '002',
     title: 'single circle'
   }, {
-    id: '03',
+    id: '003',
     title: 'single circle + 3 dots on top'
   }, {
-    id: '04',
+    id: '004',
     title: 'single fat dot'
   }, {
-    id: '05',
+    id: '005',
     title: 'single fat dot + 3 dots on top'
   }, {
-    id: '06',
+    id: '006',
     title: '3 dots v-shape'
   }, {
-    id: '07',
+    id: '007',
     title: '3 dots roof-shape'
   }, {
-    id: '08',
+    id: '008',
     title: '4 dots diamond-shape arrangement'
   }, {
-    id: '09',
+    id: '009',
     title: '3 circles v-shape'
   }, {
-    id: '10',
+    id: '010',
     title: '3 circles roof-shape intertwined with 3 circles v-shape'
   }, {
-    id: '11',
+    id: '011',
     title: '3 circles roof-shape intertwined with 3 dots v-shape'
   }, {
-    id: '12',
+    id: '012',
     title: '4 circles diamond-shape arrangement'
   }, {
-    id: '13',
+    id: '013',
     title: '4 dots diamond-shape plus red surrounding'
   }, {
-    id: '14',
+    id: '014',
     title: 'circle with red triangle above and below'
   }, {
-    id: '15',
+    id: '015',
     title: 'circle with four fat dots or circles above and below'
   }, {
-    id: '16',
+    id: '016',
     title: 'circle with four circles around and red & black dots around'
   }, {
-    id: '17',
+    id: '017',
     title: 'circle+6 half circles'
   }, {
-    id: '18',
+    id: '018',
     title: 'circle+7 half circles'
   }, {
-    id: '19',
+    id: '019',
     title: 'circle+8 half circles'
   }, {
-    id: '20',
+    id: '020',
     title: 'circle+9 half circles'
   }, {
-    id: '21',
+    id: '021',
     title: 'circle+10 half circle linep'
   }, {
-    id: '22',
+    id: '022',
     title: 'circle+11 half circle line'
   }, {
-    id: '23',
+    id: '023',
     title: 'circle surrounded by two wavy lines'
   }, {
-    id: '24',
+    id: '024',
     title: 'circle + 4 round petals, flower-shape'
   }, {
-    id: '25',
+    id: '025',
     title: 'circle + 5 petals, flower-shape'
   }, {
-    id: '26',
+    id: '026',
     title: 'circle + 8 petals, star-shape'
   }, {
-    id: '27',
+    id: '027',
     title: '2 concentric circles, 7 spokes'
   }, {
-    id: '28',
+    id: '028',
     title: 'Star running, 6 arms'
   }, {
-    id: '29',
+    id: '029',
     title: 'Four circles in a rhombus'
   }, {
-    id: '30',
+    id: '030',
     title: 'Two parallel lines at the end of a line, left side up'
   }, {
-    id: '31',
+    id: '031',
     title: 'Two parallel lines at the end of a line'
   }, {
-    id: '32',
+    id: '032',
     title: 'Two parallel lines above letters'
   }, {
-    id: '33',
+    id: '033',
     title: 'insertion sign v-shaped'
   }, {
-    id: '34',
+    id: '034',
     title: 'insertion sign roof shaped'
   }, {
-    id: '35',
+    id: '035',
     title: 'large v-shaped interpunction sign'
   }, {
     id: '',

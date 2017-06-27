@@ -1687,7 +1687,8 @@
        var startOffset=rng.startOffset;
        var str=startContainer.textContent;
        var newStartOffset;
-       if(startOffset<3 || startContainer!=rng.endContainer){
+       var digit=3;
+       if(startOffset<(4+digit) || startContainer!=rng.endContainer){
          return;
        }
        var idx=startOffset;
@@ -1698,16 +1699,16 @@
          }
          if(c=='['){
              newStartOffset=idx;  
+             break;
           }          
           idx--;
         }
-        
-        if(typeof newStartOffset==undefined || newStartOffset<0 || (startOffset-newStartOffset)<=2){
+        if(typeof newStartOffset==undefined || newStartOffset<0 || (startOffset-newStartOffset)<(digit+3)){
           return;
         }
-      
         var innerStr=str.substr(newStartOffset+1,startOffset-newStartOffset-2);        
-        if(!innerStr.match(/^P\+\d{2}$/)){
+      
+        if(!innerStr.match(/^P\+\d{3}$/)){
           return;          
         }
         innerStr=innerStr.replace(/\D*/gi,'');
