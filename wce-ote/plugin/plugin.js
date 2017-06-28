@@ -4092,6 +4092,10 @@
 			ed.addCommand('mceAdd_pc', function(c) {
 				doWithoutDialog(ed, 'pc', 'P+'+c);
 			});
+			
+			ed.addCommand('mceAdd_pc_simple', function(c) {
+				doWithoutDialog(ed, 'pc', c);
+			});
 
 			ed.addCommand('mceAddCapitals', function() {
 				doWithDialog(ed, url, '/capitals.htm', 480, 320, 1, true, tinymce.translate('capitals_title'));

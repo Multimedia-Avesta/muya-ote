@@ -458,7 +458,9 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
 
   function getInterpunctionSigns() {
     return [
-      ['0x10B3D', 'Three dots (pyramid shape)'],
+      ['0x0964', 'danda'],
+	  ['0x0965', 'double danda'],
+	  ['0x10B3D', 'Three dots (pyramid shape)'],
       ['0x10B3E', 'Three dots (v-shape)'],
     ];
   }
@@ -508,7 +510,7 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
       chr: chr
     }).chr;
     if(isInterpunctionSign(chrindex))
-      editor.execCommand('mceAdd_pc', chr);
+      editor.execCommand('mceAdd_pc_simple', chr);
     else
       editor.execCommand('mceInsertContent', false, chr);
   }
