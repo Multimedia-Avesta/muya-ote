@@ -459,8 +459,8 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
   function getInterpunctionSigns() {
     return [
       ['0x0964', 'danda'],
-	  ['0x0965', 'double danda'],
-	  ['0x10B3D', 'Three dots (pyramid shape)'],
+      ['0x0965', 'double danda'],
+      ['0x10B3D', 'Three dots (pyramid shape)'],
       ['0x10B3E', 'Three dots (v-shape)'],
     ];
   }
@@ -515,22 +515,9 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
       editor.execCommand('mceInsertContent', false, chr);
   }
 
-  function showDialog() {
-    var gridHtml, x, y, win;
-
-    function getParentTd(elm) {
-      while(elm) {
-        if(elm.nodeName == 'TD') {
-          return elm;
-        }
-
-        elm = elm.parentNode;
-      }
-    }
-
-    gridHtml = '<table role="presentation" cellspacing="0" class="mce-charmap"><tbody>';
-
-    var charmap = getCharMap();
+  function getGridHtml(charmap) {
+    var gridHtml = '<table role="presentation" cellspacing="0" class="mce-charmap"><tbody>';
+    charmap = charmap ? charmap : getCharMap();
     var width = Math.min(charmap.length, 25);
     var height = Math.ceil(charmap.length / width);
     for(y = 0; y < height; y++) {
@@ -552,6 +539,95 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
     }
 
     gridHtml += '</tbody></table>';
+    return gridHtml;
+  }
+
+  function showDialog(charmap, charmap_filter_value) {
+    var gridHtml, x, y, win;
+
+    function getParentTd(elm) {
+      while(elm) {
+        if(elm.nodeName == 'TD') {
+          return elm;
+        }
+
+        elm = elm.parentNode;
+      }
+    }
+
+    //  gridHtml = '<table role="presentation" cellspacing="0" class="mce-charmap"><tbody>';
+
+    //  charmap = charmap ? charmap : getCharMap();
+    charmap_filter_value = charmap_filter_value ? charmap_filter_value : 'All_glyphs';
+
+    //  var width = Math.min(charmap.length, 25);
+    //  var height = Math.ceil(charmap.length / width);
+    //  for(y = 0; y < height; y++) {
+    //    gridHtml += '<tr>';
+    //
+    //    for(x = 0; x < width; x++) {
+    //      var index = y * width + x;
+    //      if(index < charmap.length) {
+    //        var chr = charmap[index];
+    //
+    //        gridHtml += '<td title="' + chr[1] + '"><div tabindex="' + index + '" title="' + chr[1] + '" role="button">' +
+    //          (chr ? parseSomeInt(chr[0]) : '&nbsp;') + '</div></td>';
+    //      } else {
+    //        gridHtml += '<td />';
+    //      }
+    //    }
+    //
+    //    gridHtml += '</tr>';
+    //  }
+    //
+    //  gridHtml += '</tbody></table>';
+
+    gridHtml = '<div class="mce-charmap-wrapper">' + getGridHtml(charmap) + '</div>';
+
+    //radio html
+    var radioGroup = [{
+        id: 'charmap_default',
+        value: 'Default_only', //todo:  add to js/langs
+        i18n: 'charmap_default_only', //todo:  add to js/langs
+        charmap: getDefaultCharMap
+      }, {
+        id: 'charmap_gu',
+        value: 'Gujarati_only',
+        i18n: 'charmap_gujarati_only',
+        charmap: getGuCharMap
+      }, {
+        id: 'charmap_av',
+        value: 'Avesta_only',
+        i18n: 'charmap_avesta_only',
+        charmap: getAvCharMap
+      }, {
+        id: 'charmap_pa',
+        value: 'Pahlavi_only',
+        i18n: 'charmap_pahlavi_only',
+        charmap: getPaCharMap
+      }, {
+        id: 'charmap_in',
+        value: 'interpunction_signs_only', //todo:  add to js/langs
+        i18n: 'charmap_interpunction_signs_only', //todo: add to js/langs
+        charmap: getInterpunctionSigns
+      },
+      {
+        id: 'charmap_all',
+        value: 'All_glyphs',
+        i18n: 'charmap_all',
+        charmap: getCharMap
+      }
+    ];
+
+    var radioHtml = '<div style="padding:10px">';
+    var translate = tinymce.util.I18n.translate;
+    radioGroup.forEach(function(r, i) {
+      radioHtml += '<div><input type="radio" id="' + r.id + '"';
+      r.value == charmap_filter_value ? radioHtml += ' checked="checked"' : '';
+      radioHtml += ' name="charmap_filter" value="' + r.value + '" /> ';
+      radioHtml += '<label style="margin-right:2px">' + translate(r.i18n) + '</label></div>';
+    });
+    radioHtml += '</div>';
 
     var charMapPanel = {
       type: 'container',
@@ -560,7 +636,7 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
         var target = e.target;
 
         if(/^(TD|DIV)$/.test(target.nodeName)) {
-          if(getParentTd(target).firstChild) {
+          if(getParentTd(target) && getParentTd(target).firstChild) {
             insertChar(tinymce.trim(target.innerText || target.textContent),
               target.getAttribute("tabindex"));
             if(!e.ctrlKey) {
@@ -571,7 +647,6 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
       },
       onmouseover: function(e) {
         var td = getParentTd(e.target);
-
         if(td && td.firstChild) {
           win.find('#preview').text(td.firstChild.firstChild.data);
           win.find('#previewTitle').text(td.title);
@@ -595,7 +670,7 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
           align: 'center',
           spacing: 5,
           minWidth: 220,
-          minHeight: 160,
+          minHeight: 280,
           items: [{
               type: 'label',
               name: 'preview',
@@ -613,6 +688,28 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
               border: 1,
               minWidth: 200,
               minHeight: 80
+            }, {
+              type: 'container',
+              layout: 'flex',
+              direction: 'colum',
+              html: radioHtml,
+              minWidth: 250,
+              minHeight: 120,
+              onclick: function(e) {
+                var target = e.target;
+                if(target.nodeName && target.nodeName.toLocaleLowerCase() == 'input') {
+                  var filterValue = target.value;
+                  var radioInput = radioGroup.find(function(r) {
+                    if(r.value == filterValue) {
+                      return true;
+                    }
+                  });
+                  if(radioInput) {
+                    var newGridHtml = getGridHtml(radioInput.charmap());
+                    win.$el.find('div[class="mce-charmap-wrapper"]').html(newGridHtml);
+                  }
+                }
+              }
             }
           ]
         }
@@ -624,6 +721,9 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
         }
       }]
     });
+
+    // win.$el.find('div[class="mce-container-body" && class="mce-abs-layout"]').append($(radioHtml));
+
   }
 
   editor.addCommand('mceShowMuyaCharmap', showDialog);
