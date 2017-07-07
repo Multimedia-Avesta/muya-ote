@@ -502,7 +502,7 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
   }
 
   function getCharMap() {
-    return extendCharMap(getPaCharMap().concat(getAvCharMap()).concat(getGuCharMap().concat(getInterpunctionSigns())));
+    return extendCharMap(getDefaultCharMap().concat(getPaCharMap()).concat(getAvCharMap()).concat(getGuCharMap().concat(getInterpunctionSigns())));
   }
 
   function insertChar(chr, chrindex) {
@@ -587,8 +587,8 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
     //radio html
     var radioGroup = [{
         id: 'charmap_default',
-        value: 'Default_only', //todo:  add to js/langs
-        i18n: 'charmap_default_only', //todo:  add to js/langs
+        value: 'Default_only', 
+        i18n: 'charmap_default_only', 
         charmap: getDefaultCharMap
       }, {
         id: 'charmap_gu',
@@ -607,8 +607,8 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
         charmap: getPaCharMap
       }, {
         id: 'charmap_in',
-        value: 'interpunction_signs_only', //todo:  add to js/langs
-        i18n: 'charmap_interpunction_signs_only', //todo: add to js/langs
+        value: 'interpunction_signs_only',
+        i18n: 'charmap_interpunction_signs_only', 
         charmap: getInterpunctionSigns
       },
       {
