@@ -2877,6 +2877,8 @@ function getTeiByHtml(inputString, args) {
 				if (cont_index > -1)
 					g_verseNumber = g_verseNumber.substring(0, cont_index);
 				g_verseNumber = $.trim(g_verseNumber);
+				g_verseNode = $newDoc.createElement('ab');
+				g_verseNode.setAttribute('n', 'B' + g_bookNumber + 'K' + g_chapterNumber + 'S' + g_stanzaNumber + 'V' + g_verseNumber);
 				/*
 				var count_verse = 97 + Math.floor(g_verseNumber/2);
 								
@@ -2905,8 +2907,8 @@ function getTeiByHtml(inputString, args) {
 						}
 					}
 				}*/
-				if (g_chapterNode)
-					g_chapterNode.appendChild(g_verseNode);
+				if (g_stanzaNode)
+					g_stanzaNode.appendChild(g_verseNode);
 				else
 					$newRoot.appendChild(g_verseNode);
 				g_currentParentNode = g_verseNode;
@@ -2942,8 +2944,8 @@ function getTeiByHtml(inputString, args) {
 					g_stanzaNode.setAttribute('n', g_stanzaNumber);
 					if (g_chapterNode)
 						g_chapterNode.appendChild(g_stanzaNode);
-					else if (g_bookNode)
-						g_bookNode.appendChild(g_stanzaNode);
+					//else if (g_bookNode)
+					//	g_bookNode.appendChild(g_stanzaNode);
 					else
 						$newRoot.appendChild(g_stanzaNode);
 					g_currentParentNode = g_stanzaNode;
