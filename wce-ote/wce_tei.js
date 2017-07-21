@@ -803,7 +803,7 @@ function getHtmlByTei(inputString) {
 			$newNode.setAttribute('class', 'verse_number mceNonEditable');
 		}
 		var nValue = $teiNode.getAttribute('n');
-		/*if (nValue && nValue != '') {
+		if (nValue && nValue != '') {
 			var indexV = nValue.indexOf('V');
 			indexV++;
 			if (indexV > 0 && indexV < nValue.length) {
@@ -811,16 +811,16 @@ function getHtmlByTei(inputString) {
 				g_verseNumber = nValue;
 				nodeAddText($newNode, g_verseNumber);
 			}
-		}*/
-		/*var partValue = $teiNode.getAttribute('part');
+		}
+		var partValue = $teiNode.getAttribute('part');
 		if (partValue && (partValue === 'F' || partValue === 'M')){
 			nodeAddText($newNode, ' Cont.');
 		}
 		if (partValue) 
 		 	$newNode.setAttribute('wce', '__t=verse_number&partial=' + partValue);
 		else
-			$newNode.setAttribute('wce', '__t=verse_number');*/
-		var $tempParent = $newDoc.createElement('t'); 
+			$newNode.setAttribute('wce', '__t=verse_number');
+		/*var $tempParent = $newDoc.createElement('t'); 
 		var cList = $teiNode.childNodes;
 		for (var i = 0, c, l = cList.length; i < l; i++) {
 			c = cList[i];
@@ -837,7 +837,7 @@ function getHtmlByTei(inputString) {
 			while($tempParent.hasChildNodes()){
 				$newNode.appendChild($tempParent.firstChild);
 			}
-		}
+		}*/
 		
 		if ($teiNode.getAttribute('xml:lang'))
 			addFormatElement($newNode, $teiNode.getAttribute('xml:lang'));
@@ -845,7 +845,7 @@ function getHtmlByTei(inputString) {
 			addFormatElement($newNode);
 		$htmlParent.appendChild($newNode);
 		nodeAddText($htmlParent, ' ');
-		return null;
+		return $htmlParent;
 	};
 
 	/*
@@ -2918,8 +2918,8 @@ function getTeiByHtml(inputString, args) {
 				if (partial_index > -1){// node contains information about partial
 					g_verseNode.setAttribute('part', wceAttrValue.substring(partial_index + 8, partial_index + 9));
 				}
-				if (g_chapterNode)
-					g_chapterNode.appendChild(g_verseNode);
+				if (g_stanzaNode)
+					g_stanzaNode.appendChild(g_verseNode);
 				else
 					$newRoot.appendChild(g_verseNode);
 				g_currentParentNode = g_verseNode;
