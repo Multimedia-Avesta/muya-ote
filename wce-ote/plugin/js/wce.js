@@ -494,30 +494,35 @@ function writeWceNodeInfo(val) {
 }
 
 function readDocInfos() {
+	var transcriber = '';
+	var manID = '';
+	var textID = '';
+	var folID = '';
 	ed = parent.tinymce.activeEditor;
 	var selection = ed.selection.getContent();
 	var $head = ed.dom.getParent(ed.selection.getNode(), 'header');
 	//var $root = ed.dom.getRoot().
 	//var $head = ed.dom.select('$root > header');
-	var child = $head.firstChild;
-	while(child){
-    switch (child.nodeName.toLowerCase()) {
-		case 'trans':
-			var transcriber = child.textContent.replace(new RegExp(/\"/, 'g'), '');
-			break;
-		case 'ms':
-			var manID = child.textContent.replace(new RegExp(/\"/, 'g'), '');
-			break;
-		case 'book':
-			var textID = child.textContent;
-			break;
-		case 'folio':
-			var folID = child.textContent;
-			break;
-    }
-    child = child.nextSibling;
+	if ($head != null) {
+		var child = $head.firstChild;
+		while(child){
+		switch (child.nodeName.toLowerCase()) {
+			case 'trans':
+				transcriber = child.textContent.replace(new RegExp(/\"/, 'g'), '');
+				break;
+			case 'ms':
+				manID = child.textContent.replace(new RegExp(/\"/, 'g'), '');
+				break;
+			case 'book':
+				textID = child.textContent;
+				break;
+			case 'folio':
+				folID = child.textContent;
+				break;
+		}
+		child = child.nextSibling;
+		}
 	}
-
 	return [transcriber,manID,textID,folID];
 }
 

@@ -638,25 +638,26 @@ function getHtmlByTei(inputString) {
 		}
 		//var $t = $newDoc.createTextNode(trans);
 		//$nnewNode.appendChild($t);
-		$newNode.appendChild($nnewNode);
 		nodeAddText($nnewNode, trans);
+		$newNode.appendChild($nnewNode);
 		$htmlParent.appendChild($newNode);
-		return $newNode;
+		return $htmlParent;
 	};	
 	
 	var Tei2Html_msDesc = function($htmlParent, $teiNode) {
 		var $newNode = $newDoc.createElement('ms');
 		var ms = '';
-		for (var i = 0; i < $teiNode.children.length; i++) { 
+		for (var i = 0; i < $teiNode.childNodes.length; i++) { 
 			if ($teiNode.childNodes[i].nodeName == 'msIdentifier') {
 				ms = $teiNode.childNodes[i].childNodes[1].nodeValue;
-			}
+			} 
 		}
+		alert(ms);
 		//var $t = $newDoc.createE(ms);
 		nodeAddText($newNode, ms);
 		//$newNode.appendChild($t);
 		$htmlParent.appendChild($newNode);
-		return $newNode;
+		return $htmlParent;
 	};	
 	
 	/*
