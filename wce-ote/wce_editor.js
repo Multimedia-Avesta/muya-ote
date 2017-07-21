@@ -65,7 +65,7 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 		witness : (getWitness) ? getWitness : "",
 		manuscriptLang : (getWitnessLang) ? getWitnessLang : "",
 		// invalid_elements:'p',
-		plugins : "pagebreak,save,layer,print,fullscreen,wordcount,muyacharmap,autosave,paste,code, noneditable",
+		plugins : "pagebreak,save,layer,print,fullscreen,wordcount,muyacharmap,autosave,paste,code, contextmenu, noneditable",
 		//contextmenu: 'cut copy paste',
 		//charmap_append: [["0256","A - kahako"],["0257","a - kahako"]],
 		//charmap_append: charmap_gu,
@@ -283,8 +283,9 @@ function addMenuItems(ed) {
 
 	console.log('fix context menu');
 	ed.on('contextmenu', function(event) {
-	  return false;
+	  //return false;
 		var ed = $(this)[0];
+		var selectedNode=ed.selection.getNode();
 		var items = contextMenu.items();
 		var menu = new tinymce.ui.Menu({
 			items: contextMenu.items().toArray(),
@@ -293,8 +294,9 @@ function addMenuItems(ed) {
 		}).renderTo();
 	
 		// added my options
-		if (ed.selection.getNode().getAttribute('wce') != null 
-			&& ed.selection.getNode().getAttribute('wce').substring(4, 16) == 'verse_number') {
+		
+		if (selectedNode.getAttribute('wce') != null 
+			&& selectedNode.getAttribute('wce').substring(4, 16) == 'verse_number') {
 			//wceAttr = ed.selection.getNode().getAttribute('wce');
 			menu.add({ text : '|'});
 			menu.add({
@@ -341,10 +343,10 @@ function addMenuItems(ed) {
 				icon : '',
 				cmd : 'mce_palPhli'
 			});*/			
-		} else if (ed.selection.getNode().getAttribute('wce') != null 
-			&& ed.selection.getNode().getAttribute('wce').indexOf('break_type=pb') > -1 
-			&& ed.selection.getNode().textContent.indexOf('PB') > -1) {
-			isPreviousActive = (ed.selection.getNode().getAttribute('wce').indexOf('hasBreak=yes') > -1);
+		} else if (selectedNode.getAttribute('wce') != null 
+			&& selectedNode.getAttribute('wce').indexOf('break_type=pb') > -1 
+			&& selectedNode.textContent.indexOf('PB') > -1) {
+			isPreviousActive = (selectedNode.getAttribute('wce').indexOf('hasBreak=yes') > -1);
 			menu.add({ text : '|'});
 			menu.add({
 				text : tinymce.translate('previous_hyphenation'),
@@ -362,9 +364,9 @@ function addMenuItems(ed) {
 				}
 			});
 			menu.items()[menu.items().length-1].disabled(!isPreviousActive);
-		} else if (ed.selection.getNode().getAttribute('class') != null 
-			&& (ed.selection.getNode().hasClass('lang') 
-			|| (ed.selection.getNode().hasClass('formatting_rubrication')))) {
+		} else if (selectedNode.getAttribute('class') != null 
+			&& ($(selectedNode).hasClass('lang') 
+			|| ($(selectedNode).hasClass('formatting_rubrication')))) {
 			menu.add({
 				text : tinymce.translate('wce.removeLanguage'),
 				icon : '',
@@ -372,11 +374,17 @@ function addMenuItems(ed) {
 					ed.execCommand('mce_remove_language', true);
 				}
 			});
+		}else{		  
+		  //other selection
+		  contextMenu.hide();
+		  return;
 		}
 		menu.renderNew();
 		menu.moveTo($(contextMenu.getEl()).position().left, $(contextMenu.getEl()).position().top);
 		contextMenu.hide();
-	});
+	});//end contextmenu on
+	
+	//
 	ed.addCommand('mce_partialI', function() {
 		ed.selection.getNode().setAttribute('wce', '__t=verse_number' + '&partial=I');
 	});
