@@ -33,7 +33,7 @@
 */
 
 function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, getWitnessLang) {
-	if (myBaseURL && typeof myBaseURL != "undefined" && myBaseURL !== '') {
+	if (myBaseURL && typeof myBaseURL !== "undefined" && myBaseURL !== '') {
 		tinymce.baseURL = myBaseURL;
 		tinymce.baseURI = new tinymce.util.URI(tinymce.baseURL);
 	}
@@ -292,39 +292,42 @@ function addMenuItems(ed) {
 			context: 'newcontextmenu',
 			classes: 'contextmenu'
 		}).renderTo();
+        var type;
 	
 		// added my options
-		
-		if (selectedNode.getAttribute('wce') != null 
-			&& selectedNode.getAttribute('wce').substring(4, 16) == 'verse_number') {
-			//wceAttr = ed.selection.getNode().getAttribute('wce');
+		type = selectedNode.getAttribute('wce').substring(4,17);
+        if (selectedNode.getAttribute('wce') != null
+			&& (type.substring(0, type.length-1) == 'verse_number' || type == 'stanza_number')) {
+			if (type.substr(-1) == "_") {
+                type = "verse";
+            } // else it is stanza
 			menu.add({ text : '|'});
 			menu.add({
 				text : tinymce.translate('initial_portion'),
 				icon : '',
 				onclick : function() {
-					ed.execCommand('mce_partialI');
+					ed.execCommand('mce_partialI', type);
 				}
 			});
 			menu.add({
 				text : tinymce.translate('medial_portion'),
 				icon : '',
 				onclick : function() {
-					ed.execCommand('mce_partialM');
+					ed.execCommand('mce_partialM', type);
 				}
 			});
 			menu.add({
 				text : tinymce.translate('final_portion'),
 				icon : '',
 				onclick : function() {
-					ed.execCommand('mce_partialF');
+					ed.execCommand('mce_partialF', type);
 				}
 			});
 			menu.add({
-				text : tinymce.translate('remove_partial'),
+				text : tinymce.translate('remove_partial', type),
 				icon : '',
 				onclick : function() {
-					ed.execCommand('mce_partial_remove');
+					ed.execCommand('mce_partial_remove', type);
 				}
 			});
 		/*menu.addSeparator();
@@ -374,7 +377,7 @@ function addMenuItems(ed) {
 					ed.execCommand('mce_remove_language', true);
 				}
 			});
-		}else{		  
+		} else{
 		  //other selection
 		  contextMenu.hide();
 		  return;
@@ -385,17 +388,17 @@ function addMenuItems(ed) {
 	});//end contextmenu on
 	
 	//
-	ed.addCommand('mce_partialI', function() {
-		ed.selection.getNode().setAttribute('wce', '__t=verse_number' + '&partial=I');
+	ed.addCommand('mce_partialI', function(type) {
+		ed.selection.getNode().setAttribute('wce', '__t=' + type + '_number' + '&partial=I');
 	});
-	ed.addCommand('mce_partialM', function() {
-		ed.selection.getNode().setAttribute('wce', '__t=verse_number' + '&partial=M');
+	ed.addCommand('mce_partialM', function(type) {
+		ed.selection.getNode().setAttribute('wce', '__t=' + type + '_number' + '&partial=M');
 	});
-	ed.addCommand('mce_partialF', function() {
-		ed.selection.getNode().setAttribute('wce', '__t=verse_number' + '&partial=F');
+	ed.addCommand('mce_partialF', function(type) {
+		ed.selection.getNode().setAttribute('wce', '__t=' + type + '_number' + '&partial=F');
 	});
-	ed.addCommand('mce_partial_remove', function() {
-		ed.selection.getNode().setAttribute('wce', '__t=verse_number');
+	ed.addCommand('mce_partial_remove', function(type) {
+		ed.selection.getNode().setAttribute('wce', '__t=' + type + '_number');
 	});
 	ed.addCommand('mce_remove_language', function() {
 		ed.execCommand('wceDelNode', true, true);

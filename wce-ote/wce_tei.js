@@ -738,8 +738,7 @@ function getHtmlByTei(inputString) {
 			}
 		} else if (divType == 'stanza') {
 			var $newNode = $newDoc.createElement('span');
-			$newNode.setAttribute('class', 'stanza_number');
-			$newNode.setAttribute('wce', '__t=stanza_number');
+			$newNode.setAttribute('class', 'stanza_number mceNonEditable');
 			var nValue = $teiNode.getAttribute('n');
 			// BXXK(Y)Y
 			if (nValue && nValue != '') {
@@ -759,6 +758,14 @@ function getHtmlByTei(inputString) {
 					nodeAddText($newNode, g_stanzaNumber);
 				//}
 			}
+            var partValue = $teiNode.getAttribute('part');
+		      if (partValue && (partValue === 'F' || partValue === 'M')){
+			     nodeAddText($newNode, ' Cont.');
+		      }
+		      if (partValue)
+		 	    $newNode.setAttribute('wce', '__t=stanza_number&partial=' + partValue);
+		      else
+			     $newNode.setAttribute('wce', '__t=stanza_number');
 		} else { //incipit or explicit
 			var $newNode = $newDoc.createElement('span');
 			$newNode.setAttribute('class', 'chapter_number mceNonEditable');
@@ -2932,23 +2939,29 @@ function getTeiByHtml(inputString, args) {
 			note = 0; //reset note counter
 			return null;
 		} else if (wceAttrValue != null && wceAttrValue.match(/stanza_number/)) {
-			var textNode = $htmlNode.firstChild;
+			var partial_index = -1;
+            if (wceAttrValue)
+				partial_index = wceAttrValue.indexOf('partial');
+            var textNode = $htmlNode.firstChild;
 			if (textNode) {
 			    textNode=textNode.firstChild;
 				g_stanzaNumber = textNode.nodeValue;
 				g_stanzaNumber = $.trim(g_stanzaNumber);
-					old_chapterNumber = g_chapterNumber;
-					g_stanzaNode = $newDoc.createElement('div');
-					g_stanzaNode.setAttribute('type', 'stanza');
-					g_stanzaNode.setAttribute('xml:id', g_bookNumber + g_chapterNumber + "." + g_stanzaNumber);
-					g_stanzaNode.setAttribute('n', g_stanzaNumber);
-					if (g_chapterNode)
-						g_chapterNode.appendChild(g_stanzaNode);
-					//else if (g_bookNode)
-					//	g_bookNode.appendChild(g_stanzaNode);
-					else
-						$newRoot.appendChild(g_stanzaNode);
-					g_currentParentNode = g_stanzaNode;
+				old_chapterNumber = g_chapterNumber;
+				g_stanzaNode = $newDoc.createElement('div');
+				g_stanzaNode.setAttribute('type', 'stanza');
+				g_stanzaNode.setAttribute('xml:id', g_bookNumber + g_chapterNumber + "." + g_stanzaNumber);
+				g_stanzaNode.setAttribute('n', g_stanzaNumber);
+                if (partial_index > -1){// node contains information about partial
+					g_stanzaNode.setAttribute('part', wceAttrValue.substring(partial_index + 8, partial_index + 9));
+				}
+				if (g_chapterNode)
+					g_chapterNode.appendChild(g_stanzaNode);
+				//else if (g_bookNode)
+				//	g_bookNode.appendChild(g_stanzaNode);
+				else
+					$newRoot.appendChild(g_stanzaNode);
+				g_currentParentNode = g_stanzaNode;
 			}
 			return null;
 		} else if (wceAttrValue != null && wceAttrValue.match(/chapter_number/)) {

@@ -32,8 +32,8 @@
     Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
 */
 
-(function() {
-	var wfce_editor = "0.5.4beta (2017-07-21)";
+(function () {
+	var wfce_editor = "0.5.5beta (2017-07-25)";
 
 	// Load plugin specific language pack
 	tinymce.PluginManager.requireLangPack('wce');
@@ -80,7 +80,7 @@
 		/*
 		 *
 		 */
-		setBreakCounterByContent : function(ed, content) {
+		setBreakCounterByContent : function (ed, content) {
 			var v = ed.WCE_VAR;
 			if (!v)
 				return false;
@@ -110,7 +110,7 @@
 		/**
 		 * compare current value and n, use large number
 		 */
-		updateBreakCounter : function(ed, bt, n) {
+		updateBreakCounter : function (ed, bt, n) {
 			// First reset counters
 			var c = ed.WCE_VAR;
 
@@ -138,18 +138,18 @@
 		addToCounter : function(ed, bt, n) {
 			var c = ed.WCE_VAR;
 			switch (bt) {
-				case 'gb':
-					c.qcnt = parseInt(c.qcnt) + parseInt(n);
-					break;
-				case 'pb':
-					c.pcnt = parseInt(c.pcnt) + parseInt(n);
-					break;
-				/*case 'cb':
-					c.ccnt = parseInt(c.ccnt) + parseInt(n);
-					break;*/
-				case 'lb':
-					c.lcnt = parseInt(c.lcnt) + parseInt(n);
-					break;
+            case 'gb':
+				c.qcnt = parseInt(c.qcnt) + parseInt(n);
+				break;
+			case 'pb':
+				c.pcnt = parseInt(c.pcnt) + parseInt(n);
+				break;
+			/*case 'cb':
+				c.ccnt = parseInt(c.ccnt) + parseInt(n);
+				break;*/
+			case 'lb':
+				c.lcnt = parseInt(c.lcnt) + parseInt(n);
+				break;
 			}
 		},
 
@@ -2166,8 +2166,17 @@
 							info_text += '</div>';
 							break;
 						case 'stanza':
-							info_text = '<div>' + 'Stanza number' + '</div>';
-							break;
+							info_text = '<div>' + 'Stanza number';
+							if (ar['partial']) {
+								if (ar['partial'] == 'I')
+									info_text += ' (initial portion)';
+								else if (ar['partial'] == 'M')
+									info_text += ' (medial portion)';
+								else if (ar['partial'] == 'F')
+									info_text += ' (final portion)';
+							}
+							info_text += '</div>';
+                            break;
 						case 'chapter':
 							info_text = '<div>' + 'Chapter number' + '</div>';
 							break;

@@ -32,685 +32,549 @@
     Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
 */
 
-@font-face{
-	font-family: "TITUS Cyberbit Basic";
-	src: local('TITUS Cyberbit Basic'), local('TITUS Cyberbit Basic'),
-	url(fonts/TITUSCBZ.TTF) format('truetype');
+@font-face {
+    font-family: "TITUS Cyberbit Basic";
+    src: local('TITUS Cyberbit Basic'), local('TITUS Cyberbit Basic'), url(fonts/TITUSCBZ.TTF) format('truetype');
 }
 
-@font-face{
-	font-family: Avesta;
-	src: local('avesta.org transcription'), local('avesta.org transcription'),
-	url(fonts/avesta.orgtranscription.otf) format('opentype');
+@font-face {
+    font-family: Avesta;
+    src: local('avesta.org transcription'), local('avesta.org transcription'), url(fonts/avesta.orgtranscription.otf) format('opentype');
 }
 
-@font-face{
-	font-family: ave_bl_l4;
-	src: local('ave_bl_l4'), local('ave_bl_l4'),
-	url(fonts/ave_bl_l4.otf) format('opentype');
+@font-face {
+    font-family: ave_bl_l4;
+    src: local('ave_bl_l4'), local('ave_bl_l4'), url(fonts/ave_bl_l4.otf) format('opentype');
 }
 
-@font-face{
-	font-family: GentiumPlus;
-	src: url(fonts/GentiumPlus-R.woff) format('woff');
-		/* should work for all recent browsers */
-	font-style: normal;
+@font-face {
+    font-family: GentiumPlus;
+    src: url(fonts/GentiumPlus-R.woff) format('woff');
+    /* should work for all recent browsers */
+    font-style: normal;
 }
 
-@font-face{
-	font-family: GentiumPlus;
-	src: url(fonts/GentiumPlus-I.woff) format('woff');
-	font-style: italic;
+@font-face {
+    font-family: GentiumPlus;
+    src: url(fonts/GentiumPlus-I.woff) format('woff');
+    font-style: italic;
 }
 
-body, td, pre {
-	color:#000;
-	 font-size:24px;
-	 margin:8px;
-	 line-height:48px;
-	 font-family: Avesta,"Times New Roman",Times,"TITUS Cyberbit Basic",Avesta,GentiumPlus;
+body,
+td,
+pre {
+    color: #000;
+    font-size: 24px;
+    margin: 8px;
+    line-height: 48px;
+    font-family: Avesta, "Times New Roman", Times, "TITUS Cyberbit Basic", Avesta, GentiumPlus;
 }
 
 .mce-container {
-	 font-family: Avesta,"Times New Roman",Times,"TITUS Cyberbit Basic",Avesta,GentiumPlus;
+    font-family: Avesta, "Times New Roman", Times, "TITUS Cyberbit Basic", Avesta, GentiumPlus;
 }
 
 body {
-	background-color:#FFE6BB;
+    background-color: #FFE6BB;
 }
-
 
 body.mceForceColors {
-	background:#FFF;
-	 color:#000;
+    background: #FFF;
+    color: #000;
 }
-
 
 body.mceBrowserDefaults {
-	background:transparent;
-	 color:inherit;
-	 font-size:inherit;
-	 font-family:inherit;
+    background: transparent;
+    color: inherit;
+    font-size: inherit;
+    font-family: inherit;
 }
-
 
 h1 {
-	font-size: 2em
+    font-size: 2em
 }
-
 
 h2 {
-	font-size: 1.5em
+    font-size: 1.5em
 }
-
 
 h3 {
-	font-size: 1.17em
+    font-size: 1.17em
 }
-
 
 h4 {
-	font-size: 1em
+    font-size: 1em
 }
-
 
 h5 {
-	font-size: .83em
+    font-size: .83em
 }
-
 
 h6 {
-	font-size: .75em
+    font-size: .75em
 }
 
-
-.mceItemTable, .mceItemTable td, .mceItemTable th, .mceItemTable caption, .mceItemVisualAid {
-	border: 1px dashed #BBB;
+.mceItemTable,
+.mceItemTable td,
+.mceItemTable th,
+.mceItemTable caption,
+.mceItemVisualAid {
+    border: 1px dashed #BBB;
 }
-
 
 a.mceItemAnchor {
-	display:inline-block;
-	 -webkit-user-select:all;
-	 -webkit-user-modify:read-only;
-	 -moz-user-select:all;
-	 -moz-user-modify:read-only;
-	 width:11px !important;
-	 height:11px !important;
-	 background:url(img/items.gif) no-repeat center center
+    display: inline-block;
+    -webkit-user-select: all;
+    -webkit-user-modify: read-only;
+    -moz-user-select: all;
+    -moz-user-modify: read-only;
+    width: 11px !important;
+    height: 11px !important;
+    background: url(img/items.gif) no-repeat center center
 }
-
 
 span.mceItemNbsp {
-	background: #DDD
+    background: #DDD
 }
 
-
-td.mceSelected, th.mceSelected {
-	background-color:#3399ff !important
+td.mceSelected,
+th.mceSelected {
+    background-color: #3399ff !important
 }
-
 
 img {
-	border:0;
+    border: 0;
 }
 
-
-table, img, hr, .mceItemAnchor {
-	cursor:default
+table,
+img,
+hr,
+.mceItemAnchor {
+    cursor: default
 }
 
-
-table td, table th {
-	cursor:text
+table td,
+table th {
+    cursor: text
 }
-
 
 ins {
-	border-bottom:1px solid green;
-	 text-decoration: none;
-	 color:green
+    border-bottom: 1px solid green;
+    text-decoration: none;
+    color: green
 }
-
 
 del {
-	color:red;
-	 text-decoration:line-through
+    color: red;
+    text-decoration: line-through
 }
-
 
 cite {
-	border-bottom:1px dashed blue
+    border-bottom: 1px dashed blue
 }
-
 
 acronym {
-	border-bottom:1px dotted #CCC;
-	 cursor:help
+    border-bottom: 1px dotted #CCC;
+    cursor: help
 }
-
 
 abbr {
-	border-bottom:1px dashed #CCC;
-	 cursor:help
+    border-bottom: 1px dashed #CCC;
+    cursor: help
 }
-
 
 
 /* IE */
+
 * html body {
-	
-scrollbar-3dlight-color:#F0F0EE;
-	
-scrollbar-arrow-color:#676662;
-	
-scrollbar-base-color:#F0F0EE;
-	
-scrollbar-darkshadow-color:#DDD;
-	
-scrollbar-face-color:#E0E0DD;
-	
-scrollbar-highlight-color:#F0F0EE;
-	
-scrollbar-shadow-color:#F0F0EE;
-	
-scrollbar-track-color:#F5F5F5;
-	
-
+    scrollbar-3dlight-color: #F0F0EE;
+    scrollbar-arrow-color: #676662;
+    scrollbar-base-color: #F0F0EE;
+    scrollbar-darkshadow-color: #DDD;
+    scrollbar-face-color: #E0E0DD;
+    scrollbar-highlight-color: #F0F0EE;
+    scrollbar-shadow-color: #F0F0EE;
+    scrollbar-track-color: #F5F5F5;
 }
-
-
 
 img:-moz-broken {
-	-moz-force-broken-image-icon:1;
-	 width:24px;
-	 height:24px
+    -moz-force-broken-image-icon: 1;
+    width: 24px;
+    height: 24px
 }
-
 
 font[face=mceinline] {
-	font-family:inherit !important
+    font-family: inherit !important
 }
-
 
 *[contentEditable]:focus {
-	outline:0
+    outline: 0
 }
-
-
 
 .mceItemMedia {
-	border:1px dotted #cc0000;
-	 background-position:center;
-	 background-repeat:no-repeat;
-	 background-color:#ffffcc
+    border: 1px dotted #cc0000;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #ffffcc
 }
-
 
 .mceItemShockWave {
-	background-image:url(../../img/shockwave.gif)
+    background-image: url(../../img/shockwave.gif)
 }
-
 
 .mceItemFlash {
-	background-image:url(../../img/flash.gif)
+    background-image: url(../../img/flash.gif)
 }
-
 
 .mceItemQuickTime {
-	background-image:url(../../img/quicktime.gif)
+    background-image: url(../../img/quicktime.gif)
 }
-
 
 .mceItemWindowsMedia {
-	background-image:url(../../img/windowsmedia.gif)
+    background-image: url(../../img/windowsmedia.gif)
 }
-
 
 .mceItemRealMedia {
-	background-image:url(../../img/realmedia.gif)
+    background-image: url(../../img/realmedia.gif)
 }
-
 
 .mceItemVideo {
-	background-image:url(../../img/video.gif)
+    background-image: url(../../img/video.gif)
 }
-
 
 .mceItemAudio {
-	background-image:url(../../img/video.gif)
+    background-image: url(../../img/video.gif)
 }
-
 
 .mceItemEmbeddedAudio {
-	background-image:url(../../img/video.gif)
+    background-image: url(../../img/video.gif)
 }
-
 
 .mceItemIframe {
-	background-image:url(../../img/iframe.gif)
+    background-image: url(../../img/iframe.gif)
 }
-
 
 .mcePageBreak {
-	display:block;
-	border:0;
-	width:100%;
-	height:12px;
-	border-top:1px dotted #ccc;
-	margin-top:15px;
-	background:#fff url(../../img/pagebreak.gif) no-repeat center top;
+    display: block;
+    border: 0;
+    width: 100%;
+    height: 12px;
+    border-top: 1px dotted #ccc;
+    margin-top: 15px;
+    background: #fff url(../../img/pagebreak.gif) no-repeat center top;
 }
 
-span.book_number{
-	color:darkviolet;
-	font-size:36px;
+span.book_number {
+    color: darkviolet;
+    font-size: 36px;
 }
 
 span.stanza_number {
-	color:blue;
-	font-size:24px;
+    color: blue;
+    font-size: 24px;
 }
 
 span.verse_number {
-	color:gray;
+    color: gray;
 }
 
 span.verse_number[wce="__t=verse_number&lang=pal-Phlv"] {
-	color:green;
+    color: green;
 }
 
 span.verse_number[wce="__t=verse_number&lang=pal-Avst"] {
-	color:red;
+    color: red;
 }
 
 span.verse_number[wce="__t=verse_number&lang=pal-Phli"] {
-	color:blue;
-}
- 
-span.chapter_number{
-	color:dimgray;
-	font-size:36px;
+    color: blue;
 }
 
-span.lection_number{
-	color:blue;
-	font-size:36px;
+span.chapter_number {
+    color: dimgray;
+    font-size: 36px;
 }
 
-span.format_start[language="pal-Avst"], span.format_start[language="ae-Avst"], span.format_start[language="ae-Phlv"] {
-	color:green;
-	background-color:green;
+span.lection_number {
+    color: blue;
+    font-size: 36px;
 }
 
-span.format_start[language="pal-Phli"], span.format_start[language="pal-Phlv"] {
-	color:purple;
-	background-color:purple;
+span.format_start[language="pal-Avst"],
+span.format_start[language="ae-Avst"],
+span.format_start[language="ae-Phlv"] {
+    color: green;
+    background-color: green;
+}
+
+span.format_start[language="pal-Phli"],
+span.format_start[language="pal-Phlv"] {
+    color: purple;
+    background-color: purple;
 }
 
 span.format_start[language="gu"] {
-	color:red;
-	background-color:red;
+    color: red;
+    background-color: red;
 }
 
-span.format_start[language="fa"] , span.format_start[language="prs"]{
-	color:yellow;
-	background-color:yellow;
+span.format_start[language="fa"],
+span.format_start[language="prs"] {
+    color: yellow;
+    background-color: yellow;
 }
 
 span.format_start[language="sa"] {
-	color:blue;
-	background-color:blue;
+    color: blue;
+    background-color: blue;
 }
 
-
-span.format_end[language="pal-Avst"], span.format_end[language="ae-Avst"], span.format_end[language="ae-Phlv"]  {
-	color:green;
-	background-color:green;
+span.format_end[language="pal-Avst"],
+span.format_end[language="ae-Avst"],
+span.format_end[language="ae-Phlv"] {
+    color: green;
+    background-color: green;
 }
 
-span.format_end[language="pal-Phli"] , span.format_end[language="pal-Phlv"]{
-	color:purple;
-	background-color:purple;
+span.format_end[language="pal-Phli"],
+span.format_end[language="pal-Phlv"] {
+    color: purple;
+    background-color: purple;
 }
 
 span.format_end[language="gu"] {
-	color:red;
-	background-color:red;
+    color: red;
+    background-color: red;
 }
 
-span.format_end[language="fa"] , span.format_end[language="prs"] {
-	color:yellow;
-	background-color:yellow;
+span.format_end[language="fa"],
+span.format_end[language="prs"] {
+    color: yellow;
+    background-color: yellow;
 }
 
 span.format_end[language="sa"] {
-	color:blue;
-	background-color:blue;
+    color: blue;
+    background-color: blue;
 }
 
-span.format_start, span.format_end {
-	color:#d8d8d8;
-	background-color:#d8d8d8;
-}
- 
-span.pc, span.abbr, span.abbr_add_overline, span.part_abbr, span.supplied, span.spaces {
-	border: 1px dotted #f00;
-	margin:0px 0px 0px 1px;
-	padding:0 
+span.format_start,
+span.format_end {
+    color: #d8d8d8;
+    background-color: #d8d8d8;
 }
 
-span.abbr_add_overline{
-	text-decoration:overline
+span.pc,
+span.abbr,
+span.abbr_add_overline,
+span.part_abbr,
+span.supplied,
+span.spaces {
+    border: 1px dotted #f00;
+    margin: 0px 0px 0px 1px;
+    padding: 0
 }
 
-span.brea{
-	border: 1px  dotted #f00;
-	margin:0px 0px 0px 1px;
-	padding:0;
-	color:#666 
+span.abbr_add_overline {
+    text-decoration: overline
 }
 
-
-
-span.unclear{
-	
-	border: 1px dotted #f00;
-	 
-	margin:0px 0px 0px 1px;
-	 
-	padding: 0 
-
+span.brea {
+    border: 1px dotted #f00;
+    margin: 0px 0px 0px 1px;
+    padding: 0;
+    color: #666
 }
 
-
-
-span.witnessend{
-	
-	border: 1px  dotted #f00;
-	  
-	margin:0px 0px 0px 1px;
-	 
-	padding:0;
-	 
-	color:#666
-
+span.unclear {
+    border: 1px dotted #f00;
+    margin: 0px 0px 0px 1px;
+    padding: 0
 }
 
-
-
-span.gap{
-	
-	border: 1px  dotted #f00;
-	 
-	margin:0px 0px 0px 1px;
-	 
-	padding:0;
-	
-	color:red
-
+span.witnessend {
+    border: 1px dotted #f00;
+    margin: 0px 0px 0px 1px;
+    padding: 0;
+    color: #666
 }
 
-
-
-span.corr, span.corr_blank_firsthand{
-	
-	border: 1px  dotted #f00;
-	 
-	margin:0px 0px 0px 1px;
-	 
-	padding:0;
-	
-	color: blue;
-	
-
+span.gap {
+    border: 1px dotted #f00;
+    margin: 0px 0px 0px 1px;
+    padding: 0;
+    color: red
 }
 
-
-
-span.corr_blank_firsthand{
-	 
-	vertical-align:super;
-	
-	font-size:10px;
-	
-
+span.corr,
+span.corr_blank_firsthand {
+    border: 1px dotted #f00;
+    margin: 0px 0px 0px 1px;
+    padding: 0;
+    color: blue;
 }
 
-
-
-span.note{
-	
-	border: 1px  dotted #f00;
-	 
-	margin:0px 0px 0px 1px;
-	  
-	padding:0;
-	
-	vertical-align:super;
-	 
-	color:blue;
-	 
-	font-size:12px;
-	 
-	margin-right:2px
-
+span.corr_blank_firsthand {
+    vertical-align: super;
+    font-size: 10px;
 }
 
-
-
-span.paratext{
-	
-	border: 1px  dotted #f00;
-	 
-	margin:0px 0px 0px 1px;
-	 
-	padding: 0;
-	
-	color:#666
-
+span.note {
+    border: 1px dotted #f00;
+    margin: 0px 0px 0px 1px;
+    padding: 0;
+    vertical-align: super;
+    color: blue;
+    font-size: 12px;
+    margin-right: 2px
 }
 
-
-
-span.commentary{
-	
-	font-style: italic;
-	
-
+span.paratext {
+    border: 1px dotted #f00;
+    margin: 0px 0px 0px 1px;
+    padding: 0;
+    color: #666
 }
 
-
-
-span.ews{
-	
-	font-style: italic;
-	
-
+span.commentary {
+    font-style: italic;
 }
 
-
-
-span.spaces{
-	
-	border: 1px  dotted #f00;
-	 
-	margin: 0px 0px 0px 1px;
-	 
-	padding: 0;
-	
-	color:#666
-
+span.ews {
+    font-style: italic;
 }
 
+span.spaces {
+    border: 1px dotted #f00;
+    margin: 0px 0px 0px 1px;
+    padding: 0;
+    color: #666
+}
 
 
 /*start: formatting group*/
-span.formatting_rubrication,span.formatting_gold,span.formatting_blue,span.formatting_green,span.formatting_yellow,
-span.formatting_other, span.formatting_overline, span.formatting_capitals, span.formatting_displaced-above, span.formatting_displaced-below,
-span.formatting_displaced-other, span.formatting_ornamentation_other, span.formatting_subscript, span.formatting_superscript {
-	border: 1px  dotted #f00;
-	margin:0px 0px 0px 1px;
-	padding:0
+
+span.formatting_rubrication,
+span.formatting_gold,
+span.formatting_blue,
+span.formatting_green,
+span.formatting_yellow,
+span.formatting_other,
+span.formatting_overline,
+span.formatting_capitals,
+span.formatting_displaced-above,
+span.formatting_displaced-below,
+span.formatting_displaced-other,
+span.formatting_ornamentation_other,
+span.formatting_subscript,
+span.formatting_superscript {
+    border: 1px dotted #f00;
+    margin: 0px 0px 0px 1px;
+    padding: 0
 }
 
-span.formatting_rubrication{
-	color: darkred;
+span.formatting_rubrication {
+    color: darkred;
 }
 
-span.formatting_gold{
-	color: gold;
+span.formatting_gold {
+    color: gold;
 }
 
-span.formatting_blue{
-	color: blue;
+span.formatting_blue {
+    color: blue;
 }
 
-span.formatting_green{
-	color: green;
+span.formatting_green {
+    color: green;
 }
 
-span.formatting_yellow{
-	color: yellow;
+span.formatting_yellow {
+    color: yellow;
 }
 
-span.formatting_other{
-	color: black;
+span.formatting_other {
+    color: black;
 }
 
-span.formatting_ornamentation_other{
-	color: black;
+span.formatting_ornamentation_other {
+    color: black;
 }
 
-span.formatting_overline{
-	text-decoration: overline;
+span.formatting_overline {
+    text-decoration: overline;
 }
 
-span.formatting_capitals{
-	width: .75em;
-	font-size: 48px;
-	line-height: 24px;
+span.formatting_capitals {
+    width: .75em;
+    font-size: 48px;
+    line-height: 24px;
 }
 
-span.formatting_subscript{
-	font-size: .83em;
-	vertical-align: sub;
+span.formatting_subscript {
+    font-size: .83em;
+    vertical-align: sub;
 }
 
-span.formatting_superscript{
-	font-size: .83em;
-	vertical-align: super;
+span.formatting_superscript {
+    font-size: .83em;
+    vertical-align: super;
 }
 
-/*end: formatting group*/ 
+
+/*end: formatting group*/
+
+
 /*+++++++*/
 
-span[class*='wce_break_page']{
-	
-	display: block;
-	
-	padding: 0;
-	
-	margin: 0;
-	
-	text-align: center;
-	
-
+span[class*='wce_break_page'] {
+    display: block;
+    padding: 0;
+    margin: 0;
+    text-align: center;
 }
 
-
-
-span[class*='wce_paratext_incipit']{
-	
-	display: block;
-	
-	padding: 0;
-	
-	margin: 0;
-	
-	text-align: center;
-	
-	font-weight: bold;
-	 
-
+span[class*='wce_paratext_incipit'] {
+    display: block;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    font-weight: bold;
 }
 
-
-
-span[class*='wce_paratext_num_chapnum']{
-	
-	color: purple;
-	
-
+span[class*='wce_paratext_num_chapnum'] {
+    color: purple;
 }
 
-
-
-span[class*='wce_paratext_num_ammsec']{
-	
-	color: green;
-	
-
+span[class*='wce_paratext_num_ammsec'] {
+    color: green;
 }
 
-
-
-span[class*='wce_supplied_source']{
-	
-	color: red;
-	
-
+span[class*='wce_supplied_source'] {
+    color: red;
 }
 
- 
-
-span[class*='wce_abbr_nomenSacrum_Overline']{
-	
-	text-decoration: overline;
-	
-
+span[class*='wce_abbr_nomenSacrum_Overline'] {
+    text-decoration: overline;
 }
 
-
-
-span[class*='wce_abbr_numeral_Overline']{
-	
-	text-decoration: overline;
-	
-
+span[class*='wce_abbr_numeral_Overline'] {
+    text-decoration: overline;
 }
-
-
-
 
 .rubrication {
-	
-color : red;
-	
-
+    color: red;
 }
-
- 
 
 .xbtooltip {
-	
     display: none;
-	
-	width: 150px;
-	
+    width: 150px;
     background-color: yellow;
-	
     color: #000;
-	
     border: 1px solid red;
-	
     padding: 3px;
-	
-
 }
 
-
-
 .mceHideBrInPre pre br {
-	display: none
+    display: none
 }
