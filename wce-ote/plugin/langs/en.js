@@ -1,6 +1,6 @@
-/* 
+/*
 	Copyright (C) 2012-2017 Center for Digital Humanities, Trier
-	
+
 	This file is part of the Online Transcription Editor (OTE).
 
     OTE is free software: you can redistribute it and/or modify
@@ -32,7 +32,7 @@
     Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
 */
 
-tinymce.addI18n('en',{
+tinymce.addI18n('en', {
 	language : "Language",
 	note_desc : "Add note",
 	note_edit_desc : "Edit note",
@@ -132,7 +132,7 @@ tinymce.addI18n('en',{
 	corr_partial_complete : "Complete",
 	unidentified_corrector : "(Unidentified) corrector",
 	editorial_note: "Editorial Note",
-	corr_not_applicable : "Not applicable", 
+	corr_not_applicable : "Not applicable",
 	deletion : "Method of deletion",
 	del_erased : "Erased",
 	del_underline : "Underline",
@@ -152,7 +152,6 @@ tinymce.addI18n('en',{
 	witnessEnd : "Witness End",
 	info_lacuna_illegible : 'Please note, that this category was introduced only for existing transcriptions.\nYou should always try to assign "Lacuna" or "Illegible".',
 	space : "Blank spaces",
-	other : "Other",
 	othertype : "User-defined type",
 	reason : "Reason",
 	unit : "Unit",
@@ -186,8 +185,8 @@ tinymce.addI18n('en',{
 	charmap_all : "All glyphs",
 	charmap_interpunction_signs_only : "Interpunction only",
 	charmap_default_only : "Default only",
-	unclear_text_info : "Please specify the uncertain letters" ,
-	unclear_text_data : "Information about the uncertain letters" ,
+	unclear_text_info : "Please specify the uncertain letters",
+	unclear_text_data : "Information about the uncertain letters",
 	poor_image : "Poor image",
 	faded_ink : "Faded ink",
 	damage_to_page : "Damage to page",
@@ -402,11 +401,12 @@ tinymce.addI18n('en',{
 	ritual : 'Ritual direction',
 	translation : 'Translation',
 	section : 'Section heading; dedication',
-	removeLanguage : 'Remove language information',
+	untransPahlavi : 'Untranscribed Pahlavi text',
+    removeLanguage : 'Remove language information',
 	language_title : 'Please specify the language',
 	manID : 'Manuscript ID',
 	textID : 'Text ID',
 	folioID : 'Folio ID',
 	docinfo_label : 'Document information',
-	docinfo_text : 'TEST',
+	docinfo_text : 'TEST'
 });

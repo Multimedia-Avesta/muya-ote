@@ -1,6 +1,6 @@
-/*  
+/*
 	Copyright (C) 2012-2017 Trier Center for Digital Humanities, Trier (Germany)
-	
+
 	This file is part of the Online Transcription Editor (OTE).
 
     OTE is free software: you can redistribute it and/or modify
@@ -136,11 +136,11 @@ function writeWceNodeInfo(val) {
 		info_arr = [];
 		info_arr[0] = formSerialize();
 	}
-	
+
 	var newWceAttr = arrayToString(info_arr);
 	if (wce_type != 'note' || other_info_str != '@__t=verse_number') //exception
 		newWceAttr += other_info_str;
-	
+
 	var wceID = '';
 
 	if (wce_node != null && newWceAttr == '') {
@@ -155,7 +155,7 @@ function writeWceNodeInfo(val) {
 		parent.tinymce.activeEditor.windowManager.close();
 		return;
 	}
-	
+
 	var startFormatHtml = ed.WCE_CON.startFormatHtml;
 	var endFormatHtml = ed.WCE_CON.endFormatHtml;
 
@@ -176,10 +176,10 @@ function writeWceNodeInfo(val) {
 				var gap_text = "";
 				var gap_unit;
 				var gap_extent;
-				var gap_id; 
+				var gap_id;
 				if (document.getElementById('mark_as_supplied').checked == true) {// supplied text
 					gap_text = '[' + selected_content + ']';
-					//test if in node abbr with overline 
+					//test if in node abbr with overline
 					var gap_parent=wce_node;
 					var gap_parent_name;
 					while(gap_parent){
@@ -318,11 +318,12 @@ function writeWceNodeInfo(val) {
 				//only for formatting_capitals needed
 				wceClass = ' class="formatting_capitals"';
 				break;
-				
-			case 'formatting_ornamentation_other': 
+
+			case 'formatting_ornamentation_other':
 				wceClass = ' class="formatting_ornamentation_other"';
 				break;
-			case 'lang': 
+			case 'lang':
+                var covertext = '';
 				/*var langID = '';
 				if (document.getElementById('language_name').value.indexOf("Avst") > -1)
 					langID = 'A';
@@ -330,18 +331,27 @@ function writeWceNodeInfo(val) {
 					langID = 'P';
 				else if (document.getElementById('language_name').value.indexOf("gu") > -1)
 					langID = 'G';
-				else if (document.getElementById('language_name').value.indexOf("fa") > -1 
+				else if (document.getElementById('language_name').value.indexOf("fa") > -1
 							|| document.getElementById('language_name').value.indexOf("per") > -1)
 					langID = 'PER';
 				else if (document.getElementById('language_name').value.indexOf("sa") > -1)
 					langID = 'S';
 				else
 					langID = 'O';*/
-				if (document.getElementById('reason_for_language_change').value == 'ritual' && document.getElementById('color').value == 'red') 
+				if (document.getElementById('reason_for_language_change').value == 'ritual' && document.getElementById('color').value == 'red') {
 					new_content = '<span wce="' + newWceAttr + '"' + wceClass + '>' + '<span class="format_start" language="' + document.getElementById('language_name').value + '">' + '\u2039' + '</span>' + '<span class="formatting_rubrication" wce_orig="' + encodeURI(selected_content) + '" wce="__t=formatting_rubrication">' + selected_content + '</span>' + '<span class="format_end" language="' + document.getElementById('language_name').value + '">' + '\u203a' + '</span>' + '</span>';
-				else
-					new_content = '<span wce="' + newWceAttr + '"' + wceClass + '>' + '<span class="format_start" language="' + document.getElementById('language_name').value + '">' + '\u2039' + '</span>' + selected_content + '<span class="format_end" language="' + document.getElementById('language_name').value + '">' + '\u203a' + '</span>' + '</span>';
-				break;
+                } else if (document.getElementById('reason_for_language_change').value == 'untransPahlavi') {
+                    new_content = '<span wce="' + newWceAttr + '"' + wceClass + '>' + '<span class="languagechange" language="' + document.getElementById('language_name').value + '">' + '\u2039' + '</span>';
+                    covertext = 'Untranscribed Pahlavi text';
+                    for (var i = 0; i < document.getElementById('number_of_lines').value; i++) {
+                        covertext += startFormatHtml + '<br/>&crarr;' + endFormatHtml + 'Untranscribed Pahlavi text';
+                    }
+                    new_content += '<span class=editortext>' + covertext + '</span>';
+                    new_content += '<span class="languagechange" language="ae-Avst">\u2039</span> '
+                } else {
+					new_content = '<span wce="' + newWceAttr + '"' + wceClass + '>' + '<span class="languagechange" language="' + document.getElementById('language_name').value + '">' + '</span>';
+                }
+                break;
 			default:
 				break;
 
@@ -356,10 +366,10 @@ function writeWceNodeInfo(val) {
 		//ed.selection.select(marker, false);
 
 		//Fixed: if the selection range is collapsed and the caret is at the end of a element,
-		//then the new element will appear inside of current element and not after the element 
+		//then the new element will appear inside of current element and not after the element
 		//when one adds a new element via the menu
 		var wcevar = ed.WCE_VAR;
-		if (wcevar.isc && wcevar.isInBE && wcevar.isCaretAtNodeEnd && 
+		if (wcevar.isc && wcevar.isInBE && wcevar.isCaretAtNodeEnd &&
 			(wcevar.type == ed.WCE_CON.formatEnd || wcevar.type == 'chapter_number' || wcevar.type === 'book_number' || wcevar.type == 'verse_number'
 			|| wcevar-type == 'stanza_number' || wcevar.type == 'brea')) {
 			var selNode = wcevar.selectedNode;
@@ -499,7 +509,7 @@ function writeDocInfos(metadata) {
 	current = ed.getContent();
 	current.replace("<!--HEADER.*-->","");
 	wceUtils.setContent(ed, "");
-	wceUtils.setContent(ed, "<!--HEADER manID=" 
+	wceUtils.setContent(ed, "<!--HEADER manID="
 		+ metadata[0] + "folID="
 		+ metadata[1] + "textID="
 		+ metadata[2] + " -->\n\n" + current.replace("<!--HEADER.*-->",""));
@@ -681,8 +691,8 @@ function wce_openWindow(txt) {
 				"width=800,height=600,resizable=yes,status=no,"+
                 "menubar=no,location=no,scrollbars=yes,toolbar=no");
 		smallwindow.opener = parent;
-		smallwindow.focus(); 
-    } else { 
+		smallwindow.focus();
+    } else {
 		smallwindow.focus();
 	}
 }

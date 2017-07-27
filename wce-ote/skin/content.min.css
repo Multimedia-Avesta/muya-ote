@@ -189,9 +189,9 @@ th[data-mce-selected] {
 */
 
 
-/* 
+/*
 	Copyright (C) 2012-2017 Center for Digital Humanities, Trier
-	
+
 	This file is part of the Online Transcription Editor (OTE).
 
     OTE is free software: you can redistribute it and/or modify
@@ -514,33 +514,40 @@ span.lection_number {
     font-size: 36px;
 }
 
-span.format_start[language="pal-Avst"],
-span.format_start[language="ae-Avst"],
-span.format_start[language="ae-Phlv"] {
+span.languagechange[language="pal-Avst"],
+span.languagechange[language="ae-Avst"],
+span.languagechange[language="ae-Phlv"] {
     color: green;
     background-color: green;
 }
 
-span.format_start[language="pal-Phli"],
-span.format_start[language="pal-Phlv"] {
+span.languagechange[language="pal-Phli"],
+span.languagechange[language="pal-Phlv"] {
     color: purple;
     background-color: purple;
 }
 
-span.format_start[language="gu"] {
+span.languagechange[language="gu"] {
     color: red;
     background-color: red;
 }
 
-span.format_start[language="fa"],
-span.format_start[language="prs"] {
+span.languagechange[language="fa"],
+span.languagechange[language="prs"] {
     color: yellow;
     background-color: yellow;
 }
 
-span.format_start[language="sa"] {
+span.languagechange[language="sa"] {
     color: blue;
     background-color: blue;
+}
+
+span.editortext {
+    border: 1px dotted #f00;
+    margin: 0px 0px 0px 1px;
+    padding: 0;
+    color: gray;
 }
 
 span.format_end[language="pal-Avst"],
