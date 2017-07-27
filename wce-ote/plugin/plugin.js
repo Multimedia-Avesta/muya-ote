@@ -2557,6 +2557,14 @@
 			if (wcevar.inputDisable && (!e.ctrlKey || (tinymce.isMac && !e.metaKey))) {
 				return stopEvent(ed, e);
 			}
+			
+			//disabled remove format_start/format_end
+			if(ek==46 || ek==8){
+			   var _selectedNode=ed.selection.getNode();
+        if(_selectedNode && ($(_selectedNode).hasClass('format_end') || $(_selectedNode).hasClass('format_start'))){
+           return stopEvent(ed,e);  
+        }
+			}
 
 			// press and hold to delete char prohibited in some cases
 			if (!tinymce.isOpera && (ek == 46 || ek == 8)) {
