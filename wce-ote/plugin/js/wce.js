@@ -499,8 +499,9 @@ function readDocInfos() {
 	var textID = '';
 	var folID = '';
 	ed = parent.tinymce.activeEditor;
-	var selection = ed.selection.getContent();
-	var $head = ed.dom.getParent(ed.selection.getNode(), 'header');
+	//var selection = ed.selection.getContent();
+	//var $head = ed.dom.getParent(ed.selection.getNode(), 'header'); 
+  var  $head=ed.dom.select('header')[0];
 	//var $root = ed.dom.getRoot().
 	//var $head = ed.dom.select('$root > header');
 	if ($head != null) {
@@ -537,23 +538,23 @@ function writeDocInfos(metadata) {
 	var $header = $newDoc.createElement('header');
 	var $tr = $newDoc.createElement('trans');
 	$tr.appendChild($tr.ownerDocument.createTextNode(metadata[0].replace(" ","_")));
-	$header.append($tr);
+	$header.appendChild($tr);
 	var $ms = $newDoc.createElement('ms');
 	$ms.appendChild($ms.ownerDocument.createTextNode(metadata[1]));
-	$header.append($ms);
+	$header.appendChild($ms);
 	var $book = $newDoc.createElement('book');
 	$book.appendChild($book.ownerDocument.createTextNode(metadata[2]));
-	$header.append($book);
+	$header.appendChild($book);
 	var $fol = $newDoc.createElement('folio');
 	$fol.appendChild($book.ownerDocument.createTextNode(metadata[3]+metadata[4]));
-	$header.append($fol);
-	$newRoot.append($header);
+	$header.appendChild($fol);
+	$newRoot.appendChild($header);
 	
 	var $bookNode = $newDoc.createElement('span');
 	$bookNode.setAttribute('class',"book_number");
 	$bookNode.setAttribute('wce',"__t=book_number");
 	$bookNode.appendChild($bookNode.ownerDocument.createTextNode(metadata[2]));
-	$newRoot.append($bookNode);
+	$newRoot.appendChild($bookNode);
 	
 	ed.setContent(xml2String($newDoc) + wceUtils.getBreakHtml(ed, 'pb', 'lb', null, 'wce="' + newWceAttr + '"', null, false) + '&nbsp;');
 	
