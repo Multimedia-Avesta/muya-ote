@@ -65,7 +65,7 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 		witness : (getWitness) ? getWitness : "",
 		manuscriptLang : (getWitnessLang) ? getWitnessLang : "",
 		// invalid_elements:'p',
-		plugins : "pagebreak,save,layer,print,fullscreen,wordcount,muyacharmap,autosave,paste,code, contextmenu, noneditable",
+		plugins : "pagebreak,save,print,fullscreen,wordcount,muyacharmap,autosave,paste,code, contextmenu, noneditable",
 		//contextmenu: 'cut copy paste',
 		//charmap_append: [["0256","A - kahako"],["0257","a - kahako"]],
 		//charmap_append: charmap_gu,
