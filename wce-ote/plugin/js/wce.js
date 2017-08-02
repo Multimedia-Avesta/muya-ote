@@ -500,8 +500,8 @@ function readDocInfos() {
 	var folID = '';
 	ed = parent.tinymce.activeEditor;
 	//var selection = ed.selection.getContent();
-	//var $head = ed.dom.getParent(ed.selection.getNode(), 'header'); 
-  var  $head=ed.dom.select('header')[0];
+	//var $head = ed.dom.getParent(ed.selection.getNode(), 'header');
+    var $head = ed.dom.select('header')[0];
 	//var $root = ed.dom.getRoot().
 	//var $head = ed.dom.select('$root > header');
 	if ($head != null) {
@@ -531,10 +531,10 @@ function writeDocInfos(metadata) {
 	ed = parent.tinymce.activeEditor;
 	newWceAttr = '__t=brea&amp;__n=&amp;hasBreak=no&amp;break_type=pb&amp;number='
 		+ metadata[3] + '&amp;rv=' + metadata[4] + '&amp;page_number=&amp;facs=&amp';
-	
+
 	$newDoc = loadXMLString("<TEMP></TEMP>");
 	$newRoot = $newDoc.documentElement;
-	
+
 	var $header = $newDoc.createElement('header');
 	var $tr = $newDoc.createElement('trans');
 	$tr.appendChild($tr.ownerDocument.createTextNode(metadata[0].replace(" ","_")));
@@ -549,15 +549,19 @@ function writeDocInfos(metadata) {
 	$fol.appendChild($book.ownerDocument.createTextNode(metadata[3]+metadata[4]));
 	$header.appendChild($fol);
 	$newRoot.appendChild($header);
-	
+
 	var $bookNode = $newDoc.createElement('span');
 	$bookNode.setAttribute('class',"book_number");
 	$bookNode.setAttribute('wce',"__t=book_number");
 	$bookNode.appendChild($bookNode.ownerDocument.createTextNode(metadata[2]));
 	$newRoot.appendChild($bookNode);
-	
-	ed.setContent(xml2String($newDoc) + wceUtils.getBreakHtml(ed, 'pb', 'lb', null, 'wce="' + newWceAttr + '"', null, false) + '&nbsp;');
-	
+
+    var $oldhead = ed.dom.select('header')[0];
+    if ($oldhead)
+        ed.selection.setContent(xml2String($newDoc) + wceUtils.getBreakHtml(ed, 'pb', 'lb', null, 'wce="' + newWceAttr + '"', null, false) + '&nbsp;');
+    else
+        ed.setContent(xml2String($newDoc) + wceUtils.getBreakHtml(ed, 'pb', 'lb', null, 'wce="' + newWceAttr + '"', null, false) + '&nbsp;');
+
 	if (wceUtils) {
 		wceUtils.setWCEVariable(ed);
 		wceUtils.redrawContols(ed);

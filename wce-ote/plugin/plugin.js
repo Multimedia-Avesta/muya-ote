@@ -1,6 +1,6 @@
-/*  
+/*
 	Copyright (C) 2012-2017 Trier Center for Digital Humanities, Trier (Germany)
-	
+
 	This file is part of the Online Transcription Editor (OTE).
 
     OTE is free software: you can redistribute it and/or modify
@@ -58,10 +58,10 @@
 			//c.endFormatHtml = '<span class="format_end">&rsaquo;</span>';
 
 			//blocked elements :If the Caret is inside, this will prohibit the key operation
-			c.blockedElements = new Array('gap', 'corr', 'lection_number', 'book_number', 
-				'chapter_number', 'stanza_number', 'verse_number', 'abbr', 'spaces', 'note', 
+			c.blockedElements = new Array('gap', 'corr', 'lection_number', 'book_number',
+				'chapter_number', 'stanza_number', 'verse_number', 'abbr', 'spaces', 'note',
 				'unclear', 'brea', 'paratext', 'pc');
- 	 
+
 			// not blocked elements
 			// c.normalElemente = new Array('unclear');
 
@@ -130,7 +130,7 @@
 					break;
 			}
 		},
-		  
+
 
 		/*
 		 *
@@ -222,7 +222,7 @@
 			var nodeName = node.nodeName;
 			if (nodeName && nodeName.toLowerCase() == 'span') {
 				// TODO
-				if (typeName == 'chapter_number' 
+				if (typeName == 'chapter_number'
 					|| typeName == 'book_number' || typeName == 'lection_number'
 					|| typeName == 'stanza_number') {
 					return $(node).hasClass(typeName);
@@ -245,7 +245,7 @@
 				return false;
 			}
 			if (node.nodeName.toLowerCase() == 'span') {
-				if (!ed.selection.isCollapsed() && node.getAttribute("class") && 
+				if (!ed.selection.isCollapsed() && node.getAttribute("class") &&
 					(node.getAttribute("class").indexOf("format_") == 0 || node.getAttribute("class").indexOf("abbr") == 0))
 					return false;
 				return true;
@@ -602,7 +602,7 @@
 			if (lbpos === undefined || lbpos === null)
 				lbpos = WCEUtils.modifyBreakPosition(ed);
 			//lbpos = lbpos ? lbpos : WCEUtils.modifyBreakPosition(ed);
-			
+
 			var wceClass = 'class="mceNonEditable brea"', wceAttr;
 
 			//how many member does a group have
@@ -638,7 +638,7 @@
 						num = newstring.substring(0,newstring.indexOf("&"));
 						str = '<br />'+'&crarr;'+indention + " " + num;
 					}
-					else 
+					else
 						str = '<br />'+'&crarr;'+indention;
 				}
 				if (getOnlyIndention){
@@ -657,7 +657,7 @@
 						num = newstring.substring(0,newstring.indexOf("&"));
 						str = '&#8208;<br />CB' + " " + num;
 					}
-					else 
+					else
 						str = '&#8208;<br />CB' + " " + v.ccnt;
 				} else {
 					wceAttr = attr ? attr : 'wce="__t=brea&amp;__n=&amp;break_type=cb&amp;number=' + v.ccnt + '&amp;rv=&amp;fibre_type=&amp;page_number=&amp;running_title=&amp;facs=&amp;lb_alignment="';
@@ -667,7 +667,7 @@
 						num = newstring.substring(0,newstring.indexOf("&"));
 						str = '<br />CB' + " " + num;
 					}
-					else 
+					else
 						str = '<br />CB' + " " + v.ccnt;
 				}*/
 			} else if (bType == 'pb') {
@@ -701,7 +701,7 @@
 						rv = newstring.substring(0,newstring.indexOf("&"));
 						str = '&#8208;<br />PB' + " " + num + "" + rv;
 					}
-					else 
+					else
 						str = '&#8208;<br />PB' + " " + new_number + "" + new_rv;
 				} else {
 					wceAttr = attr ? attr : 'wce="__t=brea&amp;__n=&amp;break_type=pb&amp;number=' + new_number + '&amp;rv=' + new_rv + '&amp;page_number=&amp;running_title=&amp;facs=&amp;lb_alignment=' + '"';
@@ -714,7 +714,7 @@
 						rv = newstring.substring(0,newstring.indexOf("&"));
 						str = '<br />PB' + " " + num + "" + rv;
 					}
-					else 
+					else
 						str = '<br />PB' + " " + new_number + "" + new_rv;
 				}
 			} else {
@@ -949,7 +949,7 @@
 				return false;
 			}
 		},
-		
+
 		/*
 		 * selected content has space?
 		 */
@@ -958,7 +958,7 @@
 			var fs=c.formatStart;
 			var fe=c.formatEnd;
 			try {
-				var elem = $('<div/>').html(ed.selection.getContent()); 
+				var elem = $('<div/>').html(ed.selection.getContent());
 				var testNode = function(node) {
 					if (node.nodeType == 3){
 						// TODO: this looks very suspicious.  nodeName will never be formatStart or formatEnd; those are classes not names
@@ -973,17 +973,17 @@
 							return false;
 						}
 					}
-					
+
 					var list = node.childNodes;
 					if (!list) {
 						return false;
 					}
 
 					for (var i = 0, c, len = list.length; i < len; i++) {
-						c = list[i]; 
-						if(c && testNode(c)){ 
+						c = list[i];
+						if(c && testNode(c)){
 							return true;
-						} 
+						}
 					}
 					return false;
 				};
@@ -992,7 +992,7 @@
 				return false;
 			}
 		},
-		
+
 		selectionContainsVerseNumber : function(ed) {
 			try {
 				var elem = $('<div/>').html(ed.selection.getContent());
@@ -1000,17 +1000,17 @@
 					if (node.nodeType == 3){
 						return $(node).hasClass('verse_number');
 					}
-					
+
 					var list = node.childNodes;
 					if (!list) {
 						return false;
 					}
 
 					for (var i = 0, c, len = list.length; i < len; i++) {
-						c = list[i]; 
-						if (c && testNode(c)) { 
+						c = list[i];
+						if (c && testNode(c)) {
 							return true;
-						} 
+						}
 					}
 					return false;
 				};
@@ -1020,7 +1020,7 @@
 				return false;
 			}
 		},
-		
+
 		//if start and end of selection both are wce node
 		setContent : function (ed, new_content){
 			var wcevar=ed.WCE_VAR;
@@ -1030,7 +1030,7 @@
 				if(sNode && eNode && sNode!=eNode){
 					ed.insertContent("");
 					sNode.parentNode.removeChild(sNode);
-					eNode.parentNode.removeChild(eNode); 
+					eNode.parentNode.removeChild(eNode);
 				}
 			};
 			ed.insertContent(new_content);
@@ -1126,7 +1126,7 @@
 				w.not_N = true;
 				w.not_C = true;
 				w.not_L = true;
-					
+
 				var adaptiveCheckbox = tinymce.DOM.get(ed.id + '_adaptive_selection');
 				if (adaptiveCheckbox && adaptiveCheckbox.checked) {
 					w.doAdaptivSel = true;
@@ -1200,12 +1200,12 @@
 				if (WCEUtils.selectionHasBlockElement(ed)) {
 					w.inputDisable = true;
 				}
-				
+
 				/*if (WCEUtils.selectionContainsVerseNumber(ed)) {
-					alert("TEST");	
+					alert("TEST");
 					_disableAllControls(ed, true);
 				}*/
-				
+
 				var selHasSpace=WCEUtils.selectionHasSpace(ed);
 			}
 
@@ -1246,12 +1246,12 @@
 			if (w.type && w.type != "formatting_capitals" && w.type.match(/formatting/)) {
 				w.type = 'formatting';
 			}
-			
+
 			if (canMakeCorrection) {
 				w.not_C = false;
 				w.not_L = false;
-			} 
-			
+			}
+
 			w.not_P = !w.isc;
 			switch (w.type) {
 				case 'gap':
@@ -1282,11 +1282,11 @@
 						w.not_D = false;
 					}
 					break;
-				
+
 				case 'lang':
 					w.not_L = !wholeSelect;
 					break;
-				
+
 				case 'lection_number':
 					_disableAllControls(ed, true);
 					break;
@@ -1294,7 +1294,7 @@
 				case 'book_number':
 					_disableAllControls(ed, true);
 					break;
-					
+
 				case 'chapter_number':
 					_disableAllControls(ed, true);
 					break;
@@ -1351,20 +1351,20 @@
 					var pn = selectedNode.parentNode;
 					if (pn && WCEUtils.isNodeTypeOf(pn, 'brea')) {
 						WCEUtils.inhibitInput(ed, pn);
-					} 
+					}
 					break;
-					
-				default: 
-					break;			
+
+				default:
+					break;
 			};
-			
+
 			if(selHasSpace){
 			 	w.not_A =true;
 			}
 		},
 
 		/*
-		 * 
+		 *
 		 */
 		hasWceParentNode: function (node){
 			var p=node.parentNode;
@@ -1376,7 +1376,7 @@
 			}
 			return false;
 		},
-		 
+
 		/**
 		 *
 		 */
@@ -1407,8 +1407,8 @@
 			}
 			return false;
 		},
-		
-		
+
+
 		canMakeCorrection : function (rng, ed){
 			var sc = rng.startContainer;
 			var ec = rng.endContainer;
@@ -1419,23 +1419,23 @@
 				if(w.isCaretAtFormatStart){
 					scParent=scParent.parentNode.parentNode;
 				}
-			 
+
 				var ecParent = ec.parentNode;
 				if(w.isCaretAtFormatEnd){
 					ecParent=ecParent.parentNode.parentNode;
 				}
-				
+
 				if (scParent && ecParent && scParent.parentNode == ecParent.parentNode ) {
 					var startOffset=rng.startOffset;
-					var endOffset=rng.endOffset;		
-					var a=sc.nodeValue.charAt(startOffset-1);			
+					var endOffset=rng.endOffset;
+					var a=sc.nodeValue.charAt(startOffset-1);
 					var b=ec.nodeValue.charAt(endOffset);
 					if(startOffset>0 && a!=' '){
 						return false;
 					}
 					if(endOffset<ec.nodeValue.length && b!=' '){
 						return false;
-					} 
+					}
 					return true;
 				}
 			}
@@ -1567,7 +1567,7 @@
 				var startOffset = rng.startOffset;
 				var indexOfEnd = WCEUtils.getNextEnd(startText, startOffset);
 			}
-			
+
 			if (rng.startOffset == indexOfEnd && startText.charAt(indexOfEnd - 1).trim() == '')
 				return true;
 			return false;
@@ -1789,7 +1789,7 @@
 					type_name = ar['__t'];
 					type_name = type_name.split('_');
 					switchvar = type_name[0];
-					
+
 					/*
 					// We test if there is a correction on top of another structure. If so, we have to use the correction for the mouse over. i=0 is the original meaning, i>1 consists of all corrections
 					*/
@@ -1820,7 +1820,7 @@
 								ar = WCEUtils.stringToArray(info_arr[i]);
 						}
 					}
-					
+
 					switch (switchvar) {
 						case 'abbr':
 							switch (ar['abbr_type']) {
@@ -1914,7 +1914,7 @@
 							if (ar['blank_correction'] && ar['blank_correction'] === 'on')
 								corr_str += tinymce.translate('infotext_deleted') + '</div>';
 							else
-								corr_str += ar['corrector_text'].replace(/<span class="abbr_add_overline"/g, 
+								corr_str += ar['corrector_text'].replace(/<span class="abbr_add_overline"/g,
 										'<span class="abbr_add_overline" style="text-decoration:overline"') + '</div>';
 							if (ar['ut_videtur_corr'] && ar['ut_videtur_corr'] === 'on')
 								corr_str += '(ut videtur corr)';
@@ -2028,7 +2028,7 @@
 							} else {
 								info_text += tinymce.translate('unspecified') + '</div>';
 							}
-							
+
 							if (ar['mark_as_supplied'] == 'supplied') {
 								info_text += '<div style="margin-top:10px">' + tinymce.translate('suppliedsource') + ': ';
 								if (ar['supplied_source'] == 'none')
@@ -2090,9 +2090,9 @@
 						case 'pc':
 							info_text = '<div>' + tinymce.translate('infotext_punctuation_mark') + '</div>';
 							break;
-						/*case 'format':	
+						/*case 'format':
 							alert(sele_node.getAttribute('language'));
-							info_text = '<div>'; 
+							info_text = '<div>';
 							if (ar['language'] == 'pal-Phlv')
 								info_text += 'Zoroastrian Middle Persian in Pahlavi Script';
 							else if (ar['language'] == 'pal-Avst')
@@ -2108,7 +2108,7 @@
 							else if (ar['language_name'] == 'other')
 								info_text += ar['language_name_other'];
 							info_text += '</div>';
-							break;*/							
+							break;*/
 						case 'verse':
 							info_text = '<div>' + 'Verse';
 							if (ar['partial']) {
@@ -2332,16 +2332,16 @@
 			}
 			return _node;
 		},
-		
-		getTextWithoutFormat : function(_node, ed){ 
+
+		getTextWithoutFormat : function(_node, ed){
 			if (_node.nodeType != 1 && _node.nodeType != 11)
 				return;
-	
+
 			if ($(node).hasClass('format_start') || $(node).hasClass('format_end')) {
 				_node.parentNode.removeChild(_node);
 				return;
 			}
-	
+
 			var childList = _node.childNodes;
 			for (var i = 0, l = childList.length, c; i < l; i++) {
 				c = childList[i];
@@ -2350,7 +2350,7 @@
 				} else {
 					WCEUtils.getTextWithoutFormat(c, ed);
 				}
-			}  
+			}
 			return $(_node).html();
 		},
 
@@ -2475,7 +2475,7 @@
 			if (!e) {
 				var e = window.event;
 			}
-			
+
 			// be sure WCE_VAR is up to date
 			WCEUtils.setWCEVariable(ed);
 
@@ -2530,12 +2530,12 @@
 			if (((tinymce.isMac && e.metaKey) || (e.ctrlKey)) && e.altKey && ek == 86) {
 				//Ctrl+Shift+V
 			}
-			
+
 			// TODO: if no short_cut B, C ,Z ,Y .....
 			if (wcevar.isInBE && ((!tinymce.isMac && !e.ctrlKey) || (tinymce.isMac && !e.metaKey))) {
 				// keydown for insert letter
 				if (wcevar.isCaretAtNodeEnd && ek != 8 && ek != 46
-					&& (wcevar.type == ed.WCE_CON.formatEnd || wcevar.type == 'chapter_number' 
+					&& (wcevar.type == ed.WCE_CON.formatEnd || wcevar.type == 'chapter_number'
 						|| wcevar.type === 'book_number' || wcevar.type == 'stanza_number'
 						|| wcevar.type == 'lection_number')
 				) {
@@ -2590,7 +2590,7 @@
 				} else
 					return stopEvent(ed, e);
 			}
-			
+
 			// key "entf"
 			if (ek == 46 && wcevar.isCaretAtNodeEnd) {
 				if (wcevar.isNextElemBE) {
@@ -2600,7 +2600,7 @@
 					return stopEvent(ed, e);
 				}
 			}
-				
+
 			if (ek == 13 || ek == 10) {
 				if (e.shiftKey) {
 					// Shift+Enter -> break dialogue
@@ -2701,7 +2701,7 @@
 			var wceNode = WCEPlugin.getWceNode(ed);
 			if (wceNode) {
 				if (WCEUtils.hasWceParentNode(wceNode)) {
-					alert(tinymce.translate('warning_deletion_inner_Node'));//TODO: 				
+					alert(tinymce.translate('warning_deletion_inner_Node'));//TODO:
 					return;
 				}
 				//verse chapter
@@ -2715,10 +2715,10 @@
 
 				var wceAttr = wceNode.getAttribute('wce');
 				var originalText = decodeURIComponent(wceNode.getAttribute('wce_orig'));
-					
+
 				//TODO: after import some node have no wce_orig, we can set wce_orig at import, or don't use 'wce_orig'?
 				// originalText=WCEUtils.getTextWithoutFormat(wceNode, ed);
-					
+
 				var isDel;
 				if ($(wceNode).hasClass('brea') || $(wceNode).hasClass('gap')) {
 					//We need a marker here similar to the one for deleting non-breaks. Otherwise there are problems under Safari!
@@ -2741,18 +2741,18 @@
 						if (bb && bc && bt) {
 							if (bt == 'lb' && bc == '2') {	// cb followed by lb => special case to be able to add missing line in a column (>1)
 								elem=ed.dom.get('lb' + '_' + bc + '_' + bb);
-								if (elem) {									
+								if (elem) {
 									ed.selection.select(elem);
 									ed.insertContent("");
 									ed.WCE_VAR.lcnt = 0;
 								}
-								
+
 							} else { // normal case
 								var arr = new Array('gap','lb', 'cb', 'pb', 'qb');
 								//for (var i = parseInt(bc) - 1; i > -1; i--) {
 								for(var i=0,elem,l=arr.length; i<l; i++){
 									elem=ed.dom.get(arr[i] + '_' + bc + '_' + bb);
-									if (elem) {									
+									if (elem) {
 										ed.selection.select(elem);
 										ed.insertContent("");
 									}
@@ -2779,11 +2779,11 @@
 				 }*/
 
 				if ((originalText && originalText != 'null') || originalText=='') {
-					if(notAddOriginal){ 
+					if(notAddOriginal){
 					}else{
 						 ed.insertContent(originalText);
 					}
-					ed.focus(); 
+					ed.focus();
 					ed.isNotDirty = 0;
 					return originalText;
 				} else if(!isDel){
@@ -2932,7 +2932,7 @@
 				'top' : 0,
 				'left' : 0
 			});
-			
+
 			$(document.body).append(infoBox);
 
 			// add adaptive selection checkbox if we are the main editor and not an internal one in a dialogue box
@@ -2967,7 +2967,7 @@
 				image : url + '/img/button_S.png',
 				onPostRender : function() { ed.WCE_CON.buttons[this.settings.icon] = this; },
 			});
-			
+
 			ed.addShortcut("ctrl+alt+s","Verse modify","mceVerseModify");
 
 			// add showTeiByHtml button
@@ -2990,9 +2990,9 @@
 				image : url + '/img/xmlinput.jpg',
 				onPostRender : function() { ed.WCE_CON.buttons[this.settings.icon] = this; },
 			});
-			
+
 			ed.addCommand('mceShowHelp', function() {
-				if (tinyMCE.activeEditor.settings.language == 'de') 
+				if (tinyMCE.activeEditor.settings.language == 'de')
 					window.open(url + "/docu.htm","_blank",
 						"width=800,height=600,resizable=yes,status=no,"+
 						"menubar=no,location=no,scrollbars=yes,toolbar=no");
@@ -3009,7 +3009,7 @@
 				image : url + '/img/button_Help.png',
 				onPostRender : function() { ed.WCE_CON.buttons[this.settings.icon] = this; },
 			});
-			
+
 			ed.addCommand('mceShowInfo', function() {
 				window.open(url + "/changelog.htm","_blank",
 						"width=800,height=600,resizable=yes,status=no,"+
@@ -3086,7 +3086,7 @@
 					}
 				}]
 			});
-			
+
 			ed.addShortcut("ctrl+alt+b","Add break","mceAddBreak");
 
 			ed.addButton('correction', {
@@ -3098,7 +3098,7 @@
 					ed.execCommand('mceAddCorrection');
 				}
 			});
-			
+
 			ed.addShortcut("ctrl+alt+c","Add correction","mceAddCorrection_Shortcut");
 
 			ed.addButton('illegible', {
@@ -3481,7 +3481,7 @@
 					}
 				}]
 			});
-			
+
 			ed.addShortcut("ctrl+alt+p","Add paratext","mceAddParatext_Shortcut");
 
 			ed.addButton('note', {
@@ -3655,7 +3655,7 @@
 					}
 				}]
 			});
-			
+
 			ed.addButton('language', {
 				title : tinymce.translate('menu_language') + ' (Ctrl+Alt+L)' ,
 				image : url + '/img/button_L.png',
@@ -3666,7 +3666,7 @@
 				}
 			});
 			ed.addShortcut("ctrl+alt+l","Set language","mceAddLanguage_Shortcut");
-			
+
 			ed.addButton('LoadFile', {
 				title : 'Load local file from disk',
 				image : url + '/img/folder.png',
@@ -3677,7 +3677,7 @@
 					doWithDialog(ed, url, '/loadlocalxml.htm', 1100, 700, 1, false, tinymce.translate('Data to load transcription file'));
 				}
 			});
-			
+
 			ed.addButton('docinfo', {
 				title : tinymce.translate('menu_docInfo') + ' (Ctrl+Alt+I)',
 				image : url + '/img/button_I.png',
@@ -3687,9 +3687,9 @@
 					ed.execCommand('mceDocInfo');
 				}
 			});
-			
+
 			ed.addShortcut("ctrl+alt+i","Document information","mceDocInfo_Shortcut");
-			
+
 			ed.on('init', function() {
 				WCEUtils.initWCEConstants(ed);
 				WCEUtils.initWCEVariable(ed);
@@ -3808,7 +3808,7 @@
 					_add_new_wce_node = false;
 				}
 				doWithDialog(ed, url, '/correction.htm', 1100, 700, 1, _add_new_wce_node, tinymce.translate('reading_title'));
-				
+
 			});
 
 			// Edit corrections
@@ -3889,7 +3889,7 @@
 					ed.execCommand('mceAddNote');
 				}
 			});
-			
+
 			// Add Ornamentation  other /*********/
 			ed.addCommand('mceAdd_ornamentation_other', function() {
 				doWithDialog(ed, url, '/ornamentation_other.htm', 480, 320, 1, true, tinymce.translate('title_other_ornamentation'));
@@ -3915,7 +3915,7 @@
 					ed.execCommand('mceAddAbbr');
 				}
 			});
-			
+
 			// Add expansion/*********/
 			ed.addCommand('mceAddExp', function() {
 				doWithDialog(ed, url, '/exp.htm', 480, 320, 1, true, tinymce.translate('exp_title'));
@@ -3946,7 +3946,7 @@
 			ed.addCommand('mceEditSpaces', function() {
 				doWithDialog(ed, url, '/spaces.htm', 480, 320, 1, false, tinymce.translate('spaces_title'));
 			});
-			
+
 			ed.addCommand('mceAddSpaces_Shortcut', function() {
 				var w = ed.WCE_VAR;
 				if (w.not_S) {
@@ -3959,7 +3959,7 @@
 					ed.execCommand('mceAddSpaces');
 				}
 			});
-			
+
 			// Add paratext/*********/
 			ed.addCommand('mceAddParatext', function() {
 				doWithDialog(ed, url, '/paratext.htm', 950, 480, 1, true, tinymce.translate('paratext_title'));
@@ -3981,8 +3981,8 @@
 					ed.execCommand('mceAddParatext');
 				}
 			});
-			
-			
+
+
 
 			/*
 			 * ed.addCommand('mceAddPunctuation_Shortcut', function() { if (wcevar.not_PC) { return; }
@@ -4017,7 +4017,7 @@
 			ed.addCommand('mceAdd_formatting', function(c) {
 				doWithoutDialog(ed, 'formatting_' + c, '');
 			});
-			
+
 			ed.addCommand('mceAddLanguage', function() {
 				doWithDialog(ed, url, '/language.htm', 800, 320, 1, true, tinymce.translate('language_title'));
 			});
@@ -4025,13 +4025,13 @@
 			ed.addCommand('mceEditLanguage', function() {
 				doWithDialog(ed, url, '/language.htm', 800, 320, 1, false, tinymce.translate('language_title'));
 			});
-			
+
 			ed.addCommand('mceAddLanguage_Shortcut', function() {
 				var w = ed.WCE_VAR;
 				if (w.not_L) {
 					return;
 				}
-				
+
 				if (w.type == 'lang') {
 					ed.execCommand('mceEditLanguage');
 				} else {
@@ -4050,9 +4050,9 @@
 			});
 
 			ed.addCommand('mceDocInfo', function() {
-				doWithDialog(ed, url, '/docinfo.htm', 640, 480, 1, false, tinymce.translate('docinfo_title'));	
+				doWithDialog(ed, url, '/docinfo.htm', 640, 480, 1, false, tinymce.translate('docinfo_title'));
 			});
-			
+
 			ed.addCommand('printData', function() {// Problem in IE
 				var ed = tinyMCE.activeEditor;
 				var oldcontent = "";
