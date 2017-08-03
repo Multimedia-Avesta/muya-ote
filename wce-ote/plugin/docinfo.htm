@@ -57,7 +57,7 @@
 						<!--size="30" maxlength="" class="required min1 mceFocus" />-->
 					</td>
 				<tr>
-					<td><label id="manID_label" for "manID">{#manID}</label></td>
+					<td><label id="manID_label" for="manID">{#manID}</label></td>
 					<td>
 						<input id="manID" name="manID" type="text" value=""
 						size="10" maxlength="" class="required number min1 mceFocus" />
@@ -86,10 +86,11 @@
 					</td>
 				</tr>-->
 				<tr>
-					<td><label id="textID_label" for "textID">{#textID}</label></td>
+					<td><label id="textID_label" for="textID">{#textID}</label></td>
 					<td>
 						<select id="textID" name="textID">
-							<option value="A">Afrinagan</option>
+							<option selected hidden>Choose here</option>
+                            <option value="A">Afrinagan</option>
 							<option value="ABu">Afrin i Buzorgan</option>
 							<option value="AD">Afrin i Dahman</option>
 							<option value="AG">Afrin i Gahambar</option>
@@ -126,7 +127,7 @@
 							<option value="VS">Videvdad Sade</option>
 							<option value="Vyt">Vistasp Yast</option>
 							<option value="VytS">Vishtasp Yasht Sade</option>
-							<option value="Y" selected>Yasna</option>
+							<option value="Y" selected="selected">Yasna</option>
 							<option value="Yt">Yast</option>
 							<option value="YVr">Yasna Visperad</option>
 							<option value="Y-gah">Yazisn-gah</option>
@@ -195,14 +196,14 @@
 		var metadata = readDocInfos();
 		document.docinfo.transcriber.value=metadata[0];
 		document.docinfo.manID.value=metadata[1];
-		document.docinfo.textID.value=metadata[2];
+		if (metadata[2] !== '')
+            document.docinfo.textID.value=metadata[2];
 		if (metadata[3].charAt(metadata[3].length-1) == 'r' ||
 			metadata[3].charAt(metadata[3].length-1) == 'v') {
 			document.docinfo.folioID.value=metadata[3].substring(0,metadata[3].length-1);
 			document.docinfo.rv.value=metadata[3].substring(metadata[3].length-1);
 		} else
 			document.docinfo.folioID.value=metadata[3];
-		//readWceNodeInfo();
 	}
 
 	//TODO: Could be extended to check for empty chapter and stanza fields

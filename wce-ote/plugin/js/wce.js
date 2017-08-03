@@ -177,7 +177,7 @@ function writeWceNodeInfo(val) {
 				var gap_unit;
 				var gap_extent;
 				var gap_id;
-				if (document.getElementById('mark_as_supplied').checked == true) {// supplied text
+				if (document.getElementById('mark_as_supplied').checked == true) { // supplied text
 					gap_text = '[' + selected_content + ']';
 					//test if in node abbr with overline
 					var gap_parent=wce_node;
@@ -429,7 +429,7 @@ function writeWceNodeInfo(val) {
 				}
 				wce_node.className = abbrClass;
 			} else if (wce_type == 'gap') {// edit gap
-				selected_content=wceUtils.wceDelNode(ed, true);
+				selected_content = wceUtils.wceDelNode(ed, true);
 				add_new_wce_node = true;
 				return writeWceNodeInfo(val);
 				/*
@@ -498,14 +498,13 @@ function readDocInfos() {
 	var manID = '';
 	var textID = '';
 	var folID = '';
-	ed = parent.tinymce.activeEditor;
-	//var selection = ed.selection.getContent();
-	//var $head = ed.dom.getParent(ed.selection.getNode(), 'header');
-    var $head = ed.dom.select('header')[0];
-	//var $root = ed.dom.getRoot().
-	//var $head = ed.dom.select('$root > header');
+	var $head;
+    var child;
+
+    ed = parent.tinymce.activeEditor;
+	$head = ed.dom.select('header')[0];
 	if ($head != null) {
-		var child = $head.firstChild;
+		child = $head.firstChild;
 		while(child){
 		switch (child.nodeName.toLowerCase()) {
 			case 'trans':
@@ -528,39 +527,73 @@ function readDocInfos() {
 }
 
 function writeDocInfos(metadata) {
-	ed = parent.tinymce.activeEditor;
+	var $oldhead, $oldbook, $oldfolio;
+    var $header, $tr, $ms, $book, $folio;
+    var oldwce, oldnumber, newnumber, posa, posb;
+    var newWceAttr;
+
+    ed = parent.tinymce.activeEditor;
 	newWceAttr = '__t=brea&amp;__n=&amp;hasBreak=no&amp;break_type=pb&amp;number='
 		+ metadata[3] + '&amp;rv=' + metadata[4] + '&amp;page_number=&amp;facs=&amp';
 
 	$newDoc = loadXMLString("<TEMP></TEMP>");
-	$newRoot = $newDoc.documentElement;
+	//$newRoot = $newDoc.documentElement;
 
-	var $header = $newDoc.createElement('header');
-	var $tr = $newDoc.createElement('trans');
+	$header = $newDoc.createElement('header');
+	$tr = $newDoc.createElement('trans');
 	$tr.appendChild($tr.ownerDocument.createTextNode(metadata[0].replace(" ","_")));
 	$header.appendChild($tr);
-	var $ms = $newDoc.createElement('ms');
+	$ms = $newDoc.createElement('ms');
 	$ms.appendChild($ms.ownerDocument.createTextNode(metadata[1]));
 	$header.appendChild($ms);
-	var $book = $newDoc.createElement('book');
+	$book = $newDoc.createElement('book');
 	$book.appendChild($book.ownerDocument.createTextNode(metadata[2]));
 	$header.appendChild($book);
-	var $fol = $newDoc.createElement('folio');
-	$fol.appendChild($book.ownerDocument.createTextNode(metadata[3]+metadata[4]));
-	$header.appendChild($fol);
-	$newRoot.appendChild($header);
+	$folio = $newDoc.createElement('folio');
+	newnumber = metadata[3]+metadata[4];
+    $folio.appendChild($book.ownerDocument.createTextNode(newnumber));
+	$header.appendChild($folio);
+	//$newRoot.appendChild($header);
 
-	var $bookNode = $newDoc.createElement('span');
-	$bookNode.setAttribute('class',"book_number");
-	$bookNode.setAttribute('wce',"__t=book_number");
-	$bookNode.appendChild($bookNode.ownerDocument.createTextNode(metadata[2]));
-	$newRoot.appendChild($bookNode);
-
-    var $oldhead = ed.dom.select('header')[0];
+	// check, whether there is already a header
+    $oldhead = ed.dom.select('header')[0];
     if ($oldhead)
-        ed.selection.setContent(xml2String($newDoc) + wceUtils.getBreakHtml(ed, 'pb', 'lb', null, 'wce="' + newWceAttr + '"', null, false) + '&nbsp;');
-    else
-        ed.setContent(xml2String($newDoc) + wceUtils.getBreakHtml(ed, 'pb', 'lb', null, 'wce="' + newWceAttr + '"', null, false) + '&nbsp;');
+        $oldhead.parentNode.replaceChild($header, $oldhead);
+    else { // empty document or existing one without header
+        oldcontent = ed.getContent(); // might be empty (for new documents)
+        ed.setContent(xml2String($header) + oldcontent);
+    }
+
+    $oldbook = ed.dom.select('span[class="book_number mceNonEditable"]')[0];
+    if ($oldbook)
+        $oldbook.firstChild.textContent = metadata[2];
+    else { // new or existing old document
+       $bookNode = $newDoc.createElement('span');
+	   $bookNode.setAttribute('class',"book_number");
+	   $bookNode.setAttribute('wce',"__t=book_number");
+	   $bookNode.appendChild($bookNode.ownerDocument.createTextNode(metadata[2]));
+    }
+
+    $oldfolio = ed.dom.select('span[class="mceNonEditable brea"]')[0];
+    if ($oldfolio) {
+        oldwce = $oldfolio.getAttribute("wce");
+        posa = oldwce.indexOf("number=");
+        posb = oldwce.substring(posa).indexOf("&");
+        oldnumber = oldwce.substring(posa+7, posa+posb);
+        $oldfolio.setAttribute("wce", oldwce.replace(oldnumber, newnumber))
+
+        for (var i = 0; i < $oldfolio.childNodes.length; i++) {
+            if ($oldfolio.childNodes[i].textContent == "PB " + oldnumber)
+                $oldfolio.childNodes[i].textContent = "PB " + newnumber;
+        }
+    } else {
+        oldcontent = ed.getContent();
+        ed.setContent(oldcontent + xml2String($bookNode) + wceUtils.getBreakHtml(ed, 'pb', 'lb', null, 'wce="' + newWceAttr + '"', null, false) + ' ');
+    }
+
+
+    // we still have to change the book and folio entries
+
 
 	if (wceUtils) {
 		wceUtils.setWCEVariable(ed);
