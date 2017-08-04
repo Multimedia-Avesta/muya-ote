@@ -2508,8 +2508,9 @@ function getTeiByHtml(inputString, args) {
 		}
 	};
 
-	/*
+    /*
 	* read meta data and add them to the <teiHeader> element
+    */
 	var getMetaData = function($teiParent, $htmlNode) {
 		var today = new Date();
 		var dd = today.getDate();
