@@ -34,98 +34,109 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<title>Changelog</title>
-		<script type="text/javascript" src="../jquery.js"></script>
-		<script type="text/javascript">
 
+<head>
+    <title>Changelog</title>
+    <script type="text/javascript" src="../jquery.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var _ed = window.opener.tinymce.activeEditor;
+            translate();
+        });
 
-	$(document).ready(function() {
-		var _ed = window.opener.tinymce.activeEditor;
-		translate();
-	});
+        function translate() {
+            var c = document.body.innerHTML;
+            var d = document.title;
+            var a;
+            if (parent.tinymce.isIE) {
+                c = c.replace(/ (value|title|alt)=([^"][^\s>]+)/gi, ' $1="$2"')
+            }
+            a = c.replace(/\{\#([^\}]+)\}/g, function(a, b) {
+                var c = parent.tinymce.translate(b);
+                return (c != b) ? c : '{#' + b + '}';
+            });
+            if (a != c) {
+                document.body.innerHTML = a
+            }
+            a = d.replace(/\{\#([^\}]+)\}/g, function(a, b) {
+                var c = parent.tinymce.translate(b);
+                return (c != b) ? c : '{#' + b + '}';
+            });
+            if (a != d) {
+                document.title = d = a
+            }
+        }
+    </script>
+</head>
 
-	function translate() {
-		var c=document.body.innerHTML;
-		var d=document.title;
-		var a;
-		if(parent.tinymce.isIE){c=c.replace(/ (value|title|alt)=([^"][^\s>]+)/gi,' $1="$2"')}
-		a=c.replace(/\{\#([^\}]+)\}/g, function(a, b) {
-			var c=parent.tinymce.translate(b);
-			return (c != b) ? c : '{#' + b + '}';
-		});
-		if(a!=c){document.body.innerHTML=a}
-		a=d.replace(/\{\#([^\}]+)\}/g, function(a, b) {
-			var c=parent.tinymce.translate(b);
-			return (c != b) ? c : '{#' + b + '}';
-		});
-		if(a!=d){document.title=d=a}
-	}
+<body>
+    <div>
+        <font size="+1">
+            <p>The Online Transcription Editor (OTE) was initiated as part of the joined project "Workspace for Collaborative Editing" and then further developed as part of the joint project MUYA. It was funded by the <a href="http://www.dfg.de/">DFG</a> and the <a href="http://www.ahrc.ac.uk/">AHRC</a> and the European Research Council (ERC).</p>
+            <p>This software is based on TinyMCE v4 and is thus published as opensource under the terms of the
+                <a href="https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html">LGPL v2.1</a>.</font-size>
+            </p>
+            <p>Recent version 0.5.6beta (2017-08-04)</p>
+            <br/>
+            <h1>Changelog</h1>
+            <h2>Version 0.5.6beta</h2>
+            <h3>Added metadata dialogue (menu "I")</h3>
+            <h3>Added start screen</h3>
+            <h3>Upgraded to the latest TinyMCE version</h3>
+            <h3>Some cleanup</h3>
+            <br/>
+            <h2>Version 0.5.5beta</h2>
+            <p>Added support for partial information to stanzas</p>
+            <br/>
+            <h2>Version 0.5.4beta</h2>
+            <ul>
+                <li>Reactivated right-click menu for information on partial verses</li>
+                <li>Reactivated right-click menu for information on hyphenations on previous pages</li>
+                <li>Bugfix: Export/Import of verses</li>
+            </ul>
+            <br/>
+            <h2>Version 0.5.3beta</h2>
+            <ul>
+                <li>Added deletion for stanzas</li>
+            </ul>
+            <h2>Version 0.5.2beta</h2>
+            <ul>
+                <li>Added 'danda' and 'double danda' to character map. Changed functions for inputting punctuations accordingly. (#5959)</li>
+                <li>Added filter to character map</li>
+            </ul>
+            <br/>
+            <h2>Version 0.5.1beta</h2>
+            <p>Changed punctuation input to three-digit numbers (#5953)</p>
+            <br/>
+            <h2>Version 0.5beta</h2>
+            <ul>
+                <li>Fixed Bugs #5950: Problems with opening xml file in Standalone OTE</li>
+                <li>Punctuation as separate plug-in, added drop-down menu, keyboard input [P+2digitnumber]</li>
+                <li>Added muya_charmap plugin</li>
+                <li>Improved load/save functions</li>
+            </ul>
+            <br/>
+            <h2>Version 0.4beta</h2>
+            <ul>
+                <li>Removed column breaks</li>
+                <li>Removed option “papyrus fibre”</li>
+                <li>Added two interpunction signs to the character map for testing (#5698)</li>
+                <li>Removed Theta from the character map</li>
+            </ul>
+            <br/>
+            <h2>Version 0.3beta</h2>
+            <p>Added functions to load and save transcriptions locally. This is only meant for testing.</p>
+            <h2>Version 0.2beta</h2>
+            <ul>
+                <li>For deletion types, 'overdots' and 'ringed/circled' were included</li>
+                <li>For language change reason 'section heading; dedication' was added</li>
+                <li>Option to mark text as written upside down (e.g. ahrimen) was added</li>
+                <li>Special characters for Avestan, Pahlavi and Gujarati were added</li>
+                <li>For deficiency types, an option for text 'covered by tape' was added</li>
+            </ul>
+            <h2>Version 0.1beta</h2>
+            <p>Fork from recent version of the Workspace project. Avesta-specific additions of a previous adoption.</p>
+    </div>
+</body>
 
-
-		</script>
-	</head>
-
-    <body>
-	<div>
-	<font size="+1"><p>The Online Transcription Editor (OTE) was initiated as part of the joined project "Workspace for Collaborative Editing" and then further developed as part of the joint project MUYA.
-	It was funded by the <a href="http://www.dfg.de/">DFG</a> and the <a href="http://www.ahrc.ac.uk/">AHRC</a> and the European Research Council (ERC).</p>
-	<p>This software is based on TinyMCE v4 and is thus published as opensource under the terms of the
-	<a href="https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html">LGPL v2.1</a>.</font-size></p>
-	<p>Recent version 0.5.5beta (2017-07-25)</p>
-	<br/>
-	<h1>Changelog</h1>
-	<h2>Version 0.5.5beta</h2>
-        <p>Added support for partial information to stanzas</p>
-    <br/>
-    <h2>Version 0.5.4beta</h2>
-	<ul>
-	<li>Reactivated right-click menu for information on partial verses</li>
-	<li>Reactivated right-click menu for information on hyphenations on previous pages</li>
-	<li>Bugfix: Export/Import of verses</li>
-	</ul>
-	<br/>
-	<h2>Version 0.5.3beta</h2>
-	<ul>
-	<li>Added deletion for stanzas</li>
-	</ul>
-	<h2>Version 0.5.2beta</h2>
-	<ul>
-	<li>Added 'danda' and 'double danda' to character map. Changed functions for inputting punctuations accordingly. (#5959)</li>
-	<li>Added filter to character map</li>
-	</ul>
-	<br/>
-	<h2>Version 0.5.1beta</h2>
-	<p>Changed punctuation input to three-digit numbers (#5953)</p>
-	<br/>
-	<h2>Version 0.5beta</h2>
-	<ul>
-	<li>Fixed Bugs #5950: Problems with opening xml file in Standalone OTE</li>
-	<li>Punctuation as separate plug-in, added drop-down menu, keyboard input [P+2digitnumber]</li>
-	<li>Added muya_charmap plugin</li>
-	<li>Improved load/save functions</li>
-	</ul>
-	<br/>
-	<h2>Version 0.4beta</h2>
-	<ul>
-	<li>Removed column breaks</li>
-	<li>Removed option “papyrus fibre”</li>
-	<li>Added two interpunction signs to the character map for testing (#5698)</li>
-	<li>Removed Theta from the character map</li>
-	</ul>
-	<br/>
-	<h2>Version 0.3beta</h2>
-	<p>Added functions to load and save transcriptions locally. This is only meant for testing.</p>
-	<h2>Version 0.2beta</h2>
-	<ul>
-	<li>For deletion types, 'overdots' and 'ringed/circled' were included</li>
-	<li>For language change reason 'section heading; dedication' was added</li>
-	<li>Option to mark text as written upside down (e.g. ahrimen) was added</li>
-	<li>Special characters for Avestan, Pahlavi and Gujarati were added</li>
-	<li>For deficiency types, an option for text 'covered by tape' was added</li>
-	</ul>
-	<h2>Version 0.1beta</h2>
-	<p>Fork from recent version of the Workspace project. Avesta-specific additions of a previous adoption.</p>
-	</div>
-	</body>
 </html>
