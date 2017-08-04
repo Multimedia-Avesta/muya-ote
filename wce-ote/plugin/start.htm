@@ -78,22 +78,12 @@
 		});
 		if(a!=d){document.title=d=a}
 	}
-	
+
 	function loadTranscription() {
-		//var winH = $(window).height() - 100;
-		//var winW = $(window).width() - 60;
-		//w = winW > 1100 ? 1100 : winW;
-		//h = winH > 700 ? 700 : winH;
 		parent.tinymce.activeEditor.windowManager.close();
-		ed.windowManager.open({
-			title : 'Load local transcription file',
-			url : './plugin/loadlocalxml.htm',
-			width : 600,
-			height : 480,
-		}, {
-		});
+		ed.execCommand('mceLoadFile');
 	}
-	
+
 	function opendocinfo() {
 		parent.tinymce.activeEditor.windowManager.close();
 		ed.windowManager.open({
@@ -103,7 +93,7 @@
 			height : 480,
 		}, {
 		});
-	
+
 	}
 
 	/*function init() {
@@ -131,7 +121,7 @@
 			return false;
 	return true;
 	}*/
-	
+
 	if (!tinyMCE.isIE) {
 		$(document).keydown(function(e) {
 			var evt = e || window.event
