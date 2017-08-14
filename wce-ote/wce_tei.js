@@ -36,7 +36,7 @@
 //window.onerror = Fehlerbehandlung;
 
 //pb, cb ,lb with break="no" defined in function html2Tei_mergeWNode();
-var wceNodeInsideW=["hi","unclear","gap","supplied", "w", "abbr", "ex"];//TODO: more type?
+var wceNodeInsideW = ["hi", "unclear", "gap", "supplied", "w", "abbr", "ex"];//TODO: more type?
 
 function Fehlerbehandlung(Nachricht, Datei, Zeile) {
 	var Fehler = "Error:\n" + Nachricht + "\n" + Datei + "\n" + Zeile;
@@ -1908,10 +1908,10 @@ function getTeiByHtml(inputString, args) {
 	/*if(g_bookNumber && (g_bookNumber instanceof Function || typeof g_bookNumber == "function" || typeof g_bookNumber == "Function")){
 		g_bookNumber=g_bookNumber();
 	}*/
-	if(g_witValue && (g_witValue instanceof Function || typeof g_witValue == "function" || typeof g_witValue == "Function")){
+	if (g_witValue && (g_witValue instanceof Function || typeof g_witValue == "function" || typeof g_witValue == "Function")){
 		g_witValue=g_witValue();
 	}
-	if(g_manuscriptLang && (g_manuscriptLang instanceof Function || typeof g_manuscriptLang == "function" || typeof g_manuscriptLang == "Function")){
+	if (g_manuscriptLang && (g_manuscriptLang instanceof Function || typeof g_manuscriptLang == "function" || typeof g_manuscriptLang == "Function")){
 		g_manuscriptLang=g_manuscriptLang();
 	}
 
@@ -2099,14 +2099,14 @@ function getTeiByHtml(inputString, args) {
 			return;
 		}
 
-	 	var tNext=$teiNode.firstChild;
+	 	var tNext = $teiNode.firstChild;
 	 	/*if (tNext && tNext.nodeName == 'gap' && tNext.getAttribute("unit") != "word"
 			&& $teiNode.childNodes.length == 1) // special case for isolated gaps. The word marker is removed
 			$teiNode.parentNode.replaceChild(tNext, $teiNode);
 		*/
 		while (tNext) {
 			html2Tei_mergeNodes(tNext, removeAttr);
-	 		tNext=tNext.nextSibling;
+	 		tNext = tNext.nextSibling;
 	 	}
 	 	/*24.10.2013 same as above
 		var childList = $teiNode.childNodes;
@@ -2301,7 +2301,7 @@ function getTeiByHtml(inputString, args) {
 		}
 
 
-		if (nName=='ab') {
+		if (nName == 'ab') {
 			var firstW, lastW, lastLB;
 
 			var part = $r.getAttribute('part');//
@@ -2405,7 +2405,7 @@ function getTeiByHtml(inputString, args) {
 				textValue=textValue.replace(/\s+/g, w_end_s+w_start_s);
 				$htmlNode.nodeValue=textValue;
 			}
-		} else if ($htmlNode.nodeType==1 || $htmlNode.nodeType == 11) {
+		} else if ($htmlNode.nodeType == 1 || $htmlNode.nodeType == 11) {
 			var childList = $htmlNode.childNodes;
 			for (var i = 0, $c, l = childList.length; i < l; i++) {
 				$c = childList[i];
@@ -2422,7 +2422,7 @@ function getTeiByHtml(inputString, args) {
 		if(!$htmlNode){
 			return;
 		}
-		if ($htmlNode.nodeType==1 || $htmlNode.nodeType==11) {
+		if ($htmlNode.nodeType == 1 || $htmlNode.nodeType==11) {
 			//only for test
 			//if($htmlNode.nodeName=='w'){
 				//$htmlNode.setAttribute('id',global_id++);
@@ -2445,7 +2445,7 @@ function getTeiByHtml(inputString, args) {
 	};
 
 
-	var addWElement2Html=function($node, str){
+	var addWElement2Html = function($node, str){
 		var childList = $node.childNodes;
 		for (var i = 0, $c, l = childList.length; i < l; i++) {
 			$c = childList[i];
@@ -2527,9 +2527,9 @@ function getTeiByHtml(inputString, args) {
 		today = yyyy + '-' + mm + '-' + dd;
 
 		var transcriber = ($htmlNode.firstElementChild||$htmlNode.firstChild).textContent.replace("_"," ");
-		var manID = ($htmlNode.lastElementChild||$htmlNode.lastChild).textContent;
+		var manID = $htmlNode.getElementsByTagName("ms")[0].textContent;
 
-		var $newNodeH = $newDoc.createElement('teiHeader');
+        var $newNodeH = $newDoc.createElement('teiHeader');
 		var $newNodeF = $newDoc.createElement('fileDesc');
 		var $newNodeT = $newDoc.createElement('titleStmt');
 		var $newNodeTt = $newDoc.createElement('title');

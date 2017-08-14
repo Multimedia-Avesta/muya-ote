@@ -207,13 +207,12 @@ function saveDataToDB() {
 
 function saveToDisc() {
 	if ('Blob' in window) {
-    var wce_var=tinyMCE.activeEditor.WCE_VAR;
-    var fileName=wce_var.loadFileInput?wce_var.loadFileInput.files[0].name:'untitled.xml';
+    var wce_var = tinyMCE.activeEditor.WCE_VAR;
+    var fileName = wce_var.loadFileInput?wce_var.loadFileInput.files[0].name:'untitled.xml';
 //		var fileName = prompt('Please enter file name to save', 'untitled.xml');
 		if (fileName) {
 		  var textToWrite = getTEI();
 		  var textFileAsBlob = new Blob([textToWrite], { type: 'text/xml' });
-
 		  if ('msSaveOrOpenBlob' in navigator) {
 			navigator.msSaveOrOpenBlob(textFileAsBlob, fileName);
 		  } else {
@@ -230,7 +229,6 @@ function saveToDisc() {
 			  downloadLink.style.display = 'none';
 			  document.body.appendChild(downloadLink);
 			}
-
 			downloadLink.click();
 		  }
 		}
