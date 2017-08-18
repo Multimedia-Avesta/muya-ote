@@ -45,9 +45,9 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 		theme : "modern",
 		menubar: false,
 		skin_url: tinymce.baseURL + "../../../wce-ote/skin/",
-		//custom_elements : 'muyahead,manid,folid,textid',
-		extended_valid_elements : 'span[class|wce_orig|style|wce|ext|id|language]',
-		//valid_children : '+muyahead[manid|folid|textid]',
+		custom_elements : 'header,trans,ms,book,folio',
+		extended_valid_elements : 'span[class|wce_orig|style|wce|ext|id|language],header,trans,ms,book,folio',
+		valid_children : '+header[trans|ms|book|folio]',
 		forced_root_block : false,
 		force_br_newlines : true,
 		//force_p_newlines : false, //DEPRECATED!
@@ -65,7 +65,7 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 		witness : (getWitness) ? getWitness : "",
 		manuscriptLang : (getWitnessLang) ? getWitnessLang : "",
 		// invalid_elements:'p',
-		plugins : "pagebreak,save,layer,print,fullscreen,wordcount,muyacharmap,autosave,paste,code, contextmenu, noneditable",
+		plugins : "pagebreak,save,print,fullscreen,wordcount,muyacharmap,autosave,paste,code, contextmenu, noneditable",
 		//contextmenu: 'cut copy paste',
 		//charmap_append: [["0256","A - kahako"],["0257","a - kahako"]],
 		//charmap_append: charmap_gu,
@@ -80,8 +80,9 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 		keyboardDebug: true,
 		init_instance_callback : "wceReload",
 		// Theme options
-		toolbar : "undo redo muyacharmap | code | LoadFile save | print cut copy pastetext pasteword fullscreen | "+
-		"breaks correction illegible decoration abbreviation paratext note punctuation language versemodify | showTeiByHtml help | info showHtmlByTei",
+		toolbar : "undo redo charmap | code | LoadFile save | print contextmenu cut copy pastetext pasteword fullscreen | " +
+		"breaks correction illegible decoration abbreviation paratext note punctuation language versemodify | " +
+		"docinfo | showTeiByHtml help | info showHtmlByTei",
 		theme_advanced_buttons2 : "",
 		theme_advanced_toolbar_location : "top",
 		theme_advanced_toolbar_align : "left",
@@ -101,7 +102,14 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 
 // wenn brower reload, set editor blank
 function wceReload() {
-
+    tinyMCE.activeEditor.windowManager.open({
+		title : 'Welcome to the OTE',
+		url : './plugin/start.htm',
+		width : screen.availWidth,
+        height : 50,
+        inline : true,
+        }, {
+		});
 }
 
 // get dirty-value of editor
@@ -199,13 +207,12 @@ function saveDataToDB() {
 
 function saveToDisc() {
 	if ('Blob' in window) {
-    var wce_var=tinyMCE.activeEditor.WCE_VAR;
-    var fileName=wce_var.loadFileInput?wce_var.loadFileInput.files[0].name:'untitled.xml';
+    var wce_var = tinyMCE.activeEditor.WCE_VAR;
+    var fileName = wce_var.loadFileInput?wce_var.loadFileInput.files[0].name:'untitled.xml';
 //		var fileName = prompt('Please enter file name to save', 'untitled.xml');
 		if (fileName) {
 		  var textToWrite = getTEI();
 		  var textFileAsBlob = new Blob([textToWrite], { type: 'text/xml' });
-
 		  if ('msSaveOrOpenBlob' in navigator) {
 			navigator.msSaveOrOpenBlob(textFileAsBlob, fileName);
 		  } else {
@@ -222,7 +229,6 @@ function saveToDisc() {
 			  downloadLink.style.display = 'none';
 			  document.body.appendChild(downloadLink);
 			}
-
 			downloadLink.click();
 		  }
 		}

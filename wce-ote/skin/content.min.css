@@ -1,3 +1,37 @@
+/*
+	Copyright (C) 2012-2017 Center for Digital Humanities, Trier
+
+	This file is part of the Online Transcription Editor (OTE).
+
+    OTE is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 2.1 of the License, or
+    (at your option) any later version.
+
+    OTE is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with OTE. If not, see <http://www.gnu.org/licenses/>.
+
+    Diese Datei ist Teil des Online-Transkriptions-Editor (OTE).
+
+    OTE ist Freie Software: Sie können es unter den Bedingungen
+    der GNU Lesser General Public License, wie von der Free Software Foundation,
+    Version 2.1 der Lizenz oder (nach Ihrer Wahl) jeder späteren
+    veröffentlichten Version, weiterverbreiten und/oder modifizieren.
+
+    OTE wird in der Hoffnung, dass es nützlich sein wird, aber
+    OHNE JEDE GEWÄHRLEISTUNG, bereitgestellt; sogar ohne die implizite
+    Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
+    Siehe die GNU Lesser General Public License für weitere Details.
+
+    Sie sollten eine Kopie der GNU Lesser General Public License zusammen mit diesem
+    Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
+*/
+
 .mce-content-body .mce-reset {
     margin: 0;
     padding: 0;
@@ -186,41 +220,6 @@ th[data-mce-selected] {
 
 /* above is the default skin values from the tinymce skin creator. below is the skin values from wce-ote for tinymce 3.x
    update this accordingly
-*/
-
-
-/*
-	Copyright (C) 2012-2017 Center for Digital Humanities, Trier
-
-	This file is part of the Online Transcription Editor (OTE).
-
-    OTE is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Lesser General Public License as published by
-    the Free Software Foundation, either version 2.1 of the License, or
-    (at your option) any later version.
-
-    OTE is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU Lesser General Public License
-    along with OTE. If not, see <http://www.gnu.org/licenses/>.
-
-    Diese Datei ist Teil des Online-Transkriptions-Editor (OTE).
-
-    OTE ist Freie Software: Sie können es unter den Bedingungen
-    der GNU Lesser General Public License, wie von der Free Software Foundation,
-    Version 2.1 der Lizenz oder (nach Ihrer Wahl) jeder späteren
-    veröffentlichten Version, weiterverbreiten und/oder modifizieren.
-
-    OTE wird in der Hoffnung, dass es nützlich sein wird, aber
-    OHNE JEDE GEWÄHRLEISTUNG, bereitgestellt; sogar ohne die implizite
-    Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
-    Siehe die GNU Lesser General Public License für weitere Details.
-
-    Sie sollten eine Kopie der GNU Lesser General Public License zusammen mit diesem
-    Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
 */
 
 
@@ -775,7 +774,6 @@ span.formatting_upsidedown {
 
 /*end: formatting group*/
 
-
 /*+++++++*/
 
 span[class*='wce_break_page'] {
@@ -828,4 +826,8 @@ span[class*='wce_abbr_numeral_Overline'] {
 
 .mceHideBrInPre pre br {
     display: none
+}
+
+header {
+	display: none
 }

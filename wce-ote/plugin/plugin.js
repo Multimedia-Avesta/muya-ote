@@ -33,7 +33,7 @@
 */
 
 (function () {
-	var wfce_editor = "0.5.6beta (2017-07-27)";
+	var wfce_editor = "0.5.7beta (2017-08-14)";
 
 	// Load plugin specific language pack
 	tinymce.PluginManager.requireLangPack('wce');
@@ -2558,6 +2558,14 @@
 				return stopEvent(ed, e);
 			}
 
+			//disabled remove format_start/format_end
+			if(ek==46 || ek==8){
+			   var _selectedNode=ed.selection.getNode();
+        if(_selectedNode && ($(_selectedNode).hasClass('format_end') || $(_selectedNode).hasClass('format_start'))){
+           return stopEvent(ed,e);
+        }
+			}
+
 			// press and hold to delete char prohibited in some cases
 			if (!tinymce.isOpera && (ek == 46 || ek == 8)) {
 				ed.keyDownDelCount++;
@@ -3717,6 +3725,7 @@
 //				}]
 //			});
 //
+
 			ed.addButton('language', {
 				title : tinymce.translate('menu_language') + ' (Ctrl+Alt+L)' ,
 				image : url + '/img/button_L.png',
@@ -3735,40 +3744,9 @@
 				icons : false,
 				onPostRender : function() { ed.WCE_CON.buttons[this.settings.icon] = this; },
 				onclick : function() {
-				  if(!window.File || !window.FileReader || !window.FileList || !window.Blob) {
-            alert('Your browser does not support load local file.')
-            return;
+				  ed.execCommand('mceLoadFile');
           }
-          if(!ed.WCE_VAR.loadFileInput) {
-            var fileInput = document.createElement('input');
-            fileInput.accept = '.xml';
-            fileInput.setAttribute('type', 'file');
-            var $fi = $(fileInput).on('change', function() {
-              var fileName = fileInput.files[0];
-            //  document.body.removeChild(fileInput);
-              var reader = new FileReader();
-              reader.onloadend = function(e) {
-                var res = reader.result;
-                var result = getHtmlByTei(res);
-                if(result) {
-                  var htmlContent = result['htmlString'];
-                  if(htmlContent)
-                    setData(htmlContent);
-                }
-              };
-
-              if(fileName) {
-                reader.readAsText(fileName);
-              }
             });
-            $fi.hide();
-            ed.WCE_VAR.loadFileInput = fileInput;
-            document.body.appendChild(fileInput);
-          }
-          $(ed.WCE_VAR.loadFileInput).trigger('click');
-          //  doWithDialog(ed, url, '/loadlocalxml.htm', 1100, 700, 1, false, tinymce.translate('Data to load transcription file'));
-				}
-			});
 
 			ed.addButton('docinfo', {
 				title : tinymce.translate('menu_docInfo') + ' (Ctrl+Alt+I)',
@@ -3846,6 +3824,39 @@
 				});
 			});
 
+            ed.addCommand('mceLoadFile', function() {
+                if (!window.File || !window.FileReader || !window.FileList || !window.Blob) {
+				      alert('Your browser does not support load local file.')
+				      return;
+				  }
+				  if (!ed.WCE_VAR.loadFileInput) {
+				      var fileInput = document.createElement('input');
+				      fileInput.accept = '.xml';
+				      fileInput.setAttribute('type', 'file');
+				      var $fi = $(fileInput).on('change', function () {
+				          var fileName = fileInput.files[0];
+				          //  document.body.removeChild(fileInput);
+				          var reader = new FileReader();
+				          reader.onloadend = function (e) {
+				              var res = reader.result;
+				              var result = getHtmlByTei(res);
+				              if (result) {
+				                  var htmlContent = result['htmlString'];
+				                  if (htmlContent)
+				                      setData(htmlContent);
+				              }
+				          };
+
+				          if (fileName) {
+				              reader.readAsText(fileName);
+				          }
+				      });
+				      $fi.hide();
+				      ed.WCE_VAR.loadFileInput = fileInput;
+				      document.body.appendChild(fileInput);
+				  }
+				  $(ed.WCE_VAR.loadFileInput).trigger('click');
+			});
 
 			// Add breaks
 			ed.addCommand('mceAddBreak', function() {
