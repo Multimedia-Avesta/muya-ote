@@ -518,29 +518,29 @@ span.languagechange[language="pal-Avst"],
 span.languagechange[language="ae-Avst"],
 span.languagechange[language="ae-Phlv"] {
     color: green;
-    background-color: green;
+/*    background-color: green;*/
 }
 
 span.languagechange[language="pal-Phli"],
 span.languagechange[language="pal-Phlv"] {
     color: purple;
-    background-color: purple;
+/*    background-color: purple;*/
 }
 
 span.languagechange[language="gu"] {
     color: red;
-    background-color: red;
+/*    background-color: red;*/
 }
 
 span.languagechange[language="fa"],
 span.languagechange[language="prs"] {
     color: yellow;
-    background-color: yellow;
+/*    background-color: yellow;*/
 }
 
 span.languagechange[language="sa"] {
     color: blue;
-    background-color: blue;
+/*    background-color: blue;*/
 }
 
 span.editortext {

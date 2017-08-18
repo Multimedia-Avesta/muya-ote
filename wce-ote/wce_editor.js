@@ -1,6 +1,6 @@
-﻿/* 
+﻿/*
 	Copyright (C) 2012-2017 Trier Center for Digital Humanities, Trier (Germany)
-	
+
 	This file is part of the Online Transcription Editor (OTE).
 
     OTE is free software: you can redistribute it and/or modify
@@ -101,7 +101,7 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 
 // wenn brower reload, set editor blank
 function wceReload() {
-	
+
 }
 
 // get dirty-value of editor
@@ -153,7 +153,7 @@ function getTeiIndexData() {
 function getTEI() {
 	//teiIndexData[0] = tinymce.get(tinyMCE.activeEditor.id).settings.book;
 	//teiIndexData[1] = tinymce.get(tinyMCE.activeEditor.id).settings.witness;
-	//teiIndexData[2] = tinymce.get(tinyMCE.activeEditor.id).settings.manuscriptLang; 
+	//teiIndexData[2] = tinymce.get(tinyMCE.activeEditor.id).settings.manuscriptLang;
 	return getTeiByHtml(getData(), tinyMCE.activeEditor.settings);
 }
 
@@ -293,7 +293,7 @@ function addMenuItems(ed) {
 			classes: 'contextmenu'
 		}).renderTo();
         var type;
-	
+
 		// added my options
 		type = selectedNode.getAttribute('wce').substring(4,17);
         if (selectedNode.getAttribute('wce') != null
@@ -330,7 +330,7 @@ function addMenuItems(ed) {
 					ed.execCommand('mce_partial_remove', type);
 				}
 			});
-		/*menu.addSeparator();
+		  /*menu.addSeparator();
 			menu.add({
 				title : 'Zoroastrian Middle Persian in Pahlavi Script',
 				icon : '',
@@ -345,9 +345,9 @@ function addMenuItems(ed) {
 				title : 'Middle Persian in inscriptional Pahlavi Script',
 				icon : '',
 				cmd : 'mce_palPhli'
-			});*/			
-		} else if (selectedNode.getAttribute('wce') != null 
-			&& selectedNode.getAttribute('wce').indexOf('break_type=pb') > -1 
+			});*/
+		} else if (selectedNode.getAttribute('wce') != null
+			&& selectedNode.getAttribute('wce').indexOf('break_type=pb') > -1
 			&& selectedNode.textContent.indexOf('PB') > -1) {
 			isPreviousActive = (selectedNode.getAttribute('wce').indexOf('hasBreak=yes') > -1);
 			menu.add({ text : '|'});
@@ -367,8 +367,8 @@ function addMenuItems(ed) {
 				}
 			});
 			menu.items()[menu.items().length-1].disabled(!isPreviousActive);
-		} else if (selectedNode.getAttribute('class') != null 
-			&& ($(selectedNode).hasClass('lang') 
+		} else if (selectedNode.getAttribute('class') != null
+			&& ($(selectedNode).hasClass('lang')
 			|| ($(selectedNode).hasClass('formatting_rubrication')))) {
 			menu.add({
 				text : tinymce.translate('wce.removeLanguage'),
@@ -386,7 +386,7 @@ function addMenuItems(ed) {
 		menu.moveTo($(contextMenu.getEl()).position().left, $(contextMenu.getEl()).position().top);
 		contextMenu.hide();
 	});//end contextmenu on
-	
+
 	//
 	ed.addCommand('mce_partialI', function(type) {
 		ed.selection.getNode().setAttribute('wce', '__t=' + type + '_number' + '&partial=I');
@@ -403,7 +403,7 @@ function addMenuItems(ed) {
 	ed.addCommand('mce_remove_language', function() {
 		ed.execCommand('wceDelNode', true, true);
 	});
-		
+
 	/*ed.addCommand('mce_palPhlv', function() {
 		ed.selection.getNode().setAttribute('wce', '__t=verse_number' + '&lang=pal-Phlv');
 	});
@@ -413,7 +413,7 @@ function addMenuItems(ed) {
 	ed.addCommand('mce_palPhli', function() {
 		ed.selection.getNode().setAttribute('wce', '__t=verse_number' + '&lang=pal-Phli');
 	});*/
-	
+
 	ed.addCommand('mce_previous_hyphenation', function(b) {
 		var oldwce = ed.selection.getNode().getAttribute('wce');
 		var pos = oldwce.indexOf("number=");

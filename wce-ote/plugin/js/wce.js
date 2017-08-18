@@ -338,19 +338,20 @@ function writeWceNodeInfo(val) {
 					langID = 'S';
 				else
 					langID = 'O';*/
-				if (document.getElementById('reason_for_language_change').value == 'ritual' && document.getElementById('color').value == 'red') {
-					new_content = '<span wce="' + newWceAttr + '"' + wceClass + '>' + '<span class="format_start" language="' + document.getElementById('language_name').value + '">' + '\u2039' + '</span>' + '<span class="formatting_rubrication" wce_orig="' + encodeURI(selected_content) + '" wce="__t=formatting_rubrication">' + selected_content + '</span>' + '<span class="format_end" language="' + document.getElementById('language_name').value + '">' + '\u203a' + '</span>' + '</span>';
-                } else if (document.getElementById('reason_for_language_change').value == 'untransPahlavi') {
-                    new_content = '<span wce="' + newWceAttr + '"' + wceClass + '>' + '<span class="languagechange" language="' + document.getElementById('language_name').value + '">' + '\u2039' + '</span>';
+				new_content = '<span wce="' + newWceAttr + '"' + wceClass + '>' + '\u2192' + '</span>';
+                //if (document.getElementById('reason_for_language_change').value == 'ritual' && document.getElementById('color').value == 'red') {
+					//new_content = '<span wce="' + newWceAttr + '"' + wceClass + '>' + '<span class="format_start" language="' + document.getElementById('language_name').value + '">' + '\u2039' + '</span>' + '<span class="formatting_rubrication" wce_orig="' + encodeURI(selected_content) + '" wce="__t=formatting_rubrication">' + selected_content + '</span>' + '<span class="format_end" language="' + document.getElementById('language_name').value + '">' + '\u203a' + '</span>' + '</span>';
+                if (document.getElementById('reason_for_language_change').value == 'untransPahlavi') {
                     covertext = 'Untranscribed Pahlavi text';
                     for (var i = 0; i < document.getElementById('number_of_lines').value; i++) {
-                        covertext += startFormatHtml + '<br/>&crarr;' + endFormatHtml + 'Untranscribed Pahlavi text';
+                        covertext += '<br/>&crarr;' + 'Untranscribed Pahlavi text';
                     }
                     new_content += '<span class=editortext>' + covertext + '</span>';
-                    new_content += '<span class="languagechange" language="ae-Avst">\u2039</span> '
-                } else {
-					new_content = '<span wce="' + newWceAttr + '"' + wceClass + '>' + '<span class="languagechange" language="' + document.getElementById('language_name').value + '">' + '</span>';
+                    new_content += '<span class="languagechange" language="ae-Avst">' + '\u2192' + '</span> ' //TODO: Add standard language here
                 }
+                //} else {
+				//	new_content = '<span wce="' + newWceAttr + '"' + wceClass + '>' + '<span class="languagechange" language="' + document.getElementById('language_name').value + '">' + '</span>';
+                //}
                 break;
 			default:
 				break;
@@ -371,7 +372,7 @@ function writeWceNodeInfo(val) {
 		var wcevar = ed.WCE_VAR;
 		if (wcevar.isc && wcevar.isInBE && wcevar.isCaretAtNodeEnd &&
 			(wcevar.type == ed.WCE_CON.formatEnd || wcevar.type == 'chapter_number' || wcevar.type === 'book_number' || wcevar.type == 'verse_number'
-			|| wcevar-type == 'stanza_number' || wcevar.type == 'brea')) {
+			|| wcevar.type == 'stanza_number' || wcevar.type == 'brea')) {
 			var selNode = wcevar.selectedNode;
 			if (wcevar.type == ed.WCE_CON.formatEnd) {
 				$(new_content).insertAfter(selNode.parentNode);
