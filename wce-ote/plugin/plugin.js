@@ -2163,7 +2163,11 @@
 								else if (ar['partial'] == 'F')
 									info_text += ' (final portion)';
 							}
-							info_text += '</div>';
+                            if (ar['lang']) {
+                                var lang = ar['lang'];
+                                info_text += '<div>' + tinymce.translate('language_name') + ': ' + lang + '</div>';
+                            }
+                            info_text += '</div>';
 							break;
 						case 'stanza':
 							info_text = '<div>' + 'Stanza number';
@@ -2175,13 +2179,27 @@
 								else if (ar['partial'] == 'F')
 									info_text += ' (final portion)';
 							}
-							info_text += '</div>';
+                            if (ar['lang']) {
+                                var lang = ar['lang'];
+                                info_text += '<div>' + tinymce.translate('language_name') + ': ' + lang + '</div>';
+                            }
+                            info_text += '</div>';
                             break;
 						case 'chapter':
-							info_text = '<div>' + 'Chapter number' + '</div>';
+							info_text = '<div>' + 'Chapter number';
+                            if (ar['lang']) {
+                                var lang = ar['lang'];
+                                info_text += '<div>' + tinymce.translate('language_name') + ': ' + lang + '</div>';
+                            }
+                            info_text += '</div>';
 							break;
 						case 'book':
-							info_text = '<div>' + 'Book name' + '</div>';
+							info_text = '<div>' + 'Book name';
+                            if (ar['lang']) {
+                                var lang = ar['lang'];
+                                info_text += '<div>' + tinymce.translate('language_name') + ': ' + lang + '</div>';
+                            }
+                            info_text += '</div>';
 							break;
 						case 'lection':
 							info_text = '<div>' + 'Lection ' + ar['number'] + '</div>';

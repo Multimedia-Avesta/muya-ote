@@ -176,18 +176,10 @@ function writeWceNodeInfo(val) {
 				var gap_text = "";
 				var gap_unit;
 				var gap_extent;
-<<<<<<< .mine
-				var gap_id;
-=======
                 var gap_id;
->>>>>>> .theirs
 				if (document.getElementById('mark_as_supplied').checked == true) {// supplied text
 					gap_text = '[' + selected_content + ']';
-<<<<<<< .mine
-					//test if in node abbr with overline
-=======
                     //test if in node abbr with overline
->>>>>>> .theirs
 					var gap_parent=wce_node;
 					var gap_parent_name;
 					while(gap_parent){
@@ -327,19 +319,12 @@ function writeWceNodeInfo(val) {
 				wceClass = ' class="formatting_capitals"';
 				break;
 
-<<<<<<< .mine
-			case 'formatting_ornamentation_other':
-=======
             case 'formatting_ornamentation_other':
->>>>>>> .theirs
 				wceClass = ' class="formatting_ornamentation_other"';
 				break;
-<<<<<<< .mine
-			case 'lang':
-=======
             case 'lang':
->>>>>>> .theirs
                 var covertext = '';
+                var following_language = '';
 				/*var langID = '';
 				if (document.getElementById('language_name').value.indexOf("Avst") > -1)
 					langID = 'A';
@@ -347,27 +332,30 @@ function writeWceNodeInfo(val) {
 					langID = 'P';
 				else if (document.getElementById('language_name').value.indexOf("gu") > -1)
 					langID = 'G';
-<<<<<<< .mine
-				else if (document.getElementById('language_name').value.indexOf("fa") > -1
-=======
                 else if (document.getElementById('language_name').value.indexOf("fa") > -1
->>>>>>> .theirs
 							|| document.getElementById('language_name').value.indexOf("per") > -1)
 					langID = 'PER';
 				else if (document.getElementById('language_name').value.indexOf("sa") > -1)
 					langID = 'S';
 				else
 					langID = 'O';*/
-				new_content = '<span wce="' + newWceAttr + '"' + wceClass + '>' + '\u2192' + '</span>';
+				// we end the current language using a milestone (which is later converted into a </span>)
+                new_content += '<span class="languageEnd"></span>';
+                // we start a new language
+                new_content += '<span wce="' + newWceAttr + '"' + wceClass + '>' + '\u2192' + '</span>';
                 //if (document.getElementById('reason_for_language_change').value == 'ritual' && document.getElementById('color').value == 'red') {
 					//new_content = '<span wce="' + newWceAttr + '"' + wceClass + '>' + '<span class="format_start" language="' + document.getElementById('language_name').value + '">' + '\u2039' + '</span>' + '<span class="formatting_rubrication" wce_orig="' + encodeURI(selected_content) + '" wce="__t=formatting_rubrication">' + selected_content + '</span>' + '<span class="format_end" language="' + document.getElementById('language_name').value + '">' + '\u203a' + '</span>' + '</span>';
+                // for untranscribed Pahlavi text we add some placeholder text
                 if (document.getElementById('reason_for_language_change').value == 'untransPahlavi') {
-                    covertext = 'Untranscribed Pahlavi text';
+                    covertext = ed.translate('untransPahlavi');
                     for (var i = 0; i < document.getElementById('number_of_lines').value; i++) {
-                        covertext += '<br/>&crarr;' + 'Untranscribed Pahlavi text';
+                        covertext += '<br/>&crarr;' + ed.translate('untransPahlavi');
                     }
                     new_content += '<span class=editortext>' + covertext + '</span>';
-                    new_content += '<span class="languagechange" language="ae-Avst">' + '\u2192' + '</span> ' //TODO: Add standard language here
+                    // check for "following_language" setting
+                    following_language = document.getElementById('following_language') ? document.getElementById('following_language') : 'same';
+                    if (following_language !== 'same')
+                        new_content += '<span class="languagechange" language="' + following_language + '">' + '\u2192' + '</span> ';
                 }
                 //} else {
 				//	new_content = '<span wce="' + newWceAttr + '"' + wceClass + '>' + '<span class="languagechange" language="' + document.getElementById('language_name').value + '">' + '</span>';
@@ -387,25 +375,12 @@ function writeWceNodeInfo(val) {
 		//ed.selection.select(marker, false);
 
 		//Fixed: if the selection range is collapsed and the caret is at the end of a element,
-<<<<<<< .mine
-		//then the new element will appear inside of current element and not after the element
-=======
         //then the new element will appear inside of current element and not after the element
->>>>>>> .theirs
 		//when one adds a new element via the menu
 		var wcevar = ed.WCE_VAR;
-<<<<<<< .mine
-		if (wcevar.isc && wcevar.isInBE && wcevar.isCaretAtNodeEnd &&
-=======
         if (wcevar.isc && wcevar.isInBE && wcevar.isCaretAtNodeEnd &&
->>>>>>> .theirs
-<<<<<<< .mine
 			(wcevar.type == ed.WCE_CON.formatEnd || wcevar.type == 'chapter_number' || wcevar.type === 'book_number' || wcevar.type == 'verse_number'
 			|| wcevar.type == 'stanza_number' || wcevar.type == 'brea')) {
-=======
-            (wcevar.type == ed.WCE_CON.formatEnd || wcevar.type == 'chapter_number' || wcevar.type === 'book_number' || wcevar.type == 'verse_number' ||
-                wcevar - type == 'stanza_number' || wcevar.type == 'brea')) {
->>>>>>> .theirs
 			var selNode = wcevar.selectedNode;
 			if (wcevar.type == ed.WCE_CON.formatEnd) {
 				$(new_content).insertAfter(selNode.parentNode);
@@ -871,11 +846,7 @@ function wce_openWindow(txt) {
 				"width=800,height=600,resizable=yes,status=no,"+
                 "menubar=no,location=no,scrollbars=yes,toolbar=no");
 		smallwindow.opener = parent;
-<<<<<<< .mine
 		smallwindow.focus();
-=======
-        smallwindow.focus();
->>>>>>> .theirs
     } else {
 		smallwindow.focus();
 	}

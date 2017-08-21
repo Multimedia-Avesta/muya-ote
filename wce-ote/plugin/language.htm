@@ -105,10 +105,28 @@
 					</tr>
                     <tr>
                         <td>
-                            <label id='number_of_lines_label' for="number_of_lines">{#covered}</label>
+                            <label id="number_of_lines_label" for="number_of_lines">{#covered}</label>
                         </td>
                         <td>
                             <input id="number_of_lines" name="number_of_lines" type="text" value="0" size="10" maxlength="" class="required number min1 mceFocus" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label id="following_lang_label" for="following_language">{#following_lang}</label>
+                        </td>
+                        <td colspan="1">
+                            <select id="following_language" name="following_language">
+                                <option value="same" selected="selected">{#sameasbefore}</option>
+                                <option value="pal-Phlv">{#pahlavi_phlv}</option>
+								<option value="pal-Avst">{#pahlavi_avst}</option>
+								<option value="pal-Phli">{#pahlavi_phli}</option>
+								<option value="ae-Avst">{#avestan_avst}</option>
+								<option value="ae-Phlv">{#avestan_phlv}</option>
+								<option value="gu">{#gujarati}</option>
+								<option value="fa">{#persian}</option>
+								<option value="sa">{#sanskrit}</option>
+                            </select>
                         </td>
                     </tr>
 				</table>
@@ -149,7 +167,7 @@
 
 		function init() {
 			comboBindReturnEvent('insert');
-			wceInfoInit('languagechange');
+			wceInfoInit('lang');
 			readWceNodeInfo();
 			checkstatus_reason();
 			checkstatus_language();
@@ -189,9 +207,13 @@
                 $('#language_name').val('pal-Phlv');
                 $('#number_of_lines').attr('disabled', false);
                 $('#number_of_lines').css('background', '#fff');
+                $('#following_language').attr('disabled', false);
+                $('#following_language').css('background', '#fff');
             } else {
                 $('#number_of_lines').attr('disabled', true);
                 $('#number_of_lines').css('background', '#ccc');
+                $('#following_language').attr('disabled', true);
+                $('#following_language').css('background', '#ccc');
             }
 		}
 
