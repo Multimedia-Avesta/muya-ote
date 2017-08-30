@@ -34,43 +34,40 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<title>{#language}</title>
-		<script type="text/javascript" src="../../js/tinymce/tinymce.js"></script>
-		<script type="text/javascript" src="../jquery.js"></script>
-		<script type="text/javascript" src="../rangy-core.js"></script>
-		<script type="text/javascript" src="js/wce.js"></script>
-	</head>
 
-    <body id="table">
-        <form onsubmit="insertTable();return false;" action="#"
-        name="languageinfo" style="margin: 0; padding: 0">
-            <fieldset id="content_fieldset">
-                <legend>
-                    {#reading_data}
-                </legend>
-                <table border="0" cellpadding="4" cellspacing="0" width="100%">
-                    <tr>
-						<td><label id="reason_for_language_change_label" for="reason_for_language_change">{#reason_for_language_change}</label></td>
-						<td>
-							<select id="reason_for_language_change" name="reason_for_language_change"
-									onchange="checkstatus_reason()">
+<head>
+    <title>{#language}</title>
+    <script type="text/javascript" src="../../js/tinymce/tinymce.js"></script>
+    <script type="text/javascript" src="../jquery.js"></script>
+    <script type="text/javascript" src="../rangy-core.js"></script>
+    <script type="text/javascript" src="js/wce.js"></script>
+</head>
+
+<body id="table">
+    <form onsubmit="insertTable();return false;" action="#" name="languageinfo" style="margin: 0; padding: 0">
+        <fieldset id="content_fieldset">
+            <legend>
+                {#reading_data}
+            </legend>
+            <table border="0" cellpadding="4" cellspacing="0" width="100%">
+                <tr>
+                    <td><label id="reason_for_language_change_label" for="reason_for_language_change">{#reason_for_language_change}</label></td>
+                    <td>
+                        <select id="reason_for_language_change" name="reason_for_language_change" onchange="checkstatus_reason()">
 								<option value="trans">{#translation}</option>
 								<option value="ritual">{#ritual}</option>
 								<option value="section">{#section}</option>
                                 <option value="untransPahlavi">{#untransPahlavi}</option>
 								<option value="other">{#other}</option>
 							</select></td>
-						<td>
-							<input id="reason_for_language_change_other" name="reason_for_language_change_other"
-									type="text" value="" size="30" />
-						</td>
-					</tr>
-					<tr>
-						<td><label id="language_name_label" for="language_name">{#language_name}</label></td>
-						<td>
-							<select id="language_name" name="language_name"
-									onchange="checkstatus_language()">
+                    <td>
+                        <input id="reason_for_language_change_other" name="reason_for_language_change_other" type="text" value="" size="30" />
+                    </td>
+                </tr>
+                <tr>
+                    <td><label id="language_name_label" for="language_name">{#language_name}</label></td>
+                    <td>
+                        <select id="language_name" name="language_name" onchange="checkstatus_language()">
 								<option value="pal-Phlv">{#pahlavi_phlv}</option>
 								<option value="pal-Avst">{#pahlavi_avst}</option>
 								<option value="pal-Phli">{#pahlavi_phli}</option>
@@ -79,44 +76,43 @@
 								<option value="gu">{#gujarati}</option>
 								<option value="fa">{#persian}</option>
 								<option value="sa">{#sanskrit}</option>
-								<option value="other">{#other}</option> for
+								<option value="other">{#other}</option>
 							</select></td>
-						<td>
-							<input id="language_name_other" name="language_name_other"
-									type="text" value="" size="30" />
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<label id="color_label" for="color">{#menu_hl_color}</label>
-						</td>
-						<td colspan="1">
-							<select id="color" name="color" onchange="checkstatus_color">
+                    <td>
+                        <input id="language_name_other" name="language_name_other" type="text" value="" size="30" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label id="color_label" for="color">{#menu_hl_color}</label>
+                    </td>
+                    <td colspan="1">
+                        <select id="color" name="color" onchange="checkstatus_color">
 								<option value="black">{#menu_hl_black}</option>
 								<option value="red">{#menu_hl_red}</option>
 								<!--<option value="other">{#wce.other}</option>-->
 							</select>
-						</td>
-						<!--<td colspan="2">
+                    </td>
+                    <!--<td colspan="2">
                             <input id="place_corr_other"
                             name="place_corr_other" type="text" value="" size="20"
                             maxlength="" class="required number min1 mceFocus" />
                             </td>-->
-					</tr>
-                    <tr>
-                        <td>
-                            <label id="number_of_lines_label" for="number_of_lines">{#covered}</label>
-                        </td>
-                        <td>
-                            <input id="number_of_lines" name="number_of_lines" type="text" value="0" size="10" maxlength="" class="required number min1 mceFocus" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label id="following_lang_label" for="following_language">{#following_lang}</label>
-                        </td>
-                        <td colspan="1">
-                            <select id="following_language" name="following_language">
+                </tr>
+                <tr>
+                    <td>
+                        <label id="number_of_lines_label" for="number_of_lines">{#covered}</label>
+                    </td>
+                    <td>
+                        <input id="number_of_lines" name="number_of_lines" type="text" value="0" size="10" maxlength="" class="required number min1 mceFocus" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label id="following_lang_label" for="following_language">{#following_lang}</label>
+                    </td>
+                    <td colspan="1">
+                        <select id="following_language" name="following_language">
                                 <option value="same" selected="selected">{#sameasbefore}</option>
                                 <option value="pal-Phlv">{#pahlavi_phlv}</option>
 								<option value="pal-Avst">{#pahlavi_avst}</option>
@@ -127,124 +123,129 @@
 								<option value="fa">{#persian}</option>
 								<option value="sa">{#sanskrit}</option>
                             </select>
-                        </td>
-                    </tr>
-				</table>
-            </fieldset>
-			<div class="mceActionPanel" id="mceActionPanel">
-				<input type="button" id="insert" name="insert" value="{#insert}"
-						onclick="if (testOther()){writeWceNodeInfo();}else{alert('{#empty_other}');}" />
-				<input type="button" id="cancel" name="cancel" value="{#cancel}"
-						onclick="parent.tinymce.activeEditor.windowManager.close();" />
-			</div>
-        </form>
-    </body>
-    <script type="text/javascript">
-		$(document).ready(function() {
-			var _ed = parent.tinymce.activeEditor;
-			ed=_ed;
-			translate();
-			setConstants();
-			init();
-		});
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <div class="mceActionPanel" id="mceActionPanel">
+            <input type="button" id="insert" name="insert" value="{#insert}" onclick="if (testOther()){writeWceNodeInfo();}else{alert('{#empty_other}');}" />
+            <input type="button" id="cancel" name="cancel" value="{#cancel}" onclick="parent.tinymce.activeEditor.windowManager.close();" />
+        </div>
+    </form>
+</body>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var _ed = parent.tinymce.activeEditor;
+        ed = _ed;
+        translate();
+        setConstants();
+        init();
+    });
 
-		function translate() {
-			var c=document.body.innerHTML;
-			var d=document.title;
-			var a;
-			if(parent.tinymce.isIE){c=c.replace(/ (value|title|alt)=([^"][^\s>]+)/gi,' $1="$2"')}
-				a=c.replace(/\{\#([^\}]+)\}/g, function(a, b) {
-				var c=parent.tinymce.translate(b);
-				return (c != b) ? c : '{#' + b + '}';
-			});
-			if(a!=c){document.body.innerHTML=a}
-				a=d.replace(/\{\#([^\}]+)\}/g, function(a, b) {
-				var c=parent.tinymce.translate(b);
-				return (c != b) ? c : '{#' + b + '}';
-			});
-			if(a!=d){document.title=d=a}
-		}
+    function translate() {
+        var c = document.body.innerHTML;
+        var d = document.title;
+        var a;
+        if (parent.tinymce.isIE) {
+            c = c.replace(/ (value|title|alt)=([^"][^\s>]+)/gi, ' $1="$2"')
+        }
+        a = c.replace(/\{\#([^\}]+)\}/g, function(a, b) {
+            var c = parent.tinymce.translate(b);
+            return (c != b) ? c : '{#' + b + '}';
+        });
+        if (a != c) {
+            document.body.innerHTML = a
+        }
+        a = d.replace(/\{\#([^\}]+)\}/g, function(a, b) {
+            var c = parent.tinymce.translate(b);
+            return (c != b) ? c : '{#' + b + '}';
+        });
+        if (a != d) {
+            document.title = d = a
+        }
+    }
 
-		function init() {
-			comboBindReturnEvent('insert');
-			wceInfoInit('lang');
-			readWceNodeInfo();
-			checkstatus_reason();
-			checkstatus_language();
-		}
+    function init() {
+        comboBindReturnEvent('insert');
+        wceInfoInit('langchange');
+        readWceNodeInfo();
+        checkstatus_reason();
+        checkstatus_language();
+    }
 
-		function testOther() {
-			if ((document.languageinfo.language_name.options[8].selected == true && document.getElementById('language_name_other').value == '')
-			    || (document.languageinfo.reason_for_language_change.options[4].selected == true && document.getElementById('reason_for_language_change_other').value == '')
-                || (document.languageinfo.reason_for_language_change.options[3].selected == true && (document.getElementById('number_of_lines').value == '') || (document.getElementById('number_of_lines').value < 0)))
-				return false;
-			return true;
-		}
+    function testOther() {
+        if ((document.languageinfo.language_name.options[8].selected == true && document.getElementById('language_name_other').value == '') ||
+            (document.languageinfo.reason_for_language_change.options[4].selected == true && document.getElementById('reason_for_language_change_other').value == '') ||
+            (document.languageinfo.reason_for_language_change.options[3].selected == true && (document.getElementById('number_of_lines').value == '') || (document.getElementById('number_of_lines').value < 0)))
+            return false;
+        return true;
+    }
 
-		/*function testOther_insert() {
-		if (!testOther() || item_counter == -1)// no corrections given
-		return false;
-		return true;
-		}*/
+    /*function testOther_insert() {
+    if (!testOther() || item_counter == -1)// no corrections given
+    return false;
+    return true;
+    }*/
 
-		function checkstatus_reason() {
-			if ($('#reason_for_language_change').val() == 'other') {
-				$('#reason_for_language_change_other').attr('disabled', false);
-				$('#reason_for_language_change_other').css('background', '#fff');
-			} else {
-				$('#reason_for_language_change_other').attr('disabled', true);
-				$('#reason_for_language_change_other').css('background', '#ccc');
-			}
-			if ($('#reason_for_language_change').val() == 'ritual') {
-				$('#color').attr('disabled', false);
-				$('#color').css('background', '#fff');
-				$('#color').val('red');
-			} else {
-				$('#color').attr('disabled', true);
-				$('#color').css('background', '#ccc');
-			}
-            if ($('#reason_for_language_change').val() == 'untransPahlavi') {
-                $('#language_name').val('pal-Phlv');
-                $('#number_of_lines').attr('disabled', false);
-                $('#number_of_lines').css('background', '#fff');
-                $('#following_language').attr('disabled', false);
-                $('#following_language').css('background', '#fff');
-            } else {
-                $('#number_of_lines').attr('disabled', true);
-                $('#number_of_lines').css('background', '#ccc');
-                $('#following_language').attr('disabled', true);
-                $('#following_language').css('background', '#ccc');
+    function checkstatus_reason() {
+        if ($('#reason_for_language_change').val() == 'other') {
+            $('#reason_for_language_change_other').attr('disabled', false);
+            $('#reason_for_language_change_other').css('background', '#fff');
+        } else {
+            $('#reason_for_language_change_other').attr('disabled', true);
+            $('#reason_for_language_change_other').css('background', '#ccc');
+        }
+        if ($('#reason_for_language_change').val() == 'ritual') {
+            $('#color').attr('disabled', false);
+            $('#color').css('background', '#fff');
+            $('#color').val('red');
+        } else {
+            $('#color').attr('disabled', true);
+            $('#color').css('background', '#ccc');
+        }
+        if ($('#reason_for_language_change').val() == 'untransPahlavi') {
+            $('#language_name').val('pal-Phlv');
+            $('#number_of_lines').attr('disabled', false);
+            $('#number_of_lines').css('background', '#fff');
+            $('#following_language').attr('disabled', false);
+            $('#following_language').css('background', '#fff');
+        } else {
+            $('#number_of_lines').attr('disabled', true);
+            $('#number_of_lines').css('background', '#ccc');
+            $('#following_language').attr('disabled', true);
+            $('#following_language').css('background', '#ccc');
+        }
+    }
+
+    function checkstatus_language() {
+        if ($('#language_name').val() == 'other') {
+            $('#language_name_other').attr('disabled', false);
+            $('#language_name_other').css('background', '#fff');
+        } else {
+            $('#language_name_other').attr('disabled', true);
+            $('#language_name_other').css('background', '#ccc');
+        }
+    }
+
+    function checkstatus_color() { // for later usage
+        /*if ($('#language_name').val() == 'other') {
+        $('#language_name_other').attr('disabled', false);
+        $('#language_name_other').css('background', '#fff');
+        } else {
+        $('#language_name_other').attr('disabled', true);
+        $('#language_name_other').css('background', '#ccc');
+        }*/
+    }
+
+    if (!tinyMCE.isIE) {
+        $(document).keydown(function(e) {
+            var evt = e || window.event
+            if ((evt.keyCode == 13 || evt.keyCode == 10) && !evt.shiftKey) {
+                document.getElementById('insert').click();
+                return false;
             }
-		}
+        });
+    }
+</script>
 
-		function checkstatus_language() {
-			if ($('#language_name').val() == 'other') {
-				$('#language_name_other').attr('disabled', false);
-				$('#language_name_other').css('background', '#fff');
-			} else {
-				$('#language_name_other').attr('disabled', true);
-				$('#language_name_other').css('background', '#ccc');
-			}
-		}
-
-		function checkstatus_color() { // for later usage
-		/*if ($('#language_name').val() == 'other') {
-		$('#language_name_other').attr('disabled', false);
-		$('#language_name_other').css('background', '#fff');
-		} else {
-		$('#language_name_other').attr('disabled', true);
-		$('#language_name_other').css('background', '#ccc');
-		}*/
-		}
-
-		if (!tinyMCE.isIE) {
-			$(document).keydown(function(e) {
-				var evt = e || window.event
-				if ((evt.keyCode == 13 || evt.keyCode == 10) && !evt.shiftKey) {
-					document.getElementById('insert').click();
-					return false;
-				}
-			});
-		}
-	</script>
 </html>

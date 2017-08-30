@@ -834,7 +834,7 @@ function getHtmlByTei(inputString) {
 		var $newNode = $newDoc.createElement('span');
 		var type = $teiNode.getAttribute('type');
 		if (type && type == 'languageChange') {
-			$newNode.setAttribute('class', 'lang');
+			$newNode.setAttribute('class', 'langchange');
 			wceAttr = '__t=lang&language_name=' + $teiNode.getAttribute('xml:lang');
 			var subtype = $teiNode.getAttribute('subtype');
 			if (subtype && subtype != '') {
@@ -2012,11 +2012,15 @@ function getTeiByHtml(inputString, args) {
 		str = str.replace('<TEI>', '<?xml  version="1.0" encoding="utf-8"?><TEI xmlns="http://www.tei-c.org/ns/1.0">');
 		str = str.replace("</teiHeader>", "</teiHeader><body><text>");
 				if (g_manuscriptLang && g_manuscriptLang != '')// set manuscript language if there are information
-			str = str.replace("<text>", '<text xml:lang="' + g_manuscriptLang + '">');
+                    str = str.replace("<text>", '<text xml:lang="' + g_manuscriptLang + '">');
 		str = str.replace("</TEI>", "</text></body></TEI>");
 		str = str.replace(/OMISSION/g, "");
 		str = str.replace(//g, $("<div />").html("a&#772;&#778;").text());
 		str = str.replace(//g, $("<div />").html("H&#803;").text());
+        // We have to replace the elements regarding language change in order to get a correct XML output
+        str = str.replace(/&#x2192;<\/span>/g, "");
+        str = str.replace(/<span class="langstart"><\/span>/g, '<span class="langstart">');
+        str = str.replace(/<span class="langend"><\/span>/g, "</span>");
 		return str;
 	};
 
@@ -2512,6 +2516,9 @@ function getTeiByHtml(inputString, args) {
 		var dd = today.getDate();
 		var mm = today.getMonth()+1; //January is 0!
 		var yyyy = today.getFullYear();
+        var $newNodeH, $newNodeF, $newNodeT, $newNodeTt, $newNodeS, $newNodeC,
+            $newNodeR, $newNodeP, $newNodeMd, $newNodeMi, $newNodeRt, $newNodeI, $newNodeIt;
+        var transcriber, manID;
 
 		if (dd < 10) {
 			dd = '0' + dd;
@@ -2522,13 +2529,13 @@ function getTeiByHtml(inputString, args) {
 		}
 		today = yyyy + '-' + mm + '-' + dd;
 
-		var transcriber = ($htmlNode.firstElementChild||$htmlNode.firstChild).textContent.replace("_"," ");
-		var manID = $htmlNode.getElementsByTagName("ms")[0].textContent;
+		transcriber = ($htmlNode.firstElementChild||$htmlNode.firstChild).textContent.replace("_"," ");
+		manID = $htmlNode.getElementsByTagName("ms")[0].textContent;
 
-        var $newNodeH = $newDoc.createElement('teiHeader');
-		var $newNodeF = $newDoc.createElement('fileDesc');
-		var $newNodeT = $newDoc.createElement('titleStmt');
-		var $newNodeTt = $newDoc.createElement('title');
+        $newNodeH = $newDoc.createElement('teiHeader');
+		$newNodeF = $newDoc.createElement('fileDesc');
+		$newNodeT = $newDoc.createElement('titleStmt');
+		$newNodeTt = $newDoc.createElement('title');
 		$newNodeT.appendChild($newNodeTt);
 		$newNodeF.appendChild($newNodeT);
 		$newNodeP = $newDoc.createElement('publicationStmt');
@@ -3324,8 +3331,8 @@ function getTeiByHtml(inputString, args) {
 		if (wceType == 'part_abbr') {
 			return html2Tei_partarr(arr, $teiParent, $htmlNode);
 		}
-		if (wceType == 'lang') {
-			return html2Tei_language(arr, $teiParent, $htmlNode);
+		if (wceType == 'langchange') {
+			return html2Tei_langchange(arr, $teiParent, $htmlNode);
 		}
 		// other
 		var $e = $newDoc.createElement("-TEMP-" + htmlNodeName);
@@ -4498,7 +4505,7 @@ function getTeiByHtml(inputString, args) {
 		}*/
 	};
 
-	var html2Tei_language = function(arr, $teiParent, $htmlNode) {
+	var html2Tei_langchange = function(arr, $teiParent, $htmlNode) {
 		var $ab = $newDoc.createElement('ab');
 		var count_verse = 97 + Math.floor(g_verseNumber/2);
 		var langID;

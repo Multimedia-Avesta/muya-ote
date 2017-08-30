@@ -302,7 +302,7 @@ function writeWceNodeInfo(val) {
 							selected_content += '<br/>&crarr;[<span class="lectionary-other" ' + 'wce="__t=paratext&__n=&fw_type=lectionary-other&covered=' + cl + '">lect</span>]';
 						}
 						wceUtils.addToCounter(ed, 'lb', document.getElementById('covered').value);
-					} else {// no value given for covered lines
+					} else { // no value given for covered lines
 						selected_content += '[<span class="lectionary-other" ' + 'wce="__t=paratext&__n=&fw_type=lectionary-other&covered=">lect</span>]';
 					}
 				} else if (document.getElementById('fw_type').value == "ews") {
@@ -313,36 +313,25 @@ function writeWceNodeInfo(val) {
 				// write original_text for breaks and paratext
 				new_content = '<span wce="' + newWceAttr + '"' + wceClass + original_text + '>' + startFormatHtml + selected_content + endFormatHtml + '</span>';
 				break;
-
 			case 'formatting_capitals':
 				//only for formatting_capitals needed
 				wceClass = ' class="formatting_capitals"';
 				break;
-
             case 'formatting_ornamentation_other':
 				wceClass = ' class="formatting_ornamentation_other"';
 				break;
-            case 'lang':
+            case 'langchange':
                 var covertext = '';
                 var following_language = '';
-				/*var langID = '';
-				if (document.getElementById('language_name').value.indexOf("Avst") > -1)
-					langID = 'A';
-				else if (document.getElementById('language_name').value.indexOf("pal") > -1)
-					langID = 'P';
-				else if (document.getElementById('language_name').value.indexOf("gu") > -1)
-					langID = 'G';
-                else if (document.getElementById('language_name').value.indexOf("fa") > -1
-							|| document.getElementById('language_name').value.indexOf("per") > -1)
-					langID = 'PER';
-				else if (document.getElementById('language_name').value.indexOf("sa") > -1)
-					langID = 'S';
-				else
-					langID = 'O';*/
+                new_content = '';
+
 				// we end the current language using a milestone (which is later converted into a </span>)
-                new_content += '<span class="languageEnd"></span>';
-                // we start a new language
-                new_content += '<span wce="' + newWceAttr + '"' + wceClass + '>' + '\u2192' + '</span>';
+                new_content += '<span class="langend"></span>';
+
+                // we start a new language, i.e. we add a langchange milestone
+                language = document.getElementById('language_name').value !== 'other' ? document.getElementById('language_name').value : document.getElementById('language_name_other').value;
+                new_content += '<span wce="' + newWceAttr + '"' + wceClass + ' language="' + language + '">' + startFormatHtml + '\u2192' + '</span>';
+
                 //if (document.getElementById('reason_for_language_change').value == 'ritual' && document.getElementById('color').value == 'red') {
 					//new_content = '<span wce="' + newWceAttr + '"' + wceClass + '>' + '<span class="format_start" language="' + document.getElementById('language_name').value + '">' + '\u2039' + '</span>' + '<span class="formatting_rubrication" wce_orig="' + encodeURI(selected_content) + '" wce="__t=formatting_rubrication">' + selected_content + '</span>' + '<span class="format_end" language="' + document.getElementById('language_name').value + '">' + '\u203a' + '</span>' + '</span>';
                 // for untranscribed Pahlavi text we add some placeholder text
@@ -351,11 +340,13 @@ function writeWceNodeInfo(val) {
                     for (var i = 0; i < document.getElementById('number_of_lines').value; i++) {
                         covertext += '<br/>&crarr;' + ed.translate('untransPahlavi');
                     }
-                    new_content += '<span class=editortext>' + covertext + '</span>';
+                    new_content += '<span class=editortext>' + covertext + '</span>' + endFormatHtml;
                     // check for "following_language" setting
-                    following_language = document.getElementById('following_language') ? document.getElementById('following_language') : 'same';
+                    following_language = document.getElementById('following_language') ? document.getElementById('following_language').value : 'same';
                     if (following_language !== 'same')
-                        new_content += '<span class="languagechange" language="' + following_language + '">' + '\u2192' + '</span> ';
+                        new_content += '<span class="langchange" language="' + following_language + '">' + '\u2192' + '</span> ';
+                } else {
+                    new_content += endFormatHtml;
                 }
                 //} else {
 				//	new_content = '<span wce="' + newWceAttr + '"' + wceClass + '>' + '<span class="languagechange" language="' + document.getElementById('language_name').value + '">' + '</span>';
@@ -513,10 +504,7 @@ function writeWceNodeInfo(val) {
 }
 
 function readDocInfos() {
-    var transcriber = '';
-    var manID = '';
-    var textID = '';
-    var folID = '';
+    var transcriber = '', manID = '', textID = '', folID = '', language = '';
     var $head;
     var child;
 
@@ -538,16 +526,18 @@ function readDocInfos() {
                 case 'folio':
                     folID = child.textContent;
                     break;
+                case 'language':
+                    language = child.textContent;
             }
             child = child.nextSibling;
         }
     }
-    return [transcriber, manID, textID, folID];
+    return [transcriber, manID, textID, folID, language];
 }
 
 function writeDocInfos(metadata) {
     var $oldhead, $oldbook, $oldfolio;
-    var $header, $tr, $ms, $book, $folio;
+    var $header, $tr, $ms, $book, $folio, $language;
     var oldwce, oldnumber, newnumber, oldrv, newrv, posa, posb;
     var newWceAttr;
 
@@ -573,23 +563,27 @@ function writeDocInfos(metadata) {
     $folio = $newDoc.createElement('folio');
     $folio.appendChild($book.ownerDocument.createTextNode(newnumber + newrv));
     $header.appendChild($folio);
+    $language = $newDoc.createElement('language');
+    $language.appendChild($language.ownerDocument.createTextNode(metadata[5]));
+    $header.appendChild($language);
 
     // check, whether there is already a header
     $oldhead = ed.dom.select('header')[0];
-    if ($oldhead)
+    if ($oldhead) {
         $oldhead.parentNode.replaceChild($header, $oldhead);
-    else { // empty document or existing one without header
+    } else { // empty document or existing one without header
         oldcontent = ed.getContent(); // might be empty (for new documents)
         ed.setContent(xml2String($header) + oldcontent);
     }
 
     $oldbook = ed.dom.select('span[class="book_number mceNonEditable"]')[0];
-    if ($oldbook)
+    if ($oldbook) {
         $oldbook.firstChild.textContent = metadata[2];
-    else { // new or existing old document
+        // TODO: Add ability to change language
+    } else { // new or existing old document
         $bookNode = $newDoc.createElement('span');
         $bookNode.setAttribute('class', "book_number");
-        $bookNode.setAttribute('wce', "__t=book_number");
+        $bookNode.setAttribute('wce', "__t=book_number&lang=" + metadata[5]);
         $bookNode.appendChild($bookNode.ownerDocument.createTextNode(metadata[2]));
     }
 

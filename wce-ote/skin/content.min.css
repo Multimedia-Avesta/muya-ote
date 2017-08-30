@@ -513,31 +513,34 @@ span.lection_number {
     font-size: 36px;
 }
 
-span.languagechange[language="pal-Avst"],
-span.languagechange[language="ae-Avst"],
-span.languagechange[language="ae-Phlv"] {
+span.langchange[language="pal-Avst"],
+span.langchange[language="ae-Avst"],
+span.langchange[language="ae-Phlv"] {
+    border: 1px dotted #f00;
+    margin: 0px 0px 0px 1px;
+    padding: 0;
     color: green;
 /*    background-color: green;*/
 }
 
-span.languagechange[language="pal-Phli"],
-span.languagechange[language="pal-Phlv"] {
+span.langchange[language="pal-Phli"],
+span.langchange[language="pal-Phlv"] {
     color: purple;
 /*    background-color: purple;*/
 }
 
-span.languagechange[language="gu"] {
+span.langchange[language="gu"] {
     color: red;
 /*    background-color: red;*/
 }
 
-span.languagechange[language="fa"],
-span.languagechange[language="prs"] {
+span.langchange[language="fa"],
+span.langchange[language="prs"] {
     color: yellow;
 /*    background-color: yellow;*/
 }
 
-span.languagechange[language="sa"] {
+span.langchange[language="sa"] {
     color: blue;
 /*    background-color: blue;*/
 }

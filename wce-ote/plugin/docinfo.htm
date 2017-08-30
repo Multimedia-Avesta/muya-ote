@@ -34,61 +34,52 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
-<title>{#docinfo_title}</title>
-<script type="text/javascript" src="../../js/tinymce/tinymce.js"></script>
-<script type="text/javascript" src="../jquery.js"></script>
-<script type="text/javascript" src="../rangy-core.js"></script>
-<script type="text/javascript" src="js/wce.js"></script>
-<link rel="stylesheet" type="text/css" href="../skin/dialog.css"/>
-<link rel="stylesheet" type="text/css" href="../skin/ui.css"/>
+    <title>{#docinfo_title}</title>
+    <script type="text/javascript" src="../../js/tinymce/tinymce.js"></script>
+    <script type="text/javascript" src="../jquery.js"></script>
+    <script type="text/javascript" src="../rangy-core.js"></script>
+    <script type="text/javascript" src="js/wce.js"></script>
+    <link rel="stylesheet" type="text/css" href="../skin/dialog.css" />
+    <link rel="stylesheet" type="text/css" href="../skin/ui.css" />
 </head>
 
 <body id="table">
-	<form onsubmit="return false;" action="#" name="docinfo">
-		<fieldset>
-			<legend>{#docinfo_data}</legend>
-			<table border="0" cellpadding="4" cellspacing="0" width="100%">
-				<tr>
-					<td><label id="transcriber_label" for="transcriber">{#transcriber}</label></td>
-					<td colspan="2">
-						<input id="transcriber" name="transcriber" type="text" value=""
-						selectBoxOptions="Alberto_Cantera;Almut_Hintze;Kerman_Daruwalla;Leon_Goldman;Mandana Seyfeddinipur" />
-						<!--size="30" maxlength="" class="required min1 mceFocus" />-->
-					</td>
-				<tr>
-					<td><label id="manID_label" for="manID">{#manID}</label></td>
-					<td>
-						<input id="manID" name="manID" type="text" value=""
-						size="10" maxlength="" class="required number min1 mceFocus" />
-					</td>
-				</tr>
-				<tr>
-					<td><label id="number_label" for="folioID">{#folioID}</label></td>
-					<td>
-						<input id="folioID" name="folioID" type="text" value=""
-						size="10" maxlength="" class="required number min1 mceFocus" />
-					</td>
-					<td><label id="rv_label" for="rv">{#pb_position}</label></td>
-					<td>
-						<select id="rv" name="rv">
+    <form onsubmit="return false;" action="#" name="docinfo">
+        <fieldset>
+            <legend>{#docinfo_data}</legend>
+            <table border="0" cellpadding="4" cellspacing="0" width="100%">
+                <tr>
+                    <td><label id="transcriber_label" for="transcriber">{#transcriber}</label></td>
+                    <td colspan="2">
+                        <input id="transcriber" name="transcriber" type="text" value="" selectBoxOptions="Alberto_Cantera;Almut_Hintze;Kerman_Daruwalla;Leon_Goldman;Mandana Seyfeddinipur" />
+                        <!--size="30" maxlength="" class="required min1 mceFocus" />-->
+                    </td>
+                    <tr>
+                        <td><label id="manID_label" for="manID">{#manID}</label></td>
+                        <td>
+                            <input id="manID" name="manID" type="text" value="" size="10" maxlength="" class="required number min1 mceFocus" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label id="number_label" for="folioID">{#folioID}</label></td>
+                        <td>
+                            <input id="folioID" name="folioID" type="text" value="" size="10" maxlength="" class="required number min1 mceFocus" />
+                        </td>
+                        <td><label id="rv_label" for="rv">{#pb_position}</label></td>
+                        <td>
+                            <select id="rv" name="rv">
 						<option value=""></option>
 						<option value="r">{#page_recto}</option>
 						<option value="v">{#page_verso}</option>
 						</select>
-					</td>
-				</tr>
-				<!--<tr>
-					<td><label id="folID_label" for "folID">{#folioID}</label></td>
-					<td>
-						<input id="folID" name="folID" type="text" value=""
-						size="10" maxlength="" class="required number min1 mceFocus" />
-					</td>
-				</tr>-->
-				<tr>
-					<td><label id="textID_label" for="textID">{#textID}</label></td>
-					<td>
-						<select id="textID" name="textID">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label id="textID_label" for="textID">{#textID}</label></td>
+                        <td>
+                            <select id="textID" name="textID">
 							<option selected hidden>Choose here</option>
                             <option value="A">Afrinagan</option>
 							<option value="ABu">Afrin i Buzorgan</option>
@@ -132,9 +123,23 @@
 							<option value="YVr">Yasna Visperad</option>
 							<option value="Y-gah">Yazisn-gah</option>
 						</select>
-					</td>
-				</tr>
-				<!--<tr>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label id="language_label" for="language">{#mainlanguage}</label></td>
+                        <td>
+                            <select id="language" name="language">
+								<option value="pal-Phlv">{#pahlavi_phlv}</option>
+								<option value="pal-Avst">{#pahlavi_avst}</option>
+								<option value="pal-Phli">{#pahlavi_phli}</option>
+								<option value="ae-Avst">{#avestan_avst}</option>
+								<option value="ae-Phlv">{#avestan_phlv}</option>
+								<option value="gu">{#gujarati}</option>
+								<option value="fa">{#persian}</option>
+								<option value="sa">{#sanskrit}</option>
+							</select></td>
+                    </tr>
+                    <!--<tr>
 				<td><label id="chapterNumber_label" for="chapterNumber">{#chapter_insert}</label></td>
 				<td><input id="chapterNumber" type="text" /></td>
 				</tr>
@@ -146,84 +151,91 @@
 				<td><label id="verseNumber_label" for="verseNumber">{#verse_insert}</label></td>
 				<td><input id="verseNumber" type="text" /></td>
 				</tr>-->
-			</table>
-		</fieldset>
-		<div class="mceActionPanel">
-			<input type="button" id="insert" name="insert" value="{#insert}"
-				onclick="cont = testOther();
+            </table>
+        </fieldset>
+        <div class="mceActionPanel">
+            <input type="button" id="insert" name="insert" value="{#insert}" onclick="cont = testOther();
 					if (cont){writeDocInfos(
 						[document.docinfo.transcriber.value,
 						 document.docinfo.manID.value,
 						 document.docinfo.textID.value,
 						 document.docinfo.folioID.value,
-						 document.docinfo.rv.value]);}
+						 document.docinfo.rv.value,
+                         document.docinfo.language.value]);}
 					else{alert('{#empty_all}');}" />
-			<input type="button" id="cancel" name="cancel" value="{#cancel}"
-				onclick="parent.tinymce.activeEditor.windowManager.close();" />
-		</div>
-	</form>
+            <input type="button" id="cancel" name="cancel" value="{#cancel}" onclick="parent.tinymce.activeEditor.windowManager.close();" />
+        </div>
+    </form>
 </body>
 <script type="text/javascript">
-	$(document).ready(function() {
-		var _ed = parent.tinymce.activeEditor;
-		ed=_ed;
-		translate();
-		setConstants();
-		init();
-	});
+    $(document).ready(function() {
+        var _ed = parent.tinymce.activeEditor;
+        ed = _ed;
+        translate();
+        setConstants();
+        init();
+    });
 
-	function translate() {
-		var c=document.body.innerHTML;
-		var d=document.title;
-		var a;
-		if(parent.tinymce.isIE){c=c.replace(/ (value|title|alt)=([^"][^\s>]+)/gi,' $1="$2"')}
-		a=c.replace(/\{\#([^\}]+)\}/g, function(a, b) {
-			var c=parent.tinymce.translate(b);
-			return (c != b) ? c : '{#' + b + '}';
-		});
-		if(a!=c){document.body.innerHTML=a}
-		a=d.replace(/\{\#([^\}]+)\}/g, function(a, b) {
-			var c=parent.tinymce.translate(b);
-			return (c != b) ? c : '{#' + b + '}';
-		});
-		if(a!=d){document.title=d=a}
-	}
+    function translate() {
+        var c = document.body.innerHTML;
+        var d = document.title;
+        var a;
+        if (parent.tinymce.isIE) {
+            c = c.replace(/ (value|title|alt)=([^"][^\s>]+)/gi, ' $1="$2"')
+        }
+        a = c.replace(/\{\#([^\}]+)\}/g, function(a, b) {
+            var c = parent.tinymce.translate(b);
+            return (c != b) ? c : '{#' + b + '}';
+        });
+        if (a != c) {
+            document.body.innerHTML = a
+        }
+        a = d.replace(/\{\#([^\}]+)\}/g, function(a, b) {
+            var c = parent.tinymce.translate(b);
+            return (c != b) ? c : '{#' + b + '}';
+        });
+        if (a != d) {
+            document.title = d = a
+        }
+    }
 
-	function init() {
-		comboBindReturnEvent('insert');
-		wceInfoInit('docinfo');
-		createEditableSelect(document.forms[0].transcriber);
-		var metadata = readDocInfos();
-		document.docinfo.transcriber.value=metadata[0];
-		document.docinfo.manID.value=metadata[1];
-		if (metadata[2] !== '')
-            document.docinfo.textID.value=metadata[2];
-		if (metadata[3].charAt(metadata[3].length-1) == 'r' ||
-			metadata[3].charAt(metadata[3].length-1) == 'v') {
-			document.docinfo.folioID.value=metadata[3].substring(0,metadata[3].length-1);
-			document.docinfo.rv.value=metadata[3].substring(metadata[3].length-1);
-		} else
-			document.docinfo.folioID.value=metadata[3];
-	}
+    function init() {
+        comboBindReturnEvent('insert');
+        wceInfoInit('docinfo');
+        createEditableSelect(document.forms[0].transcriber);
+        var metadata = readDocInfos();
+        document.docinfo.transcriber.value = metadata[0];
+        document.docinfo.manID.value = metadata[1];
+        if (metadata[2] !== '')
+            document.docinfo.textID.value = metadata[2];
+        if (metadata[3].charAt(metadata[3].length - 1) == 'r' ||
+            metadata[3].charAt(metadata[3].length - 1) == 'v') {
+            document.docinfo.folioID.value = metadata[3].substring(0, metadata[3].length - 1);
+            document.docinfo.rv.value = metadata[3].substring(metadata[3].length - 1);
+        } else
+            document.docinfo.folioID.value = metadata[3];
+        document.docinfo.language.value = metadata[4];
+    }
 
-	//TODO: Could be extended to check for empty chapter and stanza fields
-	function testOther() {
-		if (document.docinfo.transcriber.value == ''
-			|| document.docinfo.manID.value == ''
-			|| document.docinfo.textID.value == ''
-			|| document.docinfo.folioID.value == '')
-			return false;
-	return true;
-	}
+    //TODO: Could be extended to check for empty chapter and stanza fields
+    function testOther() {
+        if (document.docinfo.transcriber.value == '' ||
+            document.docinfo.manID.value == '' ||
+            document.docinfo.textID.value == '' ||
+            document.docinfo.folioID.value == '')
+            return false;
+        return true;
+    }
 
-	if (!tinyMCE.isIE) {
-		$(document).keydown(function(e) {
-			var evt = e || window.event
-			if ((evt.keyCode == 13 || evt.keyCode == 10) && !evt.shiftKey) {
-				document.getElementById('insert').click();
-				return false;
-			}
-		});
-	}
+    if (!tinyMCE.isIE) {
+        $(document).keydown(function(e) {
+            var evt = e || window.event
+            if ((evt.keyCode == 13 || evt.keyCode == 10) && !evt.shiftKey) {
+                document.getElementById('insert').click();
+                return false;
+            }
+        });
+    }
 </script>
+
 </html>

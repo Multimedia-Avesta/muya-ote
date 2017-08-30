@@ -197,7 +197,6 @@ tinymce.addI18n('en', {
 	supplied_source : "Supplied source",
 	na27 : "NA28",
 	TR : "Textus Receptus",
-	transcriber : "Transcriber",
 	paratext : "Marginalia",
 	paratext_title : "Specify marginalia",
 	paratext_data : "Information about the marginalia",
@@ -391,6 +390,7 @@ tinymce.addI18n('en', {
 	close : 'Close',
 	reason_for_language_change : 'Reason for language change',
 	language_name : 'Language',
+    mainlanguage : 'Main language',
 	avestan_avst : 'Avestan',
 	avestan_phlv : 'Avestan (Pahlavi script)',
 	gujarati : 'Gujarati',
@@ -406,10 +406,11 @@ tinymce.addI18n('en', {
 	untransPahlavi : 'Untranscribed Pahlavi text',
     removeLanguage : 'Remove language information',
 	language_title : 'Please specify the language',
+    following_lang : 'Following language',
 	manID : 'Manuscript ID/Siglum',
 	textID : 'Text ID',
 	folioID : 'Folio/page number',
 	docinfo_title : 'Document information',
 	docinfo_data : 'Please enter data',
-	transcriber : 'Transcriber\'s name',
+	transcriber : 'Transcriber\'s name'
 });
