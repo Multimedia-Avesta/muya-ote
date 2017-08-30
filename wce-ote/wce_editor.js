@@ -80,7 +80,7 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 		keyboardDebug: true,
 		init_instance_callback : "wceReload",
 		// Theme options
-		toolbar : "undo redo charmap | code | LoadFile save | print contextmenu cut copy pastetext pasteword fullscreen | " +
+		toolbar : "undo redo muyacharmap | code | LoadFile save | print contextmenu cut copy pastetext pasteword fullscreen | " +
 		"breaks correction illegible decoration abbreviation paratext note punctuation language versemodify | " +
 		"docinfo | showTeiByHtml help | info showHtmlByTei",
 		theme_advanced_buttons2 : "",
