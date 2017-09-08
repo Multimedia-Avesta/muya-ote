@@ -1874,6 +1874,9 @@
 								case 'num':
 									info_text = tinymce.translate('infotext_numeral');
 									break;
+                                case 'suspension':
+                                    info_text = tinymce.translate('infotext_suspension');
+                                    break;
 								case 'other':
 									info_text = ar['abbr_type_other'];
 									break;

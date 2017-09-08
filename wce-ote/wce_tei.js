@@ -1143,7 +1143,7 @@ function getHtmlByTei(inputString) {
 		var wceAttr = '__t=abbr&__n=&original_abbr_text=';
 		var mapping = {
 			'type' : {
-				'0' : '@nomSac@num',
+				'0' : '@nomSac@num@suspension',
 				'1' : '&abbr_type_other=&abbr_type=',
 				'2' : '&abbr_type=other&abbr_type_other='
 			}
