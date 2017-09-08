@@ -325,12 +325,12 @@ function writeWceNodeInfo(val) {
                 var following_language = '';
                 new_content = '';
 
-				// we end the current language using a milestone (which is later converted into a </span>)
-                new_content += '<span class="langend"></span>';
+				// we end the current language (OLD: using a milestone (which is later converted into a </span>))
+                new_content += '</span>';
 
-                // we start a new language, i.e. we add a langchange milestone
+                // we start a new language, i.e. we add a langchange element
                 language = document.getElementById('language_name').value !== 'other' ? document.getElementById('language_name').value : document.getElementById('language_name_other').value;
-                new_content += '<span wce="' + newWceAttr + '"' + wceClass + ' language="' + language + '">' + startFormatHtml + '\u2192' + '</span>';
+                new_content += '<span wce="' + newWceAttr + '"' + wceClass + ' language="' + language + '">' + startFormatHtml + '<span class="editortext">' + '\u2192' + '</span>';
 
                 //if (document.getElementById('reason_for_language_change').value == 'ritual' && document.getElementById('color').value == 'red') {
 					//new_content = '<span wce="' + newWceAttr + '"' + wceClass + '>' + '<span class="format_start" language="' + document.getElementById('language_name').value + '">' + '\u2039' + '</span>' + '<span class="formatting_rubrication" wce_orig="' + encodeURI(selected_content) + '" wce="__t=formatting_rubrication">' + selected_content + '</span>' + '<span class="format_end" language="' + document.getElementById('language_name').value + '">' + '\u203a' + '</span>' + '</span>';
@@ -340,11 +340,11 @@ function writeWceNodeInfo(val) {
                     for (var i = 0; i < document.getElementById('number_of_lines').value; i++) {
                         covertext += '<br/>&crarr;' + ed.translate('untransPahlavi');
                     }
-                    new_content += '<span class=editortext>' + covertext + '</span>' + endFormatHtml;
+                    new_content += '<span class="editortext">' + covertext + '</span>' + endFormatHtml;
                     // check for "following_language" setting
                     following_language = document.getElementById('following_language') ? document.getElementById('following_language').value : 'same';
                     if (following_language !== 'same')
-                        new_content += '<span class="langchange" language="' + following_language + '">' + '\u2192' + '</span> ';
+                        new_content += '</span><span class="langchange" language="' + following_language + '">' + '<span class="editortext">' + '\u2192' + '</span> ';
                 } else {
                     new_content += endFormatHtml;
                 }

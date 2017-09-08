@@ -2018,9 +2018,10 @@ function getTeiByHtml(inputString, args) {
 		str = str.replace(//g, $("<div />").html("a&#772;&#778;").text());
 		str = str.replace(//g, $("<div />").html("H&#803;").text());
         // We have to replace the elements regarding language change in order to get a correct XML output
-        str = str.replace(/&#x2192;<\/span>/g, "");
-        str = str.replace(/<span class="langstart"><\/span>/g, '<span class="langstart">');
-        str = str.replace(/<span class="langend"><\/span>/g, "</span>");
+        //str = str.replace(/&#x2192;<\/span>/g, "");
+        //str = str.replace(/<span class="langstart"><\/span>/g, '<span class="langstart">');
+        //str = str.replace(/<span class="langend"><\/span>/g, "</span>");
+        str.concat("</span>");
 		return str;
 	};
 
