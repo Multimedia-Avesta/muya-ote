@@ -312,8 +312,8 @@ function writeWceNodeInfo(val) {
 
                 // write original_text for breaks and paratext
                 new_content = '<span wce="' + newWceAttr + '"' + wceClass + original_text + '>' + startFormatHtml + selected_content + endFormatHtml + '</span>';
-                break;
-
+                break;                
+          
             case 'formatting_capitals':
                 //only for formatting_capitals needed
                 wceClass = ' class="formatting_capitals"';

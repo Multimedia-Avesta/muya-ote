@@ -4115,6 +4115,10 @@
 
 			ed.addCommand('mceAdd_pc_simple', function(c) {
 				doWithoutDialog(ed, 'pc', c);
+			});			
+				
+			ed.addCommand('mceAdd_pc_caret_other', function(c) {
+				doWithDialog(ed, url, '/punctuation_other_caret.htm', 480, 320, 1, true, 'Add punctuation other');//TODO use tinymce.translate ...
 			});
 
 			ed.addCommand('mceAddCapitals', function() {

@@ -116,12 +116,6 @@ tinymce.PluginManager.add('punctuation', function(ed, jsUrl) {
   }, {
     id: '035',
     title: 'large v-shaped interpunction sign'
-  }, {
-    id: '',
-    title: 'other (TODO)',
-    onclick: function() {
-      ed.execCommand('mcdAddPunctuationOther');
-    }
   }];
 
   menuItemsAdd.forEach(function(it) {
@@ -129,6 +123,32 @@ tinymce.PluginManager.add('punctuation', function(ed, jsUrl) {
     if(!it.onclick) {
       it.onclick = function() {
         ed.execCommand('mceAdd_pc', it.id);
+      }
+    }
+  });
+  
+  var menuItemsAddCaret=[
+  	{  		
+   	  title:'\u00F7 (obelus)',
+   	  code:'\u00F7'
+   },
+   {
+   	  title:'\u003A (two dots vertical)',
+   	  code:'\u003A'
+   },
+   {
+   	  title:'other',
+   	  onclick:function(){
+   	  	ed.execCommand('mceAdd_pc_caret_other');
+   	  }
+   }
+  ];
+  
+  menuItemsAddCaret.forEach(function(it) {
+    it.text = it.title;
+    if(!it.onclick) {
+      it.onclick = function() {
+        ed.execCommand('mceAdd_pc_simple', it.code);
       }
     }
   });
@@ -168,6 +188,10 @@ tinymce.PluginManager.add('punctuation', function(ed, jsUrl) {
     menu: [{
         text: tinymce.translate('menu_punctuation_add'),
         menu: menuItemsAdd,
+      },
+      {
+      	text: 'Add punctuation caret', //TODO use tinymce.translate ...
+      	menu: menuItemsAddCaret,
       },
       {
         text: tinymce.translate('menu_blank_spaces'),

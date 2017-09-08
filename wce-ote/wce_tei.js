@@ -4088,7 +4088,7 @@ function getTeiByHtml(inputString, args) {
 		}
 
 		var pc = $newDoc.createElement('pc');
-		pc.setAttribute('rend','punctuation');
+		//pc.setAttribute('rend','punctuation');
 		nodeAddText(pc,getDomNodeText($htmlNode));
 		$teiParent.appendChild(pc);
 		//appendNodeInW($teiParent, pc, $htmlNode);
