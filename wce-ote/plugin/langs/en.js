@@ -1,6 +1,6 @@
-/* 
+/*
 	Copyright (C) 2012-2017 Center for Digital Humanities, Trier
-	
+
 	This file is part of the Online Transcription Editor (OTE).
 
     OTE is free software: you can redistribute it and/or modify
@@ -132,7 +132,7 @@ tinymce.addI18n('en',{
 	corr_partial_complete : "Complete",
 	unidentified_corrector : "(Unidentified) corrector",
 	editorial_note: "Editorial Note",
-	corr_not_applicable : "Not applicable", 
+	corr_not_applicable : "Not applicable",
 	deletion : "Method of deletion",
 	del_erased : "Erased",
 	del_underline : "Underline",
@@ -333,6 +333,8 @@ tinymce.addI18n('en',{
 	menu_note : 'Note',
 	menu_punctuation : 'Punctuation',
 	menu_punctuation_add : 'Add punctuation',
+    menu_punctuation_add_char : 'Add punctuation character',
+    punctuation_other_title : 'Add other punctuation character',
 	menu_blank_spaces : 'Blank spaces',
 	menu_verses : 'Modify verses',
 	menu_structure : 'Structure',

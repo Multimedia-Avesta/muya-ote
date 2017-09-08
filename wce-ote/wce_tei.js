@@ -2013,10 +2013,14 @@ function getTeiByHtml(inputString, args) {
 		//
 		// add an required header to get a valid XML
 		//str = str.replace('<TEI>', '<?xml  version="1.0" encoding="utf-8"?><!DOCTYPE TEI [<!ENTITY om ""><!ENTITY lac ""><!ENTITY lacorom "">]><?xml-model href="TEI-NTMSS.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?><TEI xmlns="http://www.tei-c.org/ns/1.0">');
-		str = str.replace('<TEI>', '<?xml  version="1.0" encoding="utf-8"?><TEI xmlns="http://www.tei-c.org/ns/1.0">');
-		str = str.replace("</teiHeader>", "</teiHeader><body><text>");
-				if (g_manuscriptLang && g_manuscriptLang != '')// set manuscript language if there are information
-			str = str.replace("<text>", '<text xml:lang="' + g_manuscriptLang + '">');
+		if (str.indexOf("</teiHeader>") > -1) {
+            str = str.replace('<TEI>', '<?xml  version="1.0" encoding="utf-8"?><TEI xmlns="http://www.tei-c.org/ns/1.0">');
+            str = str.replace("</teiHeader>", "</teiHeader><body><text>");
+        } else {
+            str = str.replace("<TEI>", '<?xml  version="1.0" encoding="utf-8"?><TEI xmlns="http://www.tei-c.org/ns/1.0"><body><text>');
+        }
+        if (g_manuscriptLang && g_manuscriptLang != '')// set manuscript language if there are information
+            str = str.replace("<text>", '<text xml:lang="' + g_manuscriptLang + '">');
 		str = str.replace("</TEI>", "</text></body></TEI>");
 		str = str.replace(/OMISSION/g, "");
 		str = str.replace(//g, $("<div />").html("a&#772;&#778;").text());

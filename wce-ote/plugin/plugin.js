@@ -33,7 +33,7 @@
 */
 
 (function () {
-	var wfce_editor = "0.5.8beta (2017-08-30)";
+	var wfce_editor = "0.5.9beta (2017-09-08)";
 
 	// Load plugin specific language pack
 	tinymce.PluginManager.requireLangPack('wce');
@@ -4115,10 +4115,10 @@
 
 			ed.addCommand('mceAdd_pc_simple', function(c) {
 				doWithoutDialog(ed, 'pc', c);
-			});			
-				
-			ed.addCommand('mceAdd_pc_caret_other', function(c) {
-				doWithDialog(ed, url, '/punctuation_other_caret.htm', 480, 320, 1, true, 'Add punctuation other');//TODO use tinymce.translate ...
+			});
+
+			ed.addCommand('mceAdd_pc_char_other', function(c) {
+				doWithDialog(ed, url, '/punctuation_other_char.htm', 480, 320, 1, true, tinymce.translate('punctuation_other_title'));
 			});
 
 			ed.addCommand('mceAddCapitals', function() {

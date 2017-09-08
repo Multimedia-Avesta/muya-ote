@@ -126,9 +126,9 @@ tinymce.PluginManager.add('punctuation', function(ed, jsUrl) {
       }
     }
   });
-  
-  var menuItemsAddCaret=[
-  	{  		
+
+  var menuItemsAddChar=[
+  	{
    	  title:'\u00F7 (obelus)',
    	  code:'\u00F7'
    },
@@ -137,14 +137,14 @@ tinymce.PluginManager.add('punctuation', function(ed, jsUrl) {
    	  code:'\u003A'
    },
    {
-   	  title:'other',
+   	  title:'Other',
    	  onclick:function(){
-   	  	ed.execCommand('mceAdd_pc_caret_other');
+   	  	ed.execCommand('mceAdd_pc_char_other');
    	  }
    }
   ];
-  
-  menuItemsAddCaret.forEach(function(it) {
+
+  menuItemsAddChar.forEach(function(it) {
     it.text = it.title;
     if(!it.onclick) {
       it.onclick = function() {
@@ -190,8 +190,8 @@ tinymce.PluginManager.add('punctuation', function(ed, jsUrl) {
         menu: menuItemsAdd,
       },
       {
-      	text: 'Add punctuation caret', //TODO use tinymce.translate ...
-      	menu: menuItemsAddCaret,
+      	text: tinymce.translate('menu_punctuation_add_char'),
+      	menu: menuItemsAddChar,
       },
       {
         text: tinymce.translate('menu_blank_spaces'),
