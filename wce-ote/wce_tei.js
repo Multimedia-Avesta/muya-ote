@@ -2530,8 +2530,8 @@ function getTeiByHtml(inputString, args) {
 		}
 		today = yyyy + '-' + mm + '-' + dd;
 
-		var transcriber = ($htmlNode.firstElementChild||$htmlNode.firstChild).textContent.replace("_"," ");
-		var manID = $htmlNode.getElementsByTagName("ms")[0].textContent;
+		var transcriber = ($htmlNode.firstElementChild||$htmlNode.firstChild).textContent.replace(/_/g, " ");
+        var manID = $htmlNode.getElementsByTagName("ms")[0].textContent;
 
         var $newNodeH = $newDoc.createElement('teiHeader');
 		var $newNodeF = $newDoc.createElement('fileDesc');

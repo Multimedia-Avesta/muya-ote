@@ -312,8 +312,8 @@ function writeWceNodeInfo(val) {
 
                 // write original_text for breaks and paratext
                 new_content = '<span wce="' + newWceAttr + '"' + wceClass + original_text + '>' + startFormatHtml + selected_content + endFormatHtml + '</span>';
-                break;                
-          
+                break;
+
             case 'formatting_capitals':
                 //only for formatting_capitals needed
                 wceClass = ' class="formatting_capitals"';
@@ -543,7 +543,7 @@ function writeDocInfos(metadata) {
 
     $header = $newDoc.createElement('header');
     $tr = $newDoc.createElement('trans');
-    $tr.appendChild($tr.ownerDocument.createTextNode(metadata[0].replace(" ", "_")));
+    $tr.appendChild($tr.ownerDocument.createTextNode(metadata[0].replace(/ /g, "_")));
     $header.appendChild($tr);
     $ms = $newDoc.createElement('ms');
     $ms.appendChild($ms.ownerDocument.createTextNode(metadata[1]));
