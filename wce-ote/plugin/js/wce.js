@@ -337,10 +337,11 @@ function writeWceNodeInfo(val) {
                 	langID = 'S';
                 else
                 	langID = 'O';*/
-                if (document.getElementById('reason_for_language_change').value == 'ritual' && document.getElementById('color').value == 'red')
+                if (document.getElementById('color').value == 'red') {
                     new_content = '<span wce="' + newWceAttr + '"' + wceClass + '>' + '<span class="format_start" language="' + document.getElementById('language_name').value + '">' + '\u2039' + '</span>' + '<span class="formatting_rubrication" wce_orig="' + encodeURI(selected_content) + '" wce="__t=formatting_rubrication">' + selected_content + '</span>' + '<span class="format_end" language="' + document.getElementById('language_name').value + '">' + '\u203a' + '</span>' + '</span>';
-                else
+                } else {
                     new_content = '<span wce="' + newWceAttr + '"' + wceClass + '>' + '<span class="format_start" language="' + document.getElementById('language_name').value + '">' + '\u2039' + '</span>' + selected_content + '<span class="format_end" language="' + document.getElementById('language_name').value + '">' + '\u203a' + '</span>' + '</span>';
+                }
                 break;
             default:
                 break;

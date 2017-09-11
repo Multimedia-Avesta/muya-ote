@@ -846,7 +846,7 @@ function getHtmlByTei(inputString) {
 					wceAttr += '&reason_for_language_change=other&reason_for_language_change_other=' + subtype;
 				else
 					wceAttr += '&reason_for_language_change=' + subtype + '&reason_for_language_change_other=';
-				if (subtype == 'ritual' && $teiNode.firstChild && $teiNode.firstChild.firstChild && $teiNode.firstChild.firstChild.nodeName == 'hi'
+				if ($teiNode.firstChild && $teiNode.firstChild.firstChild && $teiNode.firstChild.firstChild.nodeName == 'hi'
 					&& $teiNode.firstChild.firstChild.getAttribute('rend') && $teiNode.firstChild.firstChild.getAttribute('rend') == 'rubric')
 					wceAttr += '&color=red';
 				else

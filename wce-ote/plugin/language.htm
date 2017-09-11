@@ -1,6 +1,6 @@
-﻿<!-- 
+﻿<!--
 	Copyright (C) 2012-2017 Trier Center for Digital Humanities, Trier (Germany)
-	
+
 	This file is part of the Online Transcription Editor (OTE).
 
     OTE is free software: you can redistribute it and/or modify
@@ -78,7 +78,7 @@
 								<option value="gu">{#gujarati}</option>
 								<option value="fa">{#persian}</option>
 								<option value="sa">{#sanskrit}</option>
-								<option value="other">{#other}</option> for 
+								<option value="other">{#other}</option> for
 							</select></td>
 						<td>
 							<input id="language_name_other" name="language_name_other"
@@ -117,9 +117,9 @@
 			var _ed = parent.tinymce.activeEditor;
 			ed=_ed;
 			translate();
-			setConstants(); 
+			setConstants();
 			init();
-		});	
+		});
 
 		function translate() {
 			var c=document.body.innerHTML;
@@ -168,12 +168,12 @@
 				$('#reason_for_language_change_other').css('background', '#ccc');
 			}
 			if ($('#reason_for_language_change').val() == 'ritual') {
-				$('#color').attr('disabled', false);
-				$('#color').css('background', '#fff');
+				//$('#color').attr('disabled', false);
+				//$('#color').css('background', '#fff');
 				$('#color').val('red');
-			} else {
+			/*} else {
 				$('#color').attr('disabled', true);
-				$('#color').css('background', '#ccc');
+				$('#color').css('background', '#ccc');*/
 			}
 		}
 
