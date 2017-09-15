@@ -510,7 +510,7 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
       chr: chr
     }).chr;
     if(isInterpunctionSign(chrindex))
-      editor.execCommand('mceAdd_pc_simple', chr);
+      editor.execCommand('mceInsertContent', false, chr);
     else
       editor.execCommand('mceInsertContent', false, chr);
   }
