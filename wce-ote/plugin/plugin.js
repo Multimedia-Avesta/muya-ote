@@ -3512,7 +3512,7 @@
 				}]
 			});
 			ed.addShortcut("ctrl+alt+e","Add expansion","mceAddExp_Shortcut");
-			ed.addShortcut("ctrl+alt+a","Add abbreviation","mceAddAbbr_Shortcut");
+			//ed.addShortcut("ctrl+alt+a","Add abbreviation","mceAddAbbr_Shortcut");
 
 			ed.addButton('paratext', {
 				title : tinymce.translate('menu_marginalia') + ' (Ctrl+Alt+M)',
