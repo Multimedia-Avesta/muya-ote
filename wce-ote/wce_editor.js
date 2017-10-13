@@ -65,7 +65,7 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 		witness : (getWitness) ? getWitness : "",
 		manuscriptLang : (getWitnessLang) ? getWitnessLang : "",
 		// invalid_elements:'p',
-		plugins : "pagebreak,save,print,fullscreen,wordcount,muyacharmap,autosave,paste,code, contextmenu, noneditable",
+		plugins : "pagebreak,save,print,fullscreen,wordcount,autosave,paste,code, contextmenu, noneditable",
 		//contextmenu: 'cut copy paste',
 		//charmap_append: [["0256","A - kahako"],["0257","a - kahako"]],
 		//charmap_append: charmap_gu,
@@ -73,8 +73,10 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 		external_plugins: {
 			'wce' : '../../wce-ote/plugin/plugin.js',
 			'muyacharmap' : '../../wce-ote/plugin/js/muya_charmap.js',
-			'punctuation' : '../../wce-ote/plugin/js/punctuation.js'
+			'punctuation' : '../../wce-ote/plugin/js/punctuation.js',
+			'wcelinenumber': '../../wce-ote/plugin/js/line_number.js'
 		},
+		show_linenumber:true,//default false,		
 		//content_css: 'font-awesome.min.css',//'https://netdna.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css',
 //		ignoreShiftNotEn: [188, 190],
 		keyboardDebug: true,
@@ -105,7 +107,8 @@ function wceReload() {
     tinyMCE.activeEditor.windowManager.open({
 		title : 'Welcome to the OTE',
 		url : './plugin/start.htm',
-		width : screen.availWidth,
+		//width : screen.availWidth,
+        width:window.innerWidth,
         height : 50,
         inline : true,
         }, {
