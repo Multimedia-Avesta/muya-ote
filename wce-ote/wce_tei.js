@@ -38,6 +38,7 @@
 //pb, cb ,lb with break="no" defined in function html2Tei_mergeWNode();
 var wceNodeInsideW = ["hi", "unclear", "gap", "supplied", "w", "abbr", "ex"];//TODO: more type?
 
+
 function Fehlerbehandlung(Nachricht, Datei, Zeile) {
 	var Fehler = "Error:\n" + Nachricht + "\n" + Datei + "\n" + Zeile;
 	zeigeFehler(Fehler);
@@ -48,7 +49,7 @@ function zeigeFehler(Fehler) {
 	alert(Fehler);
 }
 
-function getHtmlByTei(inputString) {
+function getHtmlByTei(inputString, args) {
 	var $newDoc, $newRoot, $newRoot;
 	var $formatStart, $formatEnd;
 
@@ -126,7 +127,8 @@ function getHtmlByTei(inputString) {
 		$newDoc = loadXMLString("<TEMP></TEMP>");
 		$newRoot = $newDoc.documentElement;
 
-		initTeiInput($oldRoot);
+		initTeiInput($oldRoot);	
+		args.inner_hi?Tei2Html_handleHiNode($oldRoot):{};	
 
 		var childList = $oldRoot.childNodes;
 		for (var i = 0, $c, l = childList.length; i < l; i++) {
@@ -190,8 +192,82 @@ function getHtmlByTei(inputString) {
 			initTeiInput(tNext);
 			tNext=tNext.nextSibling;
 		}
-		Tei2Html_mergeWNode($parent);
+		Tei2Html_mergeWNode($parent); 
 	};
+	
+	var needMovieHiNode=function(_node){	
+		var b1=	['w','rdg','app'].indexOf(_node.nodeName)>-1;		
+		var first=_node.firstChild;
+		var b2= first && first.nodeName=='hi' && !first.nextSibling;
+		return b1 && b2;
+	}
+	
+	
+	var Tei2Html_handleHiNode=function($node){
+		if (!$node || ($node.nodeType!=1 && $node.nodeType!=11)){ //nodeType==11 from createDocumentFragment
+			return;
+		}			
+		
+		if($node.hasChildNodes()){	
+			var list=[];
+			$node.childNodes.forEach(function(c){
+			 	list.push(c);
+			})
+			list.forEach(function(c){
+				Tei2Html_handleHiNode(c);				
+			});		
+		}
+		
+		if(needMovieHiNode($node,'hi')){		
+				var hi=$node.firstChild;			
+				while(hi.firstChild){
+					$node.appendChild(hi.firstChild);	
+				}
+				var $pn=$node.parentNode;
+				$pn.insertBefore(hi,$node);
+				hi.appendChild($node);	
+				Tei2Html_mergeHiNode($pn,true);
+		}
+	}
+	
+	var Tei2Html_mergeHiNode=function($node){		
+		var curr=$node.firstChild;
+		var next;
+		var toAppend=new Array();
+		var startNode;
+		var tempspace;
+		while(curr){
+			tempspace=null;
+			next=curr.nextSibling;
+			if(next && next.nodeType==1 && next.nodeName=='tempspace'){
+				tempspace=next;
+				next=next.nextSibling;
+			}
+			if(curr.nodeName=='hi' && compareNodes(curr,next)){
+				if(!startNode){
+					startNode=curr;
+				}
+				if(tempspace){
+					toAppend.push(tempspace);
+				}
+				toAppend.push(next);
+			}
+			curr=next;
+		}
+		if(startNode){
+			for(var i=0, a, l=toAppend.length; i<l; i++){
+				a=toAppend[i];
+				if(a.nodeName=='tempspace'){
+					startNode.appendChild(a);
+				}else{
+					while(a.firstChild){
+						startNode.appendChild(a.firstChild);
+					}
+					a.parentNode.removeChild(a);
+				}
+			}
+		}
+	}
 
 	var Tei2Html_mergeWNode = function ($node){
 		if(!$node || $node.nodeType==3 || $node.nodeName!='w'){
@@ -400,7 +476,7 @@ function getHtmlByTei(inputString) {
 				return;
 			}
 
-			if ($newParent && $newParent.nodeName.toLowerCase() == 'span' && !$newParent.firstChild){
+			if ($newParent && $newParent.nodeName.toLowerCase() == 'span' && !$newParent.firstChild && $htmlParent!==$newParent){
 				var needAddFormat=true;
 			}
 
@@ -2004,6 +2080,9 @@ function getTeiByHtml(inputString, args) {
 
 	 	html2Tei_mergeNodes($newRoot, true);
 	 	html2Tei_removeBlankW_addAttributePartI($newRoot);
+	 
+	 	//ticket #6130 
+	 	args.inner_hi?html2Tei_handleHiNode($newRoot):'';
 
 		// DOM to String
 		var str = xml2String($newRoot);
@@ -2036,6 +2115,47 @@ function getTeiByHtml(inputString, args) {
 	 	$node=addWElement2Html($node);
 	 	return $node;
 	};
+	
+	var html2Tei_handleHiNode_addHi=function($node, $hiClone){
+		if($node.hasChildNodes()){	
+			var list=[];
+			$node.childNodes.forEach(function(c){
+			 	list.push(c);
+			})
+			list.forEach(function(c){
+				html2Tei_handleHiNode_addHi(c, $hiClone);
+			});		
+		}	
+		
+		if(['lb','w'].indexOf($node.nodeName)>=0){
+			$hi=$hiClone.cloneNode();
+			while($node.firstChild){
+				$hi.appendChild($node.firstChild);
+			}
+			$node.appendChild($hi);			
+		}
+	}
+
+	
+	var html2Tei_handleHiNode=function($node){
+		var isHi=$node.nodeName=='hi'?true:false;
+		
+		if($node.hasChildNodes()){	
+			var list=[];
+			$node.childNodes.forEach(function(c){
+			 	list.push(c);
+			})
+			list.forEach(function(c){	
+				if(isHi && c.nodeName=='app'){
+					$node.nextSibling?$node.parentNode.insertBefore(c,$node.nextSibling):$node.parentNode.appendChild(c);
+					html2Tei_handleHiNode_addHi(c, $node.cloneNode(false));
+				}else{
+					html2Tei_handleHiNode(c);									
+				}
+			});		
+		}		
+		
+	}
 
 	/*
 	 * test if previousSibling pb/cb/lb with break="no" is,
@@ -2155,7 +2275,11 @@ function getTeiByHtml(inputString, args) {
 				} else if ($.inArray(_nodeName, wceNodeInsideW) < 0) {
 					break;
 				}
-				toAppend.push(ns);
+				if(ns.nodeName=='hi' && ns.firstChild && ns.firstChild.nodeName=='pc'){
+					//bug #6128
+				}else{
+					toAppend.push(ns);										
+				}
 				ns = ns.nextSibling;
 			}
 		}

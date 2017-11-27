@@ -3857,7 +3857,7 @@
 				          var reader = new FileReader();
 				          reader.onloadend = function (e) {
 				              var res = reader.result;
-				              var result = getHtmlByTei(res);
+				              var result = getHtmlByTei(res, ed.settings);
 				              if (result) {
 				                  var htmlContent = result['htmlString'];
 				                  if (htmlContent)

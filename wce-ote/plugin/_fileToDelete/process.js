@@ -89,7 +89,7 @@ function getTEI() {
 // teiIndexData can be change
 // @param {String} teiStringInput
 function setTEI(teiStringInput) {
-	var result = getHtmlByTei(teiStringInput);
+	var result = getHtmlByTei(teiStringInput, tinyMCE.activeEditor.settings);
 	if (result) {
 		var htmlContent = result['htmlString'];
 		if (htmlContent)

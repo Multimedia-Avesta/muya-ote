@@ -26,7 +26,7 @@
 		var str=_ed.getContent();
 		var teiContent=getTeiByHtml(str,_ed.settings);
 		if(teiContent){
-			var result=getHtmlByTei(teiContent);
+			var result=getHtmlByTei(teiContent, _ed.settings);
 			if(result){
 				var htmlContent=result['htmlString'];
 				if(htmlContent){

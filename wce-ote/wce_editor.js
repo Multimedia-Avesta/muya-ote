@@ -76,7 +76,8 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 			'punctuation' : '../../wce-ote/plugin/js/punctuation.js',
 			'wcelinenumber': '../../wce-ote/plugin/js/line_number.js'
 		},
-		show_linenumber:true,//default false,		
+		show_linenumber:true,//default false,	
+		inner_hi:false,// ticket #6130
 		//content_css: 'font-awesome.min.css',//'https://netdna.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css',
 //		ignoreShiftNotEn: [188, 190],
 		keyboardDebug: true,
@@ -172,7 +173,7 @@ function getTEI() {
 // teiIndexData can be change
 // @param {String} teiStringInput
 function setTEI(teiStringInput) {
-	var result = getHtmlByTei(teiStringInput);
+	var result = getHtmlByTei(teiStringInput, tinyMCE.activeEditor.settings);
 	if (result) {
 		var htmlContent = result['htmlString'];
 		if (htmlContent)
