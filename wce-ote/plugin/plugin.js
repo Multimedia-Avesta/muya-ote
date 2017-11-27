@@ -33,7 +33,7 @@
 */
 
 (function () {
-	var wfce_editor = "0.5.11beta (2017-09-11)";
+	var wfce_editor = "0.5.12beta (2017-10-13)";
 
 	// Load plugin specific language pack
 	tinymce.PluginManager.requireLangPack('wce');
@@ -3014,14 +3014,14 @@
 					var id = ed.id + '_adaptive_selection';
 					var statusbar= $(tinymce.activeEditor.iframeElement.parentElement.parentElement).children('.mce-statusbar').children('div');
 					if (statusbar) {
-						var linenumberCb='', lid;						
+						var linenumberCb='', lid;
 						if(ed.plugins.wcelinenumber){
 							linenumberCb='<input type="checkbox" style="margin-left:15px" ';
 							ed.settings.show_linenumber?(linenumberCb+='checked="checked"'):'';
 							lid=ed.id+'_wce_line_number';
-							linenumberCb+=' id="'+lid+'"> Show line number';							
+							linenumberCb+=' id="'+lid+'"> Show line number';
 						}
-						
+
 						tinymce.DOM.insertAfter(
 							tinymce.DOM.add(statusbar, 'div', {
 								'class' : 'mce-flow-layout-item',
@@ -3030,7 +3030,7 @@
 							),
 							$(statusbar).find('.mce-first')[0]
 						);
-						
+
 						if(lid){
 							$('#'+lid).change(function(){
 								ed.execCommand('wceShowLineNumber',this.checked);
