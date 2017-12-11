@@ -402,6 +402,7 @@ tinymce.addI18n('en', {
     sameasbefore : 'Same as before the change',
 	ritual : 'Ritual direction',
 	translation : 'Translation',
+    backtomainlanguage : 'Back to main language',
 	section : 'Section heading; dedication',
 	untransPahlavi : 'Untranscribed Pahlavi text',
     removeLanguage : 'Remove language information',

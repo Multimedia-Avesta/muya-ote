@@ -1,6 +1,6 @@
-/* 
+/*
 	Copyright (C) 2012-2017 Center for Digital Humanities, Trier
-	
+
 	This file is part of the Online Transcription Editor (OTE).
 
     OTE is free software: you can redistribute it and/or modify
@@ -339,6 +339,7 @@ tinymce.addI18n('de',{
 	sanskrit : 'Sanskrit',
 	ritual : 'Rituelle Handlung',
 	translation : 'Übersetzung',
+    backtomainlanguage : 'Zurück zur Hauptsprache',
 	section : 'Überschrift; Widmung',
 	removeLanguage : 'Entferne Sprachinformationen',
 	language_title : 'Bitte geben Sie die Sprache an'

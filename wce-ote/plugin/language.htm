@@ -56,7 +56,8 @@
                         <select id="reason_for_language_change" name="reason_for_language_change" onchange="checkstatus_reason()">
 								<option value="trans">{#translation}</option>
 								<option value="ritual">{#ritual}</option>
-								<option value="section">{#section}</option>
+								<option value="backtomainlanguage">{#backtomainlanguage}</option>
+                                <option value="section">{#section}</option>
                                 <option value="untransPahlavi">{#untransPahlavi}</option>
 								<option value="other">{#other}</option>
 							</select></td>
@@ -175,8 +176,8 @@
 
     function testOther() {
         if ((document.languageinfo.language_name.options[8].selected == true && document.getElementById('language_name_other').value == '') ||
-            (document.languageinfo.reason_for_language_change.options[4].selected == true && document.getElementById('reason_for_language_change_other').value == '') ||
-            (document.languageinfo.reason_for_language_change.options[3].selected == true && (document.getElementById('number_of_lines').value == '') || (document.getElementById('number_of_lines').value < 0)))
+            (document.languageinfo.reason_for_language_change.options[5].selected == true && document.getElementById('reason_for_language_change_other').value == '') ||
+            (document.languageinfo.reason_for_language_change.options[4].selected == true && (document.getElementById('number_of_lines').value == '') || (document.getElementById('number_of_lines').value < 0)))
             return false;
         return true;
     }
@@ -202,6 +203,16 @@
         } else {
             $('#color').attr('disabled', true);
             $('#color').css('background', '#ccc');
+        }
+        if ($('#reason_for_language_change').val() == 'backtomainlanguage') {
+            $('#language_name').attr('disabled', true);
+            $('#language_name').css('background', '#ccc');
+            $('#color').attr('disabled', true);
+            $('#color').css('background', '#ccc');
+            $('#number_of_lines').attr('disabled', true);
+            $('#number_of_lines').css('background', '#ccc');
+            $('#following_language').attr('disabled', true);
+            $('#following_language').css('background', '#ccc');
         }
         if ($('#reason_for_language_change').val() == 'untransPahlavi') {
             $('#language_name').val('pal-Phlv');
