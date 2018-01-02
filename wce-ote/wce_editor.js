@@ -45,8 +45,8 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
         theme: "modern",
         menubar: false,
         skin_url: tinymce.baseURL + "../../../wce-ote/skin/",
-        custom_elements: 'header,trans,ms,book,folio,language',
-        extended_valid_elements: 'span[class|wce_orig|style|wce|ext|id|language],header,trans,ms,book,folio,language',
+        custom_elements: 'header,trans,ms,book,folio,language[name]',
+        extended_valid_elements: 'span[class|wce_orig|style|wce|ext|id|language],header,trans,ms,book,folio,language[name]',
         valid_children: '+header[trans|ms|book|folio|language]',
         forced_root_block: false,
         force_br_newlines: true,
@@ -102,6 +102,7 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 
 // wenn brower reload, set editor blank
 function wceReload() {
+	return;
     tinyMCE.activeEditor.windowManager.open({
         title: 'Welcome to the OTE',
         url: './plugin/start.htm',

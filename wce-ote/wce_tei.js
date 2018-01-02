@@ -37,6 +37,9 @@
 
 //pb, cb ,lb with break="no" defined in function html2Tei_mergeWNode();
 var wceNodeInsideW = ["hi", "unclear", "gap", "supplied", "w", "abbr", "ex"];//TODO: more type?
+var defaultHeaderHtml='<header><trans></trans><ms></ms><book></book><folio></folio><language name=""></language></header>';
+
+
 
 function Fehlerbehandlung(Nachricht, Datei, Zeile) {
 	var Fehler = "Error:\n" + Nachricht + "\n" + Datei + "\n" + Zeile;
@@ -51,6 +54,7 @@ function zeigeFehler(Fehler) {
 function getHtmlByTei(inputString) {
 	var $newDoc, $newRoot, $newRoot;
 	var $formatStart, $formatEnd;
+	var tinymce_ed=tinymce.activeEditor;
 
 	var teiIndexData = {
 		'bookNumber' : '',
@@ -120,9 +124,10 @@ function getHtmlByTei(inputString) {
 
 		$newDoc = loadXMLString("<TEMP></TEMP>");
 		$newRoot = $newDoc.documentElement;
-
+		
+		Tei2Html_handleLanguageChange($oldRoot);		
 		initTeiInput($oldRoot);
-
+		
 		var childList = $oldRoot.childNodes;
 		for (var i = 0, $c, l = childList.length; i < l; i++) {
 			$c = childList[i];
@@ -140,6 +145,48 @@ function getHtmlByTei(inputString) {
 
 		return str;
 	};
+	
+	var Tei2Html_handleLanguageChange = function($teiNode){
+		var list=[];
+		var abNodes=$teiNode.querySelectorAll('ab');
+		if(abNodes){
+			var lang='', langNode;
+			abNodes.forEach(function(ab){	
+				list.push(ab);
+			});
+		}
+		
+		function _change(_change){
+			var _next=_change.nextSibling;
+			var _parent=_change.parentNode;
+			if(_change.getAttribute('subtype')=='untransPahlavi'){
+				return;
+			}
+			var _del=_parent.firstChild===_change && _parent.childNodes.length==1;
+			if(_parent.firstChild===_change && !_parent.getAttribute('xml:lang')){
+				_del=true;
+			}
+			if(_next){				
+				while(_change.firstChild){
+					_parent.insertBefore(_change.firstChild,_next);
+				}	
+			}else{
+				while(_change.firstChild){
+					_parent.appendChild(_change.firstChild);
+				}
+			}			
+			if(_del){
+				_change.remove();
+			}
+		}
+		
+	 
+		list.forEach(function(curr,i){
+			if(curr.getAttribute('type')){
+				_change(curr);				
+			}				
+		})		
+	}
 
 	var addSpaceBeforeVerse = function($htmlNode){
 		if (!$htmlNode || ($htmlNode.nodeType != 1 && $htmlNode.nodeType != 11)){ //nodeType==11 from createDocumentFragment
@@ -625,15 +672,25 @@ function getHtmlByTei(inputString) {
 	var Tei2Html_teiHeader = function($htmlParent, $teiNode) {
 		var trans;
         var check; // Nodelist
-        var $header = $newDoc.createElement('header');
-        var $trans = $newDoc.createElement('trans');
-
-        check = $teiNode.querySelectorAll("change");
-        trans = check[0] ? check[0].getAttribute("who") : '';
+        var $header=$(defaultHeaderHtml)[0];       
+        var $trans=$header.querySelector('trans');
+        
+        var $langUsage=$teiNode.querySelector('langUsage');
+        if($langUsage){
+        	var _ident= $langUsage.getAttribute('ident');
+        	var _name=$langUsage.textContent;
+        	$header.querySelector('language').innerHTML=_ident;
+        	$header.querySelector('language').setAttribute('name',_name);
+        }
+        
+      //var $header = $newDoc.createElement('header');
+      //var $trans = $newDoc.createElement('trans');		
+        check = $teiNode.querySelector("change");
+        trans = check ? check.getAttribute("who") : '';
         nodeAddText($trans, trans);
-        $header.appendChild($trans);
-
+       //$header.appendChild($trans);
         $htmlParent.appendChild($header);
+       
         return $header;
 	};
 
@@ -642,14 +699,13 @@ function getHtmlByTei(inputString) {
         var check; // Nodelist
         var $ms;
         var $header = $htmlParent.firstChild;
-
-        $ms = $newDoc.createElement('ms');
-        check = $teiNode.querySelectorAll("idno");
-        idno = check[0] ? check[0].firstChild.nodeValue : '';
+        //$ms = $newDoc.createElement('ms');
+        $ms=$header.querySelector('ms');
+        check = $teiNode.querySelector("idno");
+        idno = (check && check.firstChild)? check.firstChild.nodeValue : '';
         nodeAddText($ms, idno);
-        $header.appendChild($ms);
-        $htmlParent.replaceChild($header, $htmlParent.firstChild);
-
+        //$header.appendChild($ms);
+        //$htmlParent.replaceChild($header, $htmlParent.firstChild);
         return null;
     }
 
@@ -835,20 +891,41 @@ function getHtmlByTei(inputString) {
 		var type = $teiNode.getAttribute('type');
 		if (type && type == 'languageChange') {
 			$newNode.setAttribute('class', 'langchange');
-			wceAttr = '__t=lang&language_name=' + $teiNode.getAttribute('xml:lang');
+			wceAttr = '__t=langchange&language_name=' + $teiNode.getAttribute('xml:lang');
+			var innerHTML='<span class="editortext">' + '\u2192' + '</span>';
 			var subtype = $teiNode.getAttribute('subtype');
 			if (subtype && subtype != '') {
-				if (subtype == 'other')
-					wceAttr += '&reason_for_language_change=other&reason_for_language_change_other=' + subtype;
-				else
-					wceAttr += '&reason_for_language_change=' + subtype + '&reason_for_language_change_other=';
+				if (subtype == 'other'){
+					wceAttr += '&reason_for_language_change=other&reason_for_language_change_other=' + subtype;					
+				}else if(subtype=='untransPahlavi'){
+					var _gap=$teiNode.querySelector('gap');					
+					var _extent=parseInt(_gap.getAttribute('extent'));
+					var covertext =tinymce_ed? tinymce_ed.translate('untransPahlavi'):'Untranscribed Pahlavi text';		
+					for(var i=0;i<_extent;i++){
+						covertext += '<br/>&crarr;' + (tinymce_ed?tinymce_ed.translate('untransPahlavi'):'');						
+					}	
+					innerHTML+='<span class="editortext">'+covertext+'</span>';					
+					wceAttr += '&reason_for_language_change=' + subtype + '&reason_for_language_change_other='+'&number_of_lines='+_extent;	
+					_gap.remove();
+				}else {
+					wceAttr += '&reason_for_language_change=' + subtype + '&reason_for_language_change_other=';					
+				}
+				
 				if (subtype == 'ritual' && $teiNode.firstChild && $teiNode.firstChild.firstChild && $teiNode.firstChild.firstChild.nodeName == 'hi'
-					&& $teiNode.firstChild.firstChild.getAttribute('rend') && $teiNode.firstChild.firstChild.getAttribute('rend') == 'rubric')
-					wceAttr += '&color=red';
-				else
-					wceAttr += '&color=black';
+					&& $teiNode.firstChild.firstChild.getAttribute('rend') && $teiNode.firstChild.firstChild.getAttribute('rend') == 'rubric'){
+						wceAttr += '&color=red';						
+				}else{
+					wceAttr += '&color=black';					
+				}
 			}
-			$newNode.setAttribute('wce', wceAttr);
+			$newNode.setAttribute('wce', wceAttr);		
+			var $tmp=$('<temp>'+innerHTML+'</temp>')[0];
+			while($tmp.firstChild){
+				$newNode.appendChild($tmp.firstChild);				
+			}		
+			addFormatElement($newNode);	
+			$htmlParent.appendChild($newNode);
+			return $htmlParent;
 		} else {
 			$newNode.setAttribute('class', 'verse_number mceNonEditable');
 		}
@@ -862,14 +939,18 @@ function getHtmlByTei(inputString) {
 				nodeAddText($newNode, g_verseNumber);
 			}
 		}
+		var verseLang='';
+		if($teiNode.getAttribute('xml:lang')){
+			verseLang='&amp;lang='+$teiNode.getAttribute('xml:lang');
+		}
 		var partValue = $teiNode.getAttribute('part');
 		if (partValue && (partValue === 'F' || partValue === 'M')){
 			nodeAddText($newNode, ' Cont.');
 		}
 		if (partValue)
-		 	$newNode.setAttribute('wce', '__t=verse_number&partial=' + partValue);
+		 	$newNode.setAttribute('wce', '__t=verse_number&partial=' + partValue+verseLang);
 		else
-			$newNode.setAttribute('wce', '__t=verse_number');
+			$newNode.setAttribute('wce', '__t=verse_number'+verseLang);
 		/*var $tempParent = $newDoc.createElement('t');
 		var cList = $teiNode.childNodes;
 		for (var i = 0, c, l = cList.length; i < l; i++) {
@@ -888,11 +969,11 @@ function getHtmlByTei(inputString) {
 				$newNode.appendChild($tempParent.firstChild);
 			}
 		}*/
-
-		if ($teiNode.getAttribute('xml:lang'))
-			addFormatElement($newNode, $teiNode.getAttribute('xml:lang'));
-		else
-			addFormatElement($newNode);
+		if ($teiNode.getAttribute('xml:lang')){
+			addFormatElement($newNode, $teiNode.getAttribute('xml:lang'));			
+		}else{
+			addFormatElement($newNode);			
+		}
 		$htmlParent.appendChild($newNode);
 		nodeAddText($htmlParent, ' ');
 		return $htmlParent;
@@ -1900,7 +1981,7 @@ function getTeiByHtml(inputString, args) {
 	var g_bookNumber = '';
 	var g_witValue = args.witness;
 	var g_manuscriptLang = args.manuscriptLang;
-
+	
 	/*if(g_bookNumber && (g_bookNumber instanceof Function || typeof g_bookNumber == "function" || typeof g_bookNumber == "Function")){
 		g_bookNumber=g_bookNumber();
 	}*/
@@ -1986,7 +2067,6 @@ function getTeiByHtml(inputString, args) {
 		if (!g_currentParentNode) {
 			g_currentParentNode = $newRoot;
 		}
-
 		//get tei node from htmlNode
 		var childList = $oldRoot.childNodes;
 		for (var i = 0, $c, l = childList.length; i < l; i++) {
@@ -2000,20 +2080,22 @@ function getTeiByHtml(inputString, args) {
 
 	 	html2Tei_mergeNodes($newRoot, true);
 	 	html2Tei_removeBlankW_addAttributePartI($newRoot);
+	 	html2Tei_handleLanguageChange($newRoot);
+	 	
 
 		// DOM to String
 		var str = xml2String($newRoot);
 		if (!str)
 			return '';
-
+	
 		//
 		// add an required header to get a valid XML
 		//str = str.replace('<TEI>', '<?xml  version="1.0" encoding="utf-8"?><!DOCTYPE TEI [<!ENTITY om ""><!ENTITY lac ""><!ENTITY lacorom "">]><?xml-model href="TEI-NTMSS.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?><TEI xmlns="http://www.tei-c.org/ns/1.0">');
 		str = str.replace('<TEI>', '<?xml  version="1.0" encoding="utf-8"?><TEI xmlns="http://www.tei-c.org/ns/1.0">');
-		str = str.replace("</teiHeader>", "</teiHeader><body><text>");
+		str = str.replace("</teiHeader>", "</teiHeader><text><body>");
 				if (g_manuscriptLang && g_manuscriptLang != '')// set manuscript language if there are information
                     str = str.replace("<text>", '<text xml:lang="' + g_manuscriptLang + '">');
-		str = str.replace("</TEI>", "</text></body></TEI>");
+		str = str.replace("</TEI>", "</body></text></TEI>");
 		str = str.replace(/OMISSION/g, "");
 		str = str.replace(//g, $("<div />").html("a&#772;&#778;").text());
 		str = str.replace(//g, $("<div />").html("H&#803;").text());
@@ -2033,6 +2115,172 @@ function getTeiByHtml(inputString, args) {
 	 	$node=addWElement2Html($node);
 	 	return $node;
 	};
+	
+	var html2Tei_handleLanguageChange = function($node){
+		var $header=$node.querySelector('teiHeader');
+		if(!$header){
+			//if header not definded, add default header
+			$tmpHeader=$(defaultHeaderHtml);	
+			$tmp=$newDoc.createDocumentFragment();
+			getMetaData($tmp,$tmpHeader[0]);
+			$node.insertBefore($tmp.querySelector('msDesc'), $node.firstChild);
+			$node.insertBefore($tmp.firstChild,$node.firstChild);
+			$header=$node.firstChild;
+		}
+		var mainLang=$header.querySelector('langUsage').getAttribute('ident');
+		var abNodes=$node.querySelectorAll('ab');
+		var list=[];
+		if(abNodes){
+			var lang='', langNode=null;
+			abNodes.forEach(function(ab){		
+				var att_type=ab.getAttribute('type');
+				var att_lang=ab.getAttribute('xml:lang');		
+				if(att_type=='languageChange'){
+					lang=att_lang;
+					langNode=ab.cloneNode(true);
+					if(ab.getAttribute('subtype')=='untransPahlavi'){
+						lang=null;
+						langNode=null;
+					}
+				}else if(att_lang){
+					//if verse has xml:lang
+					lang=null;
+					langNode=null;
+				}
+				
+				
+				list.push({
+					node:ab,
+					lang:lang,
+					type:att_type,
+					langRefNode:langNode
+				});
+			});
+		}
+	
+		function _verse_change(_verse, _change){
+			if(_verse.lang==mainLang || _verse.node.getAttribute('xml:lang') || !_verse.langRefNode){
+				 return;
+			}
+		
+			var _childNodes=[];
+			var	_add=true;
+			_verse.node.childNodes.forEach(function(c){
+				if(c===_change.node){
+				   _add=false;
+				   return;
+				}
+				if(_add){
+					_childNodes.push(c);					
+				}
+			});
+			
+			var newAb=_verse.langRefNode.cloneNode(true);			
+			_verse.node.insertBefore(newAb, _verse.node.firstChild);
+			_childNodes.forEach(function(c){
+				newAb.appendChild(c);
+			});		
+		}
+		
+		function _change_change(_pre, _current){
+			if(_pre.lang==mainLang){
+				_pre.node.remove();
+				return;
+			}			
+			if(_pre.node.getAttribute('subtype')==='untransPahlavi'){
+				return;
+			}
+			
+			var _childNodes=[];
+			var _add=false;
+			_pre.node.parentNode.childNodes.forEach(function(c){
+				if(c===_pre.node){
+				  	_add=true;
+				  	return;
+				}else if(c===_current.node){
+				   	_add=false;
+				}
+				if(_add){
+				     _childNodes.push(c);
+				}
+			});
+			_childNodes.forEach(function(c){
+				_pre.node.appendChild(c);
+			});				
+		}		
+		
+		function _change_verse(_change){
+			if(_change.lang==mainLang){
+				_change.node.remove();
+				return;
+			}
+			if(_change.node.getAttribute('subtype')==='untransPahlavi'){
+				return;
+			}
+			
+			var _childNodes=[];
+			var _add=false;
+			_change.node.parentNode.childNodes.forEach(function(c){
+				if(c===_change.node){
+				  	_add=true;
+				  	return;
+				}
+				if(_add){
+				     _childNodes.push(c);
+				}
+			});
+			_childNodes.forEach(function(c){
+				_change.node.appendChild(c);
+			});	
+		}		
+		
+		function _verse(_verse){
+			if(_verse.lang==mainLang || _verse.node.getAttribute('xml:lang') || !_verse.langRefNode){
+				return;
+			}
+			var _childNodes=[];
+			_verse.node.childNodes.forEach(function(c){				
+				_childNodes.push(c);	
+			});
+			var newAb=_verse.langRefNode.cloneNode(true);			
+			_verse.node.insertBefore(newAb, _verse.node.firstChild);
+			_childNodes.forEach(function(c){
+				newAb.appendChild(c);
+			});			
+		}
+							
+		var pre;	
+		var end=list.length-1;
+		list.forEach(function(curr,i){	
+			if(pre){
+				if(curr.type=='languageChange'){	
+					if(pre.type=='languageChange'){
+						_change_change(pre, curr);
+					}else{
+						_verse_change(pre, curr);
+					}							
+				}else{
+					if(pre.type=='languageChange'){
+						_change_verse(pre);
+					}else {
+						_verse(pre);
+					}
+				}
+								
+				//last
+				if(i==end){
+					if(curr.type=='languageChange'){
+						_change_verse(curr);
+					}else{
+						_verse(curr);						
+					}
+				}
+			}	
+			
+			pre=curr;
+		})		
+	
+	}
 
 	/*
 	 * test if previousSibling pb/cb/lb with break="no" is,
@@ -2529,7 +2777,6 @@ function getTeiByHtml(inputString, args) {
 			mm = '0' + mm;
 		}
 		today = yyyy + '-' + mm + '-' + dd;
-
 		transcriber = ($htmlNode.firstElementChild||$htmlNode.firstChild).textContent.replace("_"," ");
 		manID = $htmlNode.getElementsByTagName("ms")[0].textContent;
 
@@ -2544,6 +2791,15 @@ function getTeiByHtml(inputString, args) {
 		$newNodeS = $newDoc.createElement('sourceDesc');
 		$newNodeF.appendChild($newNodeS);
 		$newNodeH.appendChild($newNodeF);
+		//profileDesc
+		$newNodePD=$newDoc.createElement('profileDesc');
+		$newNodeL=$newDoc.createElement('langUsage');
+		var $lang=$htmlNode.querySelector('language');
+		$newNodeL.setAttribute('ident',$lang?$lang.textContent:'');
+		$newNodeL.appendChild($newDoc.createTextNode($lang?$lang.getAttribute('name'):''));
+		$newNodePD.appendChild($newNodeL);
+		$newNodeH.appendChild($newNodePD);	
+				
 		$newNodeR = $newDoc.createElement('revisionDesc');
 		$newNodeC = $newDoc.createElement('change');
 		$newNodeC.setAttribute('when', today);
@@ -3335,6 +3591,7 @@ function getTeiByHtml(inputString, args) {
 		if (wceType == 'langchange') {
 			return html2Tei_langchange(arr, $teiParent, $htmlNode);
 		}
+	
 		// other
 		var $e = $newDoc.createElement("-TEMP-" + htmlNodeName);
 		$teiParent.appendChild($e);

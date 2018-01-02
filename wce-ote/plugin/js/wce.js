@@ -564,18 +564,18 @@ function writeDocInfos(metadata) {
     $folio.appendChild($book.ownerDocument.createTextNode(newnumber + newrv));
     $header.appendChild($folio);
     $language = $newDoc.createElement('language');
+    $language.setAttribute('name',metadata[6]);
     $language.appendChild($language.ownerDocument.createTextNode(metadata[5]));
     $header.appendChild($language);
 
     // check, whether there is already a header
     $oldhead = ed.dom.select('header')[0];
     if ($oldhead) {
-        $oldhead.parentNode.replaceChild($header, $oldhead);
+        $oldhead.parentNode.replaceChild($header, $oldhead);  
     } else { // empty document or existing one without header
         oldcontent = ed.getContent(); // might be empty (for new documents)
         ed.setContent(xml2String($header) + oldcontent);
     }
-
     $oldbook = ed.dom.select('span[class="book_number mceNonEditable"]')[0];
     if ($oldbook) {
         $oldbook.firstChild.textContent = metadata[2];
