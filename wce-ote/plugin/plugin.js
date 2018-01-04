@@ -1,5 +1,5 @@
 /*
-	Copyright (C) 2012-2017 Trier Center for Digital Humanities, Trier (Germany)
+	Copyright (C) 2012-2018 Trier Center for Digital Humanities, Trier (Germany)
 
 	This file is part of the Online Transcription Editor (OTE).
 
@@ -33,7 +33,7 @@
 */
 
 (function () {
-	var wfce_editor = "0.5.12beta (2017-10-13)";
+	var wfce_editor = "0.6.0beta (2018-01-04)";
 
 	// Load plugin specific language pack
 	tinymce.PluginManager.requireLangPack('wce');
@@ -1080,7 +1080,7 @@
 					w.not_C = true;
 				w.not_A = true;
 				w.not_O = true;
-				w.not_L = true;
+				//w.not_L = true;
 
 				// move caret to EndOfPreviousSibling, mainly for IE:
 				/* TODO: What the frick is this? puts us in the wrong span when we are at the start of a text node
@@ -1249,7 +1249,7 @@
 
 			if (canMakeCorrection) {
 				w.not_C = false;
-				w.not_L = false;
+				w.not_L = true;
 			}
 
 			w.not_P = !w.isc;
@@ -1284,7 +1284,7 @@
 					break;
 
 				case 'lang':
-					w.not_L = !wholeSelect;
+					w.not_L = wholeSelect;
 					break;
 
 				case 'lection_number':
@@ -2166,6 +2166,10 @@
 								else if (ar['partial'] == 'F')
 									info_text += ' (final portion)';
 							}
+                            if (ar['lang']) {
+                                var lang = ar['lang'];
+                                info_text += '<div>' + tinymce.translate('language_name') + ': ' + lang + '</div>';
+                            }
 							info_text += '</div>';
 							break;
 						case 'stanza':
@@ -2178,13 +2182,27 @@
 								else if (ar['partial'] == 'F')
 									info_text += ' (final portion)';
 							}
+                            if (ar['lang']) {
+                                var lang = ar['lang'];
+                                info_text += '<div>' + tinymce.translate('language_name') + ': ' + lang + '</div>';
+                            }
 							info_text += '</div>';
                             break;
 						case 'chapter':
-							info_text = '<div>' + 'Chapter number' + '</div>';
+							info_text = '<div>' + 'Chapter number';
+                            if (ar['lang']) {
+                                var lang = ar['lang'];
+                                info_text += '<div>' + tinymce.translate('language_name') + ': ' + lang + '</div>';
+                            }
+                            info_text += '</div>';
 							break;
 						case 'book':
-							info_text = '<div>' + 'Book name' + '</div>';
+							info_text = '<div>' + 'Book name';
+                            if (ar['lang']) {
+                                var lang = ar['lang'];
+                                info_text += '<div>' + tinymce.translate('language_name') + ': ' + lang + '</div>';
+                            }
+                            info_text += '</div>';
 							break;
 						case 'lection':
 							info_text = '<div>' + 'Lection ' + ar['number'] + '</div>';

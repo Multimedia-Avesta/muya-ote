@@ -1,5 +1,5 @@
 ﻿/*
-	Copyright (C) 2012-2017 Trier Center for Digital Humanities, Trier (Germany)
+	Copyright (C) 2012-2018 Trier Center for Digital Humanities, Trier (Germany)
 
 	This file is part of the Online Transcription Editor (OTE).
 
@@ -45,9 +45,9 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 		theme : "modern",
 		menubar: false,
 		skin_url: tinymce.baseURL + "../../../wce-ote/skin/",
-		custom_elements : 'header,trans,ms,book,folio',
-		extended_valid_elements : 'span[class|wce_orig|style|wce|ext|id|language],header,trans,ms,book,folio',
-		valid_children : '+header[trans|ms|book|folio]',
+        custom_elements: 'header,trans,ms,book,folio,language[name]',
+        extended_valid_elements: 'span[class|wce_orig|style|wce|ext|id|language],header,trans,ms,book,folio,language[name]',
+        valid_children: '+header[trans|ms|book|folio|language]',
 		forced_root_block : false,
 		force_br_newlines : true,
 		//force_p_newlines : false, //DEPRECATED!
@@ -105,6 +105,7 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 
 // wenn brower reload, set editor blank
 function wceReload() {
+	return;
     tinyMCE.activeEditor.windowManager.open({
 		title : 'Welcome to the OTE',
 		url : './plugin/start.htm',
@@ -112,8 +113,7 @@ function wceReload() {
         width:window.innerWidth,
         height : 50,
         inline : true,
-        }, {
-		});
+    }, {});
 }
 
 // get dirty-value of editor
@@ -216,7 +216,9 @@ function saveToDisc() {
 //		var fileName = prompt('Please enter file name to save', 'untitled.xml');
 		if (fileName) {
 		  var textToWrite = getTEI();
-		  var textFileAsBlob = new Blob([textToWrite], { type: 'text/xml' });
+            var textFileAsBlob = new Blob([textToWrite], {
+                type: 'text/xml'
+            });
 		  if ('msSaveOrOpenBlob' in navigator) {
 			navigator.msSaveOrOpenBlob(textFileAsBlob, fileName);
 		  } else {
@@ -284,12 +286,16 @@ function addMenuItems(ed) {
 	//var wceAttr = '';
 	var isPreviousActive = false;
 	var b = false;
+    var pos, posa;
+    var oldwce;
 
 	var contextMenu = null;
 	var staticMenuCount = 0;
-	tinymce.ui.Menu.prototype.Mixins = [ { init : function() {
+    tinymce.ui.Menu.prototype.Mixins = [{
+        init: function () {
 		if (this.settings.context == 'contextmenu') contextMenu = this;
-	}} ];
+        }
+    }];
 
 	console.log('fix context menu');
 	ed.on('contextmenu', function(event) {
@@ -305,63 +311,113 @@ function addMenuItems(ed) {
         var type;
 
 		// added my options
-		type = selectedNode.getAttribute('wce').substring(4,17);
-        if (selectedNode.getAttribute('wce') != null
-			&& (type.substring(0, type.length-1) == 'verse_number' || type == 'stanza_number')) {
-			if (type.substr(-1) == "_") {
-                type = "verse";
-            } // else it is stanza
-			menu.add({ text : '|'});
+        if (selectedNode.getAttribute('wce')) {
+            oldwce = selectedNode.getAttribute('wce');
+            pos = oldwce.substring(4).indexOf('_');
+            type = oldwce.substring(4, 4 + pos);
+            if (type == 'book' || type == 'chapter' || type == 'verse' || type == 'stanza') {
 			menu.add({
+                    text: '|'
+                });
+                menu.add({
 				text : tinymce.translate('initial_portion'),
 				icon : '',
 				onclick : function() {
-					ed.execCommand('mce_partialI', type);
+                        ed.execCommand('mce_set_partial', 'I');
 				}
 			});
 			menu.add({
 				text : tinymce.translate('medial_portion'),
 				icon : '',
 				onclick : function() {
-					ed.execCommand('mce_partialM', type);
+                        ed.execCommand('mce_set_partial', 'M');
 				}
 			});
 			menu.add({
 				text : tinymce.translate('final_portion'),
 				icon : '',
 				onclick : function() {
-					ed.execCommand('mce_partialF', type);
+                        ed.execCommand('mce_set_partial', 'F');
 				}
 			});
 			menu.add({
-				text : tinymce.translate('remove_partial', type),
+                    text: tinymce.translate('remove_partial'),
 				icon : '',
 				onclick : function() {
-					ed.execCommand('mce_partial_remove', type);
+                        ed.execCommand('mce_remove_partial');
 				}
 			});
-		/*menu.addSeparator();
+                //menu.addSeparator();
 			menu.add({
-				title : 'Zoroastrian Middle Persian in Pahlavi Script',
+                    text: tinymce.translate('pahlavi_phlv'),
 				icon : '',
-				cmd : 'mce_palPhlv'
+                    onclick: function () {
+                        ed.execCommand('mce_set_language', 'pal-Phlv');
+                    }
 			});
 			menu.add({
-				title : 'Zoroastrian Middle Persian in Avesta Script',
+                    text: tinymce.translate('pahlavi_avst'),
 				icon : '',
-				cmd : 'mce_palAvst'
+                    onclick: function () {
+                        ed.execCommand('mce_set_language', 'pal-Avst');
+                    }
 			});
 			menu.add({
-				title : 'Middle Persian in inscriptional Pahlavi Script',
+                    text: tinymce.translate('pahlavi_phli'),
 				icon : '',
-				cmd : 'mce_palPhli'
-			});*/
-		} else if (selectedNode.getAttribute('wce') != null
-			&& selectedNode.getAttribute('wce').indexOf('break_type=pb') > -1
-			&& selectedNode.textContent.indexOf('PB') > -1) {
+                    onclick: function () {
+                        ed.execCommand('mce_set_language', 'pal-Phli');
+                    }
+                });
+                menu.add({
+                    text: tinymce.translate('avestan_avst'),
+                    icon: '',
+                    onclick: function () {
+                        ed.execCommand('mce_set_language', 'ae-Avst');
+                    }
+                });
+                menu.add({
+                    text: tinymce.translate('avestan_phlv'),
+                    icon: '',
+                    onclick: function () {
+                        ed.execCommand('mce_set_language', 'ae-Phlv');
+                    }
+                });
+                menu.add({
+                    text: tinymce.translate('gujarati'),
+                    icon: '',
+                    onclick: function () {
+                        ed.execCommand('mce_set_language', 'gu');
+                    }
+                });
+                menu.add({
+                    text: tinymce.translate('persian'),
+                    icon: '',
+                    onclick: function () {
+                        ed.execCommand('mce_set_language', 'fa');
+                    }
+                });
+                menu.add({
+                    text: tinymce.translate('sanskrit'),
+                    icon: '',
+                    onclick: function () {
+                        ed.execCommand('mce_set_language', 'sa');
+                    }
+                });
+                menu.add({
+                    text: tinymce.translate('removeLanguage'),
+                    icon: '',
+                    onclick: function () {
+                        ed.execCommand('mce_remove_language');
+                    }
+                });
+            } else if (selectedNode.getAttribute('wce').indexOf('break_type=pb') > -1 &&
+                selectedNode.textContent.indexOf('PB') > -1) {
 			isPreviousActive = (selectedNode.getAttribute('wce').indexOf('hasBreak=yes') > -1);
-			menu.add({ text : '|'});
 			menu.add({
+                    text: '|'
+                });
+                menu.add({
 				text : tinymce.translate('previous_hyphenation'),
 				icon : '',
 				onclick : function() {
@@ -377,74 +433,82 @@ function addMenuItems(ed) {
 				}
 			});
 			menu.items()[menu.items().length-1].disabled(!isPreviousActive);
-		} else if (selectedNode.getAttribute('class') != null
-			&& ($(selectedNode).hasClass('lang')
-			|| ($(selectedNode).hasClass('formatting_rubrication')))) {
+            /*} else if (selectedNode.getAttribute('class') != null &&
+                ($(selectedNode).hasClass('languagechange') ||
+                    ($(selectedNode).hasClass('formatting_rubrication')))) {
 			menu.add({
 				text : tinymce.translate('wce.removeLanguage'),
 				icon : '',
 				onclick : function() {
 					ed.execCommand('mce_remove_language', true);
 				}
-			});
+                });*/
 		} else{
 		  //other selection
 		  contextMenu.hide();
 		  return;
 		}
+        } else {
+            contextMenu.hide();
+            return;
+        }
 		menu.renderNew();
 		menu.moveTo($(contextMenu.getEl()).position().left, $(contextMenu.getEl()).position().top);
 		contextMenu.hide();
 	});//end contextmenu on
 
 	//
-	ed.addCommand('mce_partialI', function(type) {
-		ed.selection.getNode().setAttribute('wce', '__t=' + type + '_number' + '&partial=I');
+    ed.addCommand('mce_set_partial', function (type) {
+        ed.execCommand('mce_remove_partial');
+        oldwce = ed.selection.getNode().getAttribute('wce');
+        ed.selection.getNode().setAttribute('wce', oldwce + '&partial=' + type);
 	});
-	ed.addCommand('mce_partialM', function(type) {
-		ed.selection.getNode().setAttribute('wce', '__t=' + type + '_number' + '&partial=M');
+    ed.addCommand('mce_remove_partial', function() {
+        oldwce = ed.selection.getNode().getAttribute('wce');
+        pos = oldwce.indexOf("partial=");
+        if (pos > -1) {
+            alert(oldwce.substring(pos, pos + 9));
+            ed.selection.getNode().setAttribute('wce', oldwce.replace(oldwce.substring(pos, pos + 9), ""));
+        }
 	});
-	ed.addCommand('mce_partialF', function(type) {
-		ed.selection.getNode().setAttribute('wce', '__t=' + type + '_number' + '&partial=F');
-	});
-	ed.addCommand('mce_partial_remove', function(type) {
-		ed.selection.getNode().setAttribute('wce', '__t=' + type + '_number');
+    ed.addCommand('mce_set_language', function (l) {
+        ed.execCommand('mce_remove_language');
+        oldwce = ed.selection.getNode().getAttribute('wce');
+        ed.selection.getNode().setAttribute('wce', oldwce + '&lang=' + l);
 	});
 	ed.addCommand('mce_remove_language', function() {
-		ed.execCommand('wceDelNode', true, true);
+        oldwce = ed.selection.getNode().getAttribute('wce');
+        pos = oldwce.indexOf("lang=");
+        if (pos > -1) {
+            posa = oldwce.substring(pos).indexOf("&");
+            if (posa > -1) {
+                ed.selection.getNode().setAttribute('wce', oldwce.replace(oldwce.substring(pos - 1, pos + posa), ""));
+            } else {
+                ed.selection.getNode().setAttribute('wce', oldwce.replace(oldwce.substring(pos - 1), ""));
+            }
+        }
 	});
-
-	/*ed.addCommand('mce_palPhlv', function() {
-		ed.selection.getNode().setAttribute('wce', '__t=verse_number' + '&lang=pal-Phlv');
-	});
-	ed.addCommand('mce_palAvst', function() {
-		ed.selection.getNode().setAttribute('wce', '__t=verse_number' + '&lang=pal-Avst');
-	});
-	ed.addCommand('mce_palPhli', function() {
-		ed.selection.getNode().setAttribute('wce', '__t=verse_number' + '&lang=pal-Phli');
-	});*/
-
 	ed.addCommand('mce_previous_hyphenation', function(b) {
-		var oldwce = ed.selection.getNode().getAttribute('wce');
-		var pos = oldwce.indexOf("number=");
+        pos = oldwce.indexOf("number=");
 		var newstring = oldwce.substring(pos+7);
 		var num = newstring.substring(0,newstring.indexOf("&"));
 		pos = oldwce.indexOf("rv=");
 		newstring = oldwce.substring(pos+3);
 		rv = newstring.substring(0,newstring.indexOf("&"));
 		if (b == true) {
-			ed.selection.getNode().setAttribute('wce', oldwce.replace("hasBreak=no", "hasBreak=yes"));
-			ed.selection.getNode().innerHTML = ed.WCE_CON.startFormatHtml + '&#8208;<br />PB' + ' ' + num + '' + rv + ed.WCE_CON.endFormatHtml;
+            selectedNode.setAttribute('wce', oldwce.replace("hasBreak=no", "hasBreak=yes"));
+            selectedNode.innerHTML = ed.WCE_CON.startFormatHtml + '&#8208;<br />PB' + ' ' + num + '' + rv + ed.WCE_CON.endFormatHtml;
 		} else {
-			ed.selection.getNode().setAttribute('wce', oldwce.replace("hasBreak=yes", "hasBreak=no"));
-			ed.selection.getNode().innerHTML = ed.WCE_CON.startFormatHtml + '<br />PB' + ' ' + num + '' + rv + ed.WCE_CON.endFormatHtml;
+            selectedNode.setAttribute('wce', oldwce.replace("hasBreak=yes", "hasBreak=no"));
+            selectedNode.innerHTML = ed.WCE_CON.startFormatHtml + '<br />PB' + ' ' + num + '' + rv + ed.WCE_CON.endFormatHtml;
 		}
 	});
 }
 
 if (( typeof Range !== "undefined") && !Range.prototype.createContextualFragment) {
 	Range.prototype.createContextualFragment = function(html) {
-		var frag = document.createDocumentFragment(), div = document.createElement("div");
+        var frag = document.createDocumentFragment(),
+            div = document.createElement("div");
 		frag.appendChild(div);
 		div.outerHTML = html;
 		return frag;

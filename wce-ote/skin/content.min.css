@@ -513,33 +513,43 @@ span.lection_number {
     font-size: 36px;
 }
 
-span.format_start[language="pal-Avst"],
-span.format_start[language="ae-Avst"],
-span.format_start[language="ae-Phlv"] {
+span.langchange[language="pal-Avst"],
+span.langchange[language="ae-Avst"],
+span.langchange[language="ae-Phlv"] {
+    border: 1px dotted #f00;
+    margin: 0px 0px 0px 1px;
+    padding: 0;
     color: green;
-    background-color: green;
+/*    background-color: green;*/
 }
 
-span.format_start[language="pal-Phli"],
-span.format_start[language="pal-Phlv"] {
+span.langchange[language="pal-Phli"],
+span.langchange[language="pal-Phlv"] {
     color: purple;
-    background-color: purple;
+/*    background-color: purple;*/
 }
 
-span.format_start[language="gu"] {
+span.langchange[language="gu"] {
     color: red;
-    background-color: red;
+/*    background-color: red;*/
 }
 
-span.format_start[language="fa"],
-span.format_start[language="prs"] {
+span.langchange[language="fa"],
+span.langchange[language="prs"] {
     color: yellow;
-    background-color: yellow;
+/*    background-color: yellow;*/
 }
 
-span.format_start[language="sa"] {
+span.langchange[language="sa"] {
     color: blue;
-    background-color: blue;
+/*    background-color: blue;*/
+}
+
+span.editortext {
+    border: 1px dotted #f00;
+    margin: 0px 0px 0px 1px;
+    padding: 0;
+    color: gray;
 }
 
 span.format_end[language="pal-Avst"],

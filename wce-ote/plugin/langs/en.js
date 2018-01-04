@@ -32,7 +32,7 @@
     Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
 */
 
-tinymce.addI18n('en',{
+tinymce.addI18n('en', {
 	language : "Language",
 	note_desc : "Add note",
 	note_edit_desc : "Edit note",
@@ -152,7 +152,6 @@ tinymce.addI18n('en',{
 	witnessEnd : "Witness End",
 	info_lacuna_illegible : 'Please note, that this category was introduced only for existing transcriptions.\nYou should always try to assign "Lacuna" or "Illegible".',
 	space : "Blank spaces",
-	other : "Other",
 	othertype : "User-defined type",
 	reason : "Reason",
 	unit : "Unit",
@@ -186,8 +185,8 @@ tinymce.addI18n('en',{
 	charmap_all : "All glyphs",
 	charmap_interpunction_signs_only : "Interpunction only",
 	charmap_default_only : "Default only",
-	unclear_text_info : "Please specify the uncertain letters" ,
-	unclear_text_data : "Information about the uncertain letters" ,
+	unclear_text_info : "Please specify the uncertain letters",
+	unclear_text_data : "Information about the uncertain letters",
 	poor_image : "Poor image",
 	faded_ink : "Faded ink",
 	damage_to_page : "Damage to page",
@@ -198,7 +197,6 @@ tinymce.addI18n('en',{
 	supplied_source : "Supplied source",
 	na27 : "NA28",
 	TR : "Textus Receptus",
-	transcriber : "Transcriber",
 	paratext : "Marginalia",
 	paratext_title : "Specify marginalia",
 	paratext_data : "Information about the marginalia",
@@ -395,7 +393,8 @@ tinymce.addI18n('en',{
 	new_hand: 'New',
 	close : 'Close',
 	reason_for_language_change : 'Reason for language change',
-	language_name : 'Language name',
+	language_name : 'Language',
+    mainlanguage : 'Main language',
 	avestan_avst : 'Avestan',
 	avestan_phlv : 'Avestan (Pahlavi script)',
 	gujarati : 'Gujarati',
@@ -404,15 +403,19 @@ tinymce.addI18n('en',{
 	pahlavi_phli : 'Middle Persian in inscriptional Pahlavi Script',
 	persian : 'Persian',
 	sanskrit : 'Sanskrit',
+    sameasbefore : 'Same as before the change',
 	ritual : 'Ritual direction',
 	translation : 'Translation',
+    backtomainlanguage : 'Back to main language',
 	section : 'Section heading; dedication',
-	removeLanguage : 'Remove language information',
+	untransPahlavi : 'Untranscribed Pahlavi text',
+    removeLanguage : 'Remove language information',
 	language_title : 'Please specify the language',
+    following_lang : 'Following language',
 	manID : 'Manuscript ID/Siglum',
 	textID : 'Text ID',
 	folioID : 'Folio/page number',
 	docinfo_title : 'Document information',
 	docinfo_data : 'Please enter data',
-	transcriber : 'Transcriber\'s name',
+	transcriber : 'Transcriber\'s name'
 });
