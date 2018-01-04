@@ -1,5 +1,5 @@
 /*
-	Copyright (C) 2012-2017 Trier Center for Digital Humanities, Trier (Germany)
+	Copyright (C) 2012-2018 Trier Center for Digital Humanities, Trier (Germany)
 
 	This file is part of the Online Transcription Editor (OTE).
 
@@ -123,9 +123,9 @@ function getHtmlByTei(inputString, args) {
 		$newDoc = loadXMLString("<TEMP></TEMP>");
 		$newRoot = $newDoc.documentElement;
 
-		Tei2Html_handleLanguageChange($oldRoot);		
-		initTeiInput($oldRoot);	
-		args.inner_hi?Tei2Html_handleHiNode($oldRoot):{};	
+		Tei2Html_handleLanguageChange($oldRoot);
+		initTeiInput($oldRoot);
+		args.inner_hi?Tei2Html_handleHiNode($oldRoot):{};
 
 		var childList = $oldRoot.childNodes;
 		for (var i = 0, $c, l = childList.length; i < l; i++) {
@@ -150,11 +150,11 @@ function getHtmlByTei(inputString, args) {
 		var abNodes=$teiNode.querySelectorAll('ab');
 		if(abNodes){
 			var lang='', langNode;
-			abNodes.forEach(function(ab){	
+			abNodes.forEach(function(ab){
 				list.push(ab);
 			});
 		}
-		
+
 		function _change(_change){
 			var _next=_change.nextSibling;
 			var _parent=_change.parentNode;
@@ -165,26 +165,26 @@ function getHtmlByTei(inputString, args) {
 			if(_parent.firstChild===_change && !_parent.getAttribute('xml:lang')){
 				_del=true;
 			}
-			if(_next){				
+			if(_next){
 				while(_change.firstChild){
 					_parent.insertBefore(_change.firstChild,_next);
-				}	
+				}
 			}else{
 				while(_change.firstChild){
 					_parent.appendChild(_change.firstChild);
 				}
-			}			
+			}
 			if(_del){
 				_change.remove();
 			}
 		}
-		
-	 
+
+
 		list.forEach(function(curr,i){
 			if(curr.getAttribute('type')){
-				_change(curr);				
-			}				
-		})		
+				_change(curr);
+			}
+		})
 	}
 
 	var addSpaceBeforeVerse =function($htmlNode){
@@ -231,45 +231,45 @@ function getHtmlByTei(inputString, args) {
 			initTeiInput(tNext);
 			tNext=tNext.nextSibling;
 		}
-		Tei2Html_mergeWNode($parent); 
+		Tei2Html_mergeWNode($parent);
 	};
-	
-	var needMovieHiNode=function(_node){	
-		var b1=	['w','rdg','app'].indexOf(_node.nodeName)>-1;		
+
+	var needMovieHiNode=function(_node){
+		var b1=	['w','rdg','app'].indexOf(_node.nodeName)>-1;
 		var first=_node.firstChild;
 		var b2= first && first.nodeName=='hi' && !first.nextSibling;
 		return b1 && b2;
 	}
-	
-	
+
+
 	var Tei2Html_handleHiNode=function($node){
 		if (!$node || ($node.nodeType!=1 && $node.nodeType!=11)){ //nodeType==11 from createDocumentFragment
 			return;
-		}			
-		
-		if($node.hasChildNodes()){	
+		}
+
+		if($node.hasChildNodes()){
 			var list=[];
 			$node.childNodes.forEach(function(c){
 			 	list.push(c);
 			})
 			list.forEach(function(c){
-				Tei2Html_handleHiNode(c);				
-			});		
+				Tei2Html_handleHiNode(c);
+			});
 		}
-		
-		if(needMovieHiNode($node,'hi')){		
-				var hi=$node.firstChild;			
+
+		if(needMovieHiNode($node,'hi')){
+				var hi=$node.firstChild;
 				while(hi.firstChild){
-					$node.appendChild(hi.firstChild);	
+					$node.appendChild(hi.firstChild);
 				}
 				var $pn=$node.parentNode;
 				$pn.insertBefore(hi,$node);
-				hi.appendChild($node);	
+				hi.appendChild($node);
 				Tei2Html_mergeHiNode($pn,true);
 		}
 	}
-	
-	var Tei2Html_mergeHiNode=function($node){		
+
+	var Tei2Html_mergeHiNode=function($node){
 		var curr=$node.firstChild;
 		var next;
 		var toAppend=new Array();
@@ -745,7 +745,7 @@ function getHtmlByTei(inputString, args) {
 	var Tei2Html_teiHeader = function($htmlParent, $teiNode) {
 		var trans;
         var check; // Nodelist
-        var $header=$(defaultHeaderHtml)[0];       
+        var $header=$(defaultHeaderHtml)[0];
         var $trans=$header.querySelector('trans');
 
         var $langUsage=$teiNode.querySelector('langUsage');
@@ -755,9 +755,9 @@ function getHtmlByTei(inputString, args) {
         	$header.querySelector('language').innerHTML=_ident;
         	$header.querySelector('language').setAttribute('name',_name);
         }
-        
+
       //var $header = $newDoc.createElement('header');
-      //var $trans = $newDoc.createElement('trans');		
+      //var $trans = $newDoc.createElement('trans');
         check = $teiNode.querySelector("change");
         trans = check ? check.getAttribute("who") : '';
         nodeAddText($trans, trans);
@@ -971,19 +971,19 @@ function getHtmlByTei(inputString, args) {
 				if (subtype == 'other'){
 					wceAttr += '&reason_for_language_change=other&reason_for_language_change_other=' + subtype;
 				}else if(subtype=='untransPahlavi'){
-					var _gap=$teiNode.querySelector('gap');					
+					var _gap=$teiNode.querySelector('gap');
 					var _extent=parseInt(_gap.getAttribute('extent'));
-					var covertext =tinymce_ed? tinymce_ed.translate('untransPahlavi'):'Untranscribed Pahlavi text';		
+					var covertext =tinymce_ed? tinymce_ed.translate('untransPahlavi'):'Untranscribed Pahlavi text';
 					for(var i=0;i<_extent;i++){
-						covertext += '<br/>&crarr;' + (tinymce_ed?tinymce_ed.translate('untransPahlavi'):'');						
-					}	
-					innerHTML+='<span class="editortext">'+covertext+'</span>';					
-					wceAttr += '&reason_for_language_change=' + subtype + '&reason_for_language_change_other='+'&number_of_lines='+_extent;	
+						covertext += '<br/>&crarr;' + (tinymce_ed?tinymce_ed.translate('untransPahlavi'):'');
+					}
+					innerHTML+='<span class="editortext">'+covertext+'</span>';
+					wceAttr += '&reason_for_language_change=' + subtype + '&reason_for_language_change_other='+'&number_of_lines='+_extent;
 					_gap.remove();
 				} else {
 					wceAttr += '&reason_for_language_change=' + subtype + '&reason_for_language_change_other=';
 				}
-				
+
 				if (subtype == 'ritual' && $teiNode.firstChild && $teiNode.firstChild.firstChild && $teiNode.firstChild.firstChild.nodeName == 'hi'
 					&& $teiNode.firstChild.firstChild.getAttribute('rend') && $teiNode.firstChild.firstChild.getAttribute('rend') == 'rubric'){
 					wceAttr += '&color=red';
@@ -994,9 +994,9 @@ function getHtmlByTei(inputString, args) {
 			$newNode.setAttribute('wce', wceAttr);
 			var $tmp=$('<temp>'+innerHTML+'</temp>')[0];
 			while($tmp.firstChild){
-				$newNode.appendChild($tmp.firstChild);				
-			}		
-			addFormatElement($newNode);	
+				$newNode.appendChild($tmp.firstChild);
+			}
+			addFormatElement($newNode);
 			$htmlParent.appendChild($newNode);
 			return $htmlParent;
 		} else {
@@ -2154,12 +2154,8 @@ function getTeiByHtml(inputString, args) {
 	 	html2Tei_mergeNodes($newRoot, true);
 	 	html2Tei_removeBlankW_addAttributePartI($newRoot);
 	 	html2Tei_handleLanguageChange($newRoot);
-<<<<<<< .mine
-	 
-=======
-	 	
->>>>>>> .theirs
-	 	//ticket #6130 
+
+        //ticket #6130
 	 	args.inner_hi?html2Tei_handleHiNode($newRoot):'';
 
 		// DOM to String
@@ -2177,11 +2173,7 @@ function getTeiByHtml(inputString, args) {
             str = str.replace("<TEI>", '<?xml  version="1.0" encoding="utf-8"?><TEI xmlns="http://www.tei-c.org/ns/1.0"><body><text>');
         }
         if (g_manuscriptLang && g_manuscriptLang != '')// set manuscript language if there are information
-<<<<<<< .mine
             str = str.replace("<text>", '<text xml:lang="' + g_manuscriptLang + '">');
-=======
-                    str = str.replace("<text>", '<text xml:lang="' + g_manuscriptLang + '">');
->>>>>>> .theirs
 		str = str.replace("</TEI>", "</body></text></TEI>");
 		str = str.replace(/OMISSION/g, "");
 		str = str.replace(//g, $("<div />").html("a&#772;&#778;").text());
@@ -2202,12 +2194,12 @@ function getTeiByHtml(inputString, args) {
 	 	$node=addWElement2Html($node);
 	 	return $node;
 	};
-	
+
 	var html2Tei_handleLanguageChange = function($node){
 		var $header=$node.querySelector('teiHeader');
 		if(!$header){
 			//if header not definded, add default header
-			$tmpHeader=$(defaultHeaderHtml);	
+			$tmpHeader=$(defaultHeaderHtml);
 			$tmp=$newDoc.createDocumentFragment();
 			getMetaData($tmp,$tmpHeader[0]);
 			$node.insertBefore($tmp.querySelector('msDesc'), $node.firstChild);
@@ -2219,9 +2211,9 @@ function getTeiByHtml(inputString, args) {
 		var list=[];
 		if(abNodes){
 			var lang='', langNode=null;
-			abNodes.forEach(function(ab){		
+			abNodes.forEach(function(ab){
 				var att_type=ab.getAttribute('type');
-				var att_lang=ab.getAttribute('xml:lang');		
+				var att_lang=ab.getAttribute('xml:lang');
 				if(att_type=='languageChange'){
 					lang=att_lang;
 					langNode=ab.cloneNode(true);
@@ -2234,8 +2226,8 @@ function getTeiByHtml(inputString, args) {
 					lang=null;
 					langNode=null;
 				}
-				
-				
+
+
 				list.push({
 					node:ab,
 					lang:lang,
@@ -2244,12 +2236,12 @@ function getTeiByHtml(inputString, args) {
 				});
 			});
 		}
-	
+
 		function _verse_change(_verse, _change){
 			if(_verse.lang==mainLang || _verse.node.getAttribute('xml:lang') || !_verse.langRefNode){
 				 return;
 			}
-		
+
 			var _childNodes=[];
 			var	_add=true;
 			_verse.node.childNodes.forEach(function(c){
@@ -2258,26 +2250,26 @@ function getTeiByHtml(inputString, args) {
 				   return;
 				}
 				if(_add){
-					_childNodes.push(c);					
+					_childNodes.push(c);
 				}
 			});
-			
-			var newAb=_verse.langRefNode.cloneNode(true);			
+
+			var newAb=_verse.langRefNode.cloneNode(true);
 			_verse.node.insertBefore(newAb, _verse.node.firstChild);
 			_childNodes.forEach(function(c){
 				newAb.appendChild(c);
-			});		
+			});
 		}
-		
+
 		function _change_change(_pre, _current){
 			if(_pre.lang==mainLang){
 				_pre.node.remove();
 				return;
-			}			
+			}
 			if(_pre.node.getAttribute('subtype')==='untransPahlavi'){
 				return;
 			}
-			
+
 			var _childNodes=[];
 			var _add=false;
 			_pre.node.parentNode.childNodes.forEach(function(c){
@@ -2293,9 +2285,9 @@ function getTeiByHtml(inputString, args) {
 			});
 			_childNodes.forEach(function(c){
 				_pre.node.appendChild(c);
-			});				
-		}		
-		
+			});
+		}
+
 		function _change_verse(_change){
 			if(_change.lang==mainLang){
 				_change.node.remove();
@@ -2304,7 +2296,7 @@ function getTeiByHtml(inputString, args) {
 			if(_change.node.getAttribute('subtype')==='untransPahlavi'){
 				return;
 			}
-			
+
 			var _childNodes=[];
 			var _add=false;
 			_change.node.parentNode.childNodes.forEach(function(c){
@@ -2318,34 +2310,34 @@ function getTeiByHtml(inputString, args) {
 			});
 			_childNodes.forEach(function(c){
 				_change.node.appendChild(c);
-			});	
-		}		
-		
+			});
+		}
+
 		function _verse(_verse){
 			if(_verse.lang==mainLang || _verse.node.getAttribute('xml:lang') || !_verse.langRefNode){
 				return;
 			}
 			var _childNodes=[];
-			_verse.node.childNodes.forEach(function(c){				
-				_childNodes.push(c);	
+			_verse.node.childNodes.forEach(function(c){
+				_childNodes.push(c);
 			});
-			var newAb=_verse.langRefNode.cloneNode(true);			
+			var newAb=_verse.langRefNode.cloneNode(true);
 			_verse.node.insertBefore(newAb, _verse.node.firstChild);
 			_childNodes.forEach(function(c){
 				newAb.appendChild(c);
-			});			
+			});
 		}
-							
-		var pre;	
+
+		var pre;
 		var end=list.length-1;
-		list.forEach(function(curr,i){	
+		list.forEach(function(curr,i){
 			if(pre){
-				if(curr.type=='languageChange'){	
+				if(curr.type=='languageChange'){
 					if(pre.type=='languageChange'){
 						_change_change(pre, curr);
 					}else{
 						_verse_change(pre, curr);
-					}							
+					}
 				}else{
 					if(pre.type=='languageChange'){
 						_change_verse(pre);
@@ -2353,61 +2345,61 @@ function getTeiByHtml(inputString, args) {
 						_verse(pre);
 					}
 				}
-								
+
 				//last
 				if(i==end){
 					if(curr.type=='languageChange'){
 						_change_verse(curr);
 					}else{
-						_verse(curr);						
+						_verse(curr);
 					}
 				}
-			}	
-			
+			}
+
 			pre=curr;
-		})		
-	
+		})
+
 	}
 
 	var html2Tei_handleHiNode_addHi=function($node, $hiClone){
-		if($node.hasChildNodes()){	
+		if($node.hasChildNodes()){
 			var list=[];
 			$node.childNodes.forEach(function(c){
 			 	list.push(c);
 			})
 			list.forEach(function(c){
 				html2Tei_handleHiNode_addHi(c, $hiClone);
-			});		
-		}	
-		
+			});
+		}
+
 		if(['lb','w'].indexOf($node.nodeName)>=0){
 			$hi=$hiClone.cloneNode();
 			while($node.firstChild){
 				$hi.appendChild($node.firstChild);
 			}
-			$node.appendChild($hi);			
+			$node.appendChild($hi);
 		}
 	}
 
-	
+
 	var html2Tei_handleHiNode=function($node){
 		var isHi=$node.nodeName=='hi'?true:false;
-		
-		if($node.hasChildNodes()){	
+
+		if($node.hasChildNodes()){
 			var list=[];
 			$node.childNodes.forEach(function(c){
 			 	list.push(c);
 			})
-			list.forEach(function(c){	
+			list.forEach(function(c){
 				if(isHi && c.nodeName=='app'){
 					$node.nextSibling?$node.parentNode.insertBefore(c,$node.nextSibling):$node.parentNode.appendChild(c);
 					html2Tei_handleHiNode_addHi(c, $node.cloneNode(false));
 				}else{
-					html2Tei_handleHiNode(c);									
+					html2Tei_handleHiNode(c);
 				}
-			});		
-		}		
-		
+			});
+		}
+
 	}
 
 	/*
@@ -2528,10 +2520,10 @@ function getTeiByHtml(inputString, args) {
 				} else if ($.inArray(_nodeName, wceNodeInsideW) < 0) {
 					break;
 				}
-				if(ns.nodeName=='hi' && ns.firstChild && ns.firstChild.nodeName=='pc'){
+				if (ns.nodeName=='hi' && ns.firstChild && ns.firstChild.nodeName=='pc'){
 					//bug #6128
-				}else{
-					toAppend.push(ns);										
+				} else{
+					toAppend.push(ns);
 				}
 				ns = ns.nextSibling;
 			}
@@ -2909,7 +2901,7 @@ function getTeiByHtml(inputString, args) {
 			mm = '0' + mm;
 		}
 		today = yyyy + '-' + mm + '-' + dd;
-		
+
 		var transcriber = ($htmlNode.firstElementChild||$htmlNode.firstChild).textContent.replace(/_/g, " ");
         var manID = $htmlNode.getElementsByTagName("ms")[0].textContent;
 
@@ -2931,8 +2923,8 @@ function getTeiByHtml(inputString, args) {
 		$newNodeL.setAttribute('ident',$lang?$lang.textContent:'');
 		$newNodeL.appendChild($newDoc.createTextNode($lang?$lang.getAttribute('name'):''));
 		$newNodePD.appendChild($newNodeL);
-		$newNodeH.appendChild($newNodePD);	
-				
+		$newNodeH.appendChild($newNodePD);
+
 		$newNodeR = $newDoc.createElement('revisionDesc');
 		$newNodeC = $newDoc.createElement('change');
 		$newNodeC.setAttribute('when', today);
@@ -3724,7 +3716,7 @@ function getTeiByHtml(inputString, args) {
 		if (wceType == 'langchange') {
 			return html2Tei_langchange(arr, $teiParent, $htmlNode);
 		}
-	
+
 		// other
 		var $e = $newDoc.createElement("-TEMP-" + htmlNodeName);
 		$teiParent.appendChild($e);
