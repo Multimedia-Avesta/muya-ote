@@ -27,7 +27,7 @@
 		var teiContent=getTeiByHtml(str,_ed.settings);
 		if(teiContent){
 			var result=getHtmlByTei(teiContent, _ed.settings);
-			if(result){
+			if(result){				
 				var htmlContent=result['htmlString'];
 				if(htmlContent){
 					x.value=htmlContent;
@@ -38,8 +38,7 @@
 				}*/
 			}
 		}
-		var activeEditorSettings=_ed.settings;
-		
+		var activeEditorSettings=_ed.settings;		
 			corrector_text_editor=new tinymce.Editor('tei2htmlOuputContainer',{
 			mode : "textareas", 
 			theme : "modern",
