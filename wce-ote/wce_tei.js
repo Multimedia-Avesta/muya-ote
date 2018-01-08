@@ -748,9 +748,9 @@ function getHtmlByTei(inputString, args) {
         var $header=$(defaultHeaderHtml)[0];
         var $trans=$header.querySelector('trans');
 
-        var $langUsage=$teiNode.querySelector('langUsage');
-        if($langUsage){
-        	var _ident= $langUsage.getAttribute('ident');
+        var $langUsage=$teiNode.querySelector('language');
+        if ($langUsage){
+        	var _ident=$langUsage.getAttribute('ident');
         	var _name=$langUsage.textContent;
         	$header.querySelector('language').innerHTML=_ident;
         	$header.querySelector('language').setAttribute('name',_name);
@@ -2214,14 +2214,14 @@ function getTeiByHtml(inputString, args) {
 			abNodes.forEach(function(ab){
 				var att_type=ab.getAttribute('type');
 				var att_lang=ab.getAttribute('xml:lang');
-				if(att_type=='languageChange'){
+				if (att_type=='languageChange'){
 					lang=att_lang;
 					langNode=ab.cloneNode(true);
-					if(ab.getAttribute('subtype')=='untransPahlavi'){
+					if (ab.getAttribute('subtype')=='untransPahlavi'){
 						lang=null;
 						langNode=null;
 					}
-				}else if(att_lang){
+				} else if (att_lang){
 					//if verse has xml:lang
 					lang=null;
 					langNode=null;
@@ -2238,7 +2238,7 @@ function getTeiByHtml(inputString, args) {
 		}
 
 		function _verse_change(_verse, _change){
-			if(_verse.lang==mainLang || _verse.node.getAttribute('xml:lang') || !_verse.langRefNode){
+			if (_verse.lang==mainLang || _verse.node.getAttribute('xml:lang') || !_verse.langRefNode){
 				 return;
 			}
 
@@ -2919,10 +2919,12 @@ function getTeiByHtml(inputString, args) {
 		//profileDesc
 		$newNodePD=$newDoc.createElement('profileDesc');
 		$newNodeL=$newDoc.createElement('langUsage');
+        $newNodeLL=$newDoc.createElement('language');
 		var $lang=$htmlNode.querySelector('language');
-		$newNodeL.setAttribute('ident',$lang?$lang.textContent:'');
-		$newNodeL.appendChild($newDoc.createTextNode($lang?$lang.getAttribute('name'):''));
-		$newNodePD.appendChild($newNodeL);
+		$newNodeLL.setAttribute('ident',$lang?$lang.textContent:'');
+		$newNodeLL.appendChild($newDoc.createTextNode($lang?$lang.getAttribute('name'):''));
+		$newNodeL.appendChild($newNodeLL);
+        $newNodePD.appendChild($newNodeL);
 		$newNodeH.appendChild($newNodePD);
 
 		$newNodeR = $newDoc.createElement('revisionDesc');
@@ -4908,37 +4910,38 @@ function getTeiByHtml(inputString, args) {
 			langID = 'O';//Other
 
 		$ab.setAttribute('type', 'languageChange');
-		switch (arr['reason_for_language_change']) {
+        switch (arr['reason_for_language_change']) {
 		    case 'trans': //translation
-			$ab.setAttribute('subtype', 'trans');
-			$ab.setAttribute('xml:id', g_bookNumber + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + langID);
-			$ab.setAttribute('n', String.fromCharCode(count_verse));
-			g_verseNumber++; //count overall number of language changes
-		        break;
+                $ab.setAttribute('subtype', 'trans');
+			     $ab.setAttribute('xml:id', g_bookNumber + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + langID);
+                $ab.setAttribute('n', String.fromCharCode(count_verse));
+                g_verseNumber++; //count overall number of language changes
+                break;
 		    case 'ritual': //ritual direction
-			$ab.setAttribute('subtype', 'ritual');
-			$ab.setAttribute('xml:id', g_bookNumber + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + '-ritual-' + langID);
-			$ab.setAttribute('n', String.fromCharCode(count_verse));
-		        break;
+                $ab.setAttribute('subtype', 'ritual');
+                $ab.setAttribute('xml:id', g_bookNumber + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + '-ritual-' + langID);
+                $ab.setAttribute('n', String.fromCharCode(count_verse));
+                break;
 		    case 'section':
-			$ab.setAttribute('subtype', 'section');
-			$ab.setAttribute('xml:id', g_bookNumber + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + langID);
-			$ab.setAttribute('n', String.fromCharCode(count_verse));
-		        break;
+                $ab.setAttribute('subtype', 'section');
+                $ab.setAttribute('xml:id', g_bookNumber + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + langID);
+                $ab.setAttribute('n', String.fromCharCode(count_verse));
+                break;
 		    case 'untransPahlavi':
 		        $ab.setAttribute('subtype', 'untransPahlavi');
 		        $ab.setAttribute('xml:id', g_bookNumber + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + langID);
 		        $ab.setAttribute('n', String.fromCharCode(count_verse));
 		        break;
 		    default:
-			$ab.setAttribute('subtype', decodeURI(arr['reason_for_language_change_other']));
-			$ab.setAttribute('xml:id', g_bookNumber + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + '-other-' + langID);
-			$ab.setAttribute('n', String.fromCharCode(count_verse));
+                $ab.setAttribute('subtype', decodeURI(arr['reason_for_language_change_other']));
+                $ab.setAttribute('xml:id', g_bookNumber + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + '-other-' + langID);
+                $ab.setAttribute('n', String.fromCharCode(count_verse));
 		}
-		if (arr['language_name'] == 'other')
+		if (arr['language_name'] == 'other') {
 			$ab.setAttribute('xml:lang', decodeURI(arr['language_name_other']));
-		else
+        } else {
 			$ab.setAttribute('xml:lang', arr['language_name']);
+        }
 		if (arr['reason_for_language_change'] == 'untransPahlavi') { // we have to add a gap element
             var $gap = $newDoc.createElement('gap');
             $gap.setAttribute('unit', 'line');
@@ -4956,13 +4959,13 @@ function getTeiByHtml(inputString, args) {
 			}
 		}
 		$teiParent.appendChild($ab);
-		//g_currentParentNode = $ab;
+        //g_currentParentNode = $ab;
 
 		//appendNodeInW($teiParent, $unclear, $htmlNode);
 
 		return {
 			0 : $ab,
-		 	1 : true
+            1 : true
 		};
 	};
 	/*
