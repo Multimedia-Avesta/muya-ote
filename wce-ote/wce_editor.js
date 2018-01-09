@@ -76,7 +76,7 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 			'punctuation' : '../../wce-ote/plugin/js/punctuation.js',
 			'wcelinenumber': '../../wce-ote/plugin/js/line_number.js'
 		},
-		show_linenumber:true,//default false,	
+		show_linenumber:true,//default false,
 		inner_hi:false,// ticket #6130
 		//content_css: 'font-awesome.min.css',//'https://netdna.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css',
 //		ignoreShiftNotEn: [188, 190],
@@ -105,8 +105,7 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 
 // wenn brower reload, set editor blank
 function wceReload() {
-	return;
-    tinyMCE.activeEditor.windowManager.open({
+	tinyMCE.activeEditor.windowManager.open({
 		title : 'Welcome to the OTE',
 		url : './plugin/start.htm',
 		//width : screen.availWidth,
