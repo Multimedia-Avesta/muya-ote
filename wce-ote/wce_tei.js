@@ -2203,7 +2203,7 @@ function getTeiByHtml(inputString, args) {
 			$node.insertBefore($tmp.firstChild,$node.firstChild);
 			$header=$node.firstChild;
 		}
-		var mainLang=$header.querySelector('langUsage').getAttribute('ident');
+		var mainLang=$header.querySelector('language').getAttribute('ident');
 		var abNodes=$node.querySelectorAll('ab');
 		var list=[];
 		if(abNodes){
@@ -2933,8 +2933,6 @@ function getTeiByHtml(inputString, args) {
 		$newNodeH.appendChild($newNodeR);
 		$teiParent.appendChild($newNodeH);
 
-		//$newNodeT = $newDoc.createElement('text');
-		//$newNodeB = $newDoc.createElement('body');
 		$newNodeMd = $newDoc.createElement('msDesc');
 		$newNodeMi = $newDoc.createElement('msIdentifier');
 		$newNodeR = $newDoc.createElement('repository');
@@ -2946,8 +2944,6 @@ function getTeiByHtml(inputString, args) {
 		$newNodeMi.appendChild($newNodeR);
 		$newNodeMi.appendChild($newNodeI);
 		$newNodeMd.appendChild($newNodeMi);
-		//$newNodeB.appendChild($newNodeMd);
-		//$newNodeT.appendChild($newNodeB);
 		$teiParent.appendChild($newNodeMd);
      	return;
 	}
