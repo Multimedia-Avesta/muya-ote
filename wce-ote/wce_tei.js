@@ -965,13 +965,13 @@ function getHtmlByTei(inputString, args) {
             var type = $teiNode.getAttribute('type');
             if (type && type == 'languageChange') {
                 $newNode.setAttribute('class', 'langchange');
-                wceAttr = '__t=langchange&language_name=' + $teiNode.getAttribute('xml:lang');
+                var wceAttr = '__t=langchange&language_name=' + $teiNode.getAttribute('xml:lang');
                 var innerHTML='<span class="editortext">' + '\u2192' + '</span>';
                 var subtype = $teiNode.getAttribute('subtype');
                 if (subtype && subtype != '') {
                     if (subtype == 'other'){
                         wceAttr += '&reason_for_language_change=other&reason_for_language_change_other=' + subtype;
-                    }else if(subtype=='untransPahlavi'){
+                    } else if (subtype=='untransPahlavi'){
                         var _gap=$teiNode.querySelector('gap');
                         var _extent=parseInt(_gap.getAttribute('extent'));
                         var covertext =tinymce_ed? tinymce_ed.translate('untransPahlavi'):'Untranscribed Pahlavi text';
@@ -988,7 +988,7 @@ function getHtmlByTei(inputString, args) {
                     if (subtype == 'ritual' && $teiNode.firstChild && $teiNode.firstChild.firstChild && $teiNode.firstChild.firstChild.nodeName == 'hi'
                         && $teiNode.firstChild.firstChild.getAttribute('rend') && $teiNode.firstChild.firstChild.getAttribute('rend') == 'rubric'){
                         wceAttr += '&color=red';
-                    }else{
+                    } else{
                         wceAttr += '&color=black';
                 }
                 }
@@ -2192,7 +2192,8 @@ function getTeiByHtml(inputString, args) {
 	};
 
 	var html2Tei_handleLanguageChange = function($node){
-		var $header=$node.querySelector('teiHeader');
+		var $tmp, $tmpHeader;
+        var $header=$node.querySelector('teiHeader');
 		if(!$header){
 			//if header not definded, add default header
 			$tmpHeader=$(defaultHeaderHtml);
@@ -2886,7 +2887,8 @@ function getTeiByHtml(inputString, args) {
 		var mm = today.getMonth()+1; //January is 0!
 		var yyyy = today.getFullYear();
         var $newNodeH, $newNodeF, $newNodeT, $newNodeTt, $newNodeS, $newNodeC,
-            $newNodeR, $newNodeP, $newNodeMd, $newNodeMi, $newNodeRt, $newNodeI, $newNodeIt;
+            $newNodeR, $newNodeP, $newNodeMd, $newNodeMi, $newNodeRt, $newNodeI, $newNodeIt,
+            $newNodeL, $newNodeLL, $newNodePD, $lang;
         var transcriber, manID;
 
 		if (dd < 10) {
@@ -2901,10 +2903,10 @@ function getTeiByHtml(inputString, args) {
 		var transcriber = ($htmlNode.firstElementChild||$htmlNode.firstChild).textContent.replace(/_/g, " ");
         var manID = $htmlNode.getElementsByTagName("ms")[0].textContent;
 
-        var $newNodeH = $newDoc.createElement('teiHeader');
-		var $newNodeF = $newDoc.createElement('fileDesc');
-		var $newNodeT = $newDoc.createElement('titleStmt');
-		var $newNodeTt = $newDoc.createElement('title');
+        $newNodeH = $newDoc.createElement('teiHeader');
+		$newNodeF = $newDoc.createElement('fileDesc');
+		$newNodeT = $newDoc.createElement('titleStmt');
+		$newNodeTt = $newDoc.createElement('title');
 		$newNodeT.appendChild($newNodeTt);
 		$newNodeF.appendChild($newNodeT);
 		$newNodeP = $newDoc.createElement('publicationStmt');
@@ -2916,7 +2918,7 @@ function getTeiByHtml(inputString, args) {
 		$newNodePD=$newDoc.createElement('profileDesc');
 		$newNodeL=$newDoc.createElement('langUsage');
         $newNodeLL=$newDoc.createElement('language');
-		var $lang=$htmlNode.querySelector('language');
+		$lang=$htmlNode.querySelector('language');
 		$newNodeLL.setAttribute('ident',$lang?$lang.textContent:'');
 		$newNodeLL.appendChild($newDoc.createTextNode($lang?$lang.getAttribute('name'):''));
 		$newNodeL.appendChild($newNodeLL);
@@ -4901,7 +4903,7 @@ function getTeiByHtml(inputString, args) {
         switch (arr['reason_for_language_change']) {
 		    case 'trans': //translation
                 $ab.setAttribute('subtype', 'trans');
-			     $ab.setAttribute('xml:id', g_bookNumber + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + langID);
+                $ab.setAttribute('xml:id', g_bookNumber + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + langID);
                 $ab.setAttribute('n', String.fromCharCode(count_verse));
                 g_verseNumber++; //count overall number of language changes
                 break;
@@ -4925,12 +4927,11 @@ function getTeiByHtml(inputString, args) {
                 $ab.setAttribute('xml:id', g_bookNumber + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + '-other-' + langID);
                 $ab.setAttribute('n', String.fromCharCode(count_verse));
 		}
-		if (arr['language_name'] == 'other') {
+		if (arr['language_name'] == 'other')
 			$ab.setAttribute('xml:lang', decodeURI(arr['language_name_other']));
-        } else {
+        else
 			$ab.setAttribute('xml:lang', arr['language_name']);
-        }
-		if (arr['reason_for_language_change'] == 'untransPahlavi') { // we have to add a gap element
+        if (arr['reason_for_language_change'] == 'untransPahlavi') { // we have to add a gap element
             var $gap = $newDoc.createElement('gap');
             $gap.setAttribute('unit', 'line');
             $gap.setAttribute('extent', arr['number_of_lines']);
