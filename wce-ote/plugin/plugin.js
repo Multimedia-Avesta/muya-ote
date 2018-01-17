@@ -760,7 +760,7 @@
 			/*} else if (bType == 'cb') {
 				out = out + _this(ed, 'lb', 'ignore', indention, null, baseID);
 				v.lcnt = 1;*/
-			} else if (bType == 'lb'&& lbpos != 'lbm') {
+			} else if (bType == 'lb' && lbpos != 'lbm' && !baseID) {
 				out += '&nbsp;';
 			}
 			return out;
