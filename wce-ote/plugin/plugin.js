@@ -2790,7 +2790,7 @@
 				if ($(wceNode).hasClass('stanza_number') || $(wceNode).hasClass('chapter_number') || $(wceNode).hasClass('book_number') || $(wceNode).hasClass('lection_number')) {
 					return;
 				}
-				if ($(wceNode).hasClass('formatting_rubrication') && wceNode.parentNode && wceNode.parentNode.hasClass('lang'))
+				if ($(wceNode).hasClass('formatting_rubrication') && wceNode.parentNode && $(wceNode.parentNode).hasClass('lang'))
 					ed.selection.select(wceNode.parentNode);
 				else
 					ed.selection.select(wceNode);
@@ -2844,7 +2844,7 @@
 						}
 					}
 					isDel=true;
-				} else if ($(wceNode).hasClass('lang') || ($(wceNode).hasClass('formatting_rubrication') && wceNode.parentNode && wceNode.parentNode.hasClass('lang'))) {
+				} else if ($(wceNode).hasClass('lang') || ($(wceNode).hasClass('formatting_rubrication') && wceNode.parentNode && $(wceNode.parentNode).hasClass('lang'))) {
 					originalText = WCEUtils.getTextWithoutFormat(wceNode);
 					if (arg0)
 						ed.selection.setContent(originalText);
