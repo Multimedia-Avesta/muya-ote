@@ -342,5 +342,6 @@ tinymce.addI18n('de',{
     backtomainlanguage : 'Zurück zur Hauptsprache',
 	section : 'Überschrift; Widmung',
 	removeLanguage : 'Entferne Sprachinformationen',
-	language_title : 'Bitte geben Sie die Sprache an'
+	language_title : 'Bitte geben Sie die Sprache an',
+    langchange : 'Sprache wechselt zu'
 });

@@ -2207,7 +2207,7 @@
 						case 'lection':
 							info_text = '<div>' + 'Lection ' + ar['number'] + '</div>';
 							break;
-						default:
+                        default:
 							info_text = '';
 							break;
 					}
@@ -2257,7 +2257,18 @@
 					ed.isInfoBoxDisplay = true;
 					ed.infoBoxTargetNode = sele_node;
 				}
-			} else {
+            } else if (sele_node.getAttribute('class') === 'editortext') {
+                var lang = sele_node.getAttribute('language');
+                if (lang) {
+                    info_text = '<div>' + tinymce.translate('langchange') + ' ' + lang + '</div>';
+                    WCEUtils.setInfoBoxOffset(ed, sele_node);
+					// info_box.innerHTML = '<div style="background-color: #eee; white-space:normal; padding:10px;border: 1px solid #ff0000">' + info_text + '</div>';
+					ed.wceInfoBoxContent.html(info_text);
+					$(info_box).show();
+					ed.isInfoBoxDisplay = true;
+					ed.infoBoxTargetNode = sele_node;
+                }
+            } else {
 				$(info_box).hide();
 				ed.isInfoBoxDisplay = false;
 				ed.infoBoxTargetNode = null;

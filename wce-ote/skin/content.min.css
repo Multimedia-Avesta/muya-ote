@@ -513,9 +513,9 @@ span.lection_number {
     font-size: 36px;
 }
 
-span.langchange[language="pal-Avst"],
-span.langchange[language="ae-Avst"],
-span.langchange[language="ae-Phlv"] {
+span.editortext[language="pal-Avst"],
+span.editortext[language="ae-Avst"],
+span.editortext[language="ae-Phlv"] {
     border: 1px dotted #f00;
     margin: 0px 0px 0px 1px;
     padding: 0;
@@ -523,24 +523,36 @@ span.langchange[language="ae-Phlv"] {
 /*    background-color: green;*/
 }
 
-span.langchange[language="pal-Phli"],
-span.langchange[language="pal-Phlv"] {
+span.editortext[language="pal-Phli"],
+span.editortext[language="pal-Phlv"] {
+    border: 1px dotted #f00;
+    margin: 0px 0px 0px 1px;
+    padding: 0;
     color: purple;
 /*    background-color: purple;*/
 }
 
-span.langchange[language="gu"] {
+span.editortext[language="gu"] {
+    border: 1px dotted #f00;
+    margin: 0px 0px 0px 1px;
+    padding: 0;
     color: red;
 /*    background-color: red;*/
 }
 
-span.langchange[language="fa"],
-span.langchange[language="prs"] {
+span.editortext[language="fa"],
+span.editortext[language="prs"] {
+    border: 1px dotted #f00;
+    margin: 0px 0px 0px 1px;
+    padding: 0;
     color: yellow;
 /*    background-color: yellow;*/
 }
 
-span.langchange[language="sa"] {
+span.editortext[language="sa"] {
+    border: 1px dotted #f00;
+    margin: 0px 0px 0px 1px;
+    padding: 0;
     color: blue;
 /*    background-color: blue;*/
 }
@@ -550,35 +562,6 @@ span.editortext {
     margin: 0px 0px 0px 1px;
     padding: 0;
     color: gray;
-}
-
-span.format_end[language="pal-Avst"],
-span.format_end[language="ae-Avst"],
-span.format_end[language="ae-Phlv"] {
-    color: green;
-    background-color: green;
-}
-
-span.format_end[language="pal-Phli"],
-span.format_end[language="pal-Phlv"] {
-    color: purple;
-    background-color: purple;
-}
-
-span.format_end[language="gu"] {
-    color: red;
-    background-color: red;
-}
-
-span.format_end[language="fa"],
-span.format_end[language="prs"] {
-    color: yellow;
-    background-color: yellow;
-}
-
-span.format_end[language="sa"] {
-    color: blue;
-    background-color: blue;
 }
 
 span.book_number {

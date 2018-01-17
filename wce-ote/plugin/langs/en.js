@@ -417,5 +417,6 @@ tinymce.addI18n('en', {
 	folioID : 'Folio/page number',
 	docinfo_title : 'Document information',
 	docinfo_data : 'Please enter data',
-	transcriber : 'Transcriber\'s name'
+	transcriber : 'Transcriber\'s name',
+    langchange : 'Language changes to'
 });
