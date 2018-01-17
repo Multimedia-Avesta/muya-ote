@@ -66,7 +66,8 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 		manuscriptLang : (getWitnessLang) ? getWitnessLang : "",
 		// invalid_elements:'p',
 		plugins : "pagebreak,save,print,fullscreen,wordcount,autosave,paste,code, contextmenu, noneditable",
-		//contextmenu: 'cut copy paste',
+		paste_as_text: true,
+        //contextmenu: 'cut copy paste',
 		//charmap_append: [["0256","A - kahako"],["0257","a - kahako"]],
 		//charmap_append: charmap_gu,
 //		plugins : "compat3x,pagebreak,save,layer,print,contextmenu,fullscreen,wordcount,autosave,paste",
@@ -83,7 +84,7 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 		keyboardDebug: true,
 		init_instance_callback : "wceReload",
 		// Theme options
-		toolbar : "undo redo muyacharmap | code | LoadFile save | print contextmenu cut copy pastetext pasteword fullscreen | " +
+		toolbar : "undo redo muyacharmap | code | LoadFile save | print contextmenu cut copy paste fullscreen | " +
 		"breaks correction illegible decoration abbreviation paratext note punctuation language versemodify | " +
 		"docinfo | showTeiByHtml help | info showHtmlByTei",
 		theme_advanced_buttons2 : "",
