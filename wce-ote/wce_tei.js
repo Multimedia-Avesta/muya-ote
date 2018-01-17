@@ -1062,7 +1062,7 @@ function getHtmlByTei(inputString, args) {
         var $newNode = $newDoc.createElement('span');
         $newNode.setAttribute('class', 'langchange');
         var wceAttr = '__t=langchange&language_name=' + $teiNode.getAttribute('xml:lang');
-        var innerHTML = '<span class="editortext">' + '\u2192' + '</span>';
+        var innerHTML = '<span class="editortext" language="' + $teiNode.getAttribute('xml:lang') + '">' + '\u2192' + '</span>';
         var type = $teiNode.getAttribute('type');
         if (type && type != '') {
             if (type == 'other') {
