@@ -751,8 +751,8 @@ function getHtmlByTei(inputString, args) {
         var check; // Nodelist
         var $header=$(defaultHeaderHtml)[0];
         var $trans=$header.querySelector('trans');
-
         var $langUsage=$teiNode.querySelector('language');
+
         if ($langUsage){
         	var _ident=$langUsage.getAttribute('ident');
         	var _name=$langUsage.textContent;
@@ -760,14 +760,10 @@ function getHtmlByTei(inputString, args) {
         	$header.querySelector('language').setAttribute('name',_name);
         }
 
-      //var $header = $newDoc.createElement('header');
-      //var $trans = $newDoc.createElement('trans');
         check = $teiNode.querySelector("change");
         trans = check ? check.getAttribute("who") : '';
         nodeAddText($trans, trans);
-       //$header.appendChild($trans);
         $htmlParent.appendChild($header);
-
         return $header;
 	};
 
@@ -775,14 +771,12 @@ function getHtmlByTei(inputString, args) {
         var idno;
         var check; // Nodelist
         var $ms;
-        var $header = $htmlParent.firstChild;
-        //$ms = $newDoc.createElement('ms');
-        $ms=$header.querySelector('ms');
+        // get existing header from HTML
+        var $header = $htmlParent;
+        $ms = $header.querySelector("ms");
         check = $teiNode.querySelector("idno");
-        idno = (check && check.firstChild)? check.firstChild.nodeValue : '';
+        idno = (check && check.firstChild) ? check.firstChild.nodeValue : '';
         nodeAddText($ms, idno);
-        //$header.appendChild($ms);
-        //$htmlParent.replaceChild($header, $htmlParent.firstChild);
         return null;
     }
 
