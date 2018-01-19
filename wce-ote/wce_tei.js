@@ -1066,7 +1066,8 @@ function getHtmlByTei(inputString, args) {
                 var _extent = parseInt(_gap.getAttribute('extent'));
                 var covertext = tinymce_ed ? tinymce_ed.translate('untransPahlavi') : 'Untranscribed Pahlavi text';
                 for (var i = 0; i < _extent; i++) {
-                    covertext += '<br/>&crarr;' + (tinymce_ed ? tinymce_ed.translate('untransPahlavi') : 'Untranscribed Pahlavi text');
+                    covertext += '<span class="mceNonEditable brea" wce="__t=brea&amp;__n=&amp;hasBreak=no&amp;break_type=lb&amp;number=&amp;rv=&amp;page_number=&amp;running_title=&amp;facs=&amp;lb_alignment=">'
+                        + '<span class="format_start mceNonEditable">‹</span><br />↵<span class="format_end mceNonEditable">›</span></span>' + (tinymce_ed ? tinymce_ed.translate('untransPahlavi') : 'Untranscribed Pahlavi text');
                 }
                 innerHTML += '<span class="editortext">' + covertext + '</span>';
                 wceAttr += '&reason_for_language_change=' + type + '&reason_for_language_change_other=' + '&number_of_lines=' + _extent;

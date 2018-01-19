@@ -338,7 +338,8 @@ function writeWceNodeInfo(val) {
                 if (document.getElementById('reason_for_language_change').value == 'untransPahlavi') {
                     covertext = ed.translate('untransPahlavi');
                     for (var i = 0; i < document.getElementById('number_of_lines').value; i++) {
-                        covertext += '<br/>&crarr;' + ed.translate('untransPahlavi');
+                        covertext += '<span class="mceNonEditable brea" wce="__t=brea&amp;__n=&amp;hasBreak=no&amp;break_type=lb&amp;number=&amp;rv=&amp;page_number=&amp;running_title=&amp;facs=&amp;lb_alignment=">'
+                        + '<span class="format_start mceNonEditable">‹</span><br />↵<span class="format_end mceNonEditable">›</span></span>' + ed.translate('untransPahlavi');
                     }
                     new_content += '<span class="editortext">' + covertext + '</span>' + endFormatHtml;
                     // check for "following_language" setting
@@ -348,9 +349,6 @@ function writeWceNodeInfo(val) {
                 } else {
                     new_content += endFormatHtml;
                 }
-                //} else {
-				//	new_content = '<span wce="' + newWceAttr + '"' + wceClass + '>' + '<span class="languagechange" language="' + document.getElementById('language_name').value + '">' + '</span>';
-                //}
                 break;
             default:
                 break;
