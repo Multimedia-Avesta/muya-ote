@@ -325,10 +325,7 @@ function writeWceNodeInfo(val) {
                 var following_language = '';
                 new_content = '';
 
-				// we end the current language (OLD: using a milestone (which is later converted into a </span>))
-                new_content += '</span>';
-
-                // we start a new language, i.e. we add a langchange element
+				// we start a new language, i.e. we add a langchange element
                 language = document.getElementById('language_name').value !== 'other' ? document.getElementById('language_name').value : document.getElementById('language_name_other').value;
                 new_content += '<span wce="' + newWceAttr + '"' + wceClass + ' language="' + language + '">' + startFormatHtml + '<span class="editortext" language="' + language + '">' + '\u2192' + '</span>';
 
@@ -349,6 +346,7 @@ function writeWceNodeInfo(val) {
                 } else {
                     new_content += endFormatHtml;
                 }
+                new_content += '</span>';
                 break;
             default:
                 break;
