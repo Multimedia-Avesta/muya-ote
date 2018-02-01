@@ -341,6 +341,7 @@ tinymce.addI18n('de',{
 	translation : 'Übersetzung',
     backtomainlanguage : 'Zurück zur Hauptsprache',
 	section : 'Überschrift; Widmung',
+    untrans : 'Nicht-transkribierter Text',
 	removeLanguage : 'Entferne Sprachinformationen',
 	language_title : 'Bitte geben Sie die Sprache an',
     langchange : 'Sprache wechselt zu'
