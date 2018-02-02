@@ -37,6 +37,7 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
       ['167', 'section sign'],
       ['182', 'paragraph sign'],
       ['223', 'sharp s / ess-zed'],
+      ['712', 'final stroke'],
       // quotations
       ['8249', 'single left-pointing angle quotation mark'],
       ['8250', 'single right-pointing angle quotation mark'],
@@ -587,8 +588,8 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
     //radio html
     var radioGroup = [{
         id: 'charmap_default',
-        value: 'Default_only', 
-        i18n: 'charmap_default_only', 
+        value: 'Default_only',
+        i18n: 'charmap_default_only',
         charmap: getDefaultCharMap
       }, {
         id: 'charmap_gu',
@@ -608,7 +609,7 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
       }, {
         id: 'charmap_in',
         value: 'interpunction_signs_only',
-        i18n: 'charmap_interpunction_signs_only', 
+        i18n: 'charmap_interpunction_signs_only',
         charmap: getInterpunctionSigns
       },
       {

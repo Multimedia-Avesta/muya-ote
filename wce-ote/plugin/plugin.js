@@ -3044,14 +3044,13 @@
 					var statusbar= $(tinymce.activeEditor.iframeElement.parentElement.parentElement).children('.mce-statusbar').children('div');
 					if (statusbar) {
 						var linenumberCb='', lid;
-						if(ed.plugins.wcelinenumber){
+                        if (ed.plugins.wcelinenumber){
 							linenumberCb='<input type="checkbox" style="margin-left:15px" ';
 							ed.settings.show_linenumber?(linenumberCb+='checked="checked"'):'';
 							lid=ed.id+'_wce_line_number';
 							linenumberCb+=' id="'+lid+'"> Show line number';
 						}
-
-						tinymce.DOM.insertAfter(
+                        tinymce.DOM.insertAfter(
 							tinymce.DOM.add(statusbar, 'div', {
 								'class' : 'mce-flow-layout-item',
 								'style' : 'padding:8px;'
@@ -3060,7 +3059,7 @@
 							$(statusbar).find('.mce-first')[0]
 						);
 
-						if(lid){
+						if (lid){
 							$('#'+lid).change(function(){
 								ed.execCommand('wceShowLineNumber',this.checked);
 							});
@@ -4319,7 +4318,7 @@
 				author : 'WCE',
 				authorurl : 'http://wce',
 				infourl : 'http://wce',
-				version : "0.4BETA"
+				version : "0.6.2BETA"
 			};
 		}
 	}
