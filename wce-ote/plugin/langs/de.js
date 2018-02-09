@@ -1,5 +1,5 @@
 /*
-	Copyright (C) 2012-2017 Center for Digital Humanities, Trier
+	Copyright (C) 2012-2018 Center for Digital Humanities, Trier
 
 	This file is part of the Online Transcription Editor (OTE).
 
@@ -341,6 +341,7 @@ tinymce.addI18n('de',{
 	translation : 'Übersetzung',
     backtomainlanguage : 'Zurück zur Hauptsprache',
 	section : 'Überschrift; Widmung',
+    untrans : 'Nicht-transkribierter Text',
 	removeLanguage : 'Entferne Sprachinformationen',
 	language_title : 'Bitte geben Sie die Sprache an',
     langchange : 'Sprache wechselt zu'

@@ -33,7 +33,7 @@
 */
 
 (function () {
-	var wfce_editor = "0.6.2beta (2018-01-19)";
+	var wfce_editor = "0.6.3beta (2018-02-05)";
 
 	// Load plugin specific language pack
 	tinymce.PluginManager.requireLangPack('wce');
@@ -1991,9 +1991,9 @@
 											info_text += ' ' + tinymce.translate('infotext_within_line') + '.</div>';
 									}
 									break;
-								case 'ews':
+								/*case 'ews':
 									info_text += tinymce.translate('fw_ews');
-									break;
+									break;*/
 								case 'runTitle':
 									info_text += tinymce.translate('fw_running_title');
 									break;
@@ -2009,7 +2009,7 @@
 								case 'quireSig':
 									info_text += tinymce.translate('fw_quiresignature');
 									break;
-								case 'AmmSec':
+								/*case 'AmmSec':
 									info_text += tinymce.translate('fw_ammonian');
 									break;
 								case 'EusCan':
@@ -2017,11 +2017,11 @@
 									break;
 								case 'euthaliana':
 									info_text += tinymce.translate('fw_euthaliana');
-									break;
+									break;*/
 								case 'gloss':
 									info_text += tinymce.translate('fw_gloss');
 									break;
-								case 'lectTitle':
+								/*case 'lectTitle':
 									info_text += tinymce.translate('fw_lectionary_title');
 									break;
 								case 'lectionary-other':
@@ -2031,16 +2031,16 @@
 									break;
 								case 'stichoi':
 									info_text += tinymce.translate('fw.stichoi');
-									break;
+									break;*/
 								case 'pageNum':
 									info_text += tinymce.translate('fw_pagenumber');
 									break;
 								case 'isolated':
 									info_text += tinymce.translate('fw_isolated');
 									break;
-								case 'andrew':
+								/*case 'andrew':
 									info_text += tinymce.translate('fw_andrew');
-									break;
+									break;*/
 								case 'orn':
 									info_text += tinymce.translate('fw_ornament');
 									break;
@@ -2260,7 +2260,7 @@
             } else if (sele_node.getAttribute('class') === 'editortext') {
                 var lang = sele_node.getAttribute('language');
                 if (lang) {
-                    info_text = '<div>' + tinymce.translate('langchange') + ' ' + lang + '</div>';
+                    info_text = '<div>' + tinymce.translate('langchange') + ' ' + (lang == 'doclang' ? tinymce.translate('doclang') : tinymce.translate(lang.replace("-",""))) + '</div>';
                     WCEUtils.setInfoBoxOffset(ed, sele_node);
 					// info_box.innerHTML = '<div style="background-color: #eee; white-space:normal; padding:10px;border: 1px solid #ff0000">' + info_text + '</div>';
 					ed.wceInfoBoxContent.html(info_text);

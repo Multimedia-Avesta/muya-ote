@@ -63,6 +63,7 @@ var curr_item_id;
 
 var wce_type;
 var wceUtils;
+var g_mainLang = '';
 
 //for example: use the "corrections" menu if a whole word is highlighted as "gap"
 var isCombination = false;
@@ -323,20 +324,24 @@ function writeWceNodeInfo(val) {
             case 'langchange':
                 var covertext = '';
                 var following_language = '';
+                var language = '';
                 new_content = '';
 
 				// we start a new language, i.e. we add a langchange element
-                language = document.getElementById('language_name').value !== 'other' ? document.getElementById('language_name').value : document.getElementById('language_name_other').value;
+                if (document.getElementById('reason_for_language_change').value == 'backtomainlanguage')
+                    language = g_mainLang ? g_mainLang : "doclang";
+                else
+                    language = document.getElementById('language_name').value !== 'other' ? document.getElementById('language_name').value : document.getElementById('language_name_other').value;
                 new_content += '<span wce="' + newWceAttr + '"' + wceClass + ' language="' + language + '">' + startFormatHtml + '<span class="editortext" language="' + language + '">' + '\u2192' + '</span>';
 
                 //if (document.getElementById('reason_for_language_change').value == 'ritual' && document.getElementById('color').value == 'red') {
 					//new_content = '<span wce="' + newWceAttr + '"' + wceClass + '>' + '<span class="format_start" language="' + document.getElementById('language_name').value + '">' + '\u2039' + '</span>' + '<span class="formatting_rubrication" wce_orig="' + encodeURI(selected_content) + '" wce="__t=formatting_rubrication">' + selected_content + '</span>' + '<span class="format_end" language="' + document.getElementById('language_name').value + '">' + '\u203a' + '</span>' + '</span>';
                 // for untranscribed Pahlavi text we add some placeholder text
-                if (document.getElementById('reason_for_language_change').value == 'untransPahlavi') {
-                    covertext = ed.translate('untransPahlavi');
+                if (document.getElementById('reason_for_language_change').value == 'untrans') {
+                    covertext = ed.translate('untrans') + ' in ' + ed.translate(language.replace("-",""));
                     for (var i = 0; i < document.getElementById('number_of_lines').value; i++) {
                         covertext += '<span class="mceNonEditable brea" wce="__t=brea&amp;__n=&amp;hasBreak=no&amp;break_type=lb&amp;number=&amp;rv=&amp;page_number=&amp;running_title=&amp;facs=&amp;lb_alignment=">'
-                        + '<span class="format_start mceNonEditable">‹</span><br />↵<span class="format_end mceNonEditable">›</span></span>' + ed.translate('untransPahlavi');
+                        + '<span class="format_start mceNonEditable">‹</span><br />↵<span class="format_end mceNonEditable">›</span></span>' + ed.translate('untrans') + ' in ' + ed.translate(language.replace("-",""));
                     }
                     new_content += '<span class="editortext">' + covertext + '</span>' + endFormatHtml;
                     // check for "following_language" setting
@@ -619,6 +624,8 @@ function writeDocInfos(metadata) {
         wceUtils.setWCEVariable(ed);
         wceUtils.redrawContols(ed);
     }
+
+    g_mainLang = metadata[5];
     ed.isNotDirty = 0;
     ed.windowManager.close();
 }

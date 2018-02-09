@@ -58,7 +58,7 @@
 								<option value="ritual">{#ritual}</option>
 								<option value="backtomainlanguage">{#backtomainlanguage}</option>
 								<option value="section">{#section}</option>
-                                <option value="untransPahlavi">{#untransPahlavi}</option>
+                                <option value="untrans">{#untrans}</option>
 								<option value="other">{#other}</option>
 							</select></td>
 						<td>
@@ -214,7 +214,7 @@
             $('#following_language').attr('disabled', true);
             $('#following_language').css('background', '#ccc');
 		}
-        if ($('#reason_for_language_change').val() == 'untransPahlavi') {
+        if ($('#reason_for_language_change').val() == 'untrans') {
             $('#language_name').val('pal-Phlv');
             $('#number_of_lines').attr('disabled', false);
             $('#number_of_lines').css('background', '#fff');

@@ -1,5 +1,5 @@
 /*
-	Copyright (C) 2012-2017 Center for Digital Humanities, Trier
+	Copyright (C) 2012-2018 Center for Digital Humanities, Trier
 
 	This file is part of the Online Transcription Editor (OTE).
 
@@ -408,7 +408,7 @@ tinymce.addI18n('en', {
 	translation : 'Translation',
     backtomainlanguage : 'Back to main language',
 	section : 'Section heading; dedication',
-	untransPahlavi : 'Untranscribed Pahlavi text',
+	untrans : 'Untranscribed text',
     removeLanguage : 'Remove language information',
 	language_title : 'Please specify the language',
     following_lang : 'Following language',
@@ -418,5 +418,14 @@ tinymce.addI18n('en', {
 	docinfo_title : 'Document information',
 	docinfo_data : 'Please enter data',
 	transcriber : 'Transcriber\'s name',
-    langchange : 'Language changes to'
+    langchange : 'Language changes to',
+    palPhlv : 'Pahlavi',
+    palAvst : 'Pahlavi',
+    palPhli : 'Pahlavi',
+    aeAvst: 'Avestan',
+    aePhlv: 'Avestan',
+    gu : 'Gujarati',
+    fa : 'Persian',
+    sa : 'Sanskrit',
+    doclang: 'Document language',
 });
