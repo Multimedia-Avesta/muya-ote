@@ -2203,7 +2203,7 @@ function getTeiByHtml(inputString, args) {
 	 	return $node;
 	};
 
-    var html2Tei_handleLanguageChange = function ($node) {
+    var html2Tei_handleLanguageChange = function($node) {
             /*var $tmp, $tmpHeader;
             var $header = $node.querySelector('teiHeader');
             if (!$header) { //if header not definded, add default header
@@ -2215,6 +2215,7 @@ function getTeiByHtml(inputString, args) {
                 $header = $node.firstChild;
             }
             var mainLang = $header.querySelector('language').getAttribute('ident');*/
+            var mainLang = 'previous';
             var abNodes = $node.querySelectorAll('ab,foreign');
             var list = [];
             if (abNodes) {

@@ -2260,7 +2260,7 @@
             } else if (sele_node.getAttribute('class') === 'editortext') {
                 var lang = sele_node.getAttribute('language');
                 if (lang) {
-                    info_text = '<div>' + tinymce.translate('langchange') + ' ' + tinymce.translate(lang) + '</div>';
+                    info_text = '<div>' + tinymce.translate('langchange') + ' ' + (lang == 'doclang' ? tinymce.translate('doclang') : tinymce.translate(lang.replace("-",""))) + '</div>';
                     WCEUtils.setInfoBoxOffset(ed, sele_node);
 					// info_box.innerHTML = '<div style="background-color: #eee; white-space:normal; padding:10px;border: 1px solid #ff0000">' + info_text + '</div>';
 					ed.wceInfoBoxContent.html(info_text);
