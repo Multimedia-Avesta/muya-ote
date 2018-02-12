@@ -561,11 +561,13 @@ function getHtmlByTei(inputString, args) {
 		// TODO: set wce_orig=""
 
 		switch (teiNodeName) {
-			/*case 'teiHeader':
-				return Tei2Html_teiHeader($htmlParent, $teiNode);
+			case 'teiHeader':
+				//return Tei2Html_teiHeader($htmlParent, $teiNode);
+                return null;
 
             case 'msDesc':
-                return Tei2Html_msDesc($htmlParent, $teiNode);*/
+                //return Tei2Html_msDesc($htmlParent, $teiNode);
+                return null;
 
             //case 'text':
             //    return Tei2Html_textElement($htmlParent, $teiNode);
@@ -868,15 +870,15 @@ function getHtmlByTei(inputString, args) {
 			nodeAddText($newNode, 'Lec');
 		} else if (divType == 'book') {
 			// write information to header first
-            var book;
-            var $book, $header;
+            //var book;
+            //var $book;//, $header;
 
-            $header = $htmlParent.firstChild;
-            $book = $newDoc.createElement('book')
-            book = $teiNode.getAttribute('n');
-            nodeAddText($book, book);
-            $header.appendChild($book);
-            $htmlParent.replaceChild($header, $htmlParent.firstChild);
+            //$header = $htmlParent.firstChild;
+            //$book = $newDoc.createElement('book')
+            //book = $teiNode.getAttribute('n');
+            //nodeAddText($book, book);
+            //$header.appendChild($book);
+            //$htmlParent.replaceChild($header, $htmlParent.firstChild);
 
             var $newNode = $newDoc.createElement('span');
 			$newNode.setAttribute('class', 'book_number mceNonEditable');
@@ -1495,7 +1497,7 @@ function getHtmlByTei(inputString, args) {
                 var number, page_type;
                 var n = '';
 
-                $header = $htmlParent.firstChild;
+                /*$header = $htmlParent.firstChild;
                 $folio = $newDoc.createElement('folio')
                 number = $teiNode.getAttribute('n');
                 page_type = $teiNode.getAttribute('type');
@@ -1504,15 +1506,16 @@ function getHtmlByTei(inputString, args) {
                 nodeAddText($folio, folio);
                 $header.appendChild($folio);
                 $htmlParent.replaceChild($header, $htmlParent.firstChild);
-
+*/
                 //pb n="2rx" type="folio" facs="edfwe" xml:id="P2rx-0" break="no"/><fw type="runTitle"
-				if (number) {
+				number = $teiNode.getAttribute('n');
+                if (number) {
 					n = number.substring(1,number.lastIndexOf("-"));
 					//number = removeArrows(number); // Replace arrows for fibre type by "x" and "y" resp. => use for "xml:id"
 					number = number.substring(1,number.lastIndexOf("-"));
 				} else
 					number = '';
-				//var page_type = $teiNode.getAttribute('type');
+				var page_type = $teiNode.getAttribute('type');
 				if (page_type) {
 					if (page_type == "page") {
 						wceAttr += '&number=' + number + '&rv=';
