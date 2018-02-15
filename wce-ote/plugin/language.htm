@@ -68,18 +68,24 @@
 					<tr>
 						<td><label id="language_name_label" for="language_name">{#language_name}</label></td>
 						<td>
-                        <select id="language_name" name="language_name" onchange="checkstatus_language()">
-								<option value="pal-Phlv">{#pahlavi_phlv}</option>
-								<option value="pal-Avst">{#pahlavi_avst}</option>
-								<option value="pal-Phli">{#pahlavi_phli}</option>
-								<option value="ae-Avst">{#avestan_avst}</option>
-								<option value="ae-Phlv">{#avestan_phlv}</option>
-								<option value="gu">{#gujarati}</option>
-								<option value="fa">{#persian}</option>
-								<option value="sa">{#sanskrit}</option>
-								<option value="other">{#other}</option>
-							</select></td>
-						<td>
+                            <select id="language_name" name="language_name" onchange="checkstatus_language()">
+				            <option value="ae">{#avestan}</option>
+                            <option value="gu">{#gujarati}</option>
+							<option value="fa">{#persian}</option>
+							<option value="sa">{#sanskrit}</option>
+							<option value="ae-Avst">{#avestan_avst}</option>
+							<option value="ae-Phlv">{#avestan_phlv}</option>
+                            <option value="ae-Gujr">{#avestan_gujr}</option>
+							<option value="pal-Avst">{#pahlavi_avst}</option>
+                            <option value="pal-Phlv">{#pahlavi_phlv}</option>
+							<option value="pal-Gujr">{#pahlavi_gujr}</option>
+                            <option value="pal-Phli">{#pahlavi_phli}</option>
+                            <option value="gu-Arab">{#gujarati_arab}</option>
+                            <option value="gu-Gujr">{#gujarati_gujr}</option>
+							<option value="other">{#other}</option>
+							</select>
+                        </td>
+                        <td>
                         <input id="language_name_other" name="language_name_other" type="text" value="" size="30" />
 						</td>
 					</tr>
@@ -114,16 +120,21 @@
                     </td>
                     <td colspan="1">
                         <select id="following_language" name="following_language">
-                                <option value="same" selected="selected">{#sameasbefore}</option>
-                                <option value="pal-Phlv">{#pahlavi_phlv}</option>
-								<option value="pal-Avst">{#pahlavi_avst}</option>
-								<option value="pal-Phli">{#pahlavi_phli}</option>
-								<option value="ae-Avst">{#avestan_avst}</option>
-								<option value="ae-Phlv">{#avestan_phlv}</option>
-								<option value="gu">{#gujarati}</option>
-								<option value="fa">{#persian}</option>
-								<option value="sa">{#sanskrit}</option>
-                            </select>
+                            <option value="same" selected="selected">{#sameasbefore}</option>
+                            <option value="ae">{#avestan}</option>
+                            <option value="gu">{#gujarati}</option>
+							<option value="fa">{#persian}</option>
+							<option value="sa">{#sanskrit}</option>
+							<option value="ae-Avst">{#avestan_avst}</option>
+							<option value="ae-Phlv">{#avestan_phlv}</option>
+                            <option value="ae-Gujr">{#avestan_gujr}</option>
+							<option value="pal-Avst">{#pahlavi_avst}</option>
+                            <option value="pal-Phlv">{#pahlavi_phlv}</option>
+							<option value="pal-Gujr">{#pahlavi_gujr}</option>
+                            <option value="pal-Phli">{#pahlavi_phli}</option>
+                            <option value="gu-Arab">{#gujarati_arab}</option>
+                            <option value="gu-Gujr">{#gujarati_gujr}</option>
+                        </select>
                     </td>
                 </tr>
 				</table>
@@ -175,7 +186,7 @@
 		}
 
 		function testOther() {
-        if ((document.languageinfo.language_name.options[8].selected == true && document.getElementById('language_name_other').value == '') ||
+        if ((document.languageinfo.language_name.options[13].selected == true && document.getElementById('language_name_other').value == '') ||
             (document.languageinfo.reason_for_language_change.options[5].selected == true && document.getElementById('reason_for_language_change_other').value == '') ||
             (document.languageinfo.reason_for_language_change.options[4].selected == true && (document.getElementById('number_of_lines').value == '') || (document.getElementById('number_of_lines').value < 0)))
 				return false;

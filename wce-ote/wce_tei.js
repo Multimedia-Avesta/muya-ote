@@ -1016,21 +1016,20 @@ function getHtmlByTei(inputString, args) {
                 var lang_long = '';
                 switch (lang) {
                     case 'pal-Phlv':
-                        lang_long = 'Pahlavi';
-                        break;
                     case 'pal-Avst':
-                        lang_long = 'Pahlavi';
-                        break;
                     case 'pal-Phli':
+                    case 'pal-Gujr':
                         lang_long = 'Pahlavi';
                         break;
+                    case 'ae':
                     case 'ae-Avst':
-                        lang_long = 'Avestan';
-                        break;
+                    case 'ae-Gujr':
                     case 'ae-Phlv':
                         lang_long = 'Avestan';
                         break;
                     case 'gu':
+                    case 'gu-Gujr':
+                    case 'gu-Arab':
                         lang_long = 'Gujarati';
                         break;
                     case 'fa':
