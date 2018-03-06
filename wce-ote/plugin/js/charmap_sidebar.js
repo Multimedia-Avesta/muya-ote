@@ -10,11 +10,11 @@
 
 /*global tinymce:true */
 
-tinymce.PluginManager.add('muyacharmap', function(editor) {
-  var isArray = tinymce.util.Tools.isArray;
+tinymce.PluginManager.add('wcecharmapsidebar', function (ed) {
+    var isArray = tinymce.util.Tools.isArray;
 
-  function getDefaultCharMap() {
-    return [
+    function getDefaultCharMap() {
+        return [
       ['160', 'no-break space'],
       ['173', 'soft hyphen'],
       ['34', 'quotation mark'],
@@ -287,10 +287,10 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
       ['8206', 'left-to-right mark'],
       ['8207', 'right-to-left mark']
     ];
-  }
+    }
 
-  function getGuCharMap() {
-    return [
+    function getGuCharMap() {
+        return [
       ['2693', 'GUJARATI LETTER A'],
       ['2694', 'GUJARATI LETTER AA'],
       ['2695', 'GUJARATI LETTER I'],
@@ -340,10 +340,10 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
       ['2744', 'GUJARATI LETTER SA'],
       ['2745', 'GUJARATI LETTER HA'],
     ];
-  }
+    }
 
-  function getAvCharMap() {
-    return [
+    function getAvCharMap() {
+        return [
       ['0x0061', 'AVESTAN LETTER A'],
       ['0x00E5', 'AVESTAN LETTER AA'],
       ['0x101', 'AVESTAN LETTER AO'],
@@ -406,10 +406,10 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
       //      ['0x002e', 'AVESTAN LETTER '],
       //      ['0x10b3b', 'AVESTAN LETTER '],
     ];
-  }
+    }
 
-  function getPaCharMap() {
-    return [
+    function getPaCharMap() {
+        return [
       ['0x02be', 'Aleph'],
       ['0x02bf', 'Ayin'],
       ['b+0x0331', 'Small letter b with macron below'],
@@ -455,308 +455,173 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
       ['z+0x0331', 'Small letter z with macron below'],
       ['Z+0x0331', 'Capital letter Z with macron below'],
     ];
-  }
+    }
 
-  function getInterpunctionSigns() {
-    return [
+    function getInterpunctionSigns() {
+        return [
       ['0x0964', 'danda'],
       ['0x0965', 'double danda'],
       ['0x10B3D', 'Three dots (pyramid shape)'],
       ['0x10B3E', 'Three dots (v-shape)'],
     ];
-  }
-
-  function isInterpunctionSign(currindex) {
-    return(currindex >= getPaCharMap().length + getAvCharMap().length + getGuCharMap().length);
-  }
-
-  function charmapFilter(charmap) {
-    return tinymce.util.Tools.grep(charmap, function(item) {
-      return isArray(item) && item.length == 2;
-    });
-  }
-
-  function getCharsFromSetting(settingValue) {
-    if(isArray(settingValue)) {
-      return [].concat(charmapFilter(settingValue));
     }
 
-    if(typeof settingValue == "function") {
-      return settingValue();
+    function isInterpunctionSign(currindex) {
+        return (currindex >= getPaCharMap().length + getAvCharMap().length + getGuCharMap().length);
     }
 
-    return [];
-  }
-
-  function extendCharMap(charmap) {
-    var settings = editor.settings;
-
-    if(settings.charmap) {
-      charmap = getCharsFromSetting(settings.charmap);
+    function charmapFilter(charmap) {
+        return tinymce.util.Tools.grep(charmap, function (item) {
+            return isArray(item) && item.length == 2;
+        });
     }
 
-    if(settings.charmap_append) {
-      return [].concat(charmap).concat(getCharsFromSetting(settings.charmap_append));
-    }
-
-    return charmap;
-  }
-
-  function getCharMap() {
-    return extendCharMap(getDefaultCharMap().concat(getPaCharMap()).concat(getAvCharMap()).concat(getGuCharMap().concat(getInterpunctionSigns())));
-  }
-
-  function insertChar(chr, chrindex) {
-    editor.fire('insertCustomChar', {
-      chr: chr
-    }).chr;
-    if(isInterpunctionSign(chrindex))
-      editor.execCommand('mceInsertContent', false, chr);
-    else
-      editor.execCommand('mceInsertContent', false, chr);
-  }
-
-  function getGridHtml(charmap) {
-    var gridHtml = '<table role="presentation" cellspacing="0" class="mce-charmap"><tbody>';
-    charmap = charmap ? charmap : getCharMap();
-    var width = Math.min(charmap.length, 25);
-    var height = Math.ceil(charmap.length / width);
-    for(y = 0; y < height; y++) {
-      gridHtml += '<tr>';
-
-      for(x = 0; x < width; x++) {
-        var index = y * width + x;
-        if(index < charmap.length) {
-          var chr = charmap[index];
-
-          gridHtml += '<td title="' + chr[1] + '"><div tabindex="' + index + '" title="' + chr[1] + '" role="button">' +
-            (chr ? parseSomeInt(chr[0]) : '&nbsp;') + '</div></td>';
-        } else {
-          gridHtml += '<td />';
-        }
-      }
-
-      gridHtml += '</tr>';
-    }
-
-    gridHtml += '</tbody></table>';
-    return gridHtml;
-  }
-
-  function showDialog(charmap, charmap_filter_value) {
-    var gridHtml, x, y, win;
-
-    function getParentTd(elm) {
-      while(elm) {
-        if(elm.nodeName == 'TD') {
-          return elm;
+    function getCharsFromSetting(settingValue) {
+        if (isArray(settingValue)) {
+            return [].concat(charmapFilter(settingValue));
         }
 
-        elm = elm.parentNode;
-      }
+        if (typeof settingValue == "function") {
+            return settingValue();
+        }
+
+        return [];
     }
 
-    //  gridHtml = '<table role="presentation" cellspacing="0" class="mce-charmap"><tbody>';
+    function extendCharMap(charmap) {
+        var settings = ed.settings;
 
-    //  charmap = charmap ? charmap : getCharMap();
-    charmap_filter_value = charmap_filter_value ? charmap_filter_value : 'All_glyphs';
+        if (settings.charmap) {
+            charmap = getCharsFromSetting(settings.charmap);
+        }
 
-    //  var width = Math.min(charmap.length, 25);
-    //  var height = Math.ceil(charmap.length / width);
-    //  for(y = 0; y < height; y++) {
-    //    gridHtml += '<tr>';
-    //
-    //    for(x = 0; x < width; x++) {
-    //      var index = y * width + x;
-    //      if(index < charmap.length) {
-    //        var chr = charmap[index];
-    //
-    //        gridHtml += '<td title="' + chr[1] + '"><div tabindex="' + index + '" title="' + chr[1] + '" role="button">' +
-    //          (chr ? parseSomeInt(chr[0]) : '&nbsp;') + '</div></td>';
-    //      } else {
-    //        gridHtml += '<td />';
-    //      }
-    //    }
-    //
-    //    gridHtml += '</tr>';
-    //  }
-    //
-    //  gridHtml += '</tbody></table>';
+        if (settings.charmap_append) {
+            return [].concat(charmap).concat(getCharsFromSetting(settings.charmap_append));
+        }
 
-    gridHtml = '<div class="mce-charmap-wrapper">' + getGridHtml(charmap) + '</div>';
+        return charmap;
+    }
 
-    //radio html
-    var radioGroup = [{
-        id: 'charmap_default',
-        value: 'Default_only',
-        i18n: 'charmap_default_only',
-        charmap: getDefaultCharMap
-      }, {
-        id: 'charmap_gu',
-        value: 'Gujarati_only',
-        i18n: 'charmap_gujarati_only',
-        charmap: getGuCharMap
-      }, {
-        id: 'charmap_av',
-        value: 'Avesta_only',
-        i18n: 'charmap_avesta_only',
-        charmap: getAvCharMap
-      }, {
-        id: 'charmap_pa',
-        value: 'Pahlavi_only',
-        i18n: 'charmap_pahlavi_only',
-        charmap: getPaCharMap
-      }, {
-        id: 'charmap_in',
-        value: 'interpunction_signs_only',
-        i18n: 'charmap_interpunction_signs_only',
-        charmap: getInterpunctionSigns
-      },
-      {
-        id: 'charmap_all',
-        value: 'All_glyphs',
-        i18n: 'charmap_all',
-        charmap: getCharMap
-      }
-    ];
+    function getCharMap() {
+        return extendCharMap(getDefaultCharMap().concat(getPaCharMap()).concat(getAvCharMap()).concat(getGuCharMap().concat(getInterpunctionSigns())));
+    }
 
-    var radioHtml = '<div style="padding:10px">';
-    var translate = tinymce.util.I18n.translate;
-    radioGroup.forEach(function(r, i) {
-      radioHtml += '<div><input type="radio" id="' + r.id + '"';
-      r.value == charmap_filter_value ? radioHtml += ' checked="checked"' : '';
-      radioHtml += ' name="charmap_filter" value="' + r.value + '" /> ';
-      radioHtml += '<label style="margin-right:2px">' + translate(r.i18n) + '</label></div>';
-    });
-    radioHtml += '</div>';
+    function insertChar(chr, chrindex) {
+        ed.fire('insertCustomChar', {
+            chr: chr
+        }).chr;
+        if (isInterpunctionSign(chrindex))
+            ed.execCommand('mceInsertContent', false, chr);
+        else
+            ed.execCommand('mceInsertContent', false, chr);
+    }
 
-    var charMapPanel = {
-      type: 'container',
-      html: gridHtml,
-      onclick: function(e) {
+    function charselected(e) {
+        if (!e)
+            e = window.event;
         var target = e.target;
 
-        if(/^(TD|DIV)$/.test(target.nodeName)) {
-          if(getParentTd(target) && getParentTd(target).firstChild) {
+        if (/^(TD|DIV)$/.test(target.nodeName)) {
             insertChar(tinymce.trim(target.innerText || target.textContent),
-              target.getAttribute("tabindex"));
-            if(!e.ctrlKey) {
-              win.close();
-            }
-          }
+                target.getAttribute("tabindex"));
         }
-      },
-      onmouseover: function(e) {
-        var td = getParentTd(e.target);
-        if(td && td.firstChild) {
-          win.find('#preview').text(td.firstChild.firstChild.data);
-          win.find('#previewTitle').text(td.title);
-        } else {
-          win.find('#preview').text(' ');
-          win.find('#previewTitle').text(' ');
-        }
-      }
-    };
+    }
 
-    win = editor.windowManager.open({
-      title: "Special character",
-      spacing: 10,
-      padding: 10,
-      items: [
-        charMapPanel,
-        {
-          type: 'container',
-          layout: 'flex',
-          direction: 'colum',
-          align: 'center',
-          spacing: 5,
-          minWidth: 220,
-          minHeight: 280,
-          items: [{
-              type: 'label',
-              name: 'preview',
-              text: ' ',
-              style: 'font-size: 72px; text-align: center',
-              border: 1,
-              minWidth: 200,
-              minHeight: 80
-            },
-            {
-              type: 'label',
-              name: 'previewTitle',
-              text: ' ',
-              style: 'text-align: center',
-              border: 1,
-              minWidth: 200,
-              minHeight: 80
-            }, {
-              type: 'container',
-              layout: 'flex',
-              direction: 'colum',
-              html: radioHtml,
-              minWidth: 250,
-              minHeight: 120,
-              onclick: function(e) {
-                var target = e.target;
-                if(target.nodeName && target.nodeName.toLocaleLowerCase() == 'input') {
-                  var filterValue = target.value;
-                  var radioInput = radioGroup.find(function(r) {
-                    if(r.value == filterValue) {
-                      return true;
-                    }
-                  });
-                  if(radioInput) {
-                    var newGridHtml = getGridHtml(radioInput.charmap());
-                    win.$el.find('div[class="mce-charmap-wrapper"]').html(newGridHtml);
-                  }
+    function getGridHtml(charmap) {
+        var gridHtml = '<table role="presentation" cellspacing="0" class="mce-charmap"><tbody>';
+        charmap = charmap ? charmap : getCharMap();
+        var width = Math.min(charmap.length, 25);
+        var height = Math.ceil(charmap.length / width);
+        for (y = 0; y < height; y++) {
+            gridHtml += '<tr>';
+            for (x = 0; x < width; x++) {
+                var index = y * width + x;
+                if (index < charmap.length) {
+                    var chr = charmap[index];
+                    gridHtml += '<td title="' + chr[1] + '"><div tabindex="' + index + '" title="' + chr[1] + '" role="button">' +
+                        (chr ? parseSomeInt(chr[0]) : '&nbsp;') + '</div></td>';
+                } else {
+                    gridHtml += '<td />';
                 }
-              }
             }
-          ]
+
+            gridHtml += '</tr>';
         }
-      ],
-      buttons: [{
-        text: "Close",
-        onclick: function() {
-          win.close();
+
+        gridHtml += '</tbody></table>';
+        return gridHtml;
+    }
+
+    function parseSomeInt(charcodes) {
+        var str = charcodes.split('+');
+        var out = '';
+        for (i = 0; i < str.length; i++) {
+            if (isNaN(parseFloat(str[i]))) {
+                out += str[i];
+            } else {
+                out += String.fromCodePoint(parseInt(str[i]));
+            }
         }
-      }]
+        return out;
+    }
+
+    var lineheight = 0;
+    var sidebar;
+
+    function _initSidebar() {
+        var ct = ed.getContentAreaContainer();
+        ct.style.display = "flex";
+        var iframe = ct.querySelector('iframe');
+        var bd = ed.dom.select('body');
+        var fontsize = parseInt($(bd).css('font-size'));
+        lineheight = fontsize * 1.6;
+        sidebar = document.createElement("div");
+        sidebar.classList.add("wce-charmap-sidebar");
+        sidebar.style.width = "600px";
+        sidebar.style.borderRight = "1px solid #aaa";
+        sidebar.style.backgroundColor = "lightgray";
+        sidebar.style.position = "relative";
+        sidebar.style.overflow = "hidden";
+        ct.appendChild(sidebar);
+        _drawCharmapsidebar();
+        $(ed.getWin()).scroll(function (e) {
+            //_drawCharmapsidebar();
+        });
+        $(ed.getWin()).resize(function () {
+            //_drawCharmapsidebar();
+        });
+        ed.on('ResizeEditor', function (e) {
+            iframe.style.height = null;
+        });
+
+        ed.on('change', function () {
+
+        });
+        ed.on('keyup', function () {
+
+        });
+        ed.on('setContent', function () {
+
+        });
+    }
+
+    ed.addCommand('wceShowcharmapsidebar', function (b) {
+        if (!sidebar) {
+            _initSidebar();
+        }
+        sidebar.style.display = b ? 'block' : 'none';
     });
 
-    // win.$el.find('div[class="mce-container-body" && class="mce-abs-layout"]').append($(radioHtml));
-
-  }
-
-  editor.addCommand('mceShowMuyaCharmap', showDialog);
-
-  editor.addButton('muyacharmap', {
-    icon: 'charmap',
-    tooltip: 'Muya Special character',
-    cmd: 'mceShowMuyaCharmap'
-  });
-
-  editor.addMenuItem('muyacharmap', {
-    icon: 'charmap',
-    text: 'Special character',
-    cmd: 'mceShowMuyaCharmap',
-    context: 'insert'
-  });
-
-  function parseSomeInt(charcodes) {
-    var str = charcodes.split('+');
-    var out = '';
-    for(i = 0; i < str.length; i++) {
-      if(isNaN(parseFloat(str[i]))) {
-        out += str[i];
-      } else {
-        out += String.fromCodePoint(parseInt(str[i]));
-      }
+    function _drawCharmapsidebar() {
+        //var translate = tinymce.util.I18n.translate;
+        //sidebar.appendChild(radioHtml);
+        var div = document.createElement('div');
+        div.setAttribute("class", "mce-charmap-wrapper");
+        div.innerHTML = getGridHtml();
+        //const element = div.querySelectorAll('.tabindex');
+        sidebar.appendChild(div);
+        sidebar.addEventListener('click', event => charselected(event), true);
     }
-    return out;
-  }
 
-  return {
-    getCharMap: getCharMap,
-    insertChar: insertChar
-  };
+    //$(document).ready(function() {
 });
