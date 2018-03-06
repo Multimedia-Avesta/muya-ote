@@ -587,8 +587,8 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
     //radio html
     var radioGroup = [{
         id: 'charmap_default',
-        value: 'Default_only', 
-        i18n: 'charmap_default_only', 
+        value: 'Default_only',
+        i18n: 'charmap_default_only',
         charmap: getDefaultCharMap
       }, {
         id: 'charmap_gu',
@@ -608,7 +608,7 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
       }, {
         id: 'charmap_in',
         value: 'interpunction_signs_only',
-        i18n: 'charmap_interpunction_signs_only', 
+        i18n: 'charmap_interpunction_signs_only',
         charmap: getInterpunctionSigns
       },
       {
@@ -666,7 +666,7 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
         {
           type: 'container',
           layout: 'flex',
-          direction: 'column',
+          direction: 'colum',
           align: 'center',
           spacing: 5,
           minWidth: 220,
