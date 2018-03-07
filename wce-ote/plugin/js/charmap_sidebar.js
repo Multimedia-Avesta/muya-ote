@@ -13,6 +13,44 @@
 tinymce.PluginManager.add('wcecharmapsidebar', function (ed) {
     var isArray = tinymce.util.Tools.isArray;
 
+    charmap_filter_value = 'All_glyphs';
+
+    var radioGroup = [{
+                id: 'charmap_default',
+                value: 'Default_only',
+                i18n: 'charmap_default_only',
+                charmap: getDefaultCharMap
+      }, {
+                id: 'charmap_gu',
+                value: 'Gujarati_only',
+                i18n: 'charmap_gujarati_only',
+                charmap: getGuCharMap
+      }, {
+                id: 'charmap_av',
+                value: 'Avesta_only',
+                i18n: 'charmap_avesta_only',
+                charmap: getAvCharMap
+      }, {
+                id: 'charmap_pa',
+                value: 'Pahlavi_only',
+                i18n: 'charmap_pahlavi_only',
+                charmap: getPaCharMap
+      }, {
+                id: 'charmap_in',
+                value: 'interpunction_signs_only',
+                i18n: 'charmap_interpunction_signs_only',
+                charmap: getInterpunctionSigns
+      },
+            {
+                id: 'charmap_all',
+                value: 'All_glyphs',
+                i18n: 'charmap_all',
+                charmap: getCharMap
+      }
+    ];
+
+
+
     function getDefaultCharMap() {
         return [
       ['160', 'no-break space'],
@@ -526,6 +564,19 @@ tinymce.PluginManager.add('wcecharmapsidebar', function (ed) {
         if (/^(TD|DIV)$/.test(target.nodeName)) {
             insertChar(tinymce.trim(target.innerText || target.textContent),
                 target.getAttribute("tabindex"));
+        } else {
+            if (target.nodeName && target.nodeName.toLocaleLowerCase() == 'input') {
+              var filterValue = target.value;
+              var radioInput = radioGroup.find(function(r) {
+                if(r.value == filterValue) {
+                  return true;
+                }
+              });
+              if (radioInput) {
+                charmap_filter_value=filterValue;
+                _drawCharmapsidebar(radioInput.charmap());
+              }
+            }
         }
     }
 
@@ -554,6 +605,22 @@ tinymce.PluginManager.add('wcecharmapsidebar', function (ed) {
         return gridHtml;
     }
 
+    function getRadioHtml() {
+        //charmap_filter_value = charmap_filter_value ? charmap_filter_value : 'All_glyphs';
+
+        //radio html
+
+
+        var radioHtml = '<div style="padding:10px">';
+        var translate = tinymce.util.I18n.translate;
+        radioGroup.forEach(function (r, i) {
+            radioHtml += '<div><input type="radio" id="' + r.id + '"';
+            r.value == charmap_filter_value ? radioHtml += ' checked="checked"' : '';
+            radioHtml += ' name="charmap_filter" value="' + r.value + '" /> ';
+            radioHtml += '<label style="margin-right:2px">' + translate(r.i18n) + '</label></div>';
+        });
+        radioHtml += '</div>';
+        return radioHtml;}
     function parseSomeInt(charcodes) {
         var str = charcodes.split('+');
         var out = '';
@@ -585,7 +652,7 @@ tinymce.PluginManager.add('wcecharmapsidebar', function (ed) {
         sidebar.style.position = "relative";
         sidebar.style.overflow = "hidden";
         ct.appendChild(sidebar);
-        _drawCharmapsidebar();
+        _drawCharmapsidebar(getCharMap());
         $(ed.getWin()).scroll(function (e) {
             //_drawCharmapsidebar();
         });
@@ -614,15 +681,18 @@ tinymce.PluginManager.add('wcecharmapsidebar', function (ed) {
         sidebar.style.display = b ? 'block' : 'none';
     });
 
-    function _drawCharmapsidebar() {
+    function _drawCharmapsidebar(cf) {
         //var translate = tinymce.util.I18n.translate;
-        //sidebar.appendChild(radioHtml);
+        var currentdiv = sidebar.querySelector("div");
+        if (currentdiv) {
+            sidebar.removeChild(currentdiv);
+        }
         var div = document.createElement('div');
         div.setAttribute("class", "mce-charmap-wrapper");
-        div.innerHTML = getGridHtml();
-        //const element = div.querySelectorAll('.tabindex');
+        div.innerHTML = getGridHtml(cf)+getRadioHtml();
         sidebar.appendChild(div);
-        sidebar.addEventListener('click', event => charselected(event), true);
+        if (!currentdiv)
+            sidebar.addEventListener('click', event => charselected(event), true);
     }
 
     //$(document).ready(function() {
