@@ -211,7 +211,7 @@ tinymce.PluginManager.add('wcecharmapsidebar', function (ed) {
       ['299', 'i - macron'],
       ['240', 'eth'],
       ['241', 'n - tilde'],
-      ['0x006e+0x0328', 'N - ogonek'],
+      ['0x006e+0x0328', 'n - ogonek'],
       ['242', 'o - grave'],
       ['243', 'o - acute'],
       ['244', 'o - circumflex'],
@@ -427,6 +427,7 @@ tinymce.PluginManager.add('wcecharmapsidebar', function (ed) {
       ['0x0144', 'AVESTAN LETTER NYE'],
       ['0x1e45', 'AVESTAN LETTER NYE'],
       ['0x1e47', 'AVESTAN LETTER NNE'],
+      ['0x006e+0x0328', 'n - ogonek'],
       ['0x006d', 'AVESTAN LETTER ME'],
       ['0x006d+0x0328', 'AVESTAN LETTER HME'],
       ['0x1e8f', 'AVESTAN LETTER YYE'],
@@ -443,8 +444,6 @@ tinymce.PluginManager.add('wcecharmapsidebar', function (ed) {
       ['0x017e', 'AVESTAN LETTER SSHE'],
       ['0x0068', 'AVESTAN LETTER HE'],
       ['0x0068+0x0301', 'AVESTAN LETTER HE'],
-      //      ['0x002e', 'AVESTAN LETTER '],
-      //      ['0x10b3b', 'AVESTAN LETTER '],
     ];
     }
 
@@ -498,11 +497,16 @@ tinymce.PluginManager.add('wcecharmapsidebar', function (ed) {
     }
 
     function getInterpunctionSigns() {
-        return [
+    return [
       ['0x0964', 'danda'],
       ['0x0965', 'double danda'],
+      /*['0x10B39', 'AVESTAN ABBREVIATION MARK'],
+      ['0x10B3A', 'TINY TWO DOTS OVER ONE DOT PUNCTUATION'],
+      ['0x10B3B', 'SMALL TWO DOTS OVER ONE DOT PUNCTUATION'],
+      ['0x10B3C', 'LARGE TWO DOTS OVER ONE DOT PUNCTUATION'],*/
       ['0x10B3D', 'Three dots (pyramid shape)'],
       ['0x10B3E', 'Three dots (v-shape)'],
+      //['0x10B3F', 'LARGE ONE RING OVER TWO RINGS PUNCTUATION'],
     ];
     }
 
