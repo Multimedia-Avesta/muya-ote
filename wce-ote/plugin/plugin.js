@@ -3093,12 +3093,10 @@
             	cmd : 'mceVerseModify',
             	image : url + '/img/button_S.png',
             	onPostRender : function() { ed.WCE_CON.buttons[this.settings.icon] = this; },
-            });
-
-            ed.addShortcut("ctrl+alt+s","Verse modify","mceVerseModify");*/
+            });*/
 
             ed.addButton('versemodify', {
-                title: tinymce.translate('menu_structure'),// + ' (Ctrl+Alt+S)',
+                title: tinymce.translate('menu_structure') + ' (Ctrl+Alt+S)',
                 //cmd: 'mceVerseModify',
                 image: url + '/img/button_S.png',
                 type: 'menubutton',
@@ -3137,6 +3135,8 @@
             ed.addCommand('mceVerseDelete', function () {
                 doWithDialog(ed, url, '/deleteverse.htm', 480, 700, 1, true, tinymce.translate('verses_title'));
             });
+
+            ed.addShortcut("ctrl+alt+s","Structure modify","mceVerseAdd");
 
             // add showTeiByHtml button
             ed.addButton('showTeiByHtml', {
