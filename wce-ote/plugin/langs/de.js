@@ -344,5 +344,7 @@ tinymce.addI18n('de',{
     untrans : 'Nicht-transkribierter Text',
 	removeLanguage : 'Entferne Sprachinformationen',
 	language_title : 'Bitte geben Sie die Sprache an',
-    langchange : 'Sprache wechselt zu'
+    langchange : 'Sprache wechselt zu',
+    add_structure: 'Füge Struktur hinzu',
+    delete_structure: 'Entferne Struktur'
 });

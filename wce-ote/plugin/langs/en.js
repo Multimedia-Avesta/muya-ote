@@ -289,7 +289,7 @@ tinymce.addI18n('en', {
 	chapter_remove : 'Remove the following chapter number(s):',
 	inscriptio_insert : 'Insert inscriptio',
 	subscriptio_insert : 'Insert subscriptio',
-	book_insert : 'Insert book number: ',
+	book_insert : 'Insert book identifier: ',
 	book_remove : 'Remove the following book number(s):',
 	lection_insert : 'Insert lection number: ',
 	lection_remove : 'Remove the following lection(s):',
@@ -438,4 +438,6 @@ tinymce.addI18n('en', {
     fa : 'Persian',
     sa : 'Sanskrit',
     doclang: 'Document language',
+    add_structure: 'Add structure',
+    delete_structure: 'Remove structure'
 });
