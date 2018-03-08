@@ -3129,7 +3129,7 @@
 
             //verse add and delete
             ed.addCommand('mceVerseAdd', function () {
-                doWithDialog(ed, url, '/addverse.htm', 480, 200, 1, true, tinymce.translate('verses_title'));
+                doWithDialog(ed, url, '/addverse.htm', 480, 300, 1, true, tinymce.translate('verses_title'));
             });
 
             ed.addCommand('mceVerseDelete', function () {
