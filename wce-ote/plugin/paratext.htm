@@ -36,7 +36,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<title>{#paratext_title}</title>
-		<script type="text/javascript" src="../../js/tinymce/tinymce.js"></script>
+		<script type="text/javascript" src="../../js/tinymce/tinymce.min.js"></script>
 		<script type="text/javascript" src="../jquery.js"></script>
 		<script type="text/javascript" src="../rangy-core.js"></script>
 		<script type="text/javascript" src="js/wce.js"></script>
@@ -167,7 +167,8 @@
 		var timeout;
 
 		marginals_text_editor = new tinymce.Editor('marginals_text',{
-			mode : "textareas",
+			branding: false,
+            mode : "textareas",
 			theme : "modern",
 			menubar: false,
 			skin_url: "../skin/",
@@ -177,13 +178,14 @@
 			force_p_newlines : false,
 			entity_encoding : "raw",
 			theme_advanced_path : false,
-			plugins : "pagebreak,print,paste",
+			plugins : "pagebreak,paste",
+            paste_as_text: true,
 			external_plugins: { 'wce' : '../../wce-ote/plugin/plugin.js' },
 			internal_editor: true,
-			toolbar : "undo redo charmap | code removeformat | print contextmenu paste fullscreen | "+
+			toolbar : "undo redo charmap | code removeformat | paste | "+
 				"breaks illegible decoration abbreviation punctuation language",
 			// Theme options
-			theme_advanced_buttons1 : "undo,redo,charmap,|,code,removeformat,|,print,contextmenu,paste,fullscreen,|,breaks,illegible,decoration,abbreviation,punctuation,language",
+			theme_advanced_buttons1 : "undo,redo,charmap,|,code,removeformat,|,contextmenu,paste,fullscreen,|,breaks,illegible,decoration,abbreviation,punctuation,language",
 			theme_advanced_buttons2 : "",
 			theme_advanced_toolbar_location : "top",
 			theme_advanced_toolbar_align : "left",
@@ -360,7 +362,7 @@
 	}
 
 	function testIsolated() {
-		if (document.paratextinfo.fw_type.options[15].selected == true && document.paratextinfo.paratext_position.options[0].selected == true)
+		if (document.paratextinfo.fw_type.options[8].selected == true && document.paratextinfo.paratext_position.options[0].selected == true)
 			return false;
 		return true;
 	}

@@ -40,6 +40,7 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 
 	tinymce.init({
 		// General options
+        branding: false,
 		mode : "exact",
 		selector : '#'+_id,
 		theme : "modern",

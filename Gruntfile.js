@@ -94,8 +94,7 @@ module.exports = function (grunt) {
           onBeforeSave: function (zip) {
             zip.addData("dist/version.txt", packageData.version);
 
-            var src = grunt.file.read("js/tinymce/tinymce.js").toString();
-
+            var src = grunt.file.read("js/tinymce/tinymce.min.js").toString();
             zip.addData(
               "dist/tinymce.jquery.js",
               "window.console && console.log('Use tinymce.js instead of tinymce.jquery.js.');\n" + src
@@ -244,7 +243,7 @@ module.exports = function (grunt) {
               }
             }));
 
-            var src = grunt.file.read("js/tinymce/tinymce.js").toString();
+            var src = grunt.file.read("js/tinymce/tinymce.min.js").toString();
 
             zip.addData(
               "tinymce.jquery.js",
@@ -282,7 +281,7 @@ module.exports = function (grunt) {
           "js/tinymce/skins",
           "js/tinymce/plugins",
           "js/tinymce/themes",
-          "js/tinymce/tinymce.js",
+          //"js/tinymce/tinymce.js",
           "js/tinymce/tinymce.min.js",
           "js/tinymce/jquery.tinymce.min.js",
           "js/tinymce/license.txt",
@@ -331,7 +330,7 @@ module.exports = function (grunt) {
           { src: "js/tinymce/plugins", dest: "/content/scripts/tinymce/plugins" },
           { src: "js/tinymce/themes", dest: "/content/scripts/tinymce/themes" },
           { src: "js/tinymce/skins", dest: "/content/scripts/tinymce/skins" },
-          { src: "js/tinymce/tinymce.js", dest: "/content/scripts/tinymce/tinymce.js" },
+          //{ src: "js/tinymce/tinymce.js", dest: "/content/scripts/tinymce/tinymce.js" },
           { src: "js/tinymce/tinymce.min.js", dest: "/content/scripts/tinymce/tinymce.min.js" },
           { src: "js/tinymce/jquery.tinymce.min.js", dest: "/content/scripts/tinymce/jquery.tinymce.min.js" },
           { src: "js/tinymce/license.txt", dest: "/content/scripts/tinymce/license.txt" }
@@ -373,7 +372,7 @@ module.exports = function (grunt) {
           { src: "js/tinymce/plugins", dest: "/content/scripts/tinymce/plugins" },
           { src: "js/tinymce/themes", dest: "/content/scripts/tinymce/themes" },
           { src: "js/tinymce/skins", dest: "/content/scripts/tinymce/skins" },
-          { src: "js/tinymce/tinymce.js", dest: "/content/scripts/tinymce/tinymce.js" },
+          //{ src: "js/tinymce/tinymce.js", dest: "/content/scripts/tinymce/tinymce.js" },
           { src: "js/tinymce/tinymce.min.js", dest: "/content/scripts/tinymce/tinymce.min.js" },
           { src: "js/tinymce/jquery.tinymce.min.js", dest: "/content/scripts/tinymce/jquery.tinymce.min.js" },
           { src: "js/tinymce/license.txt", dest: "/content/scripts/tinymce/license.txt" }
@@ -406,7 +405,7 @@ module.exports = function (grunt) {
         },
 
         src: [
-          "js/tinymce/tinymce.js"
+          "js/tinymce/tinymce.min.js"
         ]
       }
     },
@@ -644,7 +643,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build-headers', 'Appends build headers to js files', function () {
     var header = '// ' + packageData.version + ' (' + packageData.date + ')\n';
-    grunt.file.write('js/tinymce/tinymce.js', header + grunt.file.read('js/tinymce/tinymce.js'));
+    //grunt.file.write('js/tinymce/tinymce.js', header + grunt.file.read('js/tinymce/tinymce.js'));
     grunt.file.write('js/tinymce/tinymce.min.js', header + grunt.file.read('js/tinymce/tinymce.min.js'));
   });
 

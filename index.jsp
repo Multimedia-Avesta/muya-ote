@@ -17,7 +17,7 @@
    >
 <Optional feature="pubsub-2">
   <Param name="topics">
-    <![CDATA[ 
+    <![CDATA[
     <Topic title="Transcription Saved" name="interedition.transcription.saved"
             description="Transcription has been saved" type="void"
             subscribe="true"/>
@@ -82,7 +82,7 @@ catch (Exception e) {}
 	<script type="text/javascript" src="/community/js/URI.min.js"></script>
 	<script type="text/javascript" src="/community/js/jquery/jquery.cookie.js"></script>
 	<script type="text/javascript" src="/community/js/jquery-ui/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="edit/js/tinymce/tinymce.js"></script>  
+	<script type="text/javascript" src="edit/js/tinymce/tinymce.min.js"></script>
 	<script type="text/javascript" src="edit/wce-ote/wce_editor.js"></script>
 	<script type="text/javascript" src="edit/wce-ote/wce_charmap.js"></script>
 	<script type="text/javascript" src="edit/wce-ote/wce_tei.js"></script>
@@ -150,7 +150,7 @@ window.onerror = window.parent.onerror;
 var lastRTL = false;
 
 // if no index data for the page, then dialog to ask what content from base text to use
-var verseRefDialog = null; 
+var verseRefDialog = null;
 
 // listen for page loaded events from portal and hold on to last page which as loaded
 var lastPage = null;
@@ -253,7 +253,7 @@ var ignoreUpdateMessages = 0;
 				}
 			}
 			tinymce.activeEditor.isNotDirty = 1;
-			
+
 			if (callback) callback();
 		});
 	}
@@ -306,7 +306,7 @@ function showVersionHistory() {
 				$('.mergeControl').show('');
 				$('#sel_'+lastVersion).parent().find('.mergeControl').hide();
 			}
-			
+
 			$('#historyDialog').dialog('open');
 		});
 	}
@@ -319,7 +319,7 @@ function onTranscriptionReadOnly(topic, data, subscriberData) {
 
 function onTranscriptionScrolled(topic, data, subscriberData) {
 	$(tinymce.activeEditor.getBody()).find('.brea').css('background', '');
-	
+
 	if (data.break > 0) data.break -= 1;
 	if (data.break < $(tinymce.activeEditor.getBody()).find('.brea').length) {
 		var b = $(tinymce.activeEditor.getBody()).find('.brea')[data.break];
@@ -447,8 +447,8 @@ function populateFromBasetext(key, appendWhere) {
 
 	VMR.webRequest(url, postData, function (o) {
 		if (appendWhere) {
-			var content = tinymce.get('wce_editor').getContent();   
-			tinymce.get('wce_editor').setContent((appendWhere>0)?content+o.text:o.text+content);   
+			var content = tinymce.get('wce_editor').getContent();
+			tinymce.get('wce_editor').setContent((appendWhere>0)?content+o.text:o.text+content);
 		}
 		else {
 			var type = 'page';
@@ -534,7 +534,7 @@ function loadEditorWithTEI(teiBlob) {
 		tinymce.execCommand(rtl?'mceDirectionRTL':'mceDirectionLTR');
 		tinymce.get('wce_editor').settings.directionality = rtl?'rtl':'ltr';
 	}
-	setTEI(teiBlob);   
+	setTEI(teiBlob);
 	setPreferredFontFamily(getPreferredFont());
 }
 
@@ -806,7 +806,7 @@ function xml2str(xmlNode) {
         // Internet Explorer.
         return xmlNode.xml;
      }
-     catch (e) {  
+     catch (e) {
         //Other browsers without XML Serializer
         alert('Xmlserializer not supported');
      }
@@ -839,7 +839,7 @@ function compareCurrentTo(versionHash, userName) {
 	form.setAttribute("action", reconcilerURL);
 	form.setAttribute("target", "reconcile");
 
-	var hiddenField = document.createElement("input");              
+	var hiddenField = document.createElement("input");
 	hiddenField.setAttribute("type", "hidden");
 	hiddenField.setAttribute("name", "lhs");
 	var tei = getTEI();
@@ -847,7 +847,7 @@ function compareCurrentTo(versionHash, userName) {
 	hiddenField.setAttribute("value", encodeURIComponent(tei));
 	form.appendChild(hiddenField);
 
-	hiddenField = document.createElement("input");              
+	hiddenField = document.createElement("input");
 	hiddenField.setAttribute("type", "hidden");
 	hiddenField.setAttribute("name", "rhs");
 
@@ -961,7 +961,7 @@ VMR.init(function() {
 	autoSave = VMR.prefs.getBool('autoSave');
 
 	$('#publishButton').hide();
-				
+
 	VMR.serviceRequest('auth/hasrole/', { role : 'Transcription Manager' }, function(o) {
 		var xml = $.parseXML(o.text);
 		if ($(xml).find('role').attr('hasRole') == 'true') {
@@ -974,29 +974,29 @@ VMR.init(function() {
 	setupEditor(rtl, function() {
 		if (parent && parent.Liferay) $('#discussButtonSpan').show();
 		else $('#discussButtonSpan').hide();
-		
 
-		$('#populateButton').bind('click',function(event){ 
+
+		$('#populateButton').bind('click',function(event){
 			populateForLastPageLoaded();
 		});
 
-		$('#versionHistoryControl').bind('click',function(event){ 
+		$('#versionHistoryControl').bind('click',function(event){
 			showVersionHistory();
 		});
 
-		$('#plusOneBeforeButton').bind('click',function(event){ 
+		$('#plusOneBeforeButton').bind('click',function(event){
 			plusFromBasetext(-1);
 		});
 
-		$('#plusOneAfterButton').bind('click',function(event){ 
+		$('#plusOneAfterButton').bind('click',function(event){
 			plusFromBasetext(1);
 		});
 
-		$('#publishButton').bind('click',function(event){ 
+		$('#publishButton').bind('click',function(event){
 			publishPage();
 		});
 
-		$('#previewButton').bind('click',function(event){ 
+		$('#previewButton').bind('click',function(event){
 			previewPage();
 		});
 

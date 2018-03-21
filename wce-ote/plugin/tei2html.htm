@@ -2,22 +2,22 @@
 <html xmlns="http://www.w3.org/1999/xhtml" style="height:100%">
 <head>
 <title>TEI to HTML</title>
-<script type="text/javascript" src="../../js/tinymce/tinymce.js"></script>
+<script type="text/javascript" src="../../js/tinymce/tinymce.min.js"></script>
 <script type="text/javascript" src="../jquery.js"></script>
 <script type="text/javascript" src="js/wce.js"></script>
-<script type="text/javascript" src="../wce_tei.js"></script>   
+<script type="text/javascript" src="../wce_tei.js"></script>
 </head>
 <body style="height:97%">
-<div style="height:95%; margin-bottom:10px" id="div0"> 
-<textarea name="tei2htmlOuputContainer" id="tei2htmlOuputContainer" style="width: 100%; overflow-y:visible; height: 98%; font-family: 'Courier New',Courier,monospace; font-size: 12px;" dir="ltr" wrap="on" class="mceFocus"></textarea> 
+<div style="height:95%; margin-bottom:10px" id="div0">
+<textarea name="tei2htmlOuputContainer" id="tei2htmlOuputContainer" style="width: 100%; overflow-y:visible; height: 98%; font-family: 'Courier New',Courier,monospace; font-size: 12px;" dir="ltr" wrap="on" class="mceFocus"></textarea>
 </div> <div class="mceActionPanel">
 			<input type="button"  value="{#close}" onclick="parent.tinymce.activeEditor.windowManager.close();"  />      <input type="button" value=" Toggle" onclick="editorToggle();"; />
-		</div> 
+		</div>
 
-</body> 
+</body>
 <script type="text/javascript">
 	var corrector_text_editor;
-	
+
 	$(document).ready(function() {
 		var _ed = parent.tinymce.activeEditor;
 		translate();
@@ -27,20 +27,20 @@
 		var teiContent=getTeiByHtml(str,_ed.settings);
 		if(teiContent){
 			var result=getHtmlByTei(teiContent, _ed.settings);
-			if(result){				
+			if(result){
 				var htmlContent=result['htmlString'];
 				if(htmlContent){
 					x.value=htmlContent;
-				} 
+				}
 				/*var teiIndexData = result['teiIndexData'];
 				if (teiIndexData) {
 					//_ed.teiIndexData = teiIndexData;
 				}*/
 			}
 		}
-		var activeEditorSettings=_ed.settings;		
+		var activeEditorSettings=_ed.settings;
 			corrector_text_editor=new tinymce.Editor('tei2htmlOuputContainer',{
-			mode : "textareas", 
+			mode : "textareas",
 			theme : "modern",
 			skin_url: "../skin/",
 			extended_valid_elements:'span[class|wce_orig|style|wce|id|ext|language]',
@@ -48,7 +48,7 @@
 			force_br_newlines : true,
 			force_p_newlines : false,
 			entity_encoding : "raw",
-			theme_advanced_path : false,  
+			theme_advanced_path : false,
 			directionality : activeEditorSettings.ltr,
 			language : activeEditorSettings.language,
 			book : activeEditorSettings.book,
@@ -65,15 +65,15 @@
 			theme_advanced_toolbar_location : "top",
 			theme_advanced_toolbar_align : "left",
 			theme_advanced_statusbar_location : "bottom",
-			theme_advanced_resizing : false  
+			theme_advanced_resizing : false
 
-		}, tinymce.EditorManager);  
+		}, tinymce.EditorManager);
 		corrector_text_editor.on('init', function() {
 			corrector_text_editor.hide();
-		});  
+		});
 	 	corrector_text_editor.render();
-		
-	});   
+
+	});
 
 	function translate() {
 		var c=document.body.innerHTML;
@@ -99,6 +99,6 @@
 			corrector_text_editor.hide();
 		}
 	}
-	 
+
 </script>
 </html>
