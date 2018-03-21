@@ -86,15 +86,14 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 		keyboardDebug: true,
 		init_instance_callback : "wceReload",
 		// Theme options
-		toolbar : "undo redo muyacharmap | code | LoadFile save | print contextmenu cut copy paste fullscreen | " +
+		toolbar : "undo redo muyacharmap | code | LoadFile save | cut copy paste | " +
 		"breaks correction illegible decoration abbreviation paratext note punctuation language versemodify | " +
-		"showTeiByHtml help | info showHtmlByTei",
+		"showTeiByHtml | showHtmlByTei",
 		theme_advanced_buttons2 : "",
 		theme_advanced_toolbar_location : "top",
 		theme_advanced_toolbar_align : "left",
 		theme_advanced_statusbar_location : "bottom",
 		theme_advanced_resizing : false,
-		//content_css : '../wce-ote/skin/content.css',
 		setup : function(ed) {
 			ed.on('change', wceOnContentsChange);
 			ed.on('init', function(e) {// Once initialized, tell the editor to go fullscreen
