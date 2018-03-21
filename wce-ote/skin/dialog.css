@@ -1,6 +1,6 @@
-/* 
+/*
 	Copyright (C) 2012-2017 Center for Digital Humanities, Trier
-	
+
 	This file is part of the Online Transcription Editor (OTE).
 
     OTE is free software: you can redistribute it and/or modify
@@ -31,47 +31,47 @@
     Sie sollten eine Kopie der GNU Lesser General Public License zusammen mit diesem
     Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
 */
-@font-face{  
-	font-family: GentiumPlus;
+@font-face{
+	font-family: GentiumPlusW;
     src: url(fonts/GentiumPlus-R.woff) format('woff');
 	 /* should work for all recent browsers */
 	font-style: normal;
 }
 
 @font-face{
-	font-family: GentiumPlus;
+	font-family: GentiumPlusW;
     src: url(fonts/GentiumPlus-I.woff) format('woff');
 	font-style: italic;
 }
 
 /* Generic */
 body {
-	
-font-family: GentiumPlus, Verdana, Arial, Helvetica, sans-serif;
+
+font-family: GentiumPlusW, Verdana, Arial, Helvetica, sans-serif;
 	 font-size:12px;
-	
+
 scrollbar-3dlight-color:#F0F0EE;
-	
+
 scrollbar-arrow-color:#676662;
-	
+
 scrollbar-base-color:#F0F0EE;
-	
+
 scrollbar-darkshadow-color:#DDDDDD;
-	
+
 scrollbar-face-color:#E0E0DD;
-	
+
 scrollbar-highlight-color:#F0F0EE;
-	
+
 scrollbar-shadow-color:#F0F0EE;
-	
+
 scrollbar-track-color:#F5F5F5;
-	
+
 background:#F0F0EE;
-	
+
 padding:0;
-	
+
 margin:8px 8px 0 8px;
-	
+
 
 }
 
@@ -187,24 +187,24 @@ input.checkbox {
 
 /* Buttons */
 #insert, #cancel, #help, #close, #copy, input.button, .updateButton {
-	
+
 border:0;
 	 margin:0;
 	 padding:0;
-	
+
 font-weight:bold;
-	
+
 width:94px;
 	 height:26px;
-	
+
 background:url(img/buttons.png) 0 -26px;
-	
+
 cursor:pointer;
-	
+
 padding-bottom:2px;
-	
+
 float:left;
-	
+
 
 }
 
@@ -348,7 +348,7 @@ td.charmap, #charmap a {
 
 #charmap #codeV {
 	font-size:40px;
-	 font-family: GentiumPlus,Verdana;
+	 font-family: GentiumPlusW,Verdana;
 	 height:80px;
 	 border:1px solid #AAA;
 	 text-align:center
@@ -632,82 +632,82 @@ h3 {
 
 
 .xbtooltip {
-	
+
     display: none;
-	
+
 	width: 150px;
-	
+
     background-color: yellow;
-	
+
     color: #000;
-	
+
     border: 1px solid red;
-	
+
     padding: 3px;
-	
+
 
 }
 
 
 
 span[class*='wce_supplied_source']{
-	
+
 	color: red;
-	
+
 
 }
 
 
 
 span[class*='__t=formatting_rubrication']{
-	
+
 	color: red;
-	
+
 
 }
 
 
 
 span[class*='__t=formatting_gold']{
-	
+
 	color: gold;
-	
+
 
 }
 
 
 
 span[class*='__t=formatting_blue']{
-	
+
 	color: blue;
-	
+
 
 }
 
 
 
 span[class*='__t=formatting_green']{
-	
+
 	color: green;
-	
+
 
 }
 
 
 
 span[class*='__t=formatting_yellow']{
-	
+
 	color: yellow;
-	
+
 
 }
 
 
 
 span[class*='__t=formatting_other']{
-	
+
 	color: black;
-	
+
 
 }
 
@@ -715,22 +715,22 @@ span[class*='__t=formatting_other']{
 
 
 span[class*='__t=formatting_overline']{
-	
+
 	text-decoration: overline;
-	
+
 
 }
 
 
 
 span[class*='__t=formatting_capitals']{
-	
+
 	width: .75em;
-	
+
 	font-size: 48px;
-	
+
 	line-height: 24px;
-	
+
 
 }
 
@@ -738,18 +738,18 @@ span[class*='__t=formatting_capitals']{
 
 
 span[class*='wce_abbr_nomenSacrum_Overline']{
-	
+
 	text-decoration: overline;
-	
+
 
 }
 
 
 
 span[class*='wce_abbr_numeral_Overline']{
-	
+
 	text-decoration: overline;
-	
+
 
 }
 
@@ -757,7 +757,7 @@ span[class*='wce_abbr_numeral_Overline']{
 
 
 .rubrication {
-	
+
 color : red;
 }
 
@@ -766,9 +766,9 @@ color : red;
 		float:left;
 		position:absolute;
 		right:1px;
-		
 
-	}	
+
+	}
 	.selectBoxInput{
 		border:0px;
 		padding-left:1px;
@@ -780,8 +780,8 @@ color : red;
 
 	.selectBox{
 		border:1px solid #7f9db9;
-		height:20px;	
-	
+		height:20px;
+
 	}
 	.selectBoxOptionContainer{
 		position:absolute;
@@ -806,4 +806,4 @@ color : red;
 		background-color:#FFF;
 		border:0px;
 		z-index:999;
-	}	
+	}

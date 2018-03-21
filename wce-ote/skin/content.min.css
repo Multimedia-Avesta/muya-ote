@@ -243,14 +243,14 @@ th[data-mce-selected] {
 */
 
 @font-face {
-    font-family: GentiumPlus;
+    font-family: GentiumPlusW;
     src: url(fonts/GentiumPlus-R.woff) format('woff');
     /* should work for all recent browsers */
     font-style: normal;
 }
 
 @font-face {
-    font-family: GentiumPlus;
+    font-family: GentiumPlusW;
     src: url(fonts/GentiumPlus-I.woff) format('woff');
     font-style: italic;
 }
@@ -266,7 +266,7 @@ th[data-mce-selected] {
 }*/
 
 .mce-content-body .mce-reset {
-    font-family: Avesta, "Times New Roman", Times, "TITUS Cyberbit Basic", Avesta, GentiumPlus;
+    font-family: Avesta, "Times New Roman", Times, "TITUS Cyberbit Basic", GentiumPlusW;
 }
 
 body,
@@ -276,7 +276,7 @@ pre {
     font-size: 24px;
     margin: 8px;
     line-height: 48px;
-    font-family: Avesta, "Times New Roman", Times, "TITUS Cyberbit Basic", Avesta, GentiumPlus;
+    font-family: Avesta, "Times New Roman", Times, "TITUS Cyberbit Basic", GentiumPlusW;
 }
 
 body {
@@ -563,6 +563,11 @@ span.editortext {
     padding: 0;
     color: gray;
 }
+
+/*span.ritual {
+    color: aquamarine;
+    background-color: aliceblue;
+}*/
 
 span.book_number {
     color: darkviolet;

@@ -45,15 +45,12 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 		theme : "modern",
 		menubar: false,
 		skin_url: tinymce.baseURL + "../../../wce-ote/skin/",
-        //custom_elements: 'header,trans,ms,book,folio,language[name]',
-        extended_valid_elements: 'span[class|wce_orig|style|wce|ext|id|language]',//header,trans,ms,book,folio,language[name]',
-        //valid_children: '+header[trans|ms|book|folio|language]',
-		forced_root_block : false,
+        extended_valid_elements: 'span[class|wce_orig|style|wce|ext|id|language]',
+        forced_root_block : false,
 		force_br_newlines : true,
 		//force_p_newlines : false, //DEPRECATED!
 		entity_encoding : "raw",
 		theme_advanced_path : false,
-		//noneditable_noneditable_class: 'fa',
 		execcommand_callback : 'wceExecCommandHandler',
 		save_onsavecallback : function() {
 				saveToDisc();
@@ -67,11 +64,7 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 		// invalid_elements:'p',
 		plugins : "pagebreak,save,print,fullscreen,wordcount,autosave,paste,code,contextmenu,noneditable",
 		paste_as_text: true,
-        //contextmenu: 'cut copy paste',
-		//charmap_append: [["0256","A - kahako"],["0257","a - kahako"]],
-		//charmap_append: charmap_gu,
-//		plugins : "compat3x,pagebreak,save,layer,print,contextmenu,fullscreen,wordcount,autosave,paste",
-		external_plugins: {
+        external_plugins: {
 			'wce' : '../../wce-ote/plugin/plugin.js',
 			'muyacharmap' : '../../wce-ote/plugin/js/muya_charmap.js',
 			'punctuation' : '../../wce-ote/plugin/js/punctuation.js',
@@ -86,9 +79,9 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 		keyboardDebug: true,
 		init_instance_callback : "wceReload",
 		// Theme options
-		toolbar : "undo redo muyacharmap | code | LoadFile save | cut copy paste | " +
+		toolbar : "undo redo muyacharmap | LoadFile save | cut copy paste | " +
 		"breaks correction illegible decoration abbreviation paratext note punctuation language versemodify | " +
-		"showTeiByHtml | showHtmlByTei",
+		"showTeiByHtml | showHtmlByTei | code",
 		theme_advanced_buttons2 : "",
 		theme_advanced_toolbar_location : "top",
 		theme_advanced_toolbar_align : "left",
@@ -106,14 +99,6 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
 }
 
 function wceReload() {
-	/*tinyMCE.activeEditor.windowManager.open({
-		title : 'Welcome to the OTE',
-		url : './plugin/start.htm',
-		//width : screen.availWidth,
-        width:window.innerWidth,
-        height : 50,
-        inline : true,
-    }, {});*/
 }
 
 // get dirty-value of editor

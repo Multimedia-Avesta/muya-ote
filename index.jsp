@@ -472,7 +472,7 @@ function populateFromBasetext(key, appendWhere) {
 function getManuscriptInfo() {
 	var mi = {
 		rtl : lastRTL,
-		font : 'Gentium',
+		font : 'GentiumW',
 		baseText : baseText
 	}
 	if (lastPage.lang == 'sa') {
