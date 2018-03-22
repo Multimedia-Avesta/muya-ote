@@ -4488,9 +4488,6 @@ function getTeiByHtml(inputString, args) {
 		}
 
         $teiParent.appendChild($ab);
-        //g_currentParentNode = $ab;
-
-		//appendNodeInW($teiParent, $unclear, $htmlNode);
 
 		return {
 			0 : $ab,
@@ -4498,46 +4495,7 @@ function getTeiByHtml(inputString, args) {
 		};
     };
 
-    var html2Tei_ritual = function(arr, $teiParent, $htmlNode) {
-        //var $temp = $newDoc.createElement('TEMP');
-        //readAllHtmlNodes($teiParent, $htmlNode, false);
-        /*var $ab = $newDoc.createElement('foreign');
-        var childList = $htmlNode.childNodes;
-        for (var i = 0, $c, l = childList.length; i < l; i++) {
-            $c = childList[i];
-            if (!$c) {
-                continue;
-            } else {
-                readAllHtmlNodes($ab, $c, false);
-            }
-        }*/
-        //teiParent.appendChild($temp);
-
-        return {
-            0 : $htmlNode,
-            1 : true
-        };
-	};
-	/*
-	 *
-	 */
-	var getType = function($htmlNode) {
-
-	};
-
-	/*
-	 *
-
-	var createNewWElement = function() {
-		var $w = $newDoc.createElement('w');
-		//word number not needed as it is generated automatically later
-		 //g_wordNumber++;
-		 //$w.setAttribute('n', g_wordNumber);
-
-		return $w;
-	};*/
-
-	/*
+    /*
 	 * String converted into an array
 	 */
 	var strToArray = function(str) {

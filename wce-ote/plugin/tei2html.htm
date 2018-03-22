@@ -9,9 +9,11 @@
 </head>
 <body style="height:97%">
 <div style="height:95%; margin-bottom:10px" id="div0">
-<textarea name="tei2htmlOuputContainer" id="tei2htmlOuputContainer" style="width: 100%; overflow-y:visible; height: 98%; font-family: 'Courier New',Courier,monospace; font-size: 12px;" dir="ltr" wrap="on" class="mceFocus"></textarea>
-</div> <div class="mceActionPanel">
-			<input type="button"  value="{#close}" onclick="parent.tinymce.activeEditor.windowManager.close();"  />      <input type="button" value=" Toggle" onclick="editorToggle();"; />
+    <textarea name="tei2htmlOuputContainer" id="tei2htmlOuputContainer" style="width: 100%; overflow-y:visible; height: 98%; font-family: 'Courier New',Courier,monospace; font-size: 12px;" dir="ltr" wrap="on" class="mceFocus"></textarea>
+</div>
+    <div class="mceActionPanel">
+	<input type="button"  value="{#close}" onclick="parent.tinymce.activeEditor.windowManager.close();"  />
+    <input type="button" value=" Toggle" onclick="editorToggle();"; />
 		</div>
 
 </body>
@@ -54,9 +56,9 @@
 			book : activeEditorSettings.book,
 			witness : activeEditorSettings.witness,
 			manuscriptLang : activeEditorSettings.manuscriptLang,
-			plugins : "compat3x,pagebreak,print,paste",
+			plugins : "pagebreak,paste",
 			external_plugins: { 'wce' : '../../wce-ote/plugin/plugin.js' },
-			toolbar : "undo redo charmap | code removeformat | print contextmenu paste fullscreen | "+
+			toolbar : "undo redo charmap | code removeformat | contextmenu paste | "+
 				"metadata breaks correction illegible decoration abbreviation paratext note punctuation | showTeiByHtml | showHtmlByTei",
 
 			// Theme options

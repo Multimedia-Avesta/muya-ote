@@ -365,13 +365,13 @@ function writeWceNodeInfo(val) {
                 new_content += '<span wce="' + newWceAttr + '"' + wceClass + ' language="' + language + '">' + startFormatHtml + '<span class="editortext" language="' + language + '">' + '\u2192' + '</span>';
 
                 if (document.getElementById('color').value == 'red') {
-					new_content += endFormatHtml + '</span><span class="formatting_rubrication" wce_orig="' + selected_content + '" wce="__t=formatting_rubrication"><span class="format_start mceNonEditable">‹</span>' + selected_content + '<span class="format_end mceNonEditable">›</span></span></span>';
+					new_content += endFormatHtml + '</span><span class="formatting_rubrication" wce_orig="' + selected_content + '" wce="__t=formatting_rubrication"><span class="format_start mceNonEditable">‹</span>' + selected_content + '<span class="format_end mceNonEditable">›</span></span> ';
                 } else {
                     new_content += endFormatHtml + '</span>' + selected_content;
                 }
                 following_language = document.getElementById('following_language') ? document.getElementById('following_language').value : 'same';
                 //if (following_language !== 'same') {
-                    new_content += '<span wce="' + newWceAttr + '"' + wceClass + ' language="' + following_language + '">' + startFormatHtml + '<span class="editortext" language="' + following_language + '">' + '\u2192' + endFormatHtml + '</span>';
+                    new_content += ' <span wce="' + newWceAttr + '"' + wceClass + ' language="' + following_language + '">' + startFormatHtml + '<span class="editortext" language="' + following_language + '">' + '\u2192' + '</span>' + endFormatHtml + '</span>';
                 //}
                 break;
             default:
