@@ -346,8 +346,9 @@ function writeWceNodeInfo(val) {
                     new_content += '<span class="editortext">' + covertext + '</span>' + endFormatHtml;
                     // check for "following_language" setting
                     following_language = document.getElementById('following_language') ? document.getElementById('following_language').value : 'same';
-                    if (following_language !== 'same')
+                    if (following_language !== 'same') {
                         new_content += '</span><span class="langchange" wce="__t=langchange&amp;__n=&amp;reason_for_language_change=trans&amp;reason_for_language_change_other=&amp;language_name=' + following_language + '&amp;language_name_other=&amp;color=black&amp;number_of_lines=&amp;following_language=" language="' + following_language + '">' + startFormatHtml + '<span class="editortext" language="' + following_language + '">' + '\u2192' + '</span>' + endFormatHtml;
+                    }
                 } else {
                     new_content += endFormatHtml;
                 }
@@ -363,12 +364,15 @@ function writeWceNodeInfo(val) {
                 language = document.getElementById('language_name').value !== 'other' ? document.getElementById('language_name').value : document.getElementById('language_name_other').value;
                 new_content += '<span wce="' + newWceAttr + '"' + wceClass + ' language="' + language + '">' + startFormatHtml + '<span class="editortext" language="' + language + '">' + '\u2192' + '</span>';
 
-                if (document.getElementById('reason_for_language_change').value == 'ritual' && document.getElementById('color').value == 'red') {
-					new_content += '<span class="formatting_rubrication" wce_orig="' + selected_content + '" wce="__t=formatting_rubrication"><span class="format_start mceNonEditable">‹</span>' + selected_content + '<span class="format_end mceNonEditable">›</span></span><span class="format_end" language="' + document.getElementById('language_name').value + '">' + '\u203a' + '</span>' + '</span>';
+                if (document.getElementById('color').value == 'red') {
+					new_content += endFormatHtml + '</span><span class="formatting_rubrication" wce_orig="' + selected_content + '" wce="__t=formatting_rubrication"><span class="format_start mceNonEditable">‹</span>' + selected_content + '<span class="format_end mceNonEditable">›</span></span></span>';
                 } else {
-                    new_content += endFormatHtml;
+                    new_content += endFormatHtml + '</span>' + selected_content;
                 }
-                new_content += '</span>';
+                following_language = document.getElementById('following_language') ? document.getElementById('following_language').value : 'same';
+                //if (following_language !== 'same') {
+                    new_content += '<span wce="' + newWceAttr + '"' + wceClass + ' language="' + following_language + '">' + startFormatHtml + '<span class="editortext" language="' + following_language + '">' + '\u2192' + endFormatHtml + '</span>';
+                //}
                 break;
             default:
                 break;

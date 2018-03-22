@@ -3772,9 +3772,9 @@
                     },
                     onshow: function (a) {
                             var items = a.control.items();
-                            var b = ed.selection.isCollapsed();
-                            items[0].disabled(b);
-                            items[1].disabled(b);
+                            var w = ed.WCE_VAR;
+                            items[0].disabled(w.not_L);
+                            items[1].disabled(w.not_LR);
                     },
                     menu: [{
                             text: tinymce.translate('menu_language_position'),
@@ -4217,6 +4217,10 @@
         });
 
         ed.addCommand('mceAddLanguageRange', function () {
+            var w = ed.WCE_VAR;
+            if (w.not_LR) {
+                return;
+            }
             doWithDialog(ed, url, '/language_range.htm', 800, 320, 1, true, tinymce.translate('language_title'));
         });
 
