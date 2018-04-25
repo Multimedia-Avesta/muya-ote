@@ -1236,7 +1236,7 @@ function getHtmlByTei(inputString, args) {
 		var wceAttr = '__t=abbr&__n=&original_abbr_text=';
 		var mapping = {
 			'type' : {
-				'0' : '@nomSac@num@suspension',
+				'0' : '@suspension',
 				'1' : '&abbr_type_other=&abbr_type=',
 				'2' : '&abbr_type=other&abbr_type_other='
 			}
@@ -1363,7 +1363,7 @@ function getHtmlByTei(inputString, args) {
 		var paratexttype;
 		var $temp;
 
-		while ($teiNode && $teiNode.nodeName == 'lb' && $teiNode.nextSibling && $teiNode.nextSibling.nodeName == 'note' && ($teiNode.nextSibling.getAttribute('type') == 'lectionary-other'
+		/*while ($teiNode && $teiNode.nodeName == 'lb' && $teiNode.nextSibling && $teiNode.nextSibling.nodeName == 'note' && ($teiNode.nextSibling.getAttribute('type') == 'lectionary-other'
 			|| $teiNode.nextSibling.getAttribute('type') == 'commentary')) { // ignore <lb/> added for untranscribed text
 			cl++; //step counter
 			paratexttype = $teiNode.nextSibling.getAttribute('type'); // remember latest type for correct value below
@@ -1371,7 +1371,7 @@ function getHtmlByTei(inputString, args) {
 			$teiNode.parentNode.removeChild($teiNode.nextSibling);
 			$teiNode.parentNode.removeChild($teiNode);
 			$teiNode = $temp;
-		}
+		}*/
 		if (cl > 0) {
 			if ($teiNode) { //if note is last element do nothing
 				$teiNode.parentNode.insertBefore($teiNode.cloneNode(true), $teiNode.nextSibling); // add latest teiNode to the tree
@@ -1621,7 +1621,7 @@ function getHtmlByTei(inputString, args) {
 				'n' : '&number=',
 				'rend' : '&paratext_alignment=',
 				'type' : {
-					'0' : '@commentary@runTitle@chapNum@chapTitle@colophon@quireSig@gloss@pageNum@orn',
+					'0' : '@commentary@runTitle@colophon@pageNum@orn@catchword',
 					'1' : '&fw_type=',
 					'2' : '&fw_type=other&fw_type_other='
 				}
@@ -1657,77 +1657,6 @@ function getHtmlByTei(inputString, args) {
 
 		var $newNode = $newDoc.createElement('span');
 
-		if ($teiNode.getAttribute('type') === 'commentary') {// commentary text without <lb/> => old document (compatibility mode) or no covered lines
-			$newNode.setAttribute('class', 'paratext');
-			var cl = ($teiNode.getAttribute('rend')) ? $teiNode.getAttribute('rend') : 0; //if new document, but no covered lines set cl=0
-
-			var wceAttr = '__t=paratext&__n=&fw_type=commentary&covered=' + cl + '&text=&number=&edit_number=on&paratext_position=pagetop&paratext_position_other=&paratext_alignment=left';
-			$newNode.setAttribute('wce', wceAttr);
-			if (cl > 0) {
-				for (var i = 0; i < cl; i++) {
-					$newNode.appendChild($newDoc.createElement('br'));
-					nodeAddText($newNode, '\u21b5[');
-					$span = $newDoc.createElement('span');
-					$span.setAttribute('class', 'commentary');
-					$span.setAttribute('wce', '__t=paratext&__n=&fw_type=commentary&covered=' + cl);
-					nodeAddText($span, 'comm');
-					$newNode.appendChild($span);
-					nodeAddText($newNode, ']');
-				}
-			} else {
-				nodeAddText($newNode, '[');
-				$span = $newDoc.createElement('span');
-				$span.setAttribute('class', 'commentary');
-				$span.setAttribute('wce', '__t=paratext&__n=&fw_type=commentary&covered=0');
-				nodeAddText($span, 'comm');
-				$newNode.appendChild($span);
-				nodeAddText($newNode, ']');
-			}
-		} else if ($teiNode.getAttribute('type') === 'lectionary-other') {// other lections without <lb/> => old document, compatibility mode
-			$newNode.setAttribute('class', 'paratext');
-			var cl = ($teiNode.getAttribute('rend')) ? $teiNode.getAttribute('rend') : 1;
-
-			/*var cl = 0;
-			//default value for old documents
-			if ($teiNode.getAttribute('rend'))
-				cl = $teiNode.getAttribute('rend');
-			if (cl == 0)
-				cl = '';*/
-
-			var wceAttr = '__t=paratext&__n=&fw_type=lectionary-other&covered=' + cl + '&text=&number=&edit_number=on&paratext_position=pagetop&paratext_position_other=&paratext_alignment=left';
-			$newNode.setAttribute('wce', wceAttr);
-			//if (cl != '') {
-				for (var i = 0; i < cl; i++) {
-					$newNode.appendChild($newDoc.createElement('br'));
-					nodeAddText($newNode, '\u21b5[');
-					$span = $newDoc.createElement('span');
-					$span.setAttribute('class', 'lectionary-other');
-					$span.setAttribute('wce', '__t=paratext&__n=&fw_type=lectionary-other&covered=' + cl);
-					nodeAddText($span, 'lect');
-					$newNode.appendChild($span);
-					nodeAddText($newNode, ']');
-				}
-			/*} else {
-				nodeAddText($newNode, '[');
-				$span = $newDoc.createElement('span');
-				$span.setAttribute('class', 'lectionary-other');
-				$span.setAttribute('wce', '__t=paratext&__n=&fw_type=lectionary-other&covered=');
-				nodeAddText($span, 'lect');
-				$newNode.appendChild($span);
-				nodeAddText($newNode, ']');
-			}*/
-		} else if ($teiNode.getAttribute('subtype') === 'ews') {
-			$newNode.setAttribute('class', 'paratext');
-			var wceAttr = '__t=paratext&__n=&marginals_text=' + getDomNodeText($teiNode) + '&fw_type=ews&covered=&text=&number=&edit_number=on&paratext_position=pagetop&paratext_position_other=&paratext_alignment=left';
-			$newNode.setAttribute('wce', wceAttr);
-			nodeAddText($newNode, '[');
-			$span = $newDoc.createElement('span');
-			$span.setAttribute('class', 'ews');
-			nodeAddText($span, 'ews');
-			$newNode.appendChild($span);
-			nodeAddText($newNode, ']');
-			$teiNode.parentNode.removeChild($teiNode.nextSibling);
-		} else {
 			$newNode.setAttribute('class', 'note');
 
 			var wceAttr = '__t=note&__n=&note_text=' + encodeURIComponent(getDomNodeText($teiNode)) + '';
@@ -1752,7 +1681,6 @@ function getHtmlByTei(inputString, args) {
 			}
 			$newNode.setAttribute('wce', wceAttr);
 			nodeAddText($newNode, 'Note');
-		}
 		addFormatElement($newNode);
 		$htmlParent.appendChild($newNode);
 		// Do not add a space if there is a break after the note
@@ -4194,12 +4122,8 @@ function getTeiByHtml(inputString, args) {
 	var html2Tei_paratext = function(arr, $teiParent, $htmlNode) {
 		var newNodeName, fwType = arr['fw_type'];
 
-		if (fwType == 'commentary' || fwType == 'ews' || fwType == 'lectionary-other') {
-			newNodeName = 'note';
-		} else if (fwType == 'chapNum' || fwType == 'AmmSec' || fwType == 'EusCan' || fwType == 'stichoi' || fwType == 'andrew') {
-			newNodeName = 'num';
-		} else if (fwType == 'runTitle' || fwType == 'chapTitle' || fwType == 'lectTitle' || fwType == 'colophon'
-			|| fwType == 'quireSig' || fwType == 'euthaliana' || fwType == 'gloss' || fwType == 'pageNum'
+		if (fwType == 'commentary' || fwType == 'runTitle' || fwType == 'colophon'
+			|| fwType == 'catchword' || fwType == 'pageNum'
 			|| fwType == 'orn' || fwType == 'other') {
 			newNodeName = 'fw';
 		}
@@ -4208,40 +4132,13 @@ function getTeiByHtml(inputString, args) {
 			fwType = (fwType == 'other') ? arr['fw_type_other'] : fwType;
 			$paratext.setAttribute('type', fwType);
 		}
-		if (fwType == 'commentary' || fwType == 'lectionary-other') {
-			if (arr['covered'] != '' && arr['covered'] > 0) { //Value of 0 handles as empty value
-				for (var i = 0; i < arr['covered']; i++) {
-					var $lb = $newDoc.createElement('lb');
-					$teiParent.appendChild($lb);
-					var $paratext = $newDoc.createElement(newNodeName);
-					$paratext.setAttribute('type', fwType);
-					if (fwType == 'commentary')
-						nodeAddText($paratext, "One line of untranscribed commentary text");
-					else
-						nodeAddText($paratext, "One line of untranscribed lectionary text");
-					$teiParent.appendChild($paratext);
-				}
-				//$paratext.setAttribute('rend', arr['covered']);
-			} else { //no value for covered lines given
-				var $paratext = $newDoc.createElement(newNodeName);
-				$paratext.setAttribute('type', fwType);
-				if (fwType == 'commentary')
-					nodeAddText($paratext, "Untranscribed commentary text within the line");
-				else
-					nodeAddText($paratext, "Untranscribed lectionary text within the line");
-				$teiParent.appendChild($paratext);
-				//$paratext.setAttribute('rend', '0');
-			}
-			isSeg = false;
-			return null;
-		}
 
 		// n
 		// write attribute n only for certain values
-		var numberValue = arr['number'];
+		/*var numberValue = arr['number'];
 		if (numberValue && (fwType == 'chapNum' || fwType == 'quireSig' || fwType == 'AmmSec' || fwType == 'EusCan' || fwType == 'stichoi' || fwType == 'andrew')) {
 			$paratext.setAttribute('n', numberValue);
-		}
+		}*/
 
 		// place
 		var placeValue = arr['paratext_position'];
@@ -4255,22 +4152,7 @@ function getTeiByHtml(inputString, args) {
 			$paratext.setAttribute('rend', rendValue);
 		}
 
-		if (fwType == 'commentary') {
-			nodeAddText($paratext, "One line of untranscribed commentary text");
-			$teiParent.appendChild($paratext);
-		} else if (fwType == 'lectionary-other') {
-			nodeAddText($paratext, "One line of untranscribed lectionary text");
-			$teiParent.appendChild($paratext);
-		} else if (fwType == 'ews') {
-			$paratext.setAttribute('type', 'editorial');
-			$paratext.setAttribute('subtype', 'ews');
-			nodeAddText($paratext, decodeURIComponent(arr['marginals_text']));
-			$teiParent.appendChild($paratext);
-			var $gap = $newDoc.createElement('gap');
-			$gap.setAttribute('unit', 'verse');
-			$gap.setAttribute('extent', 'rest');
-			$teiParent.appendChild($gap);
-		} else if (fwType == 'isolated') {
+		if (fwType == 'isolated') {
 			var $seg;
 			isSeg = true;
 			if (placeValue === 'pageleft' || placeValue === 'pageright' || placeValue === 'pagetop' || placeValue === 'pagebottom') {//define <seg> element for marginal material
@@ -4304,7 +4186,7 @@ function getTeiByHtml(inputString, args) {
 				html2Tei_paratextAddChildren($seg, arr['marginals_text']);
 				$teiParent.appendChild($seg);
 			}
-		} else { // only if not commentary nor other lections nor ews nor isolated
+		} else { // only if not isolated
 			isSeg = true;
 			html2Tei_paratextAddChildren($paratext, arr['marginals_text']);
 			//nodeAddText($paratext, decodeURIComponent(arr['marginals_text']));

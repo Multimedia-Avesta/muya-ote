@@ -33,7 +33,7 @@
 */
 
 (function () {
-        var wfce_editor = "0.8.0pre (2018-03-22)";
+        var wfce_editor = "0.8.0pre (2018-04-25)";
 
         // Load plugin specific language pack
         tinymce.PluginManager.requireLangPack('wce');
@@ -1235,7 +1235,7 @@
                 w.isSelWholeNode = wholeSelect;
                 w.selectedNode = selectedNode;
 
-                if ($(selectedNode).hasClass('commentary') || $(selectedNode).hasClass('ews') || $(selectedNode).hasClass('lectionary-other')) {
+                if ($(selectedNode).hasClass('commentary')) {
                     w.type = 'paratext';
                 } else {
                     w.type = WCEUtils.getNodeTypeName(selectedNode);
@@ -1989,80 +1989,37 @@
                                 info_text = '<div>' + tinymce.translate('infotext_paratext_type') + ': ';
                                 switch (ar['fw_type']) {
                                     case 'commentary':
-                                        info_text = '<div>' + tinymce.translate('infotext_untranscribed_text');
-                                        if (ar['covered']) {
-                                            if (ar['covered'] > 0)
-                                                info_text += '</div><div style="margin-top:5px">' + ar['covered'] + ' ' + tinymce.translate('infotext_lines_covered') + '.';
-                                            else
-                                                info_text += ' ' + tinymce.translate('infotext_within_line') + '.</div>';
-                                        }
+                                        info_text += tinymce.translate('fw_commentary_text');
                                         break;
-                                        /*case 'ews':
-                                        	info_text += tinymce.translate('fw_ews');
-                                        	break;*/
                                     case 'runTitle':
                                         info_text += tinymce.translate('fw_running_title');
-                                        break;
-                                    case 'chapNum':
-                                        info_text += tinymce.translate('fw_chapter_number');
-                                        break;
-                                    case 'chapTitle':
-                                        info_text += tinymce.translate('fw_chapter_title');
                                         break;
                                     case 'colophon':
                                         info_text += tinymce.translate('fw_colophon');
                                         break;
-                                    case 'quireSig':
-                                        info_text += tinymce.translate('fw_quiresignature');
-                                        break;
-                                        /*case 'AmmSec':
-                                        	info_text += tinymce.translate('fw_ammonian');
-                                        	break;
-                                        case 'EusCan':
-                                        	info_text += tinymce.translate('fw_eusebian');
-                                        	break;
-                                        case 'euthaliana':
-                                        	info_text += tinymce.translate('fw_euthaliana');
-                                        	break;*/
-                                    case 'gloss':
-                                        info_text += tinymce.translate('fw_gloss');
-                                        break;
-                                        /*case 'lectTitle':
-                                        	info_text += tinymce.translate('fw_lectionary_title');
-                                        	break;
-                                        case 'lectionary-other':
-                                        	info_text = '<div>' + tinymce.translate('infotext_untranscribed_other_lections') + '</div>';
-                                        	if (ar['covered'])
-                                        		info_text += '<div style="margin-top:5px">' + ar['covered'] + ' ' + tinymce.translate('infotext_lines_covered') + '.';
-                                        	break;
-                                        case 'stichoi':
-                                        	info_text += tinymce.translate('fw.stichoi');
-                                        	break;*/
                                     case 'pageNum':
                                         info_text += tinymce.translate('fw_pagenumber');
                                         break;
                                     case 'isolated':
                                         info_text += tinymce.translate('fw_isolated');
                                         break;
-                                        /*case 'andrew':
-                                        	info_text += tinymce.translate('fw_andrew');
-                                        	break;*/
                                     case 'orn':
                                         info_text += tinymce.translate('fw_ornament');
+                                        break;
+                                    case 'catchword':
+                                        info_text += tinymce.translate('fw_catchword');
                                         break;
                                     default:
                                         info_text += ar['fw_type_other'];
                                 }
                                 info_text += '</div>';
-                                if (ar['fw_type'] != 'commentary' && ar['fw_type'] != 'lectionary-other') {
-                                    info_text += '<div style="margin-top:10px">' + tinymce.translate('infotext_value') + ': ' + ar['marginals_text'] + '</div>';
-                                    if (ar['paratext_position'] == 'other') {
-                                        info_text += '<div style="margin-top:10px">' + tinymce.translate('infotext_position') + ': ' + ar['paratext_position_other'] + '</div>';
-                                    } else {
-                                        info_text += '<div style="margin-top:10px">' + tinymce.translate('infotext_position') + ': ' + ar['paratext_position'] + '</div>';
-                                    }
-                                    info_text += '<div style="margin-top:10px">' + tinymce.translate('infotext_alignment') + ': ' + ar['paratext_alignment'] + '</div>';
+                                info_text += '<div style="margin-top:10px">' + tinymce.translate('infotext_value') + ': ' + ar['marginals_text'] + '</div>';
+                                if (ar['paratext_position'] == 'other') {
+                                    info_text += '<div style="margin-top:10px">' + tinymce.translate('infotext_position') + ': ' + ar['paratext_position_other'] + '</div>';
+                                } else {
+                                    info_text += '<div style="margin-top:10px">' + tinymce.translate('infotext_position') + ': ' + ar['paratext_position'] + '</div>';
                                 }
+                                info_text += '<div style="margin-top:10px">' + tinymce.translate('infotext_alignment') + ': ' + ar['paratext_alignment'] + '</div>';
                                 break;
                             case 'gap':
                                 if (ar['unit'] == '' && ar['gap_reason'] == '') {

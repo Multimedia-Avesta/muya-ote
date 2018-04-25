@@ -56,23 +56,12 @@
 					</td>
 					<td colspan="3"><select id="fw_type" name="fw_type" onchange="checkstatus_typ()">
 							<option value="commentary">{#fw_commentary_text}</option>
-							<!--<option value="ews">{#fw_ews}</option>-->
 							<option value="runTitle">{#fw_running_title}</option>
-							<option value="chapNum">{#fw_chapter_number}</option>
-							<option value="chapTitle">{#fw_chapter_title}</option>
-							<!--<option value="lectTitle">{#fw_lectionary_title}</option>
-							<option value="lectionary-other">{#fw_other_lections}</option>-->
 							<option value="colophon">{#fw_colophon}</option>
-							<option value="quireSig">{#fw_quiresignature}</option>
-							<!--<option value="AmmSec">{#fw_ammonian}</option>--
-							<option value="EusCan">{#fw_eusebian}</option>
-							<option value="euthaliana">{#fw_euthaliana}</option>-->
-							<option value="gloss">{#fw_gloss}</option>
-							<!--<option value="stichoi">{#fw_stichoi}</option>-->
 							<option value="pageNum">{#fw_pagenumber}</option>
 							<option value="isolated">{#fw_isolated}</option>
-							<!--<option value="andrew">{#fw_andrew}</option>-->
 							<option value="orn">{#fw_ornament}</option>
+                            <option value="catchword">{#fw_catchword}</option>
 							<option value="other">{#other}</option>
 					</select>
 					</td>
@@ -81,22 +70,21 @@
 						maxlength="" class="required number min1 mceFocus" />
 					</td>
 				</tr>
-				<tr>
+				<!--<tr>
 					<td><label id="covered_label" for="covered">{#covered}</label></td>
 					<td><input id="covered" name="covered" type="number" value="0"
 						size="5" maxlength="" class="required number min1 mceFocus"/></td>
-				</tr>
-				</tr>
+				</tr>-->
 				<tr>
 					<td><label id="marginals_text_label" for="marginals_text">{#text}</label></td>
 					<td colspan="4"><textarea WRAP="PHYSICAL" ROWS="4" style="width:100%" id="marginals_text" name="marginals_text"></textarea></td>
 				</tr>
-				<tr>
+				<!--<tr>
 					<td><label id="number_label" for="number">{#number_attribute}</label></td>
 					<td colspan="3"><input id="number" name="number" type="text" value=""
 						size="50" maxlength="" class="required number min1 mceFocus" /></td>
-					<td><input id="edit_number" name="edit_number" type="checkbox" onchange="checkstatus_number()" checked="checked">{#number_calculate}</input></td>
-				</tr>
+					<td><input id="edit_number" name="edit_number" type="checkbox" onchange="checkstatus_number()" checked="checked"/>{#number_calculate}</td>
+				</tr>-->
 				<tr>
 					<td><label id="paratext_position_label"
 						for="paratext_position">{#position}</label>
@@ -128,15 +116,16 @@
 				<tr>
 					<td><label id="paratext_alignment_label"
 						for="paratext_alignment">{#alignment}</label></td>
-					<td colspan="2"><select id="paratext_alignment"
+					<td colspan="2">
+                        <select id="paratext_alignment"
 						name="paratext_alignment">
 							<option value=""></option>
 							<option value="left">{#alignment_l}</option>
 							<option value="center">{#alignment_c}</option>
 							<option value="right">{#alignment_r}</option>
-					</select>
+					   </select>
 					</td>
-				</tr>
+                </tr>
 			</table>
 		</fieldset>
 		<div class="mceActionPanel">
@@ -148,8 +137,8 @@
 							alert('{#empty_other}');
 						} else if (cont == '2') {
 							alert('{#empty_margin}');
-						} else { // cont = 3
-							alert('{#value_too_small}');
+						/*} else { // cont = 3
+							alert('{#value_too_small}');*/
 						}" />
 			<input type="button" id="cancel" name="cancel" value="{#cancel}"
 				onclick="parent.tinymce.activeEditor.windowManager.close();" />
@@ -194,13 +183,12 @@
 			setup : function(ed) {
 				ed.on('change', function() {
 					marginals_text_editor.save();
-					checkstatus_number();
+					//checkstatus_number();
 				});
 				ed.on('keydown',function(ed) {
 					var v = $('#fw_type').val();
-					if (v == 'runTitle' || v == 'chapTitle' || v == 'lectTitle' || v == 'lectionary-other'
-						|| v == 'colophon' || v == 'euthaliana' || v == 'gloss' || v =='pageNum'
-						|| v == 'isolated' || v == 'commentary' || v == 'ews' || v == 'orn' || v == 'other') {
+					if (v == 'runTitle' || v == 'colophon' || v == 'pageNum' || v == 'catchword'
+						|| v == 'isolated' || v == 'commentary' || v == 'orn' || v == 'other') {
 						return;
 					}
 					if (timeout) {
@@ -209,7 +197,8 @@
 					timeout = setTimeout(function() {
 						timeout = null;
 						marginals_text_editor.save();
-						checkstatus_number(); }, 1000);
+						//checkstatus_number();
+                    }, 1000);
 				});
 			}
 		}, tinymce.EditorManager);
@@ -243,12 +232,9 @@
 
 	function getParaTag() {
 		var v = $('#fw_type').val();
-		if (v == 'runTitle' || 'chapTitle' || v == 'lectTitle' || v == 'colophon'
-			|| v == 'quireSig' || v == 'euthaliana' || v == 'gloss'
-			|| v == 'pageNum' || v == 'isolated' || v == 'orn' || v == 'other')
+		if (v == 'commentary' || v == 'runTitle' || v == 'colophon' || v == 'pageNum'
+            || v == 'isolated' || v == 'orn' || v == 'catchword' || v == 'other')
 			return 'fw';
-		else if (v == 'commentary' || v == 'lectionary-other')
-			return '';
 		else
 			return 'num';
 	}
@@ -263,7 +249,7 @@
 			document.getElementById('fw_type_other').style.backgroundColor = "#CCCCCC";
 		}
 		marginals_text_editor.save();
-		if (v == 'commentary' || v == 'lectionary-other') {
+		/*if (v == 'commentary') {
 			document.paratextinfo.number.value = '';
 			document.paratextinfo.number.disabled = true;
 			document.getElementById('number').style.backgroundColor = "#CCCCCC";
@@ -274,58 +260,38 @@
 			$('#marginals_text').attr('disabled', true);
 			marginals_text_editor.hide();
 			document.paratextinfo.paratext_position.disabled = true;
-			document.paratextinfo.paratext_alignment.disabled = true;
-		} else if (v == 'ews') {
-			document.paratextinfo.number.value = '';
-			document.paratextinfo.number.disabled = true;
-			document.getElementById('number').style.backgroundColor = "#CCCCCC";
-			document.paratextinfo.edit_number.checked = "checked";
-			document.getElementById('edit_number').disabled = true;
-			document.paratextinfo.covered.disabled = true;
-			document.getElementById('covered').style.backgroundColor = "#CCCCCC";
-			$('#marginals_text').attr('disabled', true);
-			marginals_text_editor.show();
-			document.paratextinfo.paratext_position.disabled = true;
-			document.paratextinfo.paratext_alignment.disabled = true;
-		} else if (v == 'isolated') {
-			document.paratextinfo.number.value = '';
-			document.paratextinfo.number.disabled = true;
-			document.getElementById('number').style.backgroundColor = "#CCCCCC";
-			document.paratextinfo.edit_number.checked = "checked";
-			document.getElementById('edit_number').disabled = true;
+			document.paratextinfo.paratext_alignment.disabled = true;*/
+		if (v == 'isolated') {
+			//document.paratextinfo.number.value = '';
+			//document.paratextinfo.number.disabled = true;
+			//document.getElementById('number').style.backgroundColor = "#CCCCCC";
+			//document.paratextinfo.edit_number.checked = "checked";
+			//document.getElementById('edit_number').disabled = true;
 			document.paratextinfo.covered.disabled = true;
 			document.getElementById('covered').style.backgroundColor = "#CCCCCC";
 			$('#marginals_text').attr('disabled', false);
 			marginals_text_editor.show();
 			document.paratextinfo.paratext_position.disabled = false;
 			document.paratextinfo.paratext_alignment.disabled = true;
-		} else if (v == 'runTitle' || v == 'chapTitle' || v == 'lectTitle' || v == 'colophon'
-			|| v == 'euthaliana' || v == 'gloss' || v == 'pageNum' || v == 'orn' || v == 'other') {
+		} else if (v == 'runTitle' || v == 'colophon' || v == 'pageNum' || v == 'commentary'
+                   || v == 'orn' || v == 'catchword' || v == 'other') {
 			//don't get a number, only text
-			document.paratextinfo.number.value = '';
-			document.paratextinfo.number.disabled = true;
-			document.getElementById('number').style.backgroundColor = "#CCCCCC";
-			document.paratextinfo.edit_number.checked = "checked";
-			document.getElementById('edit_number').disabled = true;
-			document.paratextinfo.covered.disabled = true;
-			document.getElementById('covered').style.backgroundColor = "#CCCCCC";
+			//document.paratextinfo.number.value = '';
+			//document.paratextinfo.number.disabled = true;
+			//document.getElementById('number').style.backgroundColor = "#CCCCCC";
+			//document.paratextinfo.edit_number.checked = "checked";
+			//document.getElementById('edit_number').disabled = true;
+			//document.paratextinfo.covered.disabled = true;
+			//document.getElementById('covered').style.backgroundColor = "#CCCCCC";
 			$('#marginals_text').attr('disabled', false);
 			marginals_text_editor.show();
 			document.paratextinfo.paratext_position.disabled = false;
 			document.paratextinfo.paratext_alignment.disabled = false;
 		} else {
-			document.getElementById('edit_number').disabled = false;
-			checkstatus_number();
-			/*if (document.paratextinfo.edit_number.checked == true) {
-				document.paratextinfo.number.disabled = true;
-				document.getElementById('number').style.backgroundColor = "#CCCCCC";
-			} else {
-				document.paratextinfo.number.disabled = false;
-				document.getElementById('number').style.backgroundColor = "white";
-			}
-			setnumber();*/
-			document.paratextinfo.covered.disabled = true;
-			document.getElementById('covered').style.backgroundColor = "#CCCCCC";
+			//document.getElementById('edit_number').disabled = false;
+			//checkstatus_number();
+			//document.paratextinfo.covered.disabled = true;
+			//document.getElementById('covered').style.backgroundColor = "#CCCCCC";
 			$('#marginals_text').attr('disabled', false);
 			marginals_text_editor.show();
 			document.paratextinfo.paratext_position.disabled = false;
@@ -343,7 +309,7 @@
 		}
 	}
 
-	function checkstatus_number() {
+	/*function checkstatus_number() {
 		if (document.paratextinfo.edit_number.checked == true) {
 			document.paratextinfo.number.disabled = true;
 			document.getElementById('number').style.backgroundColor = "#CCCCCC";
@@ -352,24 +318,24 @@
 			document.paratextinfo.number.disabled = false;
 			document.getElementById('number').style.backgroundColor = "white";
 		}
-	}
+	}*/
 
 	function testOther() {
 		if ((document.paratextinfo.paratext_position.options[15].selected == true && document.getElementById('paratext_position_other').value == '')
-			|| (document.paratextinfo.fw_type.options[10].selected == true && document.getElementById('fw_type_other').value == ''))
+			|| (document.paratextinfo.fw_type.options[7].selected == true && document.getElementById('fw_type_other').value == ''))
 			return false;
 		return true;
 	}
 
 	function testIsolated() {
-		if (document.paratextinfo.fw_type.options[8].selected == true && document.paratextinfo.paratext_position.options[0].selected == true)
+		if (document.paratextinfo.fw_type.options[4].selected == true && document.paratextinfo.paratext_position.options[0].selected == true)
 			return false;
 		return true;
 	}
 
-	function testValue() {
-		return (document.paratextinfo.covered.value > -1 || ($('#fw_type').val() != 'commentary' && $('#fw_type').val() != 'lectionary-other'));
-	}
+	/*function testValue() {
+		return (document.paratextinfo.covered.value > -1 || $('#fw_type').val() != 'commentary');
+	}*/
 
 	function testInput() {
 		var cont = testOther();
@@ -380,10 +346,10 @@
 		if (!cont) {
 			return 2;
 		}
-		cont = testValue();
+		/*cont = testValue();
 		if (!cont) {
 			return 3;
-		}
+		}*/
 		return 0;
 	}
 
@@ -646,9 +612,10 @@
 	function setstatus_paratext() {
 		checkstatus_position();
 		checkstatus_typ();
-		var oldnumber = document.paratextinfo.number.value; // save number
+		/*var oldnumber = document.paratextinfo.number.value; // save number
 		setnumber();
 		document.paratextinfo.number.value = oldnumber; // set former number for editing
+        */
 	}
 
 	if (!tinyMCE.isIE) {

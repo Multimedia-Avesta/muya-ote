@@ -1,5 +1,5 @@
 <!--
-	Copyright (C) 2012-2017 Trier Center for Digital Humanities, Trier (Germany)
+	Copyright (C) 2012-2018 Trier Center for Digital Humanities, Trier (Germany)
 
 	This file is part of the Online Transcription Editor (OTE).
 
@@ -54,9 +54,7 @@
                     <td><label id="abbr_type_label" for="abbr_type">{#abbr_type}</label>
                     </td>
                     <td><select id="abbr_type" name="abbr_type" onchange="checkstatus_abbrtype()">
-						<option value="nomSac">{#abbr_nomenSacrum}</option>
-                        <option value="num">{#abbr_numeral}</option>
-                        <option value="suspension">{#abbr_suspension}</option>
+						<option value="suspension">{#abbr_suspension}</option>
                         <option value="other">{#other}</option>
 					</select>
                     </td>
@@ -116,7 +114,7 @@
     }
 
     function checkstatus_abbrtype() {
-        if (document.abbrinfo.abbr_type.options[3].selected == true) {
+        if (document.abbrinfo.abbr_type.options[1].selected == true) {
             document.abbrinfo.abbr_type_other.disabled = false;
             document.getElementById('abbr_type_other').style.backgroundColor = "white";
         } else {
@@ -126,7 +124,7 @@
     }
 
     function testOther() {
-        if (document.abbrinfo.abbr_type.options[3].selected == true && document.getElementById('abbr_type_other').value == '')
+        if (document.abbrinfo.abbr_type.options[1].selected == true && document.getElementById('abbr_type_other').value == '')
             return false;
         return true;
     }

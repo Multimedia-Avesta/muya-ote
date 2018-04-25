@@ -284,32 +284,7 @@ function writeWceNodeInfo(val) {
                 break;
             case 'paratext':
                 // default
-                if (document.getElementById('fw_type').value == "commentary") {
-                    selected_content = '';
-                    var cl = document.getElementById('covered').value;
-                    if (cl != '' && cl > 0) {
-                        for (var i = 0; i < cl; i++) {
-                            selected_content += '<br/>&crarr;[<span class="commentary" ' + 'wce="__t=paratext&__n=&fw_type=commentary&covered=' + cl + '">comm</span>]';
-                        }
-                        wceUtils.addToCounter(ed, 'lb', document.getElementById('covered').value);
-                    } else { // no value given for covered lines
-                        selected_content += '[<span class="commentary" ' + 'wce="__t=paratext&__n=&fw_type=commentary&covered=">comm</span>]';
-                    }
-                } else if (document.getElementById('fw_type').value == "lectionary-other") {
-                    selected_content = '';
-                    var cl = document.getElementById('covered').value;
-                    if (cl != '' && cl > 0) {
-                        for (var i = 0; i < cl; i++) {
-                            selected_content += '<br/>&crarr;[<span class="lectionary-other" ' + 'wce="__t=paratext&__n=&fw_type=lectionary-other&covered=' + cl + '">lect</span>]';
-                        }
-                        wceUtils.addToCounter(ed, 'lb', document.getElementById('covered').value);
-                    } else { // no value given for covered lines
-                        selected_content += '[<span class="lectionary-other" ' + 'wce="__t=paratext&__n=&fw_type=lectionary-other&covered=">lect</span>]';
-                    }
-                } else if (document.getElementById('fw_type').value == "ews") {
-                    selected_content = '[<span class="ews">ews</span>]';
-                } else
-                    selected_content = val;
+                selected_content = val;
 
                 // write original_text for breaks and paratext
                 new_content = '<span wce="' + newWceAttr + '"' + wceClass + original_text + '>' + startFormatHtml + selected_content + endFormatHtml + '</span>';
@@ -370,9 +345,9 @@ function writeWceNodeInfo(val) {
                     new_content += endFormatHtml + '</span>' + selected_content;
                 }
                 following_language = document.getElementById('following_language') ? document.getElementById('following_language').value : 'same';
-                //if (following_language !== 'same') {
+                if (following_language !== 'same') {
                     new_content += ' <span wce="' + newWceAttr + '"' + wceClass + ' language="' + following_language + '">' + startFormatHtml + '<span class="editortext" language="' + following_language + '">' + '\u2192' + '</span>' + endFormatHtml + '</span>';
-                //}
+                }
                 break;
             default:
                 break;
