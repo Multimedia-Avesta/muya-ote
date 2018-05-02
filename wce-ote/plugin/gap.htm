@@ -1,6 +1,6 @@
-<!-- 
-	Copyright (C) 2012-2017 Trier Center for Digital Humanities, Trier (Germany)
-	
+<!--
+	Copyright (C) 2012-2018 Trier Center for Digital Humanities, Trier (Germany)
+
 	This file is part of the Online Transcription Editor (OTE).
 
     OTE is free software: you can redistribute it and/or modify
@@ -57,17 +57,24 @@
                         <td><label id="gap_reason_dummy_label" for="gap_reason_dummy">{#reason}</label></td>
                         <td>
                         <input type="radio" id="gap_reason_dummy_lacuna" name="gap_reason_dummy" value="lacuna" onchange="checkstatus_gapreason()">
-                        {#lacuna}</td>
+                        <label for="gap_reason_dummy_lacuna">{#lacuna}</label>
+                        </td>
                         <td>
                         <input type="radio" id="gap_reason_dummy_illegible" name="gap_reason_dummy" value="illegible" onchange="checkstatus_gapreason()">
-                        {#illegible_text}</td>
+                        <label for="gap_reason_dummy_illegible">{#illegible_text}</label>
+                        </td>
 						<td>
                         <input type="radio" id="gap_reason_dummy_unspecified" name="gap_reason_dummy" value="unspecified" onchange="checkstatus_gapreason()">
-                        {#unspecified}</td>
+                        <label for="gap_reason_dummy_unspecified">{#unspecified}</label>
+                        </td>
 					    <td>
-                        <td>
                         <input type="radio" id="gap_reason_dummy_inferredPage" name="gap_reason_dummy" value="inferredPage" onchange="checkstatus_gapreason()">
-                        {#inferredPage}</td>
+                        <label for="gap_reason_dummy_inferredePage">{#inferredPage}</label>
+                        </td>
+					    <td>
+                        <input type="radio" id="gap_reason_dummy_paperRepaired" name="gap_reason_dummy" value="paperRepaired" onchange="checkstatus_gapreason()">
+                        <label for="gap_reason_dummy_paperRepaired">{#paperRepaired}</label>
+                        </td>
 					    <td>
                         <input id="gap_reason" name="gap_reason" value="" type="hidden" />
                         </td>
@@ -124,10 +131,9 @@
                         <td>
                         <select id="supplied_source" name="supplied_source"
                         onclick="checkstatus_supplied_source()">
-                            <option value="na28">{#na27}</option>
                             <option value="transcriber">{#transcriber}</option>
-                            <option value="tr">{#TR}</option>
-							<option value="none">{#none}</option>
+                            <option value="restorer">{#restorer}</option>
+                            <option value="none">{#none}</option>
                             <option value="other">{#other}</option>
                         </select></td>
                         <td colspan="2">
@@ -150,7 +156,7 @@
 		$(document).ready(function() {
 			ed=parent.tinymce.activeEditor;
 			translate();
-			setConstants(); 
+			setConstants();
 			init();
 		});
 
@@ -177,7 +183,7 @@
 			comboBindReturnEvent('insert');
 			wceInfoInit('gap');
 			readWceNodeInfo();
-			
+
 			setstatus_gapreason();
 			checkstatus_gapreason();
 			checkstatus_gapunit();
@@ -216,7 +222,10 @@
 				document.gapinfo.gap_reason.value = "illegible";
 			else if (radioWert(document.gapinfo.gap_reason_dummy) == "inferredPage")
 				document.gapinfo.gap_reason.value = "inferredPage";
-			else {
+			else if (radioWert(document.gapinfo.gap_reason_dummy) == "paperRepaired") {
+				document.gapinfo.gap_reason.value = "paperRepaired";
+                //document.gapinfo.supplied_source.value = "restorer";
+            } else {
 				document.gapinfo.gap_reason.value = "unspecified";
 				if (info)
 					alert(tinymce.translate('info_lacuna_illegible'));
@@ -237,7 +246,9 @@
 			else if (document.gapinfo.gap_reason.value == "unspecified")
 				document.gapinfo.gap_reason_dummy_unspecified.checked = true;
 			else if (document.gapinfo.gap_reason.value == "inferredPage")
-				document.gapinfo.gap_reason_dummy_inferredPage.checked = true;	
+				document.gapinfo.gap_reason_dummy_inferredPage.checked = true;
+            else if (document.gapinfo.gap_reason.value == "paperRepaired")
+				document.gapinfo.gap_reason_dummy_paperRepaired.checked = true;
 			else //default
 				document.gapinfo.gap_reason_dummy_illegible.checked = true;
 		}
@@ -252,7 +263,7 @@
 				document.gapinfo.extent_part.disabled = true;
 				return;
 			}
-			
+
 			if (document.gapinfo.unit.options[10].selected == true) { //other unit
 				document.gapinfo.unit_other.disabled = false;
 				document.getElementById('unit_other').style.backgroundColor = "white";
@@ -272,7 +283,7 @@
 				document.gapinfo.extent_unspecified.disabled = false;
 				document.gapinfo.extent_part.disabled = false;
 			}
-			
+
 			document.gapinfo.extent.focus();
 
 
@@ -308,7 +319,7 @@
 				document.gapinfo.mark_as_supplied.checked = true;
 				}
 		}
-		
+
 		function checkstatus_mark_as_supplied() {
 			if (document.gapinfo.mark_as_supplied.checked == true) {
 				document.gapinfo.supplied_source.disabled = false;
@@ -339,26 +350,26 @@
 					document.getElementById('supplied_source_other').style.backgroundColor = "white";
 				}
 			}
-			
-			if (document.gapinfo.supplied_source.options[4].selected == true) {
+
+			if (document.gapinfo.supplied_source.options[3].selected == true) {
 				document.gapinfo.supplied_source_other.disabled = false;
 				document.getElementById('supplied_source_other').style.backgroundColor = "white";
 			} else {
 				document.gapinfo.supplied_source_other.disabled = true;
 				document.getElementById('supplied_source_other').style.backgroundColor = "#CCCCCC";
 			}
-			
+
 			/*if (document.gapinfo.mark_as_supplied.checked == false) {
 				document.gapinfo.supplied_source.disabled = true;
 				document.gapinfo.supplied_source_other.disabled = true;
 				document.getElementById('supplied_source_other').style.backgroundColor = "#CCCCCC";
 			}*/
-			
+
 		}
 
 		function testOther() {
-
-			if (document.gapinfo.mark_as_supplied.checked && document.gapinfo.supplied_source.options[4].selected == true && document.getElementById('supplied_source_other').value == '') {
+			if (document.gapinfo.mark_as_supplied.checked && document.gapinfo.supplied_source.options[3].selected == true
+                && document.getElementById('supplied_source_other').value == '') {
 				return false;
 			}
 			if (document.gapinfo.unit.options[10].selected == true && document.getElementById('unit_other').value == '') {

@@ -200,7 +200,7 @@ tinymce.PluginManager.add('punctuation', function(ed, jsUrl) {
         onshow: function(a) {
           var items = a.control.items();
           var w = ed.WCE_VAR;
-          if(w.type == 'spaces') {
+          if (w.type == 'spaces') {
             items[0].disabled(true);
             items[1].disabled(false);
             items[2].disabled(false);

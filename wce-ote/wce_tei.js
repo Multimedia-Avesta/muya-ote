@@ -62,7 +62,7 @@ function getHtmlByTei(inputString, args) {
 	};
 
 	var gid = 0;
-	var g_lineNumber, g_columnNumber, g_quireNumber, g_verseNumber, g_chapterNumber, g_bookNumber;
+	var g_lineNumber, g_verseNumber, g_stanzaNumber, g_chapterNumber, g_bookNumber;
 
 	// As &om; can not be handled we go back to OMISSION
 	inputString = inputString.replace(/([\r\n]|<w\s*\/\s*>)/g,'');
@@ -76,27 +76,6 @@ function getHtmlByTei(inputString, args) {
 	//Trick to solve problem without <w>...</w>
 	inputString = inputString.replace('\u00a0', ' ');
 	inputString = inputString.replace(/<\/abbr>\s*<abbr\s*/g, '</abbr><w> </w><abbr ');//Fixed #1972
-	//inputString = inputString.replace(/<\/supplied><\/w><w><supplied.*?>/g, " ");
-	//inputString = inputString.replace(/<\/hi><\/w><w><hi.*?>/g, " ");
-	//24.10.2013 YG:funktioniert nicht wenn mehrere verschaltet sind z.B:
-	//nicht nur <hi>, sondern <abbr type="nomSac"> muessen auch zusammengezogen werden
-	/*<w>
-		q
-		<hi rend="rubric">
-			q
-			<abbr type="nomSac">
-				<hi rend="overline">sdf</hi>
-			</abbr>
-		</hi>
-	</w>
-	<w>
-		<hi rend="rubric">
-			<abbr type="nomSac">
-				<hi rend="overline">asdf</hi>
-			</abbr>
-		</hi>
-		<hi rend="rubric">m</hi>m
-	</w>*/
 
 	var getHtmlString = function() {
 		var $oldDoc = loadXMLString(inputString);
@@ -149,7 +128,7 @@ function getHtmlByTei(inputString, args) {
 	var Tei2Html_handleLanguageChange = function($teiNode){
 		var list=[];
 		var abNodes=$teiNode.querySelectorAll('ab');
-		if(abNodes){
+		if (abNodes){
 			var lang='', langNode;
 			abNodes.forEach(function(ab){
 				list.push(ab);
@@ -212,7 +191,6 @@ function getHtmlByTei(inputString, args) {
 				}
 			}
 		}
-
 	};
 
 	//merge <w> which come from wceNodeInsideW
@@ -229,7 +207,7 @@ function getHtmlByTei(inputString, args) {
 			}
 		}*/
 		var tNext=$parent.firstChild;
-		while(tNext){
+		while (tNext){
 			initTeiInput(tNext);
 			tNext=tNext.nextSibling;
 		}
@@ -249,7 +227,7 @@ function getHtmlByTei(inputString, args) {
 			return;
 		}
 
-		if($node.hasChildNodes()){
+		if ($node.hasChildNodes()){
 			var list=[];
 			$node.childNodes.forEach(function(c){
 			 	list.push(c);
@@ -259,9 +237,9 @@ function getHtmlByTei(inputString, args) {
 			});
 		}
 
-		if(needMovieHiNode($node,'hi')){
+		if (needMovieHiNode($node,'hi')){
 				var hi=$node.firstChild;
-				while(hi.firstChild){
+				while (hi.firstChild){
 					$node.appendChild(hi.firstChild);
 				}
 				var $pn=$node.parentNode;
@@ -277,14 +255,14 @@ function getHtmlByTei(inputString, args) {
 		var toAppend=new Array();
 		var startNode;
 		var tempspace;
-		while(curr){
+		while (curr){
 			tempspace=null;
 			next=curr.nextSibling;
-			if(next && next.nodeType==1 && next.nodeName=='tempspace'){
+			if (next && next.nodeType == 1 && next.nodeName == 'tempspace'){
 				tempspace=next;
 				next=next.nextSibling;
 			}
-			if(curr.nodeName=='hi' && compareNodes(curr,next)){
+			if (curr.nodeName == 'hi' && compareNodes(curr,next)){
 				if(!startNode){
 					startNode=curr;
 				}
@@ -295,7 +273,7 @@ function getHtmlByTei(inputString, args) {
 			}
 			curr=next;
 		}
-		if(startNode){
+		if (startNode){
 			for(var i=0, a, l=toAppend.length; i<l; i++){
 				a=toAppend[i];
 				if(a.nodeName=='tempspace'){
@@ -327,49 +305,48 @@ function getHtmlByTei(inputString, args) {
 					break;
 				}
 				var firstChildOfNextW=nextW.firstChild;
-				if(compareNodes(lastChild, firstChildOfNextW)){
-					if(!startNode){
+				if (compareNodes(lastChild, firstChildOfNextW)){
+					if (!startNode){
 						startNode=nextW.previousSibling;
 					}
 					toAppend.push(nextW);
-					if(firstChildOfNextW.nextSibling && !compareNodes(firstChildOfNextW,firstChildOfNextW.nextSibling)){
+					if (firstChildOfNextW.nextSibling && !compareNodes(firstChildOfNextW,firstChildOfNextW.nextSibling)){
 						mergeAgain=true;
 						break;
 					}
-					nextW=nextW.nextSibling;
-				}else{
+					nextW = nextW.nextSibling;
+				} else{
 					break;
 				}
 			}
 
 			//merge
-			if(startNode){
-				for(var i=0, a, l=toAppend.length; i<l; i++){
+			if (startNode){
+				for (var i=0, a, l=toAppend.length; i<l; i++){
 					a=toAppend[i];
 					var tempspace=startNode.ownerDocument.createElement('tempspace');
 					nodeAddText(tempspace, " ");
 					startNode.appendChild(tempspace);
-					while(a.firstChild){
+					while (a.firstChild){
 						startNode.appendChild(a.firstChild);
 					}
 					a.parentNode.removeChild(a);
 				}
 				Tei2Html_mergeOtherNodes(startNode, true);
 
-				if(mergeAgain){
+				if (mergeAgain){
 					Tei2Html_mergeWNode(startNode);
 				}
 			}
-
 		}
 	};
 
 	var Tei2Html_mergeOtherNodes =function($node, isW){
-		if(!$node){
+		if (!$node){
 			return;
 		}
 
-		if(!isW && $.inArray($node.nodeName,wceNodeInsideW)<0){
+		if (!isW && $.inArray($node.nodeName,wceNodeInsideW)<0){
 			return;
 		}
 
@@ -378,14 +355,14 @@ function getHtmlByTei(inputString, args) {
 		var toAppend=new Array();
 		var startNode;
 		var tempspace;
-		while(curr){
+		while (curr){
 			tempspace=null;
 			next=curr.nextSibling;
-			if(next && next.nodeType==1 && next.nodeName=='tempspace'){
+			if (next && next.nodeType==1 && next.nodeName=='tempspace'){
 				tempspace=next;
 				next=next.nextSibling;
 			}
-			if(compareNodes(curr,next)){
+			if (compareNodes(curr,next)){
 				if(!startNode){
 					startNode=curr;
 				}
@@ -396,13 +373,13 @@ function getHtmlByTei(inputString, args) {
 			}
 			curr=next;
 		}
-		if(startNode){
-			for(var i=0, a, l=toAppend.length; i<l; i++){
+		if (startNode){
+			for (var i=0, a, l=toAppend.length; i<l; i++){
 				a=toAppend[i];
-				if(a.nodeName=='tempspace'){
+				if (a.nodeName=='tempspace'){
 					startNode.appendChild(a);
-				}else{
-					while(a.firstChild){
+				} else{
+					while (a.firstChild){
 						startNode.appendChild(a.firstChild);
 					}
 					a.parentNode.removeChild(a);
@@ -425,8 +402,7 @@ function getHtmlByTei(inputString, args) {
 			return;
 		if ($node.nodeType == 1 || $node.nodeType == 11) {
 			if ($($node).hasClass('verse_number') || $($node).hasClass('stanza_number')
-				|| $($node).hasClass('chapter_number') || $($node).hasClass('book_number')
-				|| $($node).hasClass('lection_number')) {
+				|| $($node).hasClass('chapter_number') || $($node).hasClass('book_number')){
 				return;
 			}
 		}
@@ -489,6 +465,7 @@ function getHtmlByTei(inputString, args) {
 		if (!$teiNode) {
 			return;
 		}
+
 		if ($teiNode.nodeType == 3) {
 			Tei2Html_TEXT($htmlParent, $teiNode);
 		} else if ($teiNode.nodeType == 1 || $teiNode.nodeType == 11) {
@@ -498,7 +475,7 @@ function getHtmlByTei(inputString, args) {
 			if ($teiNode.nodeName)
 				var $newParent = getHtmlNodeByTeiNode($htmlParent, $teiNode);
 
-			// stop to read $teiNode
+            // stop to read $teiNode
 			if (!$newParent) {
 				// make sure that a *single* gap is followed by a space
 				if ($teiNode.nodeName == 'gap' && $teiNode.nextSibling && $teiNode.nextSibling.nodeName !== 'unclear' && $teiNode.nextSibling.nodeValue == null)
@@ -548,7 +525,7 @@ function getHtmlByTei(inputString, args) {
 		var teiNodeName = $teiNode.nodeName;
 		// TODO: set wce_orig=""
 
-		switch (teiNodeName) {
+        switch (teiNodeName) {
 			case 'teiHeader':
 				//return Tei2Html_teiHeader($htmlParent, $teiNode);
                 return null;
@@ -564,8 +541,8 @@ function getHtmlByTei(inputString, args) {
 				return $htmlParent;
 				//return Tei2Html_w($htmlParent, $teiNode);
 
-			case 'ex':
-				return Tei2Html_ex($htmlParent, $teiNode);
+			/*case 'ex':
+				return Tei2Html_ex($htmlParent, $teiNode);*/
 			// ex
 
 			case 'unclear':
@@ -620,8 +597,8 @@ function getHtmlByTei(inputString, args) {
 				return Tei2Html_space($htmlParent, $teiNode);
 			// spaces
 
-			case 'qb':
-				return Tei2Html_break($htmlParent, $teiNode, 'qb');
+			/*case 'qb':
+				return Tei2Html_break($htmlParent, $teiNode, 'qb');*/
 			// Quire break
 
 			case 'pb':
@@ -717,7 +694,7 @@ function getHtmlByTei(inputString, args) {
 	/*
 	 * **** <ex>
 	 */
-	var Tei2Html_ex = function($htmlParent, $teiNode) {
+	/*var Tei2Html_ex = function($htmlParent, $teiNode) {
 		var $newNode = $newDoc.createElement('span');
 		$newNode.setAttribute('class', 'part_abbr');
 		var wceAttr = '__t=part_abbr&__n=';
@@ -747,7 +724,7 @@ function getHtmlByTei(inputString, args) {
 		addFormatElement($newNode);
 		$htmlParent.appendChild($newNode);
 		return $newNode;
-	};
+	};*/
 	/*
 	 * **** <unclear>
 	 */
@@ -792,53 +769,23 @@ function getHtmlByTei(inputString, args) {
 		if (!divType)
 			return $htmlParent;
 
-		if (divType == 'lection') {
+        if (divType == 'book') {
 			var $newNode = $newDoc.createElement('span');
-			$newNode.setAttribute('class', 'lection_number mceNonEditable');
-			$newNode.setAttribute('wce', '__t=lection_number&number=' + $teiNode.getAttribute('n'));
-			$newNode.setAttribute('id', ++gid);
-			nodeAddText($newNode, 'Lec');
-		} else if (divType == 'book') {
-			// write information to header first
-            //var book;
-            //var $book;//, $header;
-
-            //$header = $htmlParent.firstChild;
-            //$book = $newDoc.createElement('book')
-            //book = $teiNode.getAttribute('n');
-            //nodeAddText($book, book);
-            //$header.appendChild($book);
-            //$htmlParent.replaceChild($header, $htmlParent.firstChild);
-
-            var $newNode = $newDoc.createElement('span');
 			$newNode.setAttribute('class', 'book_number mceNonEditable');
 			$newNode.setAttribute('wce', '__t=book_number');
 			$newNode.setAttribute('id', ++gid);
 			var $booknumber = $teiNode.getAttribute('n');
-			nodeAddText($newNode, $booknumber);
+			if ($booknumber && $booknumber != '')
+                nodeAddText($newNode, $booknumber);
 		} else if (divType == 'chapter') {
 			var $newNode = $newDoc.createElement('span');
 			$newNode.setAttribute('class', 'chapter_number mceNonEditable');
 			$newNode.setAttribute('wce', '__t=chapter_number');
 			$newNode.setAttribute('id', ++gid);
 			var nValue = $teiNode.getAttribute('n');
-			// BXXK(Y)Y
 			if (nValue && nValue != '') {
-				/*var indexK = nValue.indexOf('K');
-				var indexB = nValue.indexOf('B');
-				if (indexB + 1 > -1 && indexK - 1 > 0) {//TODO: Do we need this, if the book number is passed to the editor at run-time? Maybe just a fallback?
-					var bookValue = nValue.substr(indexB + 1, indexK - 1);
-					// we store the book number as it is, maybe with leading "0"
-					//if (bookValue.length == 2 && bookValue.charAt(0) == '0' //if bookValue is a two-digit number and starts with "0"
-					//	bookValue = bookValue.substring(1);
-					g_bookNumber = bookValue;
-				}
-				indexK++;
-				if (indexK > 0 && indexK < nValue.length) {
-					nValue = nValue.substr(indexK);*/
-					g_chapterNumber = nValue;
-					nodeAddText($newNode, g_chapterNumber);
-				//}
+				g_chapterNumber = nValue;
+				nodeAddText($newNode, g_chapterNumber);
 			}
 		} else { //incipit or explicit
 			var $newNode = $newDoc.createElement('span');
@@ -856,7 +803,7 @@ function getHtmlByTei(inputString, args) {
 		}
 		$htmlParent.appendChild($newNode);
 		nodeAddText($htmlParent, ' ');
-		return $htmlParent;
+        return $htmlParent;
 	};
 	/*
 	 * <ab>
@@ -866,23 +813,9 @@ function getHtmlByTei(inputString, args) {
 			var $newNode = $newDoc.createElement('span');
 			$newNode.setAttribute('class', 'stanza_number mceNonEditable');
 			var nValue = $teiNode.getAttribute('n');
-			// BXXK(Y)Y
-			if (nValue && nValue != '') {
-				/*var indexK = nValue.indexOf('K');
-				var indexB = nValue.indexOf('B');
-				if (indexB + 1 > -1 && indexK - 1 > 0) {//TODO: Do we need this, if the book number is passed to the editor at run-time? Maybe just a fallback?
-					bookValue = nValue.substr(indexB + 1, indexK - 1);
-					// we store the book number as it is, maybe with leading "0"
-					//if (bookValue.length == 2 && bookValue.charAt(0) == '0' //if bookValue is a two-digit number and starts with "0"
-					//	bookValue = bookValue.substring(1);
-					g_bookNumber = bookValue;
-				}
-				indexK++;
-				if (indexK > 0 && indexK < nValue.length) {
-					nValue = nValue.substr(indexK);*/
-					g_stanzaNumber = nValue;
-					nodeAddText($newNode, g_stanzaNumber);
-				//}
+            if (nValue && nValue != '') {
+				g_stanzaNumber = nValue;
+				nodeAddText($newNode, g_stanzaNumber);
 			}
             var partValue = $teiNode.getAttribute('part');
 		      if (partValue && (partValue === 'F' || partValue === 'M')){
@@ -891,7 +824,7 @@ function getHtmlByTei(inputString, args) {
 		      if (partValue)
 		 	    $newNode.setAttribute('wce', '__t=stanza_number&partial=' + partValue);
 		      else
-			     $newNode.setAttribute('wce', '__t=stanza_number');
+			    $newNode.setAttribute('wce', '__t=stanza_number');
         } else {// Verse
             var $newNode = $newDoc.createElement('span');
             var type = $teiNode.getAttribute('type');
@@ -1027,17 +960,14 @@ function getHtmlByTei(inputString, args) {
 			$newNode.setAttribute('ext', extAttr);
 		}
 
-		if ($teiNode.getAttribute("reason") === 'witnessEnd') {// Witness end
-			nodeAddText($htmlParent, ' '); //add space before <span>
-			$newNode.setAttribute('class', 'witnessend');
-			wceAttr = '__t=gap&__n=&original_gap_text=&gap_reason=witnessEnd&unit=&unit_other=&extent=&supplied_source=na28&supplied_source_other=&insert=Insert&cancel=Cancel';
-			$newNode.setAttribute('wce', wceAttr);
-			nodeAddText($newNode, "Witness End");
-		} else {
-			$newNode.setAttribute('class', 'gap');
+		$newNode.setAttribute('class', 'gap');
 			// for gap *and* supplied
 
-			var wceAttr = '__t=gap&__n=&gap_reason_dummy_lacuna=lacuna&gap_reason_dummy_illegible=illegible&gap_reason_dummy_unspecified=unspecified&gap_reason_dummy_inferredPage=inferredPage';
+			var wceAttr = '__t=gap&__n=&gap_reason_dummy_lacuna=lacuna'
+                            + '&gap_reason_dummy_illegible=illegible'
+                            + '&gap_reason_dummy_unspecified=unspecified'
+                            + '&gap_reason_dummy_inferredPage=inferredPage'
+                            + '&gap_reason_dummy_paperRepaired=paperRepaired';
 			var mapping = {
 				'reason' : '&gap_reason=',
 				'unit' : {
@@ -1047,7 +977,7 @@ function getHtmlByTei(inputString, args) {
 				},
 				'extent' : '&extent=',
 				'source' : {
-					'0' : '@na28@transcriber@tr',
+					'0' : '@transcriber@restorer',
 					'1' : '&supplied_source_other=&supplied_source=',
 					'2' : '&supplied_source=other&&supplied_source_other='
 				}
@@ -1131,7 +1061,7 @@ function getHtmlByTei(inputString, args) {
 				}
 			}
 			//}
-		}
+
 
 		addFormatElement($newNode);
 		//var s=getOriginalTextByTeiNode($teiNode); alert(s);
@@ -1242,7 +1172,7 @@ function getHtmlByTei(inputString, args) {
 			}
 		};
 		var toMerge;
-		var _moveSuplied=function (_supp){
+		var _moveSupplied=function (_supp){
 			var _hi=_supp.firstChild;
 			if(_supp.nodeName!='supplied' || !_hi || _hi.nodeName!='hi' || !_hi.getAttribute('rend') || _hi.getAttribute('rend')!='overline' || _supp.nodeName!='unclear') {
 				return;
@@ -1272,25 +1202,16 @@ function getHtmlByTei(inputString, args) {
 			if (!c) {
 				continue;
 			}
-			_moveSuplied(c);
+			_moveSupplied(c);
 		}
-		if(toMerge){
+        //Redundant?
+		if (toMerge){
 			className = 'abbr_add_overline';
 			wceAttr += '&add_overline=overline';
 			$newNode.setAttribute('ext', 'inabbr');
 			Tei2Html_mergeOtherNodes($teiNode);
 			cList = $teiNode.firstChild.childNodes;
-		} else if ($teiNode.firstChild && $teiNode.childNodes.length==1 && $teiNode.firstChild.nodeName == 'hi'
-			&& ($teiNode.firstChild.getAttribute("rend") == "overline"
-			|| $teiNode.firstChild.getAttribute("rend") == "ol")) {
-				// Check if first child of <abbr> is an overline highlighting (=> nomen sacrum)
-			className = 'abbr_add_overline';
-			wceAttr += '&add_overline=overline';
-			cList = $teiNode.firstChild.childNodes;
-		}/* else {
-			cList = $teiNode.childNodes;
-			startlist = 1;
-		}*/
+		}
 
 		$newNode.setAttribute('class', className);
 
@@ -1317,9 +1238,9 @@ function getHtmlByTei(inputString, args) {
 
 		addFormatElement($newNode);
 		//28.10.2013 YG
-		if(className=='abbr_add_overline'){
+		/*if(className=='abbr_add_overline'){
 			$teiNode=$teiNode.firstChild;
-		}
+		}*/
 		$newNode.setAttribute('wce_orig',getOriginalTextByTeiNode($teiNode));
 		$htmlParent.appendChild($newNode);
 		return null;
@@ -1621,7 +1542,7 @@ function getHtmlByTei(inputString, args) {
 				'n' : '&number=',
 				'rend' : '&paratext_alignment=',
 				'type' : {
-					'0' : '@commentary@runTitle@colophon@pageNum@orn@catchword',
+					'0' : '@commentary@runTitle@colophon@pageNum@orn@catch',
 					'1' : '&fw_type=',
 					'2' : '&fw_type=other&fw_type_other='
 				}
@@ -3066,17 +2987,7 @@ function getTeiByHtml(inputString, args) {
 				wceAttrValue = 'chapter_number';
 			} else if ($($htmlNode).hasClass('book_number')) {
 				wceAttrValue = 'book_number';
-			} else if ($($htmlNode).hasClass('lection_number')) {
-				wceAttrValue = 'lection_number';
 			}
-//			else if ($($htmlNode).hasClass('punctuation')){
-//			  //Feature/extension #5579
-//			  //TODO
-//      var punc = $newDoc.createElement('pc');
-//      nodeAddText(punc,getDomNodeText($htmlNode));
-//      punc.setAttribute('rend','punctuation');
-//      $teiParent.appendChild(punc);
-//    }
 		}
 
 		// ******************* verse *******************
@@ -3084,8 +2995,7 @@ function getTeiByHtml(inputString, args) {
 			if (wceAttrValue && !wceAttrValue.match(/partial/)){ //automatic set attribute "part"
 				html2Tei_addAttributePartF($htmlNode);
 			}
-
-				partial_index = wceAttrValue.indexOf('partial');
+            partial_index = wceAttrValue.indexOf('partial');
             lang_index = wceAttrValue.indexOf('lang');
 
 			var textNode = $htmlNode.firstChild;
@@ -3170,7 +3080,7 @@ function getTeiByHtml(inputString, args) {
 			note = 0; //reset note counter
 			return null;
 		} else if (wceAttrValue != null && wceAttrValue.match(/stanza_number/)) {
-				partial_index = wceAttrValue.indexOf('partial');
+			partial_index = wceAttrValue.indexOf('partial');
             lang_index = wceAttrValue.indexOf('lang');
 
             var textNode = $htmlNode.firstChild;
@@ -3196,8 +3106,6 @@ function getTeiByHtml(inputString, args) {
 				}
 				if (g_chapterNode)
 					g_chapterNode.appendChild(g_stanzaNode);
-				//else if (g_bookNode)
-				//	g_bookNode.appendChild(g_stanzaNode);
 				else
 					$newRoot.appendChild(g_stanzaNode);
 				g_currentParentNode = g_stanzaNode;
@@ -3240,8 +3148,6 @@ function getTeiByHtml(inputString, args) {
 				}
 					if (g_bookNode)
 						g_bookNode.appendChild(g_chapterNode);
-					//else if (g_lectionNode) //attach node to lection if there is no book node (important for multiple lections)
-					//	g_lectionNode.appendChild(g_chapterNode);
 					else
 						$newRoot.appendChild(g_chapterNode);
 					g_currentParentNode = g_chapterNode;
@@ -3279,18 +3185,6 @@ function getTeiByHtml(inputString, args) {
 				else
 					$newRoot.appendChild(g_bookNode);
 				g_currentParentNode = g_bookNode;
-			}
-			return null;
-		} else if (wceAttrValue != null && wceAttrValue.match(/lection_number/)) {
-			var textNode = $htmlNode.firstChild;
-			if (textNode) {
-			    //textNode=textNode.firstChild;
-				g_lectionNode = $newDoc.createElement('div');
-				g_lectionNode.setAttribute('type', 'lection');
-				g_lectionNode.setAttribute('n', wceAttrValue.substring(wceAttrValue.lastIndexOf("=")+1));
-				$newRoot.appendChild(g_lectionNode);
-				g_currentParentNode = g_lectionNode;
-				//g_bookNode = null; // reset book node as chapter can also be attached to a lection directly (see line 2737)
 			}
 			return null;
 		} else {
@@ -4123,7 +4017,7 @@ function getTeiByHtml(inputString, args) {
 		var newNodeName, fwType = arr['fw_type'];
 
 		if (fwType == 'commentary' || fwType == 'runTitle' || fwType == 'colophon'
-			|| fwType == 'catchword' || fwType == 'pageNum'
+			|| fwType == 'catch' || fwType == 'pageNum'
 			|| fwType == 'orn' || fwType == 'other') {
 			newNodeName = 'fw';
 		}
@@ -4569,7 +4463,7 @@ function removeArrows(str) {
 var removeBlankNode=function ($root){//remove blank node,
 		var _remove=function($node){
 			var nodeName=$node.nodeName;
-			var notNames=['lb','pb','qb','cb','gap'];
+			var notNames=['lb','pb','gap'];
 			if($node.nodeType!=3 && !$node.firstChild && $.inArray(nodeName,notNames)<0){
 				var parent=$node.parentNode;
 				if (parent) {

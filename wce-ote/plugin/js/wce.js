@@ -188,11 +188,12 @@ function writeWceNodeInfo(val) {
                         if (gap_parent_name == 'body' || gap_parent_name == 'html') {
                             break;
                         }
-                        if (gap_parent_name == 'span' && gap_parent.className == 'abbr_add_overline') {
+                        // Should be redundant now
+                        /*if (gap_parent_name == 'span' && gap_parent.className == 'abbr_add_overline') {
                             gap_parent.setAttribute('ext', 'inabbr');
                             wceClass = ' ext="inabbr" ' + wceClass;
                             break;
-                        }
+                        }*/
                         gap_parent = gap_parent.parentNode;
                     }
                 } else {
@@ -270,13 +271,10 @@ function writeWceNodeInfo(val) {
                 }
                 break;
             case 'abbr':
-                if (document.getElementById('add_overline').checked == true) {
-                    wceClass = ' class="abbr_add_overline"';
-                }
                 break;
-            case 'part_abbr':
+            /*case 'part_abbr':
                 selected_content = "(" + selected_content + ")";
-                break;
+                break;*/
             case 'spaces':
                 // default
                 //selected_content = '&nbsp;';
@@ -431,9 +429,6 @@ function writeWceNodeInfo(val) {
                 }
             } else if (wce_type == 'abbr') {
                 var abbrClass = 'abbr';
-                if (document.getElementById('add_overline').checked == true) {
-                    abbrClass = 'abbr_add_overline';
-                }
                 wce_node.className = abbrClass;
             } else if (wce_type == 'gap') { // edit gap
                 selected_content = wceUtils.wceDelNode(ed, true);

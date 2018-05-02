@@ -61,7 +61,7 @@
 							<option value="pageNum">{#fw_pagenumber}</option>
 							<option value="isolated">{#fw_isolated}</option>
 							<option value="orn">{#fw_ornament}</option>
-                            <option value="catchword">{#fw_catchword}</option>
+                            <option value="catch">{#fw_catchword}</option>
 							<option value="other">{#other}</option>
 					</select>
 					</td>
@@ -187,7 +187,7 @@
 				});
 				ed.on('keydown',function(ed) {
 					var v = $('#fw_type').val();
-					if (v == 'runTitle' || v == 'colophon' || v == 'pageNum' || v == 'catchword'
+					if (v == 'runTitle' || v == 'colophon' || v == 'pageNum' || v == 'catch'
 						|| v == 'isolated' || v == 'commentary' || v == 'orn' || v == 'other') {
 						return;
 					}
@@ -233,7 +233,7 @@
 	function getParaTag() {
 		var v = $('#fw_type').val();
 		if (v == 'commentary' || v == 'runTitle' || v == 'colophon' || v == 'pageNum'
-            || v == 'isolated' || v == 'orn' || v == 'catchword' || v == 'other')
+            || v == 'isolated' || v == 'orn' || v == 'catch' || v == 'other')
 			return 'fw';
 		else
 			return 'num';
@@ -274,7 +274,7 @@
 			document.paratextinfo.paratext_position.disabled = false;
 			document.paratextinfo.paratext_alignment.disabled = true;
 		} else if (v == 'runTitle' || v == 'colophon' || v == 'pageNum' || v == 'commentary'
-                   || v == 'orn' || v == 'catchword' || v == 'other') {
+                   || v == 'orn' || v == 'catch' || v == 'other') {
 			//don't get a number, only text
 			//document.paratextinfo.number.value = '';
 			//document.paratextinfo.number.disabled = true;
