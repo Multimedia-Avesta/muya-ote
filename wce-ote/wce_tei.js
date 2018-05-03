@@ -127,7 +127,7 @@ function getHtmlByTei(inputString, args) {
 
 	var Tei2Html_handleLanguageChange = function($teiNode){
 		var list=[];
-		var abNodes=$teiNode.querySelectorAll('ab');
+		var abNodes = $teiNode.querySelectorAll('ab');
 		if (abNodes){
 			var lang='', langNode;
 			abNodes.forEach(function(ab){
@@ -136,22 +136,22 @@ function getHtmlByTei(inputString, args) {
 		}
 
 		function _change(_change){
-			var _next=_change.nextSibling;
-			var _parent=_change.parentNode;
-			if (_change.getAttribute('subtype')=='untransPahlavi'
-               || _change.getAttribute('subtype')=='untrans'){
+			var _next = _change.nextSibling;
+			var _parent = _change.parentNode;
+			if (_change.getAttribute('subtype') == 'untransPahlavi'
+               || _change.getAttribute('subtype') == 'untrans'){
 				return;
 			}
-			var _del=_parent.firstChild===_change && _parent.childNodes.length==1;
-			if (_parent.firstChild===_change && !_parent.getAttribute('xml:lang')){
+			var _del=_parent.firstChild===_change && _parent.childNodes.length == 1;
+			if (_parent.firstChild===_change && !_parent.getAttribute('xml:lang') && !_change.getAttribute('type') === 'stanza'){
 				_del=true;
 			}
 			if (_next){
-				while(_change.firstChild){
+				while (_change.firstChild){
 					_parent.insertBefore(_change.firstChild,_next);
 				}
 			} else{
-				while(_change.firstChild){
+				while (_change.firstChild){
 					_parent.appendChild(_change.firstChild);
 				}
 			}
@@ -162,7 +162,7 @@ function getHtmlByTei(inputString, args) {
 
 
 		list.forEach(function(curr,i){
-			if(curr.getAttribute('type')){
+			if (curr.getAttribute('type')){
 				_change(curr);
 			}
 		})
@@ -183,11 +183,11 @@ function getHtmlByTei(inputString, args) {
 		}
 
 		if ($($htmlNode).hasClass('verse_number')) {
-			var pre=$htmlNode.previousSibling;
-			if(pre && pre.nodeType==3){
-				var preText=pre.nodeValue;
+			var pre = $htmlNode.previousSibling;
+			if (pre && pre.nodeType==3){
+				var preText = pre.nodeValue;
 				if(preText && !preText.match(/\s+$/)){
-					 pre.nodeValue=preText+' ';
+					 pre.nodeValue = preText + ' ';
 				}
 			}
 		}
@@ -622,7 +622,7 @@ function getHtmlByTei(inputString, args) {
 			// correction
 
 			case 'seg':	// marginal information
-				if (($teiNode.firstChild && ($teiNode.firstChild.nodeName == 'fw'||$teiNode.firstChild.nodeName == 'num'))
+				if (($teiNode.firstChild && ($teiNode.firstChild.nodeName == 'fw' || $teiNode.firstChild.nodeName == 'num'))
 					|| ($teiNode.parentNode && $teiNode.parentNode.nodeName == 'rdg'))
 					return $htmlParent;
 				else
@@ -2221,7 +2221,7 @@ function getTeiByHtml(inputString, args) {
 
 			if ($(preChild).hasClass('chapter_number') || $(preChild).hasClass('stanza_number')
 				|| $(preChild).hasClass('book_number') || $(preChild).hasClass('verse_number')) {
-				preChild=preChild.previousSibling;
+				preChild = preChild.previousSibling;
 				continue;
 			}
 			if ($(preChild).hasClass('brea')) {
