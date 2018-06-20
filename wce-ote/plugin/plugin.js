@@ -33,7 +33,7 @@
 */
 
 (function () {
-    var wfce_editor = "0.8.0beta (2018-05-03)";
+    var wfce_editor = "0.9.0beta (2018-06-20)";
 
     // Load plugin specific language pack
     tinymce.PluginManager.requireLangPack('wce');
@@ -60,7 +60,7 @@
             //blocked elements :If the Caret is inside, this will prohibit the key operation
             c.blockedElements = new Array('gap', 'corr', 'lection_number', 'book_number',
                 'chapter_number', 'stanza_number', 'verse_number', 'abbr', 'spaces', 'note',
-                'unclear', 'brea', 'paratext', 'pc');
+                'unclear', 'brea', 'paratext', 'pc', 'figure');
 
             // not blocked elements
             // c.normalElemente = new Array('unclear');
@@ -223,8 +223,9 @@
             if (nodeName && nodeName.toLowerCase() == 'span') {
                 // TODO
                 if (typeName == 'chapter_number' ||
-                    typeName == 'book_number' || typeName == 'lection_number' ||
-                    typeName == 'stanza_number') {
+                    typeName == 'book_number' ||
+                    typeName == 'stanza_number' ||
+                    typeName == 'verse_number') {
                     return $(node).hasClass(typeName);
                 }
 
@@ -248,7 +249,13 @@
                 if (!ed.selection.isCollapsed() && node.getAttribute("class") &&
                     (node.getAttribute("class").indexOf("format_") == 0 || node.getAttribute("class").indexOf("abbr") == 0))
                     return false;
-                return true;
+                if (!ed.selection.isCollapsed() && node.getAttribute("class") &&
+                    (node.getAttribute("class").indexOf("formatting") == 0))
+                    return false;
+                //TODO: Check for figure element to deactivate menues
+                /*if (node.getAttribute("class") && node.getAttribute("class") === 'figure')
+                    return true;*/
+                return false; //TODO: This used to be "true", but users wanted to alter text ...
             }
             return false;
 
@@ -843,9 +850,9 @@
             if (w.buttons['illegible']) {
                 w.buttons['illegible'].disabled(v.not_D);
             }
-            if (w.buttons['decoration']) {
+            /*if (w.buttons['decoration']) {
                 w.buttons['decoration'].disabled(v.not_O);
-            }
+            }*/
             if (w.buttons['abbreviation']) {
                 w.buttons['abbreviation'].disabled(v.not_A);
             }
@@ -1888,16 +1895,16 @@
                                     break;
                             }
                             break;
-                        /*case 'part':
-                            // part_abbr
-                            info_text = '<div>' + tinymce.translate('infotext_editorial_expansion') + '<div>';
-                            if (ar['exp_rend'] == 'other') {
-                                info_text += '<div>' + tinymce.translate('infotext_rendition') + ': ' + ar['exp_rend_other'] + '</div>';
-                            } else {
-                                if (ar['exp_rend'] != null)
-                                    info_text += '<div>' + tinymce.translate('infotext_rendition') + ': ' + ar['exp_rend'] + '</div>';
-                            }
-                            break;*/
+                            /*case 'part':
+                                // part_abbr
+                                info_text = '<div>' + tinymce.translate('infotext_editorial_expansion') + '<div>';
+                                if (ar['exp_rend'] == 'other') {
+                                    info_text += '<div>' + tinymce.translate('infotext_rendition') + ': ' + ar['exp_rend_other'] + '</div>';
+                                } else {
+                                    if (ar['exp_rend'] != null)
+                                        info_text += '<div>' + tinymce.translate('infotext_rendition') + ': ' + ar['exp_rend'] + '</div>';
+                                }
+                                break;*/
                         case 'brea':
                             switch (ar['break_type']) {
                                 case 'lb':
@@ -2167,6 +2174,10 @@
                             break;
                         case 'lection':
                             info_text = '<div>' + 'Lection ' + ar['number'] + '</div>';
+                            break;
+                        case 'figure':
+                            info_text = '<div>' + (ar['graphic_desc'] ? ar['graphic_desc'] : '') + '</div><div>' +
+                                ar['extent'] + ' ' + tinymce.translate('infotext_lines_covered');
                             break;
                         default:
                             info_text = '';
@@ -3348,8 +3359,40 @@
                     ed.WCE_CON.buttons[this.settings.icon] = this;
                 },
                 onshow: function (a) {
-                    var sub;
+                    //var sub;
+                    let items = a.control.items();
+                    console.log(items);
+                    var b = ed.selection.isCollapsed();
+                    //$( "#menu-decoration-highlight" ).menu( "disable" );
+                    /*if (b){
+                        items[0].hide();
+                        items[1].hide();
+                        items[2].hide();
+                        items[3].hide();
+                        items[4].hide();
+                        items[5].show();
+                        items[6].hide();
+                    } else {
+                        items[0].show();
+                        items[1].show();
+                        items[2].show();
+                        items[3].show();
+                        items[4].show();
+                        items[5].hide();
+                        items[6].show();
+                    }*/
                     var w = ed.WCE_VAR;
+                    items[0].disabled(w.not_O);
+                    items[1].disabled(w.not_O);
+                    items[2].disabled(w.not_O);
+                    if (items.length>3)
+                        items[3].disabled(w.not_O);
+                    if (items.length>4)
+                        items[4].disabled(w.not_O);
+                    if (items.length>5)
+                        items[5].disabled(!w.not_O);
+                    if (items.length>6)
+                        items[6].disabled(w.not_O);
                 },
                 menu: [
                     {
@@ -3362,7 +3405,7 @@
                                 onclick: function () {
                                     ed.execCommand('mceAdd_formatting', 'rubrication');
                                 }
-					},
+				    },
                             {
                                 text: tinymce.translate('menu_hl_gold'),
                                 id: 'menu-decoration-highlight-gold',
@@ -3408,7 +3451,8 @@
                                     items[0].disabled(b);
                                     items[1].disabled(b);
                                     items[2].disabled(b);
-                                    items[3].disabled(b);
+                                    if (items.length>3)
+                                        items[3].disabled(b);
                                 }
 					},
                             {
@@ -3464,6 +3508,10 @@
                             items[0].disabled(b);
                             items[1].disabled(b);
                             items[2].disabled(b);
+                            if (items.length>3)
+                                items[3].disabled(b);
+                            if (items.length>4)
+                                items[4].disabled(b);
                         }
 				},
                     {
@@ -3520,6 +3568,50 @@
                             ed.execCommand('mceAdd_formatting', 'upsidedown');
                         }
 				},
+
+                    {
+                        text: tinymce.translate('menu_graphic'),
+                        id: 'menu-decoration-graphic',
+                        onPostRender: function () {
+                            ed.WCE_CON.buttons[this.settings.icon] = this;
+                        },
+                        onshow: function (a) {
+                            var items = a.control.items();
+                            var w = ed.WCE_VAR;
+                            if (w.type == 'figure') {
+                                items[0].disabled(true);
+                                items[1].disabled(false);
+                                items[2].disabled(false);
+                            } else {
+                                items[0].disabled(false);
+                                items[1].disabled(true);
+                                items[2].disabled(true);
+                            }
+                        },
+                        menu: [
+                            {
+                                text: tinymce.translate('menu_add'),
+                                id: 'menu-decoration-graphic-add',
+                                onclick: function () {
+                                    ed.execCommand('mceAdd_graphic');
+                                }
+					},
+                            {
+                                text: tinymce.translate('menu_edit'),
+                                id: 'menu-decoration-graphic-edit',
+                                onclick: function () {
+                                    ed.execCommand('mceEdit_graphic');
+                                }
+					},
+                            {
+                                text: tinymce.translate('menu_delete'),
+                                id: 'menu-decoration-graphic-delete',
+                                onclick: function () {
+                                    WCEUtils.wceDelNode(ed);
+                                }
+
+                            }]
+                },
                     {
                         text: tinymce.translate('menu_hl_other'),
                         id: 'menu-decoration-other',
@@ -3713,7 +3805,7 @@
                 }
             });
 
-            ed.addButton('docinfo', {
+            /*ed.addButton('docinfo', {
                 title: tinymce.translate('menu_docInfo') + ' (Ctrl+Alt+I)',
                 image: url + '/img/button_I.png',
                 icons: false,
@@ -3723,9 +3815,9 @@
                 onclick: function () {
                     ed.execCommand('mceDocInfo');
                 }
-            });
+            });*/
 
-            ed.addShortcut("ctrl+alt+i", "Document information", "mceDocInfo_Shortcut");
+            //ed.addShortcut("ctrl+alt+i", "Document information", "mceDocInfo_Shortcut");
 
             ed.on('init', function () {
                 WCEUtils.initWCEConstants(ed);
@@ -3960,6 +4052,14 @@
                 }
             });
 
+            ed.addCommand('mceAdd_graphic', function () {
+                doWithDialog(ed, url, '/graphic.htm', 480, 320, 1, true, tinymce.translate('title_graphic'));
+            });
+
+            ed.addCommand('mceEdit_graphic', function () {
+                doWithDialog(ed, url, '/graphic.htm', 480, 320, 1, false, tinymce.translate('title_graphic'));
+            });
+
             // Add Ornamentation  other /*********/
             ed.addCommand('mceAdd_ornamentation_other', function () {
                 doWithDialog(ed, url, '/ornamentation_other.htm', 480, 320, 1, true, tinymce.translate('title_other_ornamentation'));
@@ -3969,6 +4069,7 @@
             ed.addCommand('mceAddAbbr', function () {
                 doWithDialog(ed, url, '/abbr.htm', 480, 320, 1, true, tinymce.translate('abbr_title'));
             });
+
             // Edit abbreviation
             ed.addCommand('mceEditAbbr', function () {
                 doWithDialog(ed, url, '/abbr.htm', 480, 320, 1, false, tinymce.translate('abbr_title'));
@@ -4139,9 +4240,9 @@
                 ed.execCommand('mceVerseModify');
             });*/
 
-            ed.addCommand('mceDocInfo', function () {
+            /*ed.addCommand('mceDocInfo', function () {
                 doWithDialog(ed, url, '/docinfo.htm', 640, 480, 1, false, tinymce.translate('docinfo_title'));
-            });
+            });*/
 
             ed.addCommand('printData', function () { // Problem in IE
                 var ed = tinyMCE.activeEditor;

@@ -627,7 +627,11 @@ function getHtmlByTei(inputString, args) {
 					return $htmlParent;
 				else
 					return Tei2Html_paratext($htmlParent, $teiNode, 'fw');
-			default:
+
+            case 'figure':
+                return Tei2Html_figure($htmlParent, $teiNode);
+
+            default:
 				return $htmlParent;
 		}
 
@@ -1811,6 +1815,22 @@ function getHtmlByTei(inputString, args) {
 		}
 		return null;
 	};
+
+    var Tei2Html_figure = function($htmlParent, $teiNode) {
+		var $newNode = $newDoc.createElement('span');
+        $newNode.setAttribute('class', 'figure');
+		var wceAttr = '__t=figure&__n=&';
+			if ($teiNode.firstChild && $teiNode.firstChild.nodeName === 'desc') {
+				wceAttr += '&graphic_desc=' + encodeURI($teiNode.firstChild.textContent);
+                wceAttr += '&extent=' + $teiNode.getAttribute('rend').substr(5);
+			}
+			$newNode.setAttribute('wce', wceAttr);
+			nodeAddText($newNode, 'Graphical element');
+		addFormatElement($newNode);
+		$htmlParent.appendChild($newNode);
+        nodeAddText($htmlParent, ' ');
+        return null;
+    };
 
 	return {
 		'htmlString' : getHtmlString(),
@@ -3307,6 +3327,10 @@ function getTeiByHtml(inputString, args) {
 			return html2Tei_langchange(arr, $teiParent, $htmlNode);
 		}
 
+        if (wceType == 'figure') {
+            return html2Tei_figure(arr, $teiParent, $htmlNode);
+        }
+
         // other
 		var $e = $newDoc.createElement("-TEMP-" + htmlNodeName);
 		$teiParent.appendChild($e);
@@ -4267,6 +4291,28 @@ function getTeiByHtml(inputString, args) {
 
 		return {
 			0 : $ab,
+            1 : true
+		};
+    };
+
+    var html2Tei_figure = function(arr, $teiParent, $htmlNode) {
+		var $figure, $desc;
+
+		$figure = $newDoc.createElement('figure');
+        var _covered = arr['extent'];
+        var _desc = decodeURI(arr['graphic_desc']);
+
+        if (_covered && _covered != '')
+            $figure.setAttribute('rend','cover'+_covered);
+        if (_desc && _desc != '') {
+            $desc = $newDoc.createElement('desc');
+            nodeAddText($desc, _desc);
+            $figure.appendChild($desc);
+        }
+        $teiParent.appendChild($figure);
+
+		return {
+			0 : $figure,
             1 : true
 		};
     };

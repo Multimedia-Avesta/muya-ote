@@ -610,14 +610,14 @@ span.brea {
 span.unclear {
     border: 1px dotted #f00;
     margin: 0px 0px 0px 1px;
-    padding: 0
+    padding: 0;
 }
 
 span.witnessend {
     border: 1px dotted #f00;
     margin: 0px 0px 0px 1px;
     padding: 0;
-    color: #666
+    color: #666;
 }
 
 span.corr,
@@ -632,14 +632,14 @@ span[class="corr"] span[class=*] {
     border: 1px dotted #f00;
     margin: 0px 0px 0px 1px;
     padding: 0;
-    color: blue
+    color: blue;
 }
 
 span.gap {
     border: 1px dotted #f00;
     margin: 0px 0px 0px 1px;
     padding: 0;
-    color: red
+    color: red;
 }
 
 span.corr_blank_firsthand {
@@ -760,6 +760,14 @@ span.formatting_upsidedown {
     -webkit-transform: rotate(-180deg);
     /* Safari 3.1+, Chrome */
     position: absolute;
+}
+
+span.figure {
+    /*content: "Graphical Element";*/
+    border: 1px dotted #f00;
+    margin: 0px 0px 0px 1px;
+    padding: 0;
+    color: #666;
 }
 
 
