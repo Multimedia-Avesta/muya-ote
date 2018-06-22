@@ -1888,16 +1888,16 @@
                                     break;
                             }
                             break;
-                        /*case 'part':
-                            // part_abbr
-                            info_text = '<div>' + tinymce.translate('infotext_editorial_expansion') + '<div>';
-                            if (ar['exp_rend'] == 'other') {
-                                info_text += '<div>' + tinymce.translate('infotext_rendition') + ': ' + ar['exp_rend_other'] + '</div>';
-                            } else {
-                                if (ar['exp_rend'] != null)
-                                    info_text += '<div>' + tinymce.translate('infotext_rendition') + ': ' + ar['exp_rend'] + '</div>';
-                            }
-                            break;*/
+                            /*case 'part':
+                                // part_abbr
+                                info_text = '<div>' + tinymce.translate('infotext_editorial_expansion') + '<div>';
+                                if (ar['exp_rend'] == 'other') {
+                                    info_text += '<div>' + tinymce.translate('infotext_rendition') + ': ' + ar['exp_rend_other'] + '</div>';
+                                } else {
+                                    if (ar['exp_rend'] != null)
+                                        info_text += '<div>' + tinymce.translate('infotext_rendition') + ': ' + ar['exp_rend'] + '</div>';
+                                }
+                                break;*/
                         case 'brea':
                             switch (ar['break_type']) {
                                 case 'lb':
@@ -2013,13 +2013,14 @@
                                     info_text += ar['fw_type_other'];
                             }
                             info_text += '</div>';
-                            info_text += '<div style="margin-top:10px">' + tinymce.translate('infotext_value') + ': ' + ar['marginals_text'] + '</div>';
+                            info_text += '<div style="margin-top:10px">' + tinymce.translate('range_covered') + ': ' + (ar['covered'] ? ar['covered'] : tinymce.translate('none')) + '</div>';
+                            info_text += '<div style="margin-top:10px">' + tinymce.translate('infotext_value') + ': ' + (ar['marginals_text'] ? ar['marginals_text'] : tinymce.translate('none')) + '</div>';
                             if (ar['paratext_position'] == 'other') {
-                                info_text += '<div style="margin-top:10px">' + tinymce.translate('infotext_position') + ': ' + ar['paratext_position_other'] + '</div>';
+                                info_text += '<div style="margin-top:10px">' + tinymce.translate('infotext_position') + ': ' + (ar['paratext_position_other'] ? ar['paratext_position_other'] : tinymce.translate('none')) + '</div>';
                             } else {
-                                info_text += '<div style="margin-top:10px">' + tinymce.translate('infotext_position') + ': ' + ar['paratext_position'] + '</div>';
+                                info_text += '<div style="margin-top:10px">' + tinymce.translate('infotext_position') + ': ' + (ar['paratext_position'] ? ar['paratext_position'] : tinymce.translate('none')) + '</div>';
                             }
-                            info_text += '<div style="margin-top:10px">' + tinymce.translate('infotext_alignment') + ': ' + ar['paratext_alignment'] + '</div>';
+                            info_text += '<div style="margin-top:10px">' + tinymce.translate('infotext_alignment') + ': ' + (ar['paratext_alignment'] ? ar['paratext_alignment'] : tinymce.translate('none')) + '</div>';
                             break;
                         case 'gap':
                             if (ar['unit'] == '' && ar['gap_reason'] == '') {
