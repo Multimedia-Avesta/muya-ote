@@ -1579,6 +1579,10 @@ function getHtmlByTei(inputString, args) {
         } else {
             wceAttr += '&paratext_position=&paratext_position_other=';
         }
+
+        var lang = $teiNode.getAttribute("xml:lang") ? $teiNode.getAttribute("xml:lang") : '';
+        wceAttr += '&language_name=' + lang;
+
         $newNode.setAttribute('wce', wceAttr);
         nodeAddText($newNode, teiNodeName);
 
@@ -4048,12 +4052,6 @@ function getTeiByHtml(inputString, args) {
             $paratext.setAttribute('type', fwType);
         }
 
-        // n
-        // write attribute n only for certain values
-        /*var numberValue = arr['number'];
-        if (numberValue && (fwType == 'chapNum' || fwType == 'quireSig' || fwType == 'AmmSec' || fwType == 'EusCan' || fwType == 'stichoi' || fwType == 'andrew')) {
-        	$paratext.setAttribute('n', numberValue);
-        }*/
         var rend = "";
 
         var cl = arr['covered'];
@@ -4075,80 +4073,63 @@ function getTeiByHtml(inputString, args) {
         if (rend != '')
             $paratext.setAttribute('rend', rend.trim());
 
+        var lang = arr['language_name'];
         if (fwType == 'isolated') {
             var $seg;
             isSeg = true;
-            if (placeValue === 'pageleft' || placeValue === 'pageright' || placeValue === 'pagetop' || placeValue === 'pagebottom') { //define <seg> element for marginal material
-                $seg = $newDoc.createElement('seg');
+            $seg = $newDoc.createElement('seg');
+            if (placeValue === 'pageleft' || placeValue === 'pageright' || placeValue === 'pagetop' || placeValue === 'pagebottom' ||
+                placeValue === 'coltop' || placeValue === 'colbottom' || placeValue === 'colleft' || placeValue === 'colright' ||
+                placeValue === 'lineleft' || placeValue === 'lineright') {
                 $seg.setAttribute('type', 'margin');
-                $seg.setAttribute('subtype', placeValue);
-                html2Tei_paratextAddChildren($seg, arr['marginals_text']);
-                $teiParent.appendChild($seg);
-            } else if (placeValue === 'coltop' || placeValue === 'colbottom' || placeValue === 'colleft' || placeValue === 'colright') {
-                $seg = $newDoc.createElement('seg');
-                $seg.setAttribute('type', 'margin');
-                $seg.setAttribute('subtype', placeValue);
-                html2Tei_paratextAddChildren($seg, arr['marginals_text']);
-                $teiParent.appendChild($seg);
-            } else if (placeValue === 'lineleft' || placeValue === 'lineright') {
-                $seg = $newDoc.createElement('seg');
-                $seg.setAttribute('type', 'margin');
-                $seg.setAttribute('subtype', placeValue);
-                html2Tei_paratextAddChildren($seg, arr['marginals_text']);
-                $teiParent.appendChild($seg);
             } else if (placeValue === 'above' || placeValue === 'below' || placeValue === 'here' || placeValue === 'overwritten') {
-                $seg = $newDoc.createElement('seg');
                 $seg.setAttribute('type', 'line');
-                $seg.setAttribute('subtype', placeValue);
-                html2Tei_paratextAddChildren($seg, arr['marginals_text']);
-                $teiParent.appendChild($seg);
             } else { // other
-                $seg = $newDoc.createElement('seg');
                 $seg.setAttribute('type', 'other');
-                $seg.setAttribute('subtype', placeValue);
-                html2Tei_paratextAddChildren($seg, arr['marginals_text']);
-                $teiParent.appendChild($seg);
             }
+            $seg.setAttribute('subtype', placeValue);
+            if (lang)
+                $seg.setAttribute('xml:lang', lang);
+            html2Tei_paratextAddChildren($seg, arr['marginals_text']);
+            $teiParent.appendChild($seg);
         } else { // only if not isolated
             isSeg = true;
             html2Tei_paratextAddChildren($paratext, arr['marginals_text']);
             //nodeAddText($paratext, decodeURIComponent(arr['marginals_text']));
             var $seg;
             if (placeValue === '') {
+                if (lang)
+                    $paratext.setAttribute("xml:lang", lang);
                 $teiParent.appendChild($paratext);
-            } else if (placeValue === 'pageleft' || placeValue === 'pageright' || placeValue === 'pagetop' || placeValue === 'pagebottom') { //define <seg> element for marginal material
-                $seg = $newDoc.createElement('seg');
-                $seg.setAttribute('type', 'margin');
-                $seg.setAttribute('subtype', placeValue);
-                $seg.setAttribute('n', '@' + 'P' + g_pageNumber + '-' + g_witValue);
-                $seg.appendChild($paratext);
-                $teiParent.appendChild($seg);
-            } else if (placeValue === 'coltop' || placeValue === 'colbottom' || placeValue === 'colleft' || placeValue === 'colright') {
-                $seg = $newDoc.createElement('seg');
-                $seg.setAttribute('type', 'margin');
-                $seg.setAttribute('subtype', placeValue);
-                $seg.setAttribute('n', '@' + 'P' + g_pageNumber + 'C' + g_columnNumber + '-' + g_witValue);
-                $seg.appendChild($paratext);
-                $teiParent.appendChild($seg);
-            } else if (placeValue === 'lineleft' || placeValue === 'lineright') {
-                $seg = $newDoc.createElement('seg');
-                $seg.setAttribute('type', 'margin');
-                $seg.setAttribute('subtype', placeValue);
-                $seg.setAttribute('n', '@' + 'P' + g_pageNumber + 'C' + g_columnNumber + 'L' + g_lineNumber + '-' + g_witValue);
-                $seg.appendChild($paratext);
-                $teiParent.appendChild($seg);
-            } else if (placeValue === 'above' || placeValue === 'below' || placeValue === 'here' || placeValue === 'overwritten') {
-                $seg = $newDoc.createElement('seg');
-                $seg.setAttribute('type', 'line');
-                $seg.setAttribute('subtype', placeValue);
-                $seg.setAttribute('n', '@' + 'P' + g_pageNumber + 'C' + g_columnNumber + 'L' + g_lineNumber + '-' + g_witValue);
-                $seg.appendChild($paratext);
-                $teiParent.appendChild($seg);
-            } else { // other
-                $seg = $newDoc.createElement('seg');
-                $seg.setAttribute('type', 'other');
-                $seg.setAttribute('subtype', placeValue);
-                $seg.setAttribute('n', '@' + 'P' + g_pageNumber + 'C' + g_columnNumber + 'L' + g_lineNumber + '-' + g_witValue);
+            } else {
+                if (placeValue === 'pageleft' || placeValue === 'pageright' || placeValue === 'pagetop' || placeValue === 'pagebottom') { //define <seg> element for marginal material
+                    $seg = $newDoc.createElement('seg');
+                    $seg.setAttribute('type', 'margin');
+                    $seg.setAttribute('subtype', placeValue);
+                    $seg.setAttribute('n', '@' + 'P' + g_pageNumber + '-' + g_witValue);
+                } else if (placeValue === 'coltop' || placeValue === 'colbottom' || placeValue === 'colleft' || placeValue === 'colright') {
+                    $seg = $newDoc.createElement('seg');
+                    $seg.setAttribute('type', 'margin');
+                    $seg.setAttribute('subtype', placeValue);
+                    $seg.setAttribute('n', '@' + 'P' + g_pageNumber + 'C' + g_columnNumber + '-' + g_witValue);
+                } else if (placeValue === 'lineleft' || placeValue === 'lineright') {
+                    $seg = $newDoc.createElement('seg');
+                    $seg.setAttribute('type', 'margin');
+                    $seg.setAttribute('subtype', placeValue);
+                    $seg.setAttribute('n', '@' + 'P' + g_pageNumber + 'C' + g_columnNumber + 'L' + g_lineNumber + '-' + g_witValue);
+                } else if (placeValue === 'above' || placeValue === 'below' || placeValue === 'here' || placeValue === 'overwritten') {
+                    $seg = $newDoc.createElement('seg');
+                    $seg.setAttribute('type', 'line');
+                    $seg.setAttribute('subtype', placeValue);
+                    $seg.setAttribute('n', '@' + 'P' + g_pageNumber + 'C' + g_columnNumber + 'L' + g_lineNumber + '-' + g_witValue);
+                } else { // other
+                    $seg = $newDoc.createElement('seg');
+                    $seg.setAttribute('type', 'other');
+                    $seg.setAttribute('subtype', placeValue);
+                    $seg.setAttribute('n', '@' + 'P' + g_pageNumber + 'C' + g_columnNumber + 'L' + g_lineNumber + '-' + g_witValue);
+                }
+                if (lang)
+                    $seg.setAttribute('xml:lang', lang);
                 $seg.appendChild($paratext);
                 $teiParent.appendChild($seg);
             }

@@ -2015,6 +2015,7 @@
                             info_text += '</div>';
                             info_text += '<div style="margin-top:10px">' + tinymce.translate('range_covered') + ': ' + (ar['covered'] ? ar['covered'] : tinymce.translate('none')) + '</div>';
                             info_text += '<div style="margin-top:10px">' + tinymce.translate('infotext_value') + ': ' + (ar['marginals_text'] ? ar['marginals_text'] : tinymce.translate('none')) + '</div>';
+                            info_text += '<div style="margin-top:10px">' + tinymce.translate('infotext_language') + ': ' + (ar['language_name'] ? tinymce.translate(ar['language_name'].replace("-", "")) : tinymce.translate('none')) + '</div>';
                             if (ar['paratext_position'] == 'other') {
                                 info_text += '<div style="margin-top:10px">' + tinymce.translate('infotext_position') + ': ' + (ar['paratext_position_other'] ? ar['paratext_position_other'] : tinymce.translate('none')) + '</div>';
                             } else {

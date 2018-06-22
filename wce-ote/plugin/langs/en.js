@@ -371,6 +371,7 @@ tinymce.addI18n('en', {
     infotext_highlighted_text: 'Highlighted text',
     infotext_punctuation_mark: 'Punctuation mark',
     infotext_omission: 'Omission',
+    infotext_language: 'Language',
     error_part_abbr: 'Error at part-worded abbreviation. Parentheses do not match or invalid nesting!',
     initial_portion: 'Partial (initial portion)',
     medial_portion: 'Partial (medial portion)',
@@ -407,6 +408,7 @@ tinymce.addI18n('en', {
     pahlavi_gujr: 'Zoroastrian Middle Persian in Gujarati Script',
     persian: 'Persian',
     sanskrit: 'Sanskrit',
+    arabic: 'Arabic',
     sameasbefore: 'Same as before the change',
     ritual: 'Ritual direction',
     translation: 'Translation',
@@ -430,6 +432,7 @@ tinymce.addI18n('en', {
     guGujr: 'Gujarati in Gujarati Script',
     fa: 'Persian',
     sa: 'Sanskrit',
+    ar: 'Arabic',
     doclang: 'Document language',
     add_structure: 'Add structure',
     delete_structure: 'Remove structure'

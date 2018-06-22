@@ -82,6 +82,7 @@
                             <option value="pal-Phli">{#pahlavi_phli}</option>
                             <option value="gu-Arab">{#gujarati_arab}</option>
                             <option value="gu-Gujr">{#gujarati_gujr}</option>
+                            <option value="ar">{#arabic}</option>
 							<option value="other">{#other}</option>
 							</select>
                     </td>
@@ -134,6 +135,7 @@
                             <option value="pal-Phli">{#pahlavi_phli}</option>
                             <option value="gu-Arab">{#gujarati_arab}</option>
                             <option value="gu-Gujr">{#gujarati_gujr}</option>
+                            <option value="ar">{#arabic}</option>
                         </select>
                     </td>
                 </tr>
@@ -186,7 +188,7 @@
     }
 
     function testOther() {
-        if ((document.languageinfo.language_name.options[13].selected == true && document.getElementById('language_name_other').value == '') ||
+        if ((document.languageinfo.language_name.options[14].selected == true && document.getElementById('language_name_other').value == '') ||
             (document.languageinfo.reason_for_language_change.options[3].selected == true && document.getElementById('reason_for_language_change_other').value == ''))
             return false;
         return true;
@@ -267,6 +269,7 @@
             }
         });
     }
+
 </script>
 
 </html>
