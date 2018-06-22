@@ -3358,11 +3358,11 @@
                 onPostRender: function () {
                     ed.WCE_CON.buttons[this.settings.icon] = this;
                 },
-                onshow: function (a) {
+                /*onshow: function (a) {
                     //var sub;
-                    let items = a.control.items();
-                    console.log(items);
-                    var b = ed.selection.isCollapsed();
+                    //let items = a.control.items();
+                    //console.log(items);
+                    //var b = ed.selection.isCollapsed();
                     //$( "#menu-decoration-highlight" ).menu( "disable" );
                     /*if (b){
                         items[0].hide();
@@ -3380,7 +3380,7 @@
                         items[4].show();
                         items[5].hide();
                         items[6].show();
-                    }*/
+                    }
                     var w = ed.WCE_VAR;
                     items[0].disabled(w.not_O);
                     items[1].disabled(w.not_O);
@@ -3393,7 +3393,7 @@
                         items[5].disabled(!w.not_O);
                     if (items.length>6)
                         items[6].disabled(w.not_O);
-                },
+                },*/
                 menu: [
                     {
                         text: tinymce.translate('menu_highlight_text'),
