@@ -49,37 +49,37 @@
         <div id="insertDiv">
             <div id="insertVerseDiv">
                 <table width="100%">
-                <tr>
-                    <td width="200">
-                        <input type="radio" id="insertVerseRadio" name="versemodify" onclick="canInsertVerse();" />{#verse_insert}
-                    </td>
-                    <td>
-                        <input id="insertVerseNumber" type="text" />
-                    </td>
+                    <tr>
+                        <td width="200">
+                            <input type="radio" id="insertVerseRadio" name="versemodify" onclick="canInsertVerse();" />{#verse_insert}
+                        </td>
+                        <td>
+                            <input id="insertVerseNumber" type="text" />
+                        </td>
                     </tr>
                 </table>
             </div>
             <div id="insertStanzaDiv">
                 <table width="100%">
-                <tr>
-                    <td width="200">
-                        <input type="radio" id="insertStanzaRadio" name="versemodify" onclick="canInsertStanza();" />{#stanza_insert}
-                    </td>
-                    <td>
-                        <input id="insertStanzaNumber" type="text" />
-                    </td>
+                    <tr>
+                        <td width="200">
+                            <input type="radio" id="insertStanzaRadio" name="versemodify" onclick="canInsertStanza();" />{#stanza_insert}
+                        </td>
+                        <td>
+                            <input id="insertStanzaNumber" type="text" />
+                        </td>
                     </tr>
                 </table>
             </div>
             <div id="insertChapterDiv">
                 <table width="100%">
-                <tr>
-                    <td width="200">
-                        <input type="radio" id="insertChapterRadio" name="versemodify" onclick="canInsertChapter();" />{#chapter_insert}
-                    </td>
-                    <td>
-                        <input id="insertChapterNumber" type="text" />
-                    </td>
+                    <tr>
+                        <td width="200">
+                            <input type="radio" id="insertChapterRadio" name="versemodify" onclick="canInsertChapter();" />{#chapter_insert}
+                        </td>
+                        <td>
+                            <input id="insertChapterNumber" type="text" />
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -148,11 +148,9 @@
             </div>
         </div>
         <div class="mceActionPanel" style="margin-bottom:10px">
-			<input type="button" id="insert" name="insert" value="{#apply}"
-				onclick="update();parent.tinymce.activeEditor.windowManager.close();" />
-			<input type="button" id="cancel" name="cancel" value="{#cancel}"
-				onclick="parent.tinymce.activeEditor.windowManager.close();" />
-		</div>
+            <input type="button" id="insert" name="insert" value="{#apply}" onclick="update();parent.tinymce.activeEditor.windowManager.close();" />
+            <input type="button" id="cancel" name="cancel" value="{#cancel}" onclick="parent.tinymce.activeEditor.windowManager.close();" />
+        </div>
     </form>
 </body>
 <script type="text/javascript">
@@ -199,8 +197,8 @@
         $('#insertVerseRadio').prop('checked', true);
         $('#insertVerseNumber').prop('disabled', false);
         $('#insertVerseNumber').focus();
-        $('#insertBookNumber').prop('disabled', true);
-        $('#insertBookNumber_other').prop('disabled', true);
+        $('#insertBookName').prop('disabled', true);
+        $('#insertBookName_other').prop('disabled', true);
         $('#insertChapterNumber').prop('disabled', true);
         $('#insertStanzaNumber').prop('disabled', true);
         $('#verseList').prop('disabled', true);
@@ -213,8 +211,8 @@
         $('#insertSubscriptioRadio').prop('checked', true);
         $('#insertVerseNumber').prop('disabled', true);
         $('#insertChapterNumber').prop('disabled', true);
-        $('#insertBookNumber').prop('disabled', true);
-        $('#insertBookNumber_other').prop('disabled', true);
+        $('#insertBookName').prop('disabled', true);
+        $('#insertBookName_other').prop('disabled', true);
         $('#verseList').prop('disabled', true);
         $('#chapterList').prop('disabled', true);
         $('#bookList').prop('disabled', true);
@@ -222,8 +220,8 @@
 
     function canInsertBook() {
         $('#insertBookRadio').prop('checked', true);
-        $('#insertBookNumber').prop('disabled', false);
-        $('#insertBookNumber').focus();
+        $('#insertBookName').prop('disabled', false);
+        $('#insertBookName').focus();
         checkstatus_book_name();
         $('#insertChapterNumber').prop('disabled', true);
         $('#insertStanzaNumber').prop('disabled', true);
@@ -240,8 +238,8 @@
         $('#insertChapterNumber').focus();
         $('#insertVerseNumber').prop('disabled', true);
         $('#insertStanzaNumber').prop('disabled', true);
-        $('#insertBookNumber').prop('disabled', true);
-        $('#insertBookNumber_other').prop('disabled', true);
+        $('#insertBookName').prop('disabled', true);
+        $('#insertBookName_other').prop('disabled', true);
         $('#verseList').prop('disabled', true);
         $('#stanzaList').prop('disabled', true);
         $('#chapterList').prop('disabled', true);
@@ -254,8 +252,8 @@
         $('#insertStanzaNumber').focus();
         $('#insertVerseNumber').prop('disabled', true);
         $('#insertChapterNumber').prop('disabled', true);
-        $('#insertBookNumber').prop('disabled', true);
-        $('#insertBookNumber_other').prop('disabled', true);
+        $('#insertBookName').prop('disabled', true);
+        $('#insertBookName_other').prop('disabled', true);
         $('#verseList').prop('disabled', true);
         $('#stanzaList').prop('disabled', true);
         $('#chapterList').prop('disabled', true);
@@ -263,14 +261,14 @@
     }
 
     function init() {
-		canInsertVerse();
+        canInsertVerse();
         checkstatus_book_name();
-		if (wce_node) {
-		   if (wce_node.nodeName.toLowerCase()=='span') {
-		       $('#insertDiv input').prop('disabled', true);
-		   }
-		}
-	}
+        if (wce_node) {
+            if (wce_node.nodeName.toLowerCase() == 'span') {
+                $('#insertDiv input').prop('disabled', true);
+            }
+        }
+    }
 
     function checkstatus_book_name() {
         if ($('#insertBookName').val() == 'other') {
@@ -340,6 +338,7 @@
             }
         });
     }
+
 </script>
 
 </html>

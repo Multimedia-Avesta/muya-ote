@@ -127,7 +127,7 @@ function getHtmlByTei(inputString, args) {
 
     var Tei2Html_handleLanguageChange = function ($teiNode) {
         var list = [];
-        var abNodes = $teiNode.querySelectorAll('ab');
+        var abNodes = $teiNode.querySelectorAll('foreign');
         if (abNodes) {
             var lang = '',
                 langNode;
@@ -143,8 +143,8 @@ function getHtmlByTei(inputString, args) {
                 _change.getAttribute('subtype') == 'untrans') {
                 return;
             }
-            var _del = _parent.firstChild === _change && _parent.childNodes.length == 1;
-            if (_parent.firstChild === _change && !_parent.getAttribute('xml:lang') && !_change.getAttribute('type') === 'stanza') {
+            var _del = _parent.firstChild === _change && _parent.childNodes.length == 1; // && !_change.getAttribute('type') === 'stanza';
+            if (_parent.firstChild === _change && !_parent.getAttribute('xml:lang')) { // && !_change.getAttribute('type') === 'stanza') {
                 _del = true;
             }
             if (_next) {
@@ -902,6 +902,9 @@ function getHtmlByTei(inputString, args) {
                     case 'sa':
                         lang_long = 'Sanskrit';
                         break;
+                    case 'ar':
+                        lang_long = 'Arabic';
+                        break;
                 }
                 var covertext = 'Untranscribed text in ' + lang_long;
                 for (var i = 0; i < _extent; i++) {
@@ -925,14 +928,33 @@ function getHtmlByTei(inputString, args) {
         }
         $newNode.setAttribute('wce', wceAttr);
         $newNode.setAttribute('language', lang);
+        $newNode.setAttribute('class', 'langchange');
 
         var $tmp = $('<temp>' + innerHTML + '</temp>')[0];
         while ($tmp.firstChild) {
             $newNode.appendChild($tmp.firstChild);
         }
+        var $tempParent = $newDoc.createElement('t');
+        var cList = $teiNode.childNodes;
+        for (var i = 0, c, l = cList.length; i < l; i++) {
+            c = cList[i];
+            if (!c) {
+                break;
+            }
+            if (c.nodeType == 3)
+                nodeAddText($tempParent, c.nodeValue);
+            else
+                readAllChildrenOfTeiNode($tempParent, c);
+        }
+        if ($tempParent) {
+            while ($tempParent.hasChildNodes()) {
+                $newNode.appendChild($tempParent.firstChild);
+            }
+        }
+
         addFormatElement($newNode);
         $htmlParent.appendChild($newNode);
-        return $htmlParent;
+        return null;
     };
 
     /*
@@ -2000,8 +2022,8 @@ function getTeiByHtml(inputString, args) {
     };
 
     var html2Tei_handleLanguageChange = function ($node) {
-        //var mainLang = $header.querySelector('language').getAttribute('ident');
-        var mainLang = 'previous';
+        //var mainLang = .querySelector('text').getAttribute('xml:lang');
+        var mainLang = mainLang ? mainLang : 'previous';
         var abNodes = $node.querySelectorAll('ab,foreign');
         var list = [];
         if (abNodes) {
@@ -2017,7 +2039,8 @@ function getTeiByHtml(inputString, args) {
                     lang = att_lang;
                     langNode = ab.cloneNode(true);
                     if (ab.getAttribute('type') == 'untransPahlavi' ||
-                        ab.getAttribute('type') == 'untrans') {
+                        ab.getAttribute('type') == 'untrans' ||
+                        ab.getAttribute('type') == 'back') {
                         lang = null;
                         langNode = null;
                     }
@@ -4273,8 +4296,17 @@ function getTeiByHtml(inputString, args) {
             }
         }
 
-        $teiParent.appendChild($ab);
+        /*if (arr['reason_for_language_change'] == "backtomainlanguage") {
+            alert("YES");
+            $ab.remove();
+            while ($ab.firstChild) {
+                $teiParent.appendChild($ab.firstChild)
+            }
+        } else {
+            $teiParent.appendChild($ab);
+        }*/
 
+        $teiParent.appendChild($ab);
         return {
             0: $ab,
             1: true

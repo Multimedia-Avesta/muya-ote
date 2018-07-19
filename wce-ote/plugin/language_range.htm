@@ -37,7 +37,7 @@
 
 <head>
     <title>{#language}</title>
-    <script type="text/javascript" src="../../js/tinymce/tinymce.js"></script>
+    <script type="text/javascript" src="../../js/tinymce/tinymce.min.js"></script>
     <script type="text/javascript" src="../jquery.js"></script>
     <script type="text/javascript" src="../rangy-core.js"></script>
     <script type="text/javascript" src="js/wce.js"></script>
@@ -56,10 +56,8 @@
                         <select id="reason_for_language_change" name="reason_for_language_change" onchange="checkstatus_reason()">
 								<option value="trans">{#translation}</option>
 								<option value="ritual">{#ritual}</option>
-								<!--<option value="backtomainlanguage">{#backtomainlanguage}</option>-->
 								<option value="section">{#section}</option>
-                                <!--<option value="untrans">{#untrans}</option>-->
-								<option value="other">{#other}</option>
+                                <option value="other">{#other}</option>
 							</select></td>
                     <td>
                         <input id="reason_for_language_change_other" name="reason_for_language_change_other" type="text" value="" size="30" />
@@ -98,14 +96,8 @@
                         <select id="color" name="color" onchange="checkstatus_color">
 								<option value="black">{#menu_hl_black}</option>
 								<option value="red">{#menu_hl_red}</option>
-								<!--<option value="other">{#wce.other}</option>-->
 							</select>
                     </td>
-                    <!--<td colspan="2">
-                            <input id="place_corr_other"
-                            name="place_corr_other" type="text" value="" size="20"
-                            maxlength="" class="required number min1 mceFocus" />
-                            </td>-->
                 </tr>
                 <tr>
                     <td>
