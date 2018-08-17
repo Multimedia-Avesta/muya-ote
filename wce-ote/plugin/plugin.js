@@ -253,8 +253,8 @@
                     (node.getAttribute("class").indexOf("formatting") == 0))
                     return false;
                 //TODO: Check for figure element to deactivate menues
-                /*if (node.getAttribute("class") && node.getAttribute("class") === 'figure')
-                    return true;*/
+                if (node.getAttribute("class") && node.getAttribute("class") === 'figure')
+                    return true;
                 return false; //TODO: This used to be "true", but users wanted to alter text ...
             }
             return false;
@@ -3451,7 +3451,7 @@
                                     items[0].disabled(b);
                                     items[1].disabled(b);
                                     items[2].disabled(b);
-                                    if (items.length>3)
+                                    if (items.length > 3)
                                         items[3].disabled(b);
                                 }
 					},
@@ -3508,9 +3508,9 @@
                             items[0].disabled(b);
                             items[1].disabled(b);
                             items[2].disabled(b);
-                            if (items.length>3)
+                            if (items.length > 3)
                                 items[3].disabled(b);
-                            if (items.length>4)
+                            if (items.length > 4)
                                 items[4].disabled(b);
                         }
 				},
