@@ -972,7 +972,7 @@ function getHtmlByTei(inputString, args) {
         var mapping = {
             'reason': '&gap_reason=',
             'unit': {
-                '0': '@char@line@page@quire@book@chapter@verse@word@unspecified',
+                '0': '@char@line@page@quire@book@chapter@verse@stanza@word@unspecified',
                 '1': '&unit_other=&unit=',
                 '2': '&unit=other&unit_other='
             },

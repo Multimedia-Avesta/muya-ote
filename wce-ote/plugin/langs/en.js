@@ -164,6 +164,7 @@ tinymce.addI18n('en', {
     unit_book: "Book",
     unit_chapter: "Chapter",
     unit_verse: "Verse",
+    unit_stanza: "Stanza",
     unit_word: "Word",
     extent: "Extent",
     hand: "Hand",

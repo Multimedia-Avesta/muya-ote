@@ -2053,7 +2053,7 @@
                                     if (ar['unit'] == 'other') {
                                         info_text += ar['unit_other'] + '</div>';
                                     } else if (ar['unit'] != 'unspecified') {
-                                        var str_unit = "wce.unit_" + ar['unit'];
+                                        var str_unit = "unit_" + ar['unit'];
                                         info_text += tinymce.translate(str_unit) + (tinyMCE.activeEditor.settings.language == 'de' ? '(e)' : '(s)') + '</div>';
                                     }
                                 }
@@ -2076,7 +2076,7 @@
                             if (ar['sp_unit'] == 'other') {
                                 info_text += ar['sp_unit_other'] + (tinyMCE.activeEditor.settings.language == 'de' ? '' : '(s)') + '</div>';
                             } else {
-                                var str_unit = "wce.unit_" + ar['sp_unit'];
+                                var str_unit = "unit_" + ar['sp_unit'];
                                 info_text += tinymce.translate(str_unit) + (tinyMCE.activeEditor.settings.language == 'de' ? '(e)' : '(s)') + '</div>';
                             }
                             break;
