@@ -294,6 +294,10 @@ function writeWceNodeInfo(val) {
             case 'formatting_ornamentation_other':
                 wceClass = ' class="formatting_ornamentation_other"';
                 break;
+            case 'figure':
+                //new_content = '<span wce="' + newWceAttr + '"' + wceClass + '>' + '</span>';
+                new_content = '<span wce="' + newWceAttr + '"' + wceClass + '>' + startFormatHtml + 'Graphical element' + endFormatHtml + '</span>';
+                break;
             case 'langchange':
                 var covertext = '';
                 var following_language = '';
@@ -326,6 +330,9 @@ function writeWceNodeInfo(val) {
                     new_content += endFormatHtml;
                 }
                 new_content += '</span>';
+                if (document.getElementById('color').value == 'red') {
+                    new_content += '<span class="formatting_rubrication" wce_orig="" wce="__t=formatting_rubrication"><span class="format_start mceNonEditable">‹</span>' + 'Place your text here' + '<span class="format_end mceNonEditable">›</span></span> ';
+                }
                 break;
             case 'langchangerange':
                 var covertext = '';
@@ -486,7 +493,12 @@ function writeWceNodeInfo(val) {
                 selected_content = ed.execCommand('wceDelNode', false, true);
                 add_new_wce_node = true;
                 return writeWceNodeInfo(val);
+            } else if (wce_type == 'figure') {
+                selected_content = wceUtils.wceDelNode(ed, true);
+                add_new_wce_node = true;
+                return writeWceNodeInfo(val);
             }
+
             wce_node.setAttribute('wce', newWceAttr);
         }
     }

@@ -340,5 +340,6 @@ tinymce.addI18n('de',{
 	language_title : 'Bitte geben Sie die Sprache an',
     langchange : 'Sprache wechselt zu',
     add_structure: 'Füge Struktur hinzu',
-    delete_structure: 'Entferne Struktur'
+    delete_structure: 'Entferne Struktur',
+    graphic: 'Beschreibung'
 });

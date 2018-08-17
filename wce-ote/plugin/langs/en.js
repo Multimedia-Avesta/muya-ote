@@ -274,6 +274,7 @@ tinymce.addI18n('en', {
     empty_text: "Please enter a text",
     empty_margin: "Please select a marginal position",
     empty_all: "Please enter information for all fields",
+    empty_covered : "Please enter the number of covered lines",
     invalid_char: "Please enter a valid Unicode expression",
     value_too_small: "The value for the number of lines has to be at least 0",
     save: 'Your changes have not been saved yet.\nClick "OK" to save them or "Cancel" to discard changes.',
@@ -339,6 +340,7 @@ tinymce.addI18n('en', {
     //menu_docInfo : 'Document information',
     menu_language_position: 'Change language at this point',
     menu_language_range: 'Change language for the selected text',
+    menu_graphic : 'Graphical element',
     infotext_numeral: 'Numeral',
     infotext_suspension: 'Suspension',
     infotext_editorial_expansion: 'Editorial expansion',
@@ -436,5 +438,8 @@ tinymce.addI18n('en', {
     ar: 'Arabic',
     doclang: 'Document language',
     add_structure: 'Add structure',
-    delete_structure: 'Remove structure'
+    delete_structure: 'Remove structure',
+    graphic: 'Brief description',
+    title_graphic : 'Please specify the graphical element',
+    graphic_data : 'Information about the graphical element'
 });

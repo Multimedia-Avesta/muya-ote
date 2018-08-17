@@ -12,9 +12,7 @@
 
 tinymce.PluginManager.add('wcecharmapsidebar', function (ed) {
     var isArray = tinymce.util.Tools.isArray;
-
-    charmap_filter_value = 'All_glyphs';
-
+    var charmap_filter_value = 'All_glyphs';
     var radioGroup = [{
                 id: 'charmap_default',
                 value: 'Default_only',
@@ -586,6 +584,7 @@ tinymce.PluginManager.add('wcecharmapsidebar', function (ed) {
 
     function getGridHtml(charmap) {
         var gridHtml = '<table role="presentation" cellspacing="0" class="mce-charmap"><tbody>';
+        var x,y;
         charmap = charmap ? charmap : getCharMap();
         var width = Math.min(charmap.length, 25);
         var height = Math.ceil(charmap.length / width);
@@ -614,7 +613,6 @@ tinymce.PluginManager.add('wcecharmapsidebar', function (ed) {
 
         //radio html
 
-
         var radioHtml = '<div style="padding:10px">';
         var translate = tinymce.util.I18n.translate;
         radioGroup.forEach(function (r, i) {
@@ -625,10 +623,11 @@ tinymce.PluginManager.add('wcecharmapsidebar', function (ed) {
         });
         radioHtml += '</div>';
         return radioHtml;}
+
     function parseSomeInt(charcodes) {
         var str = charcodes.split('+');
         var out = '';
-        for (i = 0; i < str.length; i++) {
+        for (var i = 0; i < str.length; i++) {
             if (isNaN(parseFloat(str[i]))) {
                 out += str[i];
             } else {
