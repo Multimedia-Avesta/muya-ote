@@ -3889,6 +3889,10 @@
             });
 
             ed.addCommand('mceAddCorrection_Shortcut', function () {
+                var w = ed.WCE_VAR;
+                if (w.not_C) {
+                    return;
+                }
                 ed.execCommand('mceAddCorrection');
             });
 
