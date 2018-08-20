@@ -33,7 +33,7 @@
 */
 
 (function () {
-    var wfce_editor = "0.9.0beta (2018-07-19)";
+    var wfce_editor = "0.9.0beta (2018-08-17)";
 
     // Load plugin specific language pack
     tinymce.PluginManager.requireLangPack('wce');
@@ -254,7 +254,7 @@
                     return false;
                 //TODO: Check for figure element to deactivate menues
                 if (node.getAttribute("class") && node.getAttribute("class") === 'figure')
-                return true;
+                    return true;
                 return false; //TODO: This used to be "true", but users wanted to alter text ...
             }
             return false;
@@ -3454,7 +3454,7 @@
                                     items[1].disabled(b);
                                     items[2].disabled(b);
                                     if (items.length > 3)
-                                    items[3].disabled(b);
+                                        items[3].disabled(b);
                                 }
 					},
                             {
