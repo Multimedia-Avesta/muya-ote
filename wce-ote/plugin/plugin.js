@@ -248,6 +248,8 @@
                 if (!ed.selection.isCollapsed() && node.getAttribute("class") &&
                     (node.getAttribute("class").indexOf("format_") == 0 || node.getAttribute("class").indexOf("abbr") == 0))
                     return false;
+                if (node.getAttribute("class") && (node.getAttribute("class") == 'langchangerange'))
+                    return false;
                 return true;
             }
             return false;
@@ -2556,7 +2558,8 @@
             //disabled remove format_start/format_end
             if (ek == 46 || ek == 8) {
                 var _selectedNode = ed.selection.getNode();
-                if (_selectedNode && ($(_selectedNode).hasClass('format_end') || $(_selectedNode).hasClass('format_start'))) {
+                if (_selectedNode && ($(_selectedNode).hasClass('format_end') || $(_selectedNode).hasClass('format_start')) &&
+                    _selectedNode.getAttribute("class") !== 'langchange') {
                     return stopEvent(ed, e);
                 }
             }

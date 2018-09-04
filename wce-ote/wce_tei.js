@@ -528,23 +528,13 @@ function getHtmlByTei(inputString, args) {
 
         switch (teiNodeName) {
             case 'teiHeader':
-                //return Tei2Html_teiHeader($htmlParent, $teiNode);
                 return null;
 
             case 'msDesc':
-                //return Tei2Html_msDesc($htmlParent, $teiNode);
                 return null;
-
-                //case 'text':
-                //    return Tei2Html_textElement($htmlParent, $teiNode);
 
             case 'w':
                 return $htmlParent;
-                //return Tei2Html_w($htmlParent, $teiNode);
-
-                /*case 'ex':
-                	return Tei2Html_ex($htmlParent, $teiNode);*/
-                // ex
 
             case 'unclear':
                 return Tei2Html_unclear($htmlParent, $teiNode);
@@ -867,9 +857,11 @@ function getHtmlByTei(inputString, args) {
     var Tei2Html_foreign = function ($htmlParent, $teiNode) {
         var $newNode = $newDoc.createElement('span');
         $newNode.setAttribute('class', 'langchange');
+
         var lang = $teiNode.getAttribute('xml:lang');
         var wceAttr = '__t=langchange&language_name=' + lang;
         var innerHTML = '<span class="editortext" language="' + lang + '">' + '\u2192' + '</span>';
+
         var type = $teiNode.getAttribute('type');
         if (type && type != '') {
             if (type == 'other') {
@@ -928,13 +920,13 @@ function getHtmlByTei(inputString, args) {
         }
         $newNode.setAttribute('wce', wceAttr);
         $newNode.setAttribute('language', lang);
-        $newNode.setAttribute('class', 'langchange');
 
-        var $tmp = $('<temp>' + innerHTML + '</temp>')[0];
+        $tmp = $('<temp>' + innerHTML + '</temp>')[0];
         while ($tmp.firstChild) {
             $newNode.appendChild($tmp.firstChild);
         }
-        var $tempParent = $newDoc.createElement('t');
+
+        /*var $tempParent = $newDoc.createElement('t');
         var cList = $teiNode.childNodes;
         for (var i = 0, c, l = cList.length; i < l; i++) {
             c = cList[i];
@@ -950,11 +942,15 @@ function getHtmlByTei(inputString, args) {
             while ($tempParent.hasChildNodes()) {
                 $newNode.appendChild($tempParent.firstChild);
             }
-        }
-
+        }*/
         addFormatElement($newNode);
         $htmlParent.appendChild($newNode);
-        return null;
+        nodeAddText($htmlParent, ' ');
+        return $htmlParent;
+
+        /*addFormatElement($newNode);
+        $htmlParent.appendChild($newNode);
+        return null;*/
     };
 
     /*
