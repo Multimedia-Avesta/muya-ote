@@ -2575,8 +2575,7 @@
             //disabled remove format_start/format_end
             if (ek == 46 || ek == 8) {
                 var _selectedNode = ed.selection.getNode();
-                if (_selectedNode && ($(_selectedNode).hasClass('format_end') || $(_selectedNode).hasClass('format_start')) &&
-                    _selectedNode.getAttribute("class") !== 'langchange') {
+                if (_selectedNode && (_selectedNode.classList.contains('format_end') || _selectedNode.classList.contains('format_start'))) {
                     return stopEvent(ed, e);
                 }
             }
@@ -2613,7 +2612,7 @@
                 if (wcevar.isCaretAtNodeEnd && ek != 8 && ek != 46 &&
                     (wcevar.type == ed.WCE_CON.formatEnd || wcevar.type == 'chapter_number' ||
                         wcevar.type === 'book_number' || wcevar.type == 'stanza_number' ||
-                        wcevar.type == 'lection_number')
+                        wcevar.type == 'verse_number')
                 ) {
                     //wenn selectednode in andere BlockElement
                     if (WCEUtils.isWceBE(ed, wcevar.selectedNode.parentNode.parentNode)) {
@@ -2632,15 +2631,20 @@
                         return stopEvent(ed, e);
                     }
                 } else
-                if (ek == 46 && wcevar.selectedNode && ($(wcevar.selectedNode).hasClass('commentary') || $(wcevar.selectedNode).hasClass('ews') || $(wcevar.selectedNode).hasClass('lectionary-other'))) {
+                if (ek == 46 && wcevar.selectedNode && ($(wcevar.selectedNode).hasClass('commentary') ||
+                        $(wcevar.selectedNode).hasClass('ews') ||
+                        $(wcevar.selectedNode).hasClass('lectionary-other'))) {
                     WCEUtils.wceDelNode(ed);
                     return stopEvent(ed, e);
                 } else if (ek == 46 && wcevar.isCaretAtNodeEnd && !wcevar.isNextElemBE) {
 
-                } else if (ek == 46 && wcevar.isCaretAtNodeEnd && wcevar.isNextElemBE && !$(wcevar.nextElem).hasClass('commentary') && !$(wcevar.nextElem).hasClass('ews') && !$(wcevar.nextElem).hasClass('lectionary-other')) {
+                } else if (ek == 46 && wcevar.isCaretAtNodeEnd && wcevar.isNextElemBE &&
+                    !$(wcevar.nextElem).hasClass('commentary') && !$(wcevar.nextElem).hasClass('ews') &&
+                    !$(wcevar.nextElem).hasClass('lectionary-other')) {
                     //caret in the middle of two elements
                     return stopEvent(ed, e);
-                } else if ((ek == 46 && !wcevar.isCaretAtFormatStart) || (ek == 8 && wcevar.type != ed.WCE_CON.formatEnd && !wcevar.isCaretAtFormatStart)) {
+                } else if ((ek == 46 && !wcevar.isCaretAtFormatStart) ||
+                    (ek == 8 && wcevar.type != ed.WCE_CON.formatEnd && !wcevar.isCaretAtFormatStart)) {
                     if (wcevar.type !== 'lang') {
                         WCEUtils.wceDelNode(ed);
                         return stopEvent(ed, e);
@@ -2681,6 +2685,10 @@
                     if (wcevar.type != 'break' && !wcevar.not_B) {
                         ed.execCommand('mceAddBreak');
                     }
+                } else if ($(wcevar.selectedNode).hasClass('langchange') ||
+                    $(wcevar.selectedNode).hasClass('langchangerange') ||
+                    $(wcevar.selectedNode).hasClass('editortext')) {
+                    return stopEvent(ed, e);
                 } else if ((wcevar.isc && !wcevar.not_B) || doInsertSpace) {
                     doWithoutDialog(ed, 'brea');
                 }
@@ -2773,19 +2781,21 @@
         // delete nodeName
         wceDelNode: function (ed, notAddOriginal) {
             var wceNode = WCEPlugin.getWceNode(ed);
+
             if (wceNode) {
                 if (WCEUtils.hasWceParentNode(wceNode)) {
                     alert(tinymce.translate('warning_deletion_inner_Node')); //TODO:
                     return;
                 }
                 //verse chapter
-                if ($(wceNode).hasClass('stanza_number') || $(wceNode).hasClass('chapter_number') || $(wceNode).hasClass('book_number') || $(wceNode).hasClass('lection_number')) {
+                if ($(wceNode).hasClass('stanza_number') || $(wceNode).hasClass('chapter_number') ||
+                    $(wceNode).hasClass('book_number') || $(wceNode).hasClass('verse_number')) {
                     return;
                 }
-                if ($(wceNode).hasClass('formatting_rubrication') && wceNode.parentNode && $(wceNode.parentNode).hasClass('lang'))
+                /*if ($(wceNode).hasClass('formatting_rubrication') && wceNode.parentNode && $(wceNode.parentNode).hasClass('lang'))
                     ed.selection.select(wceNode.parentNode);
-                else
-                    ed.selection.select(wceNode);
+                else*/
+                ed.selection.select(wceNode);
 
                 var wceAttr = wceNode.getAttribute('wce');
                 var originalText = decodeURIComponent(wceNode.getAttribute('wce_orig'));
@@ -2836,14 +2846,16 @@
                         }
                     }
                     isDel = true;
-                } else if ($(wceNode).hasClass('lang') || ($(wceNode).hasClass('formatting_rubrication') && wceNode.parentNode && $(wceNode.parentNode).hasClass('lang'))) {
-                    originalText = WCEUtils.getTextWithoutFormat(wceNode);
-                    if (arg0)
-                        ed.selection.setContent(originalText);
-                    else
-                        ed.selection.setContent('');
-                    //isDel = true;
                 }
+                /*else if ($(wceNode).hasClass('editortext') && wceNode.parentNode && ($(wceNode.parentNode).hasClass('langchange') ||
+                                       $(wceNode.parentNode).hasClass('langchangerange'))) {
+
+                                   alert("B");
+                                   ed.selection.setContent('');
+                                   isDel = true;
+                               }
+                               else if ($(wceNode).hasClass('langchange') || $(wceNode.parentNode).hasClass('langchangerange')) {
+                                              }*/
 
                 /* else {
                  if (wceNode !== null) {

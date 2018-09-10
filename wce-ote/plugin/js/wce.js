@@ -307,7 +307,7 @@ function writeWceNodeInfo(val) {
 
                 // we start a new language, i.e. we add a langchange element
                 if (document.getElementById('reason_for_language_change').value == 'backtomainlanguage')
-                    language = g_mainLang ? g_mainLang : "doclang";
+                    language = g_mainLang ? g_mainLang : "mainlanguage";
                 else
                     language = document.getElementById('language_name').value !== 'other' ? document.getElementById('language_name').value : document.getElementById('language_name_other').value;
 
