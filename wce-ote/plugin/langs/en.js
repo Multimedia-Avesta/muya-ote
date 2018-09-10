@@ -397,7 +397,7 @@ tinymce.addI18n('en', {
     close: 'Close',
     reason_for_language_change: 'Reason for language change',
     language_name: 'Language',
-    mainlanguage: 'Main language',
+    mainlanguage: 'Main document language',
     avestan: 'Avestan',
     avestan_avst: 'Avestan in Avesta Script',
     avestan_phlv: 'Avestan in Pahlavi Script',

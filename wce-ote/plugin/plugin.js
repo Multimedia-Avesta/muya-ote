@@ -33,7 +33,7 @@
 */
 
 (function () {
-    var wfce_editor = "0.9.0beta (2018-08-17)";
+    var wfce_editor = "0.9.0beta (2018-09-10)";
 
     // Load plugin specific language pack
     tinymce.PluginManager.requireLangPack('wce');
@@ -249,15 +249,23 @@
                 if (!ed.selection.isCollapsed() && node.getAttribute("class") &&
                     (node.getAttribute("class").indexOf("format_") == 0 || node.getAttribute("class").indexOf("abbr") == 0))
                     return false;
-                if (!ed.selection.isCollapsed() && node.getAttribute("class") &&
+                else if (!ed.selection.isCollapsed() && node.getAttribute("class") &&
                     (node.getAttribute("class").indexOf("formatting") == 0))
                     return false;
                 //TODO: Check for figure element to deactivate menues
-                if (node.getAttribute("class") && node.getAttribute("class") === 'figure')
+                else if (node.getAttribute("class") && node.getAttribute("class") === 'figure')
                     return true;
-                return false; //TODO: This used to be "true", but users wanted to alter text ...
+                else if (node.getAttribute("class") && node.getAttribute("class") == 'langchangerange')
+                    return false;
+                else {
+                    var p = node.previousSibling;
+                    if (node.getAttribute("class") && node.getAttribute("class") == 'formatting_rubrication' &&
+                        p && p.getAttribute("class") && p.getAttribute("class") == 'langchange')
+                        return false;
+                }
+                return true;
             }
-            return false;
+            return false; //TODO: This used to be "true", but users wanted to alter text ...
 
             //TODO: At the moment all <span> elements are "blocked elements". The array ed.WCE_CON.blockedElements is not used. This has to be discussed.
             /*
@@ -2567,7 +2575,8 @@
             //disabled remove format_start/format_end
             if (ek == 46 || ek == 8) {
                 var _selectedNode = ed.selection.getNode();
-                if (_selectedNode && ($(_selectedNode).hasClass('format_end') || $(_selectedNode).hasClass('format_start'))) {
+                if (_selectedNode && ($(_selectedNode).hasClass('format_end') || $(_selectedNode).hasClass('format_start')) &&
+                    _selectedNode.getAttribute("class") !== 'langchange') {
                     return stopEvent(ed, e);
                 }
             }
