@@ -82,7 +82,7 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
         // Theme options
         toolbar: "undo redo muyacharmap | LoadFile save | contextmenu cut copy paste | " +
             "breaks correction illegible decoration abbreviation paratext note punctuation language versemodify | " +
-            "showTeiByHtml | showHtmlByTei | code",
+            "showTeiByHtml | showHtmlByTei | info code",
         theme_advanced_buttons2: "",
         theme_advanced_toolbar_location: "top",
         theme_advanced_toolbar_align: "left",

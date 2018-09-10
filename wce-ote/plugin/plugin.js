@@ -2687,7 +2687,8 @@
                     }
                 } else if ($(wcevar.selectedNode).hasClass('langchange') ||
                     $(wcevar.selectedNode).hasClass('langchangerange') ||
-                    $(wcevar.selectedNode).hasClass('editortext')) {
+                    $(wcevar.selectedNode).hasClass('editortext') ||
+                    $(wcevar.selectedNode).hasClass('figure')) {
                     return stopEvent(ed, e);
                 } else if ((wcevar.isc && !wcevar.not_B) || doInsertSpace) {
                     doWithoutDialog(ed, 'brea');
