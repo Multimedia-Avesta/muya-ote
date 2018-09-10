@@ -248,8 +248,14 @@
                 if (!ed.selection.isCollapsed() && node.getAttribute("class") &&
                     (node.getAttribute("class").indexOf("format_") == 0 || node.getAttribute("class").indexOf("abbr") == 0))
                     return false;
-                if (node.getAttribute("class") && (node.getAttribute("class") == 'langchangerange'))
+                else if (node.getAttribute("class") && node.getAttribute("class") == 'langchangerange')
                     return false;
+                else {
+                    var p = node.previousSibling;
+                    if (node.getAttribute("class") && node.getAttribute("class") == 'formatting_rubrication' &&
+                        p && p.getAttribute("class") && p.getAttribute("class") == 'langchange')
+                        return false;
+                }
                 return true;
             }
             return false;

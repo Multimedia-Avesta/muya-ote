@@ -139,8 +139,8 @@ function getHtmlByTei(inputString, args) {
         function _change(_change) {
             var _next = _change.nextSibling;
             var _parent = _change.parentNode;
-            if (_change.getAttribute('subtype') == 'untransPahlavi' ||
-                _change.getAttribute('subtype') == 'untrans') {
+            if (_change.getAttribute('type') == 'untransPahlavi' ||
+                _change.getAttribute('type') == 'untrans') {
                 return;
             }
             var _del = _parent.firstChild === _change && _parent.childNodes.length == 1; // && !_change.getAttribute('type') === 'stanza';
@@ -859,6 +859,7 @@ function getHtmlByTei(inputString, args) {
         $newNode.setAttribute('class', 'langchange');
 
         var lang = $teiNode.getAttribute('xml:lang');
+        lang = lang ? lang : '';
         var wceAttr = '__t=langchange&language_name=' + lang;
         var innerHTML = '<span class="editortext" language="' + lang + '">' + '\u2192' + '</span>';
 
@@ -867,7 +868,7 @@ function getHtmlByTei(inputString, args) {
             if (type == 'other') {
                 wceAttr += '&reason_for_language_change=other&reason_for_language_change_other=' + subtype;
             } else if (type == 'untransPahlavi' || type == 'untrans') { //first one kept for compatibility
-                var _gap = $teiNode.querySelector('gap');
+                var _gap = $teiNode.querySelector('gap[extent]');
                 var _extent = parseInt(_gap.getAttribute('extent'));
                 var lang_long = '';
                 switch (lang) {
@@ -4273,6 +4274,7 @@ function getTeiByHtml(inputString, args) {
                 $ab.setAttribute('n', String.fromCharCode(count_verse));
         }
 
+        //TODO: special case for mainlangugae
         $ab.setAttribute('xml:lang', lang);
 
         if (arr['reason_for_language_change'] == 'untrans') { // we have to add a gap element
