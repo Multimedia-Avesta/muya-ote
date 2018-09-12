@@ -327,7 +327,7 @@ function writeWceNodeInfo(val) {
 
                 if (document.getElementById('color').value == 'red') {
                     new_content += '<span class="formatting_rubrication" wce_orig="' + selected_content + '" wce="__t=formatting_rubrication">' +
-                        startFormatHtml + (selected_content == '' ? 'RITUAL TEXT' : selected_content) + endFormatHtml + '</span>';
+                        startFormatHtml + (selected_content == '' ? 'Put text of ritual direction here' : selected_content) + endFormatHtml + '</span>';
                 } else {
                     new_content += selected_content;
                 }

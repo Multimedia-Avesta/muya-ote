@@ -140,13 +140,15 @@ function getHtmlByTei(inputString, args) {
             var _next = _change.nextSibling;
             var _parent = _change.parentNode;
             if (_change.getAttribute('type') == 'untransPahlavi' ||
-                _change.getAttribute('type') == 'untrans') {
+                _change.getAttribute('type') == 'untrans' ||
+                _change.getAttribute('type') == 'back') {
                 return;
             }
-            var _del = _parent.firstChild === _change && _parent.childNodes.length == 1; // && !_change.getAttribute('type') === 'stanza';
-            if (_parent.firstChild === _change && !_parent.getAttribute('xml:lang')) { // && !_change.getAttribute('type') === 'stanza') {
+            var _del = false;
+            //var _del = _parent.firstChild === _change && _parent.childNodes.length == 1; // && !_change.getAttribute('type') === 'stanza';
+            /*if (_parent.firstChild === _change && !_parent.getAttribute('xml:lang')) { // && !_change.getAttribute('type') === 'stanza') {
                 _del = true;
-            }
+            }*/
             if (_next) {
                 while (_change.firstChild) {
                     _parent.insertBefore(_change.firstChild, _next);
@@ -1856,18 +1858,18 @@ function getHtmlByTei(inputString, args) {
         return null;
     };
 
-    var Tei2Html_figure = function($htmlParent, $teiNode) {
-		var $newNode = $newDoc.createElement('span');
+    var Tei2Html_figure = function ($htmlParent, $teiNode) {
+        var $newNode = $newDoc.createElement('span');
         $newNode.setAttribute('class', 'figure');
-		var wceAttr = '__t=figure&__n=&';
-			if ($teiNode.firstChild && $teiNode.firstChild.nodeName === 'desc') {
-				wceAttr += '&graphic_desc=' + encodeURI($teiNode.firstChild.textContent);
-                wceAttr += '&extent=' + $teiNode.getAttribute('rend').substr(5);
-			}
-			$newNode.setAttribute('wce', wceAttr);
-			nodeAddText($newNode, 'Graphical element');
-		addFormatElement($newNode);
-		$htmlParent.appendChild($newNode);
+        var wceAttr = '__t=figure&__n=&';
+        if ($teiNode.firstChild && $teiNode.firstChild.nodeName === 'desc') {
+            wceAttr += '&graphic_desc=' + encodeURI($teiNode.firstChild.textContent);
+            wceAttr += '&extent=' + $teiNode.getAttribute('rend').substr(5);
+        }
+        $newNode.setAttribute('wce', wceAttr);
+        nodeAddText($newNode, 'Graphical element');
+        addFormatElement($newNode);
+        $htmlParent.appendChild($newNode);
         nodeAddText($htmlParent, ' ');
         return null;
     };
@@ -2048,9 +2050,7 @@ function getTeiByHtml(inputString, args) {
                 langNode = null;
             abNodes.forEach(function (ab) {
                 var att_type = '';
-                //var att_type=ab.getAttribute('type');
                 var att_lang = ab.getAttribute('xml:lang');
-                //if (att_type=='languageChange'){
                 if (ab.nodeName == 'foreign') {
                     att_type = 'languageChange';
                     lang = att_lang;
@@ -2107,7 +2107,8 @@ function getTeiByHtml(inputString, args) {
                 return;
             }
             if (_pre.node.getAttribute('type') === 'untransPahlavi' ||
-                _pre.node.getAttribute('type') === 'untrans') {
+                _pre.node.getAttribute('type') === 'untrans' ||
+                _pre.node.getAttribute('type') === 'back') {
                 return;
             }
 
@@ -4335,15 +4336,15 @@ function getTeiByHtml(inputString, args) {
         };
     };
 
-    var html2Tei_figure = function(arr, $teiParent, $htmlNode) {
-		var $figure, $desc;
+    var html2Tei_figure = function (arr, $teiParent, $htmlNode) {
+        var $figure, $desc;
 
-		$figure = $newDoc.createElement('figure');
+        $figure = $newDoc.createElement('figure');
         var _covered = arr['extent'];
         var _desc = decodeURI(arr['graphic_desc']);
 
         if (_covered && _covered != '')
-            $figure.setAttribute('rend','cover'+_covered);
+            $figure.setAttribute('rend', 'cover' + _covered);
         if (_desc && _desc != '') {
             $desc = $newDoc.createElement('desc');
             nodeAddText($desc, _desc);
@@ -4351,10 +4352,10 @@ function getTeiByHtml(inputString, args) {
         }
         $teiParent.appendChild($figure);
 
-		return {
-			0 : $figure,
-            1 : true
-		};
+        return {
+            0: $figure,
+            1: true
+        };
     };
 
     /*
