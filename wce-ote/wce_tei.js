@@ -861,6 +861,7 @@ function getHtmlByTei(inputString, args) {
     };
 
     var Tei2Html_foreign = function ($htmlParent, $teiNode) {
+        var ed = parent.tinymce.activeEditor;
         var $newNode = $newDoc.createElement('span');
         $newNode.setAttribute('class', 'langchange');
 
@@ -905,11 +906,11 @@ function getHtmlByTei(inputString, args) {
                         lang_long = 'Arabic';
                         break;
                 }
-                var covertext = 'Untranscribed text in ' + lang_long;
+                var covertext = ed.translate('untrans') + ' in ' + lang_long;
                 for (var i = 0; i < _extent; i++) {
                     covertext += '<span class="mceNonEditable brea" wce="__t=brea&amp;__n=&amp;hasBreak=no&amp;break_type=lb&amp;number=&amp;rv=&amp;page_number=&amp;running_title=&amp;facs=&amp;lb_alignment=">' +
                         '<span class="format_start mceNonEditable">‹</span><br />↵<span class="format_end mceNonEditable">›</span></span>' +
-                        'Untranscribed text in ' + lang_long;
+                        ed.translate('untrans') + ' in ' + lang_long;
                 }
                 innerHTML += '<span class="editortext">' + covertext + '</span>';
                 wceAttr += '&reason_for_language_change=' + type + '&reason_for_language_change_other=' + '&number_of_lines=' + _extent;
@@ -1859,15 +1860,27 @@ function getHtmlByTei(inputString, args) {
     };
 
     var Tei2Html_figure = function ($htmlParent, $teiNode) {
+        var ed = parent.tinymce.activeEditor;
         var $newNode = $newDoc.createElement('span');
         $newNode.setAttribute('class', 'figure');
         var wceAttr = '__t=figure&__n=&';
+        var extent = $teiNode.getAttribute('rend').substr(5);
         if ($teiNode.firstChild && $teiNode.firstChild.nodeName === 'desc') {
             wceAttr += '&graphic_desc=' + encodeURI($teiNode.firstChild.textContent);
-            wceAttr += '&extent=' + $teiNode.getAttribute('rend').substr(5);
+            wceAttr += '&extent=' + extent;
         }
         $newNode.setAttribute('wce', wceAttr);
-        nodeAddText($newNode, 'Graphical element');
+        covertext = ed.translate('graphical_element');
+        for (var i = 0; i < extent; i++) {
+            covertext += '<span class="mceNonEditable brea" wce="__t=brea&amp;__n=&amp;hasBreak=no&amp;break_type=lb&amp;number=&amp;rv=&amp;page_number=&amp;running_title=&amp;facs=&amp;lb_alignment=">' +
+                '<span class="format_start mceNonEditable">‹</span><br />↵<span class="format_end mceNonEditable">›</span></span>' + ed.translate('graphical_element');
+        }
+
+        $tmp = $('<temp>' + covertext + '</temp>')[0];
+        while ($tmp.firstChild) {
+            $newNode.appendChild($tmp.firstChild);
+        }
+        //nodeAddText($newNode, covertext);
         addFormatElement($newNode);
         $htmlParent.appendChild($newNode);
         nodeAddText($htmlParent, ' ');

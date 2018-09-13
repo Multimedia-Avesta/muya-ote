@@ -295,8 +295,12 @@ function writeWceNodeInfo(val) {
                 wceClass = ' class="formatting_ornamentation_other"';
                 break;
             case 'figure':
-                //new_content = '<span wce="' + newWceAttr + '"' + wceClass + '>' + '</span>';
-                new_content = '<span wce="' + newWceAttr + '"' + wceClass + '>' + startFormatHtml + 'Graphical element' + endFormatHtml + '</span>';
+                covertext = ed.translate('graphical_element');
+                for (var i = 0; i < document.getElementById('extent').value; i++) {
+                    covertext += '<span class="mceNonEditable brea" wce="__t=brea&amp;__n=&amp;hasBreak=no&amp;break_type=lb&amp;number=&amp;rv=&amp;page_number=&amp;running_title=&amp;facs=&amp;lb_alignment=">' +
+                        '<span class="format_start mceNonEditable">‹</span><br />↵<span class="format_end mceNonEditable">›</span></span>' + ed.translate('graphical_element');
+                }
+                new_content = '<span wce="' + newWceAttr + '"' + wceClass + '>' + startFormatHtml + covertext + endFormatHtml + '</span>';
                 break;
             case 'langchange':
             case 'langchangerange':
