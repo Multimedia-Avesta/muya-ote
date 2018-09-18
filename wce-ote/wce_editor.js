@@ -32,7 +32,7 @@
     Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
 */
 
-function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, getWitnessLang) {
+function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, getWitnessLang, savefunc) {
     if (myBaseURL && typeof myBaseURL !== "undefined" && myBaseURL !== '') {
         tinymce.baseURL = myBaseURL;
         tinymce.baseURI = new tinymce.util.URI(tinymce.baseURL);
@@ -54,7 +54,9 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
         theme_advanced_path: false,
         execcommand_callback: 'wceExecCommandHandler',
         save_onsavecallback: function () {
-            saveToDisc();
+            if (savefunc)
+                savefunc();
+            //saveToDisc();
             //if (saveDataToDB) saveDataToDB(true);
         },
         directionality: (rtl) ? "rtl" : "ltr",
