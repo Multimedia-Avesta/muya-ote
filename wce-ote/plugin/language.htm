@@ -101,11 +101,6 @@
 								<!--<option value="other">{#wce.other}</option>-->
 							</select>
                     </td>
-                    <!--<td colspan="2">
-                            <input id="place_corr_other"
-                            name="place_corr_other" type="text" value="" size="20"
-                            maxlength="" class="required number min1 mceFocus" />
-                            </td>-->
                 </tr>
                 <tr>
                     <td>
@@ -115,30 +110,6 @@
                         <input id="number_of_lines" name="number_of_lines" type="text" value="0" size="10" maxlength="" class="required number min1 mceFocus" />
                     </td>
                 </tr>
-                <!--<tr>
-                    <td>
-                        <label id="following_lang_label" for="following_language">{#following_lang}</label>
-                    </td>
-                    <td colspan="1">
-                        <select id="following_language" name="following_language">
-                            <option value="same" selected="selected">{#sameasbefore}</option>
-                            <option value="ae">{#avestan}</option>
-                            <option value="gu">{#gujarati}</option>
-							<option value="fa">{#persian}</option>
-							<option value="sa">{#sanskrit}</option>
-							<option value="ae-Avst">{#avestan_avst}</option>
-							<option value="ae-Phlv">{#avestan_phlv}</option>
-                            <option value="ae-Gujr">{#avestan_gujr}</option>
-							<option value="pal-Avst">{#pahlavi_avst}</option>
-                            <option value="pal-Phlv">{#pahlavi_phlv}</option>
-							<option value="pal-Gujr">{#pahlavi_gujr}</option>
-                            <option value="pal-Phli">{#pahlavi_phli}</option>
-                            <option value="gu-Arab">{#gujarati_arab}</option>
-                            <option value="gu-Gujr">{#gujarati_gujr}</option>
-                            <option value="ar">{#arabic}</option>
-                        </select>
-                    </td>
-                </tr>-->
             </table>
         </fieldset>
         <div class="mceActionPanel" id="mceActionPanel">
@@ -195,12 +166,6 @@
         return true;
     }
 
-    /*function testOther_insert() {
-    if (!testOther() || item_counter == -1)// no corrections given
-    return false;
-    return true;
-    }*/
-
     function checkstatus_reason() {
         if ($('#reason_for_language_change').val() == 'other') {
             $('#reason_for_language_change_other').attr('disabled', false);
@@ -209,35 +174,73 @@
             $('#reason_for_language_change_other').attr('disabled', true);
             $('#reason_for_language_change_other').css('background', '#ccc');
         }
-        if ($('#reason_for_language_change').val() == 'ritual') {
-            //$('#color').attr('disabled', false);
-            //$('#color').css('background', '#fff');
-            $('#color').val('red');
-            /*} else {
-            	$('#color').attr('disabled', true);
-            	$('#color').css('background', '#ccc');*/
-        }
-        if ($('#reason_for_language_change').val() == 'backtomainlanguage') {
-            $('#language_name').attr('disabled', true);
-            $('#language_name').css('background', '#ccc');
-            $('#color').attr('disabled', true);
-            $('#color').css('background', '#ccc');
-            $('#number_of_lines').attr('disabled', true);
-            $('#number_of_lines').css('background', '#ccc');
-            $('#following_language').attr('disabled', true);
-            $('#following_language').css('background', '#ccc');
-        }
-        if ($('#reason_for_language_change').val() == 'untrans') {
-            $('#language_name').val('pal-Phlv');
-            $('#number_of_lines').attr('disabled', false);
-            $('#number_of_lines').css('background', '#fff');
-            $('#following_language').attr('disabled', false);
-            $('#following_language').css('background', '#fff');
-        } else {
-            $('#number_of_lines').attr('disabled', true);
-            $('#number_of_lines').css('background', '#ccc');
-            $('#following_language').attr('disabled', true);
-            $('#following_language').css('background', '#ccc');
+        switch ($('#reason_for_language_change').val()) {
+            case 'trans':
+                $('#language_name').attr('disabled', false);
+                $('#language_name').css('background', '#fff');
+                $('#color').attr('disabled', false);
+                $('#color').css('background', '#fff');
+                $('#color').val('black');
+                $('#number_of_lines').attr('disabled', true);
+                $('#number_of_lines').css('background', '#ccc');
+                $('#following_language').attr('disabled', false);
+                $('#following_language').css('background', '#fff');
+                break;
+            case 'ritual':
+                $('#language_name').attr('disabled', false);
+                $('#language_name').css('background', '#fff');
+                $('#color').attr('disabled', false);
+                $('#color').css('background', '#fff');
+                $('#color').val('red');
+                $('#number_of_lines').attr('disabled', true);
+                $('#number_of_lines').css('background', '#ccc');
+                $('#following_language').attr('disabled', false);
+                $('#following_language').css('background', '#fff');
+                break;
+            case 'backtomainlanguage':
+                $('#language_name').attr('disabled', true);
+                $('#language_name').css('background', '#ccc');
+                $('#color').attr('disabled', true);
+                $('#color').css('background', '#ccc');
+                $('#color').val('black');
+                $('#number_of_lines').attr('disabled', true);
+                $('#number_of_lines').css('background', '#ccc');
+                $('#following_language').attr('disabled', true);
+                $('#following_language').css('background', '#ccc');
+                break;
+            case 'untrans':
+                $('#language_name').attr('disabled', false);
+                $('#language_name').css('background', '#fff');
+                $('#language_name').val('pal-Phlv');
+                $('#number_of_lines').attr('disabled', false);
+                $('#number_of_lines').css('background', '#fff');
+                $('#color').attr('disabled', false);
+                $('#color').css('background', '#fff');
+                $('#color').val('black');
+                $('#following_language').attr('disabled', false);
+                $('#following_language').css('background', '#fff');
+                break;
+            case 'section':
+                $('#language_name').attr('disabled', false);
+                $('#language_name').css('background', '#fff');
+                $('#number_of_lines').attr('disabled', true);
+                $('#number_of_lines').css('background', '#ccc');
+                $('#color').attr('disabled', false);
+                $('#color').css('background', '#fff');
+                $('#color').val('black');
+                $('#following_language').attr('disabled', false);
+                $('#following_language').css('background', '#fff');
+                break;
+            default: //other
+                $('#language_name').attr('disabled', false);
+                $('#language_name').css('background', '#fff');
+                $('#number_of_lines').attr('disabled', true);
+                $('#number_of_lines').css('background', '#ccc');
+                $('#color').attr('disabled', false);
+                $('#color').css('background', '#fff');
+                $('#color').val('black');
+                $('#following_language').attr('disabled', false);
+                $('#following_language').css('background', '#fff');
         }
     }
 
