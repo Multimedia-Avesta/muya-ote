@@ -332,7 +332,8 @@ tinymce.addI18n('en', {
     menu_punctuation: 'Punctuation',
     menu_punctuation_add: 'Add punctuation',
     menu_punctuation_add_char: 'Add punctuation character',
-    punctuation_other_title: 'Add other punctuation character',
+    punctuation_other_title: 'Add an unicode punctuation character',
+    punctuation_other_title_special: 'Add a special punctuation',
     menu_blank_spaces: 'Blank spaces',
     menu_verses: 'Modify verses',
     menu_structure: 'Structure',
@@ -373,6 +374,7 @@ tinymce.addI18n('en', {
     infotext_dt_other: 'Displaced',
     infotext_highlighted_text: 'Highlighted text',
     infotext_punctuation_mark: 'Punctuation mark',
+    infotext_punctuation_mark_special: 'Special punctuation mark',
     infotext_omission: 'Omission',
     infotext_language: 'Language',
     error_part_abbr: 'Error at part-worded abbreviation. Parentheses do not match or invalid nesting!',
@@ -442,5 +444,6 @@ tinymce.addI18n('en', {
     graphic: 'Brief description',
     title_graphic: 'Please specify the graphical element',
     graphic_data: 'Information about the graphical element',
-    graphical_element: 'Graphical element'
+    graphical_element: 'Graphical element',
+    description: 'Description'
 });

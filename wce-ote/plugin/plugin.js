@@ -2113,27 +2113,12 @@
                             }
                             break;
                         case 'pc':
-                            info_text = '<div>' + tinymce.translate('infotext_punctuation_mark') + '</div>';
+                            if (ar['note'] && ar['note'] !== '') {
+                                info_text = '<div>' + tinymce.translate('infotext_punctuation_mark_special') + '</div>';
+                                info_text += '<div>' + ar['note'] + '</div>';
+                            } else
+                                info_text = '<div>' + tinymce.translate('infotext_punctuation_mark') + '</div>';
                             break;
-                            /*case 'format':
-                            	alert(sele_node.getAttribute('language'));
-                            	info_text = '<div>';
-                            	if (ar['language'] == 'pal-Phlv')
-                            		info_text += 'Zoroastrian Middle Persian in Pahlavi Script';
-                            	else if (ar['language'] == 'pal-Avst')
-                            		info_text += 'Zoroastrian Middle Persian in Avesta Script';
-                            	else if (ar['language_name'] == 'pal-Phli')
-                            		info_text += 'Middle Persian in inscriptional Pahlavi Script';
-                            	else if (ar['language_name'] == 'fa')
-                            		info_text += 'Persian';
-                            	else if (ar['language_name'] == 'gu')
-                            		info_text += 'Gujarati';
-                            	else if (ar['language_name'] == 'sa')
-                            		info_text += 'Sanskrit';
-                            	else if (ar['language_name'] == 'other')
-                            		info_text += ar['language_name_other'];
-                            	info_text += '</div>';
-                            	break;*/
                         case 'verse':
                             info_text = '<div>' + 'Verse';
                             if (ar['partial']) {
@@ -4217,6 +4202,20 @@
                 doWithDialog(ed, url, '/punctuation_other_char.htm', 480, 320, 1, true, tinymce.translate('punctuation_other_title'));
             });
 
+            ed.addCommand('mceAdd_pc_char_P_other', function () {
+                doWithDialog(ed, url, '/punctuation_other_P_char.htm', 480, 320, 1, true, tinymce.translate('punctuation_other_title_special'));
+            });
+
+            ed.addCommand('mceAdd_P_other', function (c) {
+                var startFormatHtml = ed.WCE_CON.startFormatHtml;
+                var endFormatHtml = ed.WCE_CON.endFormatHtml;
+                var _setContent = WCEUtils.setContent;
+                var wceClass = ' class="pc"';
+                var wceAttr = ' wce="' + '__t=pc&amp;note=' + encodeURIComponent(c) + '" wce_orig=""';
+
+                _setContent(ed, '<span' + wceAttr + wceClass + '>' + startFormatHtml + 'P+999' + endFormatHtml + '</span> ');
+            });
+
             ed.addCommand('mceAddCapitals', function () {
                 doWithDialog(ed, url, '/capitals.htm', 480, 320, 1, true, tinymce.translate('capitals_title'));
             });
@@ -4258,19 +4257,6 @@
                 doWithDialog(ed, url, '/language_range.htm', 800, 320, 1, true, tinymce.translate('language_title'));
             });
 
-
-            // verse modify
-            /*ed.addCommand('mceVerseModify', function () {
-                doWithDialog(ed, url, '/verse.htm', 640, 1024, 1, true, tinymce.translate('verses_title'));
-            });
-
-            ed.addCommand('mceVerseModify_Shortcut', function () {
-                ed.execCommand('mceVerseModify');
-            });*/
-
-            /*ed.addCommand('mceDocInfo', function () {
-                doWithDialog(ed, url, '/docinfo.htm', 640, 480, 1, false, tinymce.translate('docinfo_title'));
-            });*/
 
             ed.addCommand('printData', function () { // Problem in IE
                 var ed = tinyMCE.activeEditor;

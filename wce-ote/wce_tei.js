@@ -968,11 +968,20 @@ function getHtmlByTei(inputString, args) {
         var $newNode = $newDoc.createElement('span');
 
         $newNode.setAttribute('class', 'pc');
-        $newNode.setAttribute('wce', '__t=pc');
-        addFormatElement($newNode);
-        $htmlParent.appendChild($newNode);
-        nodeAddText($htmlParent, ' ');
-        return $newNode;
+        if ($teiNode.getAttribute('type')) {
+            $newNode.setAttribute('wce', '__t=pc&note=' + encodeURIComponent($teiNode.firstChild.nodeValue));
+            nodeAddText($newNode, 'P+999');
+            addFormatElement($newNode);
+            $htmlParent.appendChild($newNode);
+            nodeAddText($htmlParent, ' ');
+            return null;
+        } else {
+            $newNode.setAttribute('wce', '__t=pc');
+            addFormatElement($newNode);
+            $htmlParent.appendChild($newNode);
+            nodeAddText($htmlParent, ' ');
+            return $newNode;
+        }
     };
 
     /*
@@ -4082,8 +4091,11 @@ function getTeiByHtml(inputString, args) {
         }
 
         var pc = $newDoc.createElement('pc');
-        //pc.setAttribute('rend','punctuation');
-        nodeAddText(pc, getDomNodeText($htmlNode));
+        if (arr['note']) {
+            pc.setAttribute('type', 'special');
+            nodeAddText(pc, decodeURIComponent(arr['note']));
+        } else
+            nodeAddText(pc, getDomNodeText($htmlNode));
         $teiParent.appendChild(pc);
         //appendNodeInW($teiParent, pc, $htmlNode);
         return {
