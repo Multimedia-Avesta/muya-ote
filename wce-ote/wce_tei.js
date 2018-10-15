@@ -141,7 +141,10 @@ function getHtmlByTei(inputString, args) {
             var _parent = _change.parentNode;
             if (_change.getAttribute('type') == 'untransPahlavi' ||
                 _change.getAttribute('type') == 'untrans' ||
-                _change.getAttribute('type') == 'back') {
+                _change.getAttribute('type') == 'back' ||
+                _change.getAttribute('type') == '' ||
+                _change.getAttribute('type') == 'undefined'
+            ) {
                 return;
             }
             var _del = false;
@@ -1273,10 +1276,6 @@ function getHtmlByTei(inputString, args) {
         }
 
         addFormatElement($newNode);
-        //28.10.2013 YG
-        /*if(className=='abbr_add_overline'){
-        	$teiNode=$teiNode.firstChild;
-        }*/
         $newNode.setAttribute('wce_orig', getOriginalTextByTeiNode($teiNode));
         $htmlParent.appendChild($newNode);
         return null;
@@ -3944,10 +3943,10 @@ function getTeiByHtml(inputString, args) {
      */
     var html2Tei_abbr = function (arr, $teiParent, $htmlNode) {
         var $abbr = $newDoc.createElement('abbr');
-        var extAttr = $htmlNode.getAttribute('ext');
+        /*var extAttr = $htmlNode.getAttribute('ext');
         if (extAttr) {
             $abbr.setAttribute('ext', extAttr);
-        }
+        }*/
 
         // type
         var abbr_type = arr['abbr_type'];
@@ -3958,26 +3957,38 @@ function getTeiByHtml(inputString, args) {
                 $abbr.setAttribute('type', abbr_type);
         }
 
-        //var hText = getDomNodeText($htmlNode); //TODO: we need a more complex method here to get nested elements as well
+        var abbr_expansion = arr['abbr_expansion'];
+        if (abbr_expansion && abbr_expansion != '') {
+            var $expan = $newDoc.createElement('expan');
+            nodeAddText($expan, decodeURIComponent(arr['abbr_expansion']));
+            var $choice = $newDoc.createElement('choice');
+            nodeAddText($abbr, $htmlNode.firstChild.textContent);
+        }
+        /*var $innerNode = $newDoc.createDocumentFragment();
+        var childList = $htmlNode.childNodes;*/
 
-        //if (hText && hText.indexOf('\u2039') == 0) // if marker is still active (e.g. at combinations)
-        //	hText = hText.substring(1, hText.length-1);
-
-        var $innerNode = $newDoc.createDocumentFragment();
-        var childList = $htmlNode.childNodes;
-
-        if (arr['add_overline'] === 'overline') {
+        /*if (arr['add_overline'] === 'overline') {
             var $hi = $newDoc.createElement('hi');
             $hi.setAttribute('rend', 'overline');
             $abbr.appendChild($hi);
+        }*/
+
+        if ($choice) {
+            $choice.appendChild($expan);
+            $choice.appendChild($abbr);
+            $teiParent.appendChild($choice);
+            //appendNodeInW($teiParent, $choice, $htmlNode);
+            return {
+                0: $teiParent,
+                1: true
+            };
+        } else {
+            appendNodeInW($teiParent, $abbr, $htmlNode);
+            return {
+                0: $teiParent,
+                1: true
+            };
         }
-
-        appendNodeInW($teiParent, $abbr, $htmlNode);
-
-        return {
-            0: $teiParent,
-            1: true
-        };
     };
 
     /*
@@ -4291,7 +4302,8 @@ function getTeiByHtml(inputString, args) {
         else
             langID = 'O'; //Other
 
-        switch (arr['reason_for_language_change']) {
+        var reason = arr['reason_for_language_change'] ? arr['reason_for_language_change'] : 'back';
+        switch (reason) {
             case 'trans': //translation
                 $ab.setAttribute('type', 'trans');
                 $ab.setAttribute('xml:id', g_bookNumber + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + langID);
@@ -4304,6 +4316,7 @@ function getTeiByHtml(inputString, args) {
                 $ab.setAttribute('n', String.fromCharCode(count_verse));
                 break;
             case 'backtomainlanguage':
+            case 'back':
                 $ab.setAttribute('type', 'back');
                 $ab.setAttribute('xml:id', g_bookNumber + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + '-back-' + langID);
                 $ab.setAttribute('n', String.fromCharCode(count_verse));

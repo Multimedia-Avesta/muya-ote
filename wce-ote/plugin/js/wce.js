@@ -327,15 +327,14 @@ function writeWceNodeInfo(val) {
                             '<span class="format_start mceNonEditable">‹</span><br />↵<span class="format_end mceNonEditable">›</span></span>' + ed.translate('untrans') + ' in ' + ed.translate(language.replace("-", ""));
                     }
                     new_content += '<span class="editortext">' + covertext + '</span>' + endFormatHtml;
-                }
-
-                if (document.getElementById('color').value == 'red') {
-                    new_content += '<span class="formatting_rubrication" wce_orig="' + selected_content + '" wce="__t=formatting_rubrication">' +
-                        startFormatHtml + (selected_content == '' ? 'Put text of ritual direction here' : selected_content) + endFormatHtml + '</span>';
                 } else {
-                    new_content += selected_content;
+                    if (document.getElementById('color').value == 'red') {
+                        new_content += '<span class="formatting_rubrication" wce_orig="' + selected_content + '" wce="__t=formatting_rubrication">' +
+                            startFormatHtml + (selected_content == '' ? 'write here' : selected_content) + endFormatHtml + '</span>';
+                    } else {
+                        new_content += selected_content;
+                    }
                 }
-
                 following_language = document.getElementById('following_language') ? document.getElementById('following_language').value : '';
                 if (following_language !== '') {
                     new_content += ' <span wce="' + newWceAttr + '"' + wceClass + ' language="' + following_language + '">' + startFormatHtml + '<span class="editortext" language="' + following_language + '">' + '\u2192' + '</span>' + endFormatHtml + '</span>';

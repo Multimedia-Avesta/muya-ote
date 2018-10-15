@@ -46,17 +46,11 @@
 <body id="table">
     <form onsubmit="return false;" action="#">
         <input type="button" id="help" name="help" value="{#help}" onclick="wce_openWindow('docu.htm#verse')" style="margin-bottom:100px" />
-        <div id="deleteVerseDiv" style="margin-top:10px">
+        <div id="deleteBookDiv" style="margin-top:10px">
             <div>
-                <input type="radio" id="deleteVerseRadio" onclick="canDeleteVerse();" name="versemodify" />{#verse_remove}
+                <input type="radio" id="deleteBookRadio" onclick="canDeleteBook();" name="versemodify" />{#book_remove}
             </div>
-            <fieldset style="border:1px solid #ccc;width:auto; height:auto; overflow-y:auto" id="verseList"></fieldset>
-        </div>
-        <div id="deleteStanzaDiv" style="margin-top:10px">
-            <div>
-                <input type="radio" id="deleteStanzaRadio" onclick="canDeleteStanza();" name="versemodify" />{#stanza_remove}
-            </div>
-            <fieldset style="border:1px solid #ccc;width:auto; height:auto; overflow-y:auto" id="stanzaList"></fieldset>
+            <fieldset style="border:1px solid #ccc;width:auto; height:auto; overflow-y:auto" id="bookList"></fieldset>
         </div>
         <div id="deleteChapterDiv" style="margin-top:10px">
             <div>
@@ -64,11 +58,17 @@
             </div>
             <fieldset style="border:1px solid #ccc;width:auto; height:auto; overflow-y:auto" id="chapterList"></fieldset>
         </div>
-        <div id="deleteBookDiv" style="margin-top:10px">
+        <div id="deleteStanzaDiv" style="margin-top:10px">
             <div>
-                <input type="radio" id="deleteBookRadio" onclick="canDeleteBook();" name="versemodify" />{#book_remove}
+                <input type="radio" id="deleteStanzaRadio" onclick="canDeleteStanza();" name="versemodify" />{#stanza_remove}
             </div>
-            <fieldset style="border:1px solid #ccc;width:auto; height:auto; overflow-y:auto" id="bookList"></fieldset>
+            <fieldset style="border:1px solid #ccc;width:auto; height:auto; overflow-y:auto" id="stanzaList"></fieldset>
+        </div>
+        <div id="deleteVerseDiv" style="margin-top:10px">
+            <div>
+                <input type="radio" id="deleteVerseRadio" onclick="canDeleteVerse();" name="versemodify" />{#verse_remove}
+            </div>
+            <fieldset style="border:1px solid #ccc;width:auto; height:auto; overflow-y:auto" id="verseList"></fieldset>
         </div>
         <div class="mceActionPanel" style="margin-bottom:10px">
             <input type="button" id="insert" name="insert" value="{#apply}" onclick="update();parent.tinymce.activeEditor.windowManager.close();" />
