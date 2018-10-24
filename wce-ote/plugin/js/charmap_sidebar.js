@@ -447,6 +447,7 @@ tinymce.PluginManager.add('wcecharmapsidebar', function (ed) {
 
     function getPaCharMap() {
         return [
+      ['712', 'final stroke'],
       ['0x02be', 'Aleph'],
       ['0x02bf', 'Ayin'],
       ['b+0x0331', 'Small letter b with macron below'],
@@ -564,8 +565,10 @@ tinymce.PluginManager.add('wcecharmapsidebar', function (ed) {
         var target = e.target;
 
         if (/^(TD|DIV)$/.test(target.nodeName)) {
-            insertChar(tinymce.trim(target.innerText || target.textContent),
-                target.getAttribute("tabindex"));
+            if (target.getAttribute("tabindex")) {
+                insertChar(tinymce.trim(target.innerText || target.textContent),
+                    target.getAttribute("tabindex"));
+            }
         } else {
             if (target.nodeName && target.nodeName.toLocaleLowerCase() == 'input') {
                 var filterValue = target.value;
@@ -582,11 +585,11 @@ tinymce.PluginManager.add('wcecharmapsidebar', function (ed) {
         }
     }
 
-    function getGridHtml(charmap) {
+    function getGridHtml(charmap, currwidth) {
         var gridHtml = '<table role="presentation" cellspacing="0" class="mce-charmap"><tbody>';
         var x, y;
         charmap = charmap ? charmap : getCharMap();
-        var width = Math.min(charmap.length, 25);
+        var width = Math.floor(currwidth / 25);
         var height = Math.ceil(charmap.length / width);
         for (y = 0; y < height; y++) {
             gridHtml += '<tr>';
@@ -609,10 +612,7 @@ tinymce.PluginManager.add('wcecharmapsidebar', function (ed) {
     }
 
     function getRadioHtml() {
-        //charmap_filter_value = charmap_filter_value ? charmap_filter_value : 'All_glyphs';
-
         //radio html
-
         var radioHtml = '<div style="padding:10px">';
         var translate = tinymce.util.I18n.translate;
         radioGroup.forEach(function (r, i) {
@@ -641,6 +641,11 @@ tinymce.PluginManager.add('wcecharmapsidebar', function (ed) {
     var lineheight = 0;
     var sidebar;
 
+    function lookup(array, prop, value) {
+        for (var i = 0, len = array.length; i < len; i++)
+            if (array[i] && array[i][prop] === value) return array[i];
+    }
+
     function _initSidebar() {
         var ct = ed.getContentAreaContainer();
         ct.style.display = "flex";
@@ -661,21 +666,24 @@ tinymce.PluginManager.add('wcecharmapsidebar', function (ed) {
             _drawCharmapsidebar(getCharMap());
         });
         $(ed.getWin()).resize(function () {
-            _drawCharmapsidebar(getCharMap());
+            /*var currentcharmap =
+                $.grep(radioGroup, function (item) {
+                    return item.value == charmap_filter_value;
+                });*/
+            var currentcharmap = lookup(radioGroup, "value", charmap_filter_value);
+            //_drawCharmapsidebar(getCharMap());
+            _drawCharmapsidebar(currentcharmap.charmap());
         });
         ed.on('ResizeEditor', function (e) {
             iframe.style.height = null;
         });
-
         ed.on('change', function () {
 
         });
         ed.on('keyup', function () {
 
         });
-        ed.on('setContent', function () {
-
-        });
+        ed.on('setContent', function () {});
     }
 
     ed.addCommand('wceShowcharmapsidebar', function (b) {
@@ -693,7 +701,7 @@ tinymce.PluginManager.add('wcecharmapsidebar', function (ed) {
         }
         var div = document.createElement('div');
         div.setAttribute("class", "mce-charmap-wrapper");
-        div.innerHTML = getGridHtml(cf) + getRadioHtml();
+        div.innerHTML = getGridHtml(cf, sidebar.offsetWidth) + getRadioHtml();
         sidebar.appendChild(div);
         if (!currentdiv)
             sidebar.addEventListener('click', event => charselected(event), true);

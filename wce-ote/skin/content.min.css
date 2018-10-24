@@ -222,7 +222,6 @@ th[data-mce-selected] {
    update this accordingly
 */
 
-
 /*@font-face{
 	font-family: "TITUS Cyberbit Basic";
 	src: local('TITUS Cyberbit Basic'), local('TITUS Cyberbit Basic'),
@@ -520,7 +519,7 @@ span.editortext[language="ae-Phlv"] {
     margin: 0px 0px 0px 1px;
     padding: 0;
     color: green;
-/*    background-color: green;*/
+    /*    background-color: green;*/
 }
 
 span.editortext[language="pal-Phli"],
@@ -529,7 +528,7 @@ span.editortext[language="pal-Phlv"] {
     margin: 0px 0px 0px 1px;
     padding: 0;
     color: purple;
-/*    background-color: purple;*/
+    /*    background-color: purple;*/
 }
 
 span.editortext[language="gu"] {
@@ -537,7 +536,7 @@ span.editortext[language="gu"] {
     margin: 0px 0px 0px 1px;
     padding: 0;
     color: red;
-/*    background-color: red;*/
+    /*    background-color: red;*/
 }
 
 span.editortext[language="fa"],
@@ -546,7 +545,7 @@ span.editortext[language="prs"] {
     margin: 0px 0px 0px 1px;
     padding: 0;
     color: yellow;
-/*    background-color: yellow;*/
+    /*    background-color: yellow;*/
 }
 
 span.editortext[language="sa"] {
@@ -554,7 +553,7 @@ span.editortext[language="sa"] {
     margin: 0px 0px 0px 1px;
     padding: 0;
     color: blue;
-/*    background-color: blue;*/
+    /*    background-color: blue;*/
 }
 
 span.editortext {
@@ -828,5 +827,9 @@ span[class*='wce_abbr_numeral_Overline'] {
 }
 
 header {
-	display: none
+    display: none
+}
+
+.mce-charmap-* {
+    flex: none | [1 1 || auto];
 }

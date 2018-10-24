@@ -33,7 +33,7 @@
 */
 
 (function () {
-    var wfce_editor = "0.9.4beta (2018-10-15)";
+    var wfce_editor = "0.9.4beta (2018-10-22)";
 
     // Load plugin specific language pack
     tinymce.PluginManager.requireLangPack('wce');
@@ -1084,7 +1084,9 @@
             w.isc = selection.isCollapsed();
 
             // delete in firefox can create empty element and startOffset==0
-            if (startContainer.nodeType == 1 && !tinyMCE.isIE && startContainer.childNodes.length == 0 && rng.startOffset == 0 && startContainer.nodeName.toLowerCase() != 'body' && startContainer.nodeName.toLowerCase() != 'html') {
+            if (startContainer.nodeType == 1 && !tinyMCE.isIE && startContainer.childNodes.length == 0 &&
+                rng.startOffset == 0 && startContainer.nodeName.toLowerCase() != 'body' &&
+                startContainer.nodeName.toLowerCase() != 'html') {
                 startContainer.parentNode.removeChild(startContainer);
                 return WCEUtils.setWCEVariable(ed);
             }
@@ -1264,6 +1266,9 @@
                 w.type = 'formatting';
             }
 
+            /*if (wholeSelect)
+                w.not_C = false;*/
+
             if (canMakeCorrection) {
                 w.not_C = false;
                 w.not_L = true;
@@ -1271,6 +1276,7 @@
             }
 
             w.not_P = !w.isc;
+            console.log(w.type);
             switch (w.type) {
                 case 'gap':
                     _disableAllControls(ed, true);
@@ -1423,7 +1429,12 @@
             if (sf && ef && sf.nodeType == 3) {
                 var sfParent = sf.parentNode;
                 var efParent = ef.parentNode;
-                if (sfParent && efParent && sfParent.parentNode === efParent.parentNode && sf.nodeValue.charCodeAt(0) == 8249 && ef.nodeValue.charCodeAt(0) == 8250) {
+                console.log(sf.nodeValue.charCodeAt(0));
+                console.log(ef.nodeValue.charCodeAt(0));
+                if (sfParent && efParent && ((sfParent.parentNode === efParent.parentNode &&
+                            sf.nodeValue.charCodeAt(0) === 8249 && ef.nodeValue.charCodeAt(0) === 8250) ||
+                        (sf.nodeValue.charCodeAt(0) === 8249 && ef.nodeValue.charCodeAt(0) === 65279) ||
+                        (sf.nodeValue.charCodeAt(0) === 65279 && ef.nodeValue.charCodeAt(0) === 8250))) {
                     return true;
                 }
             }
@@ -2355,7 +2366,8 @@
             if (nodeName && nodeName.toLowerCase() == 'span') {
                 var class_types = ['book_number', 'stanza_number', 'chapter_number', 'format_start', 'format_end'];
                 for (var i = 0; i < class_types.length; ++i) {
-                    if ($(node).hasClass(class_types[i])) return class_types[i];
+                    if ($(node).hasClass(class_types[i]))
+                        return class_types[i];
                 }
 
                 var wceAttr = node.getAttribute('wce');

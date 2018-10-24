@@ -10,11 +10,11 @@
 
 /*global tinymce:true */
 
-tinymce.PluginManager.add('muyacharmap', function(editor) {
-  var isArray = tinymce.util.Tools.isArray;
+tinymce.PluginManager.add('muyacharmap', function (editor) {
+    var isArray = tinymce.util.Tools.isArray;
 
-  function getDefaultCharMap() {
-    return [
+    function getDefaultCharMap() {
+        return [
       ['160', 'no-break space'],
       ['173', 'soft hyphen'],
       ['34', 'quotation mark'],
@@ -289,10 +289,10 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
       ['8206', 'left-to-right mark'],
       ['8207', 'right-to-left mark']
     ];
-  }
+    }
 
-  function getGuCharMap() {
-    return [
+    function getGuCharMap() {
+        return [
       ['2693', 'GUJARATI LETTER A'],
       ['2694', 'GUJARATI LETTER AA'],
       ['2695', 'GUJARATI LETTER I'],
@@ -342,10 +342,10 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
       ['2744', 'GUJARATI LETTER SA'],
       ['2745', 'GUJARATI LETTER HA'],
     ];
-  }
+    }
 
-  function getAvCharMap() {
-    return [
+    function getAvCharMap() {
+        return [
       ['0x0061', 'AVESTAN LETTER A'],
       ['0x00E5', 'AVESTAN LETTER AA'],
       ['0x101', 'AVESTAN LETTER AO'],
@@ -407,10 +407,11 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
       ['0x0068', 'AVESTAN LETTER HE'],
       ['0x0068+0x0301', 'AVESTAN LETTER HE'],
     ];
-  }
+    }
 
-  function getPaCharMap() {
-    return [
+    function getPaCharMap() {
+        return [
+      ['712', 'final stroke'],
       ['0x02be', 'Aleph'],
       ['0x02bf', 'Ayin'],
       ['b+0x0331', 'Small letter b with macron below'],
@@ -456,10 +457,10 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
       ['z+0x0331', 'Small letter z with macron below'],
       ['Z+0x0331', 'Capital letter Z with macron below'],
     ];
-  }
+    }
 
-  function getInterpunctionSigns() {
-    return [
+    function getInterpunctionSigns() {
+        return [
       ['0x0964', 'danda'],
       ['0x0965', 'double danda'],
       /*['0x10B39', 'AVESTAN ABBREVIATION MARK'],
@@ -470,299 +471,299 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
       ['0x10B3E', 'Three dots (v-shape)'],
       //['0x10B3F', 'LARGE ONE RING OVER TWO RINGS PUNCTUATION'],
     ];
-  }
-
-  function isInterpunctionSign(currindex) {
-    return(currindex >= getPaCharMap().length + getAvCharMap().length + getGuCharMap().length);
-  }
-
-  function charmapFilter(charmap) {
-    return tinymce.util.Tools.grep(charmap, function(item) {
-      return isArray(item) && item.length == 2;
-    });
-  }
-
-  function getCharsFromSetting(settingValue) {
-    if(isArray(settingValue)) {
-      return [].concat(charmapFilter(settingValue));
     }
 
-    if(typeof settingValue == "function") {
-      return settingValue();
+    function isInterpunctionSign(currindex) {
+        return (currindex >= getPaCharMap().length + getAvCharMap().length + getGuCharMap().length);
     }
 
-    return [];
-  }
-
-  function extendCharMap(charmap) {
-    var settings = editor.settings;
-
-    if(settings.charmap) {
-      charmap = getCharsFromSetting(settings.charmap);
+    function charmapFilter(charmap) {
+        return tinymce.util.Tools.grep(charmap, function (item) {
+            return isArray(item) && item.length == 2;
+        });
     }
 
-    if(settings.charmap_append) {
-      return [].concat(charmap).concat(getCharsFromSetting(settings.charmap_append));
-    }
-
-    return charmap;
-  }
-
-  function getCharMap() {
-    return extendCharMap(getDefaultCharMap().concat(getPaCharMap()).concat(getAvCharMap()).concat(getGuCharMap().concat(getInterpunctionSigns())));
-  }
-
-  function insertChar(chr, chrindex) {
-    editor.fire('insertCustomChar', {
-      chr: chr
-    }).chr;
-    if(isInterpunctionSign(chrindex))
-      editor.execCommand('mceInsertContent', false, chr);
-    else
-      editor.execCommand('mceInsertContent', false, chr);
-  }
-
-  function getGridHtml(charmap) {
-    var gridHtml = '<table role="presentation" cellspacing="0" class="mce-charmap"><tbody>';
-    charmap = charmap ? charmap : getCharMap();
-    var width = Math.min(charmap.length, 25);
-    var height = Math.ceil(charmap.length / width);
-    for(y = 0; y < height; y++) {
-      gridHtml += '<tr>';
-
-      for(x = 0; x < width; x++) {
-        var index = y * width + x;
-        if(index < charmap.length) {
-          var chr = charmap[index];
-
-          gridHtml += '<td title="' + chr[1] + '"><div tabindex="' + index + '" title="' + chr[1] + '" role="button">' +
-            (chr ? parseSomeInt(chr[0]) : '&nbsp;') + '</div></td>';
-        } else {
-          gridHtml += '<td />';
-        }
-      }
-
-      gridHtml += '</tr>';
-    }
-
-    gridHtml += '</tbody></table>';
-    return gridHtml;
-  }
-
-  function showDialog(charmap, charmap_filter_value) {
-    var gridHtml, x, y, win;
-
-    function getParentTd(elm) {
-      while(elm) {
-        if(elm.nodeName == 'TD') {
-          return elm;
+    function getCharsFromSetting(settingValue) {
+        if (isArray(settingValue)) {
+            return [].concat(charmapFilter(settingValue));
         }
 
-        elm = elm.parentNode;
-      }
+        if (typeof settingValue == "function") {
+            return settingValue();
+        }
+
+        return [];
     }
 
-    //  gridHtml = '<table role="presentation" cellspacing="0" class="mce-charmap"><tbody>';
+    function extendCharMap(charmap) {
+        var settings = editor.settings;
 
-    //  charmap = charmap ? charmap : getCharMap();
-    charmap_filter_value = charmap_filter_value ? charmap_filter_value : 'All_glyphs';
+        if (settings.charmap) {
+            charmap = getCharsFromSetting(settings.charmap);
+        }
 
-    //  var width = Math.min(charmap.length, 25);
-    //  var height = Math.ceil(charmap.length / width);
-    //  for(y = 0; y < height; y++) {
-    //    gridHtml += '<tr>';
-    //
-    //    for(x = 0; x < width; x++) {
-    //      var index = y * width + x;
-    //      if(index < charmap.length) {
-    //        var chr = charmap[index];
-    //
-    //        gridHtml += '<td title="' + chr[1] + '"><div tabindex="' + index + '" title="' + chr[1] + '" role="button">' +
-    //          (chr ? parseSomeInt(chr[0]) : '&nbsp;') + '</div></td>';
-    //      } else {
-    //        gridHtml += '<td />';
-    //      }
-    //    }
-    //
-    //    gridHtml += '</tr>';
-    //  }
-    //
-    //  gridHtml += '</tbody></table>';
+        if (settings.charmap_append) {
+            return [].concat(charmap).concat(getCharsFromSetting(settings.charmap_append));
+        }
 
-    gridHtml = '<div class="mce-charmap-wrapper">' + getGridHtml(charmap) + '</div>';
+        return charmap;
+    }
 
-    //radio html
-    var radioGroup = [{
-        id: 'charmap_default',
-        value: 'Default_only',
-        i18n: 'charmap_default_only',
-        charmap: getDefaultCharMap
+    function getCharMap() {
+        return extendCharMap(getDefaultCharMap().concat(getPaCharMap()).concat(getAvCharMap()).concat(getGuCharMap().concat(getInterpunctionSigns())));
+    }
+
+    function insertChar(chr, chrindex) {
+        editor.fire('insertCustomChar', {
+            chr: chr
+        }).chr;
+        if (isInterpunctionSign(chrindex))
+            editor.execCommand('mceInsertContent', false, chr);
+        else
+            editor.execCommand('mceInsertContent', false, chr);
+    }
+
+    function getGridHtml(charmap) {
+        var gridHtml = '<table role="presentation" cellspacing="0" class="mce-charmap"><tbody>';
+        charmap = charmap ? charmap : getCharMap();
+        var width = Math.min(charmap.length, 25);
+        var height = Math.ceil(charmap.length / width);
+        for (y = 0; y < height; y++) {
+            gridHtml += '<tr>';
+
+            for (x = 0; x < width; x++) {
+                var index = y * width + x;
+                if (index < charmap.length) {
+                    var chr = charmap[index];
+
+                    gridHtml += '<td title="' + chr[1] + '"><div tabindex="' + index + '" title="' + chr[1] + '" role="button">' +
+                        (chr ? parseSomeInt(chr[0]) : '&nbsp;') + '</div></td>';
+                } else {
+                    gridHtml += '<td />';
+                }
+            }
+
+            gridHtml += '</tr>';
+        }
+
+        gridHtml += '</tbody></table>';
+        return gridHtml;
+    }
+
+    function showDialog(charmap, charmap_filter_value) {
+        var gridHtml, x, y, win;
+
+        function getParentTd(elm) {
+            while (elm) {
+                if (elm.nodeName == 'TD') {
+                    return elm;
+                }
+
+                elm = elm.parentNode;
+            }
+        }
+
+        //  gridHtml = '<table role="presentation" cellspacing="0" class="mce-charmap"><tbody>';
+
+        //  charmap = charmap ? charmap : getCharMap();
+        charmap_filter_value = charmap_filter_value ? charmap_filter_value : 'All_glyphs';
+
+        //  var width = Math.min(charmap.length, 25);
+        //  var height = Math.ceil(charmap.length / width);
+        //  for(y = 0; y < height; y++) {
+        //    gridHtml += '<tr>';
+        //
+        //    for(x = 0; x < width; x++) {
+        //      var index = y * width + x;
+        //      if(index < charmap.length) {
+        //        var chr = charmap[index];
+        //
+        //        gridHtml += '<td title="' + chr[1] + '"><div tabindex="' + index + '" title="' + chr[1] + '" role="button">' +
+        //          (chr ? parseSomeInt(chr[0]) : '&nbsp;') + '</div></td>';
+        //      } else {
+        //        gridHtml += '<td />';
+        //      }
+        //    }
+        //
+        //    gridHtml += '</tr>';
+        //  }
+        //
+        //  gridHtml += '</tbody></table>';
+
+        gridHtml = '<div class="mce-charmap-wrapper">' + getGridHtml(charmap) + '</div>';
+
+        //radio html
+        var radioGroup = [{
+                id: 'charmap_default',
+                value: 'Default_only',
+                i18n: 'charmap_default_only',
+                charmap: getDefaultCharMap
       }, {
-        id: 'charmap_gu',
-        value: 'Gujarati_only',
-        i18n: 'charmap_gujarati_only',
-        charmap: getGuCharMap
+                id: 'charmap_gu',
+                value: 'Gujarati_only',
+                i18n: 'charmap_gujarati_only',
+                charmap: getGuCharMap
       }, {
-        id: 'charmap_av',
-        value: 'Avesta_only',
-        i18n: 'charmap_avesta_only',
-        charmap: getAvCharMap
+                id: 'charmap_av',
+                value: 'Avesta_only',
+                i18n: 'charmap_avesta_only',
+                charmap: getAvCharMap
       }, {
-        id: 'charmap_pa',
-        value: 'Pahlavi_only',
-        i18n: 'charmap_pahlavi_only',
-        charmap: getPaCharMap
+                id: 'charmap_pa',
+                value: 'Pahlavi_only',
+                i18n: 'charmap_pahlavi_only',
+                charmap: getPaCharMap
       }, {
-        id: 'charmap_in',
-        value: 'interpunction_signs_only',
-        i18n: 'charmap_interpunction_signs_only',
-        charmap: getInterpunctionSigns
+                id: 'charmap_in',
+                value: 'interpunction_signs_only',
+                i18n: 'charmap_interpunction_signs_only',
+                charmap: getInterpunctionSigns
       },
-      {
-        id: 'charmap_all',
-        value: 'All_glyphs',
-        i18n: 'charmap_all',
-        charmap: getCharMap
+            {
+                id: 'charmap_all',
+                value: 'All_glyphs',
+                i18n: 'charmap_all',
+                charmap: getCharMap
       }
     ];
 
-    var radioHtml = '<div style="padding:10px">';
-    var translate = tinymce.util.I18n.translate;
-    radioGroup.forEach(function(r, i) {
-      radioHtml += '<div><input type="radio" id="' + r.id + '"';
-      r.value == charmap_filter_value ? radioHtml += ' checked="checked"' : '';
-      radioHtml += ' name="charmap_filter" value="' + r.value + '" /> ';
-      radioHtml += '<label style="margin-right:2px">' + translate(r.i18n) + '</label></div>';
-    });
-    radioHtml += '</div>';
+        var radioHtml = '<div style="padding:10px">';
+        var translate = tinymce.util.I18n.translate;
+        radioGroup.forEach(function (r, i) {
+            radioHtml += '<div><input type="radio" id="' + r.id + '"';
+            r.value == charmap_filter_value ? radioHtml += ' checked="checked"' : '';
+            radioHtml += ' name="charmap_filter" value="' + r.value + '" /> ';
+            radioHtml += '<label style="margin-right:2px">' + translate(r.i18n) + '</label></div>';
+        });
+        radioHtml += '</div>';
 
-    var charMapPanel = {
-      type: 'container',
-      html: gridHtml,
-      onclick: function(e) {
-        var target = e.target;
-
-        if(/^(TD|DIV)$/.test(target.nodeName)) {
-          if(getParentTd(target) && getParentTd(target).firstChild) {
-            insertChar(tinymce.trim(target.innerText || target.textContent),
-              target.getAttribute("tabindex"));
-            if(!e.ctrlKey) {
-              win.close();
-            }
-          }
-        }
-      },
-      onmouseover: function(e) {
-        var td = getParentTd(e.target);
-        if(td && td.firstChild) {
-          win.find('#preview').text(td.firstChild.firstChild.data);
-          win.find('#previewTitle').text(td.title);
-        } else {
-          win.find('#preview').text(' ');
-          win.find('#previewTitle').text(' ');
-        }
-      }
-    };
-
-    win = editor.windowManager.open({
-      title: "Special character",
-      spacing: 10,
-      padding: 10,
-      items: [
-        charMapPanel,
-        {
-          type: 'container',
-          layout: 'flex',
-          direction: 'colum',
-          align: 'center',
-          spacing: 5,
-          minWidth: 220,
-          minHeight: 280,
-          items: [{
-              type: 'label',
-              name: 'preview',
-              text: ' ',
-              style: 'font-size: 72px; text-align: center',
-              border: 1,
-              minWidth: 200,
-              minHeight: 80
-            },
-            {
-              type: 'label',
-              name: 'previewTitle',
-              text: ' ',
-              style: 'text-align: center',
-              border: 1,
-              minWidth: 200,
-              minHeight: 80
-            }, {
-              type: 'container',
-              layout: 'flex',
-              direction: 'colum',
-              html: radioHtml,
-              minWidth: 250,
-              minHeight: 120,
-              onclick: function(e) {
+        var charMapPanel = {
+            type: 'container',
+            html: gridHtml,
+            onclick: function (e) {
                 var target = e.target;
-                if(target.nodeName && target.nodeName.toLocaleLowerCase() == 'input') {
-                  var filterValue = target.value;
-                  var radioInput = radioGroup.find(function(r) {
-                    if(r.value == filterValue) {
-                      return true;
+
+                if (/^(TD|DIV)$/.test(target.nodeName)) {
+                    if (getParentTd(target) && getParentTd(target).firstChild) {
+                        insertChar(tinymce.trim(target.innerText || target.textContent),
+                            target.getAttribute("tabindex"));
+                        if (!e.ctrlKey) {
+                            win.close();
+                        }
                     }
-                  });
-                  if(radioInput) {
-                    var newGridHtml = getGridHtml(radioInput.charmap());
-                    win.$el.find('div[class="mce-charmap-wrapper"]').html(newGridHtml);
-                  }
                 }
-              }
+            },
+            onmouseover: function (e) {
+                var td = getParentTd(e.target);
+                if (td && td.firstChild) {
+                    win.find('#preview').text(td.firstChild.firstChild.data);
+                    win.find('#previewTitle').text(td.title);
+                } else {
+                    win.find('#preview').text(' ');
+                    win.find('#previewTitle').text(' ');
+                }
+            }
+        };
+
+        win = editor.windowManager.open({
+            title: "Special character",
+            spacing: 10,
+            padding: 10,
+            items: [
+        charMapPanel,
+                {
+                    type: 'container',
+                    layout: 'flex',
+                    direction: 'colum',
+                    align: 'center',
+                    spacing: 5,
+                    minWidth: 220,
+                    minHeight: 280,
+                    items: [{
+                            type: 'label',
+                            name: 'preview',
+                            text: ' ',
+                            style: 'font-size: 72px; text-align: center',
+                            border: 1,
+                            minWidth: 200,
+                            minHeight: 80
+            },
+                        {
+                            type: 'label',
+                            name: 'previewTitle',
+                            text: ' ',
+                            style: 'text-align: center',
+                            border: 1,
+                            minWidth: 200,
+                            minHeight: 80
+            }, {
+                            type: 'container',
+                            layout: 'flex',
+                            direction: 'colum',
+                            html: radioHtml,
+                            minWidth: 250,
+                            minHeight: 120,
+                            onclick: function (e) {
+                                var target = e.target;
+                                if (target.nodeName && target.nodeName.toLocaleLowerCase() == 'input') {
+                                    var filterValue = target.value;
+                                    var radioInput = radioGroup.find(function (r) {
+                                        if (r.value == filterValue) {
+                                            return true;
+                                        }
+                                    });
+                                    if (radioInput) {
+                                        var newGridHtml = getGridHtml(radioInput.charmap());
+                                        win.$el.find('div[class="mce-charmap-wrapper"]').html(newGridHtml);
+                                    }
+                                }
+                            }
             }
           ]
         }
       ],
-      buttons: [{
-        text: "Close",
-        onclick: function() {
-          win.close();
-        }
+            buttons: [{
+                text: "Close",
+                onclick: function () {
+                    win.close();
+                }
       }]
+        });
+
+        // win.$el.find('div[class="mce-container-body" && class="mce-abs-layout"]').append($(radioHtml));
+
+    }
+
+    editor.addCommand('mceShowMuyaCharmap', showDialog);
+
+    editor.addButton('muyacharmap', {
+        icon: 'charmap',
+        tooltip: 'Muya Special character',
+        cmd: 'mceShowMuyaCharmap'
     });
 
-    // win.$el.find('div[class="mce-container-body" && class="mce-abs-layout"]').append($(radioHtml));
+    editor.addMenuItem('muyacharmap', {
+        icon: 'charmap',
+        text: 'Special character',
+        cmd: 'mceShowMuyaCharmap',
+        context: 'insert'
+    });
 
-  }
-
-  editor.addCommand('mceShowMuyaCharmap', showDialog);
-
-  editor.addButton('muyacharmap', {
-    icon: 'charmap',
-    tooltip: 'Muya Special character',
-    cmd: 'mceShowMuyaCharmap'
-  });
-
-  editor.addMenuItem('muyacharmap', {
-    icon: 'charmap',
-    text: 'Special character',
-    cmd: 'mceShowMuyaCharmap',
-    context: 'insert'
-  });
-
-  function parseSomeInt(charcodes) {
-    var str = charcodes.split('+');
-    var out = '';
-    for(i = 0; i < str.length; i++) {
-      if(isNaN(parseFloat(str[i]))) {
-        out += str[i];
-      } else {
-        out += String.fromCodePoint(parseInt(str[i]));
-      }
+    function parseSomeInt(charcodes) {
+        var str = charcodes.split('+');
+        var out = '';
+        for (i = 0; i < str.length; i++) {
+            if (isNaN(parseFloat(str[i]))) {
+                out += str[i];
+            } else {
+                out += String.fromCodePoint(parseInt(str[i]));
+            }
+        }
+        return out;
     }
-    return out;
-  }
 
-  return {
-    getCharMap: getCharMap,
-    insertChar: insertChar
-  };
+    return {
+        getCharMap: getCharMap,
+        insertChar: insertChar
+    };
 });

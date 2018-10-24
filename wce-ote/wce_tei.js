@@ -1946,7 +1946,7 @@ function getTeiByHtml(inputString, args) {
     //var g_wordNumber = '';
 
     // node for TEI
-    var g_lectionNode;
+    //var g_lectionNode;
     var g_bookNode;
     var g_chapterNode;
     var g_stanzaNode;
@@ -3178,7 +3178,7 @@ function getTeiByHtml(inputString, args) {
                 old_chapterNumber = g_chapterNumber;
                 g_stanzaNode = $newDoc.createElement('ab');
                 g_stanzaNode.setAttribute('type', 'stanza');
-                g_stanzaNode.setAttribute('xml:id', g_bookNumber + g_chapterNumber + "." + g_stanzaNumber);
+                g_stanzaNode.setAttribute('xml:id', g_bookNumber + "." + g_chapterNumber + "." + g_stanzaNumber);
                 if (lang_index > -1) {
                     pos = wceAttrValue.substring(lang_index).indexOf("&");
                     if (pos > -1) {
@@ -3219,7 +3219,7 @@ function getTeiByHtml(inputString, args) {
                     g_chapterNode.setAttribute('n', 'B' + g_bookNumber + 'explicit');
                 } else {
                     g_chapterNode.setAttribute('type', 'chapter');
-                    g_chapterNode.setAttribute('xml:id', g_bookNumber + g_chapterNumber);
+                    g_chapterNode.setAttribute('xml:id', g_bookNumber + "." + g_chapterNumber);
                     if (lang_index > -1) {
                         pos = wceAttrValue.substring(lang_index).indexOf("&");
                         if (pos > -1) {
@@ -4306,34 +4306,34 @@ function getTeiByHtml(inputString, args) {
         switch (reason) {
             case 'trans': //translation
                 $ab.setAttribute('type', 'trans');
-                $ab.setAttribute('xml:id', g_bookNumber + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + langID);
+                $ab.setAttribute('xml:id', g_bookNumber + "." + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + langID);
                 $ab.setAttribute('n', String.fromCharCode(count_verse));
                 g_verseNumber++; //count overall number of language changes
                 break;
             case 'ritual': //ritual direction
                 $ab.setAttribute('type', 'ritual');
-                $ab.setAttribute('xml:id', g_bookNumber + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + '-ritual-' + langID);
+                $ab.setAttribute('xml:id', g_bookNumber + "." + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + '-ritual-' + langID);
                 $ab.setAttribute('n', String.fromCharCode(count_verse));
                 break;
             case 'backtomainlanguage':
             case 'back':
                 $ab.setAttribute('type', 'back');
-                $ab.setAttribute('xml:id', g_bookNumber + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + '-back-' + langID);
+                $ab.setAttribute('xml:id', g_bookNumber + "." + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + '-back-' + langID);
                 $ab.setAttribute('n', String.fromCharCode(count_verse));
                 break;
             case 'section':
                 $ab.setAttribute('type', 'section');
-                $ab.setAttribute('xml:id', g_bookNumber + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + langID);
+                $ab.setAttribute('xml:id', g_bookNumber + "." + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + langID);
                 $ab.setAttribute('n', String.fromCharCode(count_verse));
                 break;
             case 'untrans':
                 $ab.setAttribute('type', 'untrans');
-                $ab.setAttribute('xml:id', g_bookNumber + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + langID);
+                $ab.setAttribute('xml:id', g_bookNumber + "." + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + langID);
                 $ab.setAttribute('n', String.fromCharCode(count_verse));
                 break;
             default:
                 $ab.setAttribute('type', decodeURI(arr['reason_for_language_change_other']));
-                $ab.setAttribute('xml:id', g_bookNumber + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + '-other-' + langID);
+                $ab.setAttribute('xml:id', g_bookNumber + "." + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + '-other-' + langID);
                 $ab.setAttribute('n', String.fromCharCode(count_verse));
         }
 
