@@ -249,7 +249,6 @@ function writeWceNodeInfo(val) {
                 }
                 break;
             case 'unclear':
-                //if (selected_content.indexOf('span class="spaces"') == -1) { // take care of spaces element
                 if (selected_content.indexOf('<span') == -1) { // take care of spaces element
                     var unclear_text = "";
                     for (var i = 0; i < selected_content.length; i++) {

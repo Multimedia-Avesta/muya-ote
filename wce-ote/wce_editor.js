@@ -303,11 +303,12 @@ function addMenuItems(ed) {
             oldwce = selectedNode.getAttribute('wce');
             pos = oldwce.substring(4).indexOf('_');
             type = oldwce.substring(4, 4 + pos);
-            if (type == 'book' || type == 'chapter' || type == 'verse' || type == 'stanza') {
+            if (type == 'book' || type == 'chapter' || type == 'verse' || type == 'stanza' ||
+                type == 'line' || type == 'verseline' || type == 'ritualdirection') {
                 menu.add({
                     text: '|'
                 });
-                menu.add({
+                /*menu.add({
                     text: tinymce.translate('initial_portion'),
                     icon: '',
                     onclick: function () {
@@ -334,7 +335,7 @@ function addMenuItems(ed) {
                     onclick: function () {
                         ed.execCommand('mce_remove_partial');
                     }
-                });
+                });*/
                 //menu.addSeparator();
                 menu.add({
                     text: tinymce.translate('pahlavi_phlv'),
@@ -446,7 +447,7 @@ function addMenuItems(ed) {
     }); //end contextmenu on
 
     //
-    ed.addCommand('mce_set_partial', function (type) {
+    /*ed.addCommand('mce_set_partial', function (type) {
         ed.execCommand('mce_remove_partial');
         oldwce = ed.selection.getNode().getAttribute('wce');
         ed.selection.getNode().setAttribute('wce', oldwce + '&partial=' + type);
@@ -458,7 +459,7 @@ function addMenuItems(ed) {
             alert(oldwce.substring(pos, pos + 9));
             ed.selection.getNode().setAttribute('wce', oldwce.replace(oldwce.substring(pos, pos + 9), ""));
         }
-    });
+    });*/
     ed.addCommand('mce_set_language', function (l) {
         ed.execCommand('mce_remove_language');
         oldwce = ed.selection.getNode().getAttribute('wce');

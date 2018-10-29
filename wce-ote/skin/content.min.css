@@ -473,43 +473,54 @@ span.book_number {
     font-size: 36px;
 }
 
+span.chapter_number {
+    color: dimgray;
+    font-size: 36px;
+}
+
 span.stanza_number {
     color: blue;
     font-size: 24px;
 }
 
 span.verse_number {
-    color: gray;
+    color: green;
+    font-size: 24px;
 }
 
 span.verse_number[wce="__t=verse_number&partial=I"] {
     color: green;
+    font-size: 24px;
 }
 
 span.verse_number[wce="__t=verse_number&partial=F"] {
     color: green;
+    font-size: 24px;
 }
 
 span.verse_number[wce="__t=verse_number&lang=pal-Phlv"] {
     color: green;
+    font-size: 24px;
 }
 
 span.verse_number[wce="__t=verse_number&lang=pal-Avst"] {
     color: red;
+    font-size: 24px;
 }
 
 span.verse_number[wce="__t=verse_number&lang=pal-Phli"] {
     color: blue;
+    font-size: 24px;
 }
 
-span.chapter_number {
-    color: dimgray;
-    font-size: 36px;
+span.line_number {
+    color: lightskyblue;
+    font-size: 20px;
 }
 
-span.lection_number {
-    color: blue;
-    font-size: 36px;
+span.verseline_number {
+    color: lightseagreen;
+    font-size: 20px;
 }
 
 span.editortext[language="pal-Avst"],
@@ -570,11 +581,6 @@ span.editortext {
 
 span.book_number {
     color: darkviolet;
-    font-size: 36px;
-}
-
-span.lection_number {
-    color: blue;
     font-size: 36px;
 }
 

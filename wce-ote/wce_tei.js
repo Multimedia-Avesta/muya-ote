@@ -784,26 +784,18 @@ function getHtmlByTei(inputString, args) {
             $newNode.setAttribute('id', ++gid);
             var nValue = $teiNode.getAttribute('n');
             if (nValue && nValue != '') {
-                g_chapterNumber = nValue;
-                nodeAddText($newNode, g_chapterNumber);
+                var indexOfFirst = nValue.indexOf('.'); //dot after book name
+                nodeAddText($newNode, nValue.substr(indexOfFirst + 1));
             }
-        } else { //incipit or explicit
-            var $newNode = $newDoc.createElement('span');
-            $newNode.setAttribute('class', 'chapter_number mceNonEditable');
-            $newNode.setAttribute('wce', '__t=chapter_number');
-            if ($teiNode.getAttribute("type") === "incipit")
-                nodeAddText($newNode, "Inscriptio");
-            else if ($teiNode.getAttribute("type") === "explicit")
-                nodeAddText($newNode, "Subscriptio");
-        }
-        addFormatElement($newNode);
-        var pre = $htmlParent.previousSibling;
-        if (!pre || (!pre.nodeType == 3 && pre.nodeName != 'w')) { //add a space before book number
+            addFormatElement($newNode);
+            var pre = $htmlParent.previousSibling;
+            if (!pre || (!pre.nodeType == 3 && pre.nodeName != 'w')) { //add a space before book number
+                nodeAddText($htmlParent, ' ');
+            }
+            $htmlParent.appendChild($newNode);
             nodeAddText($htmlParent, ' ');
+            return $htmlParent;
         }
-        $htmlParent.appendChild($newNode);
-        nodeAddText($htmlParent, ' ');
-        return $htmlParent;
     };
     /*
      * <ab>
@@ -814,8 +806,9 @@ function getHtmlByTei(inputString, args) {
             $newNode.setAttribute('class', 'stanza_number mceNonEditable');
             var nValue = $teiNode.getAttribute('n');
             if (nValue && nValue != '') {
-                g_stanzaNumber = nValue;
-                nodeAddText($newNode, g_stanzaNumber);
+                var indexOfFirst = nValue.indexOf('.'); //dot after book name
+                var indexOfSecond = nValue.indexOf('.', indexOfFirst + 1); // dot after chapter number
+                nodeAddText($newNode, nValue.substr(indexOfSecond + 1));
             }
             var partValue = $teiNode.getAttribute('part');
             if (partValue && (partValue === 'F' || partValue === 'M')) {
@@ -825,21 +818,17 @@ function getHtmlByTei(inputString, args) {
                 $newNode.setAttribute('wce', '__t=stanza_number&partial=' + partValue);
             else
                 $newNode.setAttribute('wce', '__t=stanza_number');
-        } else { // Verse
+        } else if ($teiNode.getAttribute("type") && $teiNode.getAttribute("type") == 'verse') { // Verse
             var $newNode = $newDoc.createElement('span');
             var type = $teiNode.getAttribute('type');
             $newNode.setAttribute('class', 'verse_number mceNonEditable');
             var nValue = $teiNode.getAttribute('n');
             if (nValue && nValue != '') {
-                var indexV = nValue.indexOf('V');
-                indexV++;
-                if (indexV > 0 && indexV < nValue.length) {
-                    nValue = nValue.substr(indexV);
-                    g_verseNumber = nValue;
-                    nodeAddText($newNode, g_verseNumber);
-                }
+                var indexOfFirst = nValue.indexOf('.'); //dot after book name
+                var indexOfSecond = nValue.indexOf('.', indexOfFirst + 1); // dot after chapter number
+                nodeAddText($newNode, nValue.substr(indexOfSecond + 1));
             }
-            var verseLang = '';
+            /*var verseLang = '';
             if ($teiNode.getAttribute('xml:lang')) {
                 verseLang = '&amp;lang=' + $teiNode.getAttribute('xml:lang');
             }
@@ -851,7 +840,58 @@ function getHtmlByTei(inputString, args) {
                 $newNode.setAttribute('wce', '__t=verse_number&partial=' + partValue + verseLang);
             else
                 $newNode.setAttribute('wce', '__t=verse_number' + verseLang);
+                */
+            if ($teiNode.getAttribute('xml:lang')) {
+                addFormatElement($newNode, $teiNode.getAttribute('xml:lang'));
+            } else {
+                addFormatElement($newNode);
+            }
+        } else if ($teiNode.getAttribute("type") && $teiNode.getAttribute("type") == 'ritualdirection') { // ritualdirection
+            var $newNode = $newDoc.createElement('span');
+            var type = $teiNode.getAttribute('type');
+            $newNode.setAttribute('class', 'ritualdirection_number mceNonEditable');
+            var nValue = $teiNode.getAttribute('n');
+            if (nValue && nValue != '') {
+                var indexOfFirst = nValue.indexOf('.'); //dot after book name
+                var indexOfSecond = nValue.indexOf('.', indexOfFirst + 1); // dot after chapter number
+                var indexOfThird = nValue.indexOf('.', indexOfSecond + 1); // dot after stanza/verse number
+                nodeAddText($newNode, nValue.substr(indexOfThird + 1));
+            }
+            //var rdLang = $teiNode.getAttribute('xml:lang') ? '&amp;lang=' + $teiNode.getAttribute('xml:lang') : '';
+            if ($teiNode.getAttribute('xml:lang')) {
+                addFormatElement($newNode, $teiNode.getAttribute('xml:lang'));
+            } else {
+                addFormatElement($newNode);
+            }
 
+        } else if ($teiNode.getAttribute("type") && $teiNode.getAttribute("type") == 'line') { // line
+            var $newNode = $newDoc.createElement('span');
+            var type = $teiNode.getAttribute('type');
+            $newNode.setAttribute('class', 'line_number mceNonEditable');
+            var nValue = $teiNode.getAttribute('n');
+            if (nValue && nValue != '') {
+                var indexOfFirst = nValue.indexOf('.'); //dot after book name
+                var indexOfSecond = nValue.indexOf('.', indexOfFirst + 1); // dot after chapter number
+                var indexOfThird = nValue.indexOf('.', indexOfSecond + 1); // dot after stanza/verse number
+                nodeAddText($newNode, nValue.substr(indexOfThird + 1));
+            }
+            if ($teiNode.getAttribute('xml:lang')) {
+                addFormatElement($newNode, $teiNode.getAttribute('xml:lang'));
+            } else {
+                addFormatElement($newNode);
+            }
+
+        } else if ($teiNode.getAttribute("type") && $teiNode.getAttribute("type") == 'verseline') { // verseline
+            var $newNode = $newDoc.createElement('span');
+            var type = $teiNode.getAttribute('type');
+            $newNode.setAttribute('class', 'verseline_number mceNonEditable');
+            var nValue = $teiNode.getAttribute('n');
+            if (nValue && nValue != '') {
+                var indexOfFirst = nValue.indexOf('.'); //dot after book name
+                var indexOfSecond = nValue.indexOf('.', indexOfFirst + 1); // dot after chapter number
+                var indexOfThird = nValue.indexOf('.', indexOfSecond + 1); // dot after stanza/verse number
+                nodeAddText($newNode, nValue.substr(indexOfThird + 1));
+            }
             if ($teiNode.getAttribute('xml:lang')) {
                 addFormatElement($newNode, $teiNode.getAttribute('xml:lang'));
             } else {
@@ -937,31 +977,10 @@ function getHtmlByTei(inputString, args) {
             $newNode.appendChild($tmp.firstChild);
         }
 
-        /*var $tempParent = $newDoc.createElement('t');
-        var cList = $teiNode.childNodes;
-        for (var i = 0, c, l = cList.length; i < l; i++) {
-            c = cList[i];
-            if (!c) {
-                break;
-            }
-            if (c.nodeType == 3)
-                nodeAddText($tempParent, c.nodeValue);
-            else
-                readAllChildrenOfTeiNode($tempParent, c);
-        }
-        if ($tempParent) {
-            while ($tempParent.hasChildNodes()) {
-                $newNode.appendChild($tempParent.firstChild);
-            }
-        }*/
         addFormatElement($newNode);
         $htmlParent.appendChild($newNode);
         nodeAddText($htmlParent, ' ');
         return $htmlParent;
-
-        /*addFormatElement($newNode);
-        $htmlParent.appendChild($newNode);
-        return null;*/
     };
 
     /*
@@ -1376,21 +1395,9 @@ function getHtmlByTei(inputString, args) {
                 var number, page_type;
                 var n = '';
 
-                /*$header = $htmlParent.firstChild;
-                $folio = $newDoc.createElement('folio')
-                number = $teiNode.getAttribute('n');
-                page_type = $teiNode.getAttribute('type');
-
-                folio = number.substring(1,number.lastIndexOf("-"));
-                nodeAddText($folio, folio);
-                $header.appendChild($folio);
-                $htmlParent.replaceChild($header, $htmlParent.firstChild);
-*/
-                //pb n="2rx" type="folio" facs="edfwe" xml:id="P2rx-0" break="no"/><fw type="runTitle"
                 number = $teiNode.getAttribute('n');
                 if (number) {
                     n = number.substring(1, number.lastIndexOf("-"));
-                    //number = removeArrows(number); // Replace arrows for fibre type by "x" and "y" resp. => use for "xml:id"
                     number = number.substring(1, number.lastIndexOf("-"));
                 } else
                     number = '';
@@ -1407,23 +1414,6 @@ function getHtmlByTei(inputString, args) {
                     wceAttr += $teiNode.getAttribute('facs');
                 wceAttr += '&lb_alignment=';
                 break;
-                /*case 'cb':
-                	wceAttr += '&number=';
-                	var n = '';
-                	if ($teiNode.getAttribute('n')) {
-                		var ntemp = $teiNode.getAttribute('n');
-                		var start = ntemp.lastIndexOf("C");
-                		var end = ntemp.lastIndexOf("-");
-                		if (end-start > 1)
-                			n = parseInt($teiNode.getAttribute('n').substring(start+1,end));
-                	}
-                	wceAttr += n;
-                	g_columnNumber = n;
-                	wceAttr += '&lb_alignment=';
-                	if ($teiNode.getAttribute('rend'))
-                		wceAttr += $teiNode.getAttribute('rend');
-                	wceAttr += '&rv=&fibre_type=&facs=';
-                	break;*/
             case 'lb':
                 wceAttr += '&number=';
                 var n = '';
@@ -1646,7 +1636,7 @@ function getHtmlByTei(inputString, args) {
                 wceAttr += '&newHand=';
         } else {
             var mapping = {
-                'xml:id': null,
+                'n': null,
                 'type': {
                     '0': '@editorial@local',
                     '1': '&note_type=',
@@ -3113,7 +3103,7 @@ function getTeiByHtml(inputString, args) {
                         g_verseNode.setAttribute('xml:lang', wceAttrValue.substring(lang_index + 5));
                     }
                 }
-                g_verseNode.setAttribute('n', 'B' + g_bookNumber + 'K' + g_chapterNumber + 'S' + g_stanzaNumber + 'V' + g_verseNumber);
+                g_verseNode.setAttribute('n', g_bookNumber + '.' + g_chapterNumber + '.' + g_stanzaNumber + '.' + g_verseNumber);
                 /*
                 var count_verse = 97 + Math.floor(g_verseNumber/2);
 
@@ -3178,7 +3168,7 @@ function getTeiByHtml(inputString, args) {
                 old_chapterNumber = g_chapterNumber;
                 g_stanzaNode = $newDoc.createElement('ab');
                 g_stanzaNode.setAttribute('type', 'stanza');
-                g_stanzaNode.setAttribute('xml:id', g_bookNumber + "." + g_chapterNumber + "." + g_stanzaNumber);
+                g_stanzaNode.setAttribute('n', g_bookNumber + "." + g_chapterNumber + "." + g_stanzaNumber);
                 if (lang_index > -1) {
                     pos = wceAttrValue.substring(lang_index).indexOf("&");
                     if (pos > -1) {
@@ -3187,7 +3177,6 @@ function getTeiByHtml(inputString, args) {
                         g_stanzaNode.setAttribute('xml:lang', wceAttrValue.substring(lang_index + 5));
                     }
                 }
-                g_stanzaNode.setAttribute('n', g_stanzaNumber);
                 if (partial_index > -1) { // node contains information about partial
                     g_stanzaNode.setAttribute('part', wceAttrValue.substring(partial_index + 8, partial_index + 9));
                 }
@@ -3208,28 +3197,19 @@ function getTeiByHtml(inputString, args) {
                 textNode = textNode.firstChild;
                 g_chapterNumber = textNode.nodeValue;
                 g_chapterNumber = $.trim(g_chapterNumber);
-                //if (g_chapterNumber != old_chapterNumber) {//ignore repeated chapter numbers; TODO: still needed?
-                old_chapterNumber = g_chapterNumber;
                 g_chapterNode = $newDoc.createElement('div');
-                if (g_chapterNumber === 'Inscriptio') {
-                    g_chapterNode.setAttribute('type', 'incipit');
-                    g_chapterNode.setAttribute('n', 'B' + g_bookNumber + 'incipit');
-                } else if (g_chapterNumber === 'Subscriptio') {
-                    g_chapterNode.setAttribute('type', 'explicit');
-                    g_chapterNode.setAttribute('n', 'B' + g_bookNumber + 'explicit');
-                } else {
-                    g_chapterNode.setAttribute('type', 'chapter');
-                    g_chapterNode.setAttribute('xml:id', g_bookNumber + "." + g_chapterNumber);
-                    if (lang_index > -1) {
-                        pos = wceAttrValue.substring(lang_index).indexOf("&");
-                        if (pos > -1) {
-                            g_chapterNode.setAttribute('xml:lang', wceAttrValue.substring(lang_index + 5, lang_index + 5 + pos));
-                        } else {
-                            g_chapterNode.setAttribute('xml:lang', wceAttrValue.substring(lang_index + 5));
-                        }
+                g_chapterNode.setAttribute('type', 'chapter');
+                g_chapterNode.setAttribute('n', g_bookNumber + "." + g_chapterNumber);
+                if (lang_index > -1) {
+                    pos = wceAttrValue.substring(lang_index).indexOf("&");
+                    if (pos > -1) {
+                        g_chapterNode.setAttribute('xml:lang', wceAttrValue.substring(lang_index + 5, lang_index + 5 + pos));
+                    } else {
+                        g_chapterNode.setAttribute('xml:lang', wceAttrValue.substring(lang_index + 5));
                     }
-                    g_chapterNode.setAttribute('n', g_chapterNumber);
                 }
+                g_chapterNode.setAttribute('n', g_chapterNumber);
+                //}
                 if (partial_index > -1) { // node contains information about partial
                     g_chapterNode.setAttribute('part', wceAttrValue.substring(partial_index + 8, partial_index + 9));
                 }
@@ -3254,7 +3234,7 @@ function getTeiByHtml(inputString, args) {
                 g_bookNode.setAttribute('type', 'book');
                 //if (g_bookNumber.length == 1)// add "0" if necessary
                 //	g_bookNumber = '0' + g_bookNumber;
-                g_bookNode.setAttribute('xml:id', g_bookNumber);
+                g_bookNode.setAttribute('n', g_bookNumber);
                 if (lang_index > -1) {
                     pos = wceAttrValue.substring(lang_index).indexOf("&");
                     if (pos > -1) {
@@ -3263,7 +3243,6 @@ function getTeiByHtml(inputString, args) {
                         g_bookNode.setAttribute('xml:lang', wceAttrValue.substring(lang_index + 5));
                     }
                 }
-                g_bookNode.setAttribute('n', g_bookNumber);
                 if (partial_index > -1) { // node contains information about partial
                     g_bookNode.setAttribute('part', wceAttrValue.substring(partial_index + 8, partial_index + 9));
                 }
@@ -3272,6 +3251,90 @@ function getTeiByHtml(inputString, args) {
                 else
                     $newRoot.appendChild(g_bookNode);
                 g_currentParentNode = g_bookNode;
+            }
+            return null;
+        } else if (wceAttrValue != null && wceAttrValue.match(/verseline_number/)) {
+            lang_index = wceAttrValue.indexOf('lang');
+            var textNode = $htmlNode.firstChild;
+            if (textNode) {
+                textNode = textNode.firstChild; // because <w>
+                g_verselineNumber = textNode.nodeValue;
+                g_verselineNumber = $.trim(g_verselineNumber);
+                g_verselineNode = $newDoc.createElement('ab');
+                g_verselineNode.setAttribute('type', 'verseline');
+                if (lang_index > -1) {
+                    pos = wceAttrValue.substring(lang_index).indexOf("&");
+                    if (pos > -1) {
+                        g_verselineNode.setAttribute('xml:lang', wceAttrValue.substring(lang_index + 5, lang_index + 5 + pos));
+                    } else {
+                        g_verselineNode.setAttribute('xml:lang', wceAttrValue.substring(lang_index + 5));
+                    }
+                }
+                if (g_stanzaNode) {
+                    g_lineNode.setAttribute('n', g_bookNumber + '.' + g_chapterNumber + '.' + g_stanzaNumber + '.' + g_verselineNumber);
+                    g_stanzaNode.appendChild(g_verselineNode);
+                } else if (g_verseNode) {
+                    g_lineNode.setAttribute('n', g_bookNumber + '.' + g_chapterNumber + '.' + g_verseNumber + '.' + g_verselineNumber);
+                    g_verseNode.appendChild(g_verselineNode);
+                } else
+                    $newRoot.appendChild(g_verselineNode);
+                g_currentParentNode = g_verselineNode;
+            }
+            return null;
+        } else if (wceAttrValue != null && wceAttrValue.match(/line_number/)) {
+            lang_index = wceAttrValue.indexOf('lang');
+            var textNode = $htmlNode.firstChild;
+            if (textNode) {
+                textNode = textNode.firstChild; // because <w>
+                g_lineNumber = textNode.nodeValue;
+                g_lineNumber = $.trim(g_lineNumber);
+                g_lineNode = $newDoc.createElement('ab');
+                g_lineNode.setAttribute('type', 'line');
+                if (lang_index > -1) {
+                    pos = wceAttrValue.substring(lang_index).indexOf("&");
+                    if (pos > -1) {
+                        g_lineNode.setAttribute('xml:lang', wceAttrValue.substring(lang_index + 5, lang_index + 5 + pos));
+                    } else {
+                        g_lineNode.setAttribute('xml:lang', wceAttrValue.substring(lang_index + 5));
+                    }
+                }
+                if (g_stanzaNode) {
+                    g_lineNode.setAttribute('n', g_bookNumber + '.' + g_chapterNumber + '.' + g_stanzaNumber + '.' + g_lineNumber);
+                    g_stanzaNode.appendChild(g_lineNode);
+                } else if (g_verseNode) {
+                    g_lineNode.setAttribute('n', g_bookNumber + '.' + g_chapterNumber + '.' + g_verseNumber + '.' + g_lineNumber);
+                    g_verseNode.appendChild(g_lineNode);
+                } else
+                    $newRoot.appendChild(g_lineNode);
+                g_currentParentNode = g_lineNode;
+            }
+            return null;
+        } else if (wceAttrValue != null && wceAttrValue.match(/ritualdirection_number/)) {
+            lang_index = wceAttrValue.indexOf('lang');
+            var textNode = $htmlNode.firstChild;
+            if (textNode) {
+                textNode = textNode.firstChild; // because <w>
+                g_ritualdirectionNumber = textNode.nodeValue;
+                g_ritualdirectionNumber = $.trim(g_ritualdirectionNumber);
+                g_ritualdirectionNode = $newDoc.createElement('ab');
+                g_ritualdirectionNode.setAttribute('type', 'ritualdirection');
+                if (lang_index > -1) {
+                    pos = wceAttrValue.substring(lang_index).indexOf("&");
+                    if (pos > -1) {
+                        g_ritualdirectionNode.setAttribute('xml:lang', wceAttrValue.substring(lang_index + 5, lang_index + 5 + pos));
+                    } else {
+                        g_ritualdirectionNode.setAttribute('xml:lang', wceAttrValue.substring(lang_index + 5));
+                    }
+                }
+                if (g_stanzaNode) {
+                    g_ritualdirectionNode.setAttribute('n', g_bookNumber + '.' + g_chapterNumber + '.' + g_stanzaNumber + '.' + g_ritualdirectionNumber);
+                    g_stanzaNode.appendChild(g_ritualdirectionNode);
+                } else if (g_verseNode) {
+                    g_ritualdirectionNode.setAttribute('n', g_bookNumber + '.' + g_chapterNumber + '.' + g_verseNumber + '.' + g_ritualdirectionNumber);
+                    g_verseNode.appendChild(g_ritualdirectionNode);
+                } else
+                    $newRoot.appendChild(g_ritualdirectionNode);
+                g_currentParentNode = g_ritualdirectionNode;
             }
             return null;
         } else {
@@ -3305,44 +3368,6 @@ function getTeiByHtml(inputString, args) {
         // gap
         if (wceType == 'gap') {
             return html2Tei_gap(arr, $teiParent, $htmlNode);
-
-            /*
-            var text = getDomNodeText($htmlNode).split(" ");
-            if (text == '') // fix for #1796
-            	return;
-            // split up content at word boundaries
-            if (text[0] === "Witness")// Witness End
-            	return html2Tei_gap(arr, $teiParent, $htmlNode, true);
-            //do not add <w> around <gap>
-            else {
-            	if (text.length > 1) {
-            		var $parent = $htmlNode.parentNode;
-            		$htmlNode.removeChild($htmlNode.firstChild);
-            		// remove text from node
-            		for (var i = text.length - 1; i > 0; i--) {// clone node and modify content; descending to get the correct order in the XML
-            			$addNode = $htmlNode.cloneNode(true);
-            			nodeAddText($addNode, text[i].replace(/[\[\]]/g, ""));
-            			// replace brackets
-            			$parent.insertBefore($addNode, $htmlNode.nextSibling);
-            		}
-            		// Information about first one (i=0) are put into old htmlNode
-            		nodeAddText($htmlNode, text[0].replace("[", ""));
-            		//remove "["
-            		return html2Tei_gap(arr, $teiParent, $htmlNode);
-            		// get result from first part and return to main routine
-            	} else {//no word boundaries
-            		if ($htmlNode.getAttribute('wce').indexOf("mark_as_supplied=supplied") > -1){// supplied text => surrounding <w>
-            			return html2Tei_gap(arr, $teiParent, $htmlNode);
-            		}
-            		else { // gap; check, whether this is a single gap or part of a word
-            			var _nextSibling=$htmlNode.nextSibling;
-            			if (_nextSibling && _nextSibling.nodeType==3 && _nextSibling.nodeValue && _nextSibling.nodeValue.indexOf(' ') == 0) {//=> no surrounding <w> needed
-            				return html2Tei_gap(arr, $teiParent, $htmlNode, true);
-            			} else
-            				return html2Tei_gap(arr, $teiParent, $htmlNode);
-            		}
-            	}
-            }*/
         }
 
         // correction
@@ -4022,14 +4047,14 @@ function getTeiByHtml(inputString, args) {
             	note = 1;*/
         } else // this is important for notes being inserted directly after the verse number
             note = 1;
-        var xml_id = 'B' + g_bookNumber + 'K' + g_chapterNumber + 'V' + g_verseNumber + '-' + g_witValue + '-' + note;
+        var xml_id = g_bookNumber + '.' + g_chapterNumber + '.' + g_verseNumber + '-' + g_witValue + '-' + note;
         var temp = '';
         var i = 65;
         while (idSet.has(xml_id + temp)) {
             temp = String.fromCharCode(i).toLowerCase();
             i++;
         }
-        $note.setAttribute('xml:id', xml_id + temp);
+        $note.setAttribute('n', xml_id + temp);
         idSet.add(xml_id + temp);
 
         // add <handshift/> if necessary
@@ -4306,35 +4331,35 @@ function getTeiByHtml(inputString, args) {
         switch (reason) {
             case 'trans': //translation
                 $ab.setAttribute('type', 'trans');
-                $ab.setAttribute('xml:id', g_bookNumber + "." + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + langID);
-                $ab.setAttribute('n', String.fromCharCode(count_verse));
+                $ab.setAttribute('n', g_bookNumber + "." + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + langID);
+                //$ab.setAttribute('n', String.fromCharCode(count_verse));
                 g_verseNumber++; //count overall number of language changes
                 break;
             case 'ritual': //ritual direction
                 $ab.setAttribute('type', 'ritual');
-                $ab.setAttribute('xml:id', g_bookNumber + "." + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + '-ritual-' + langID);
-                $ab.setAttribute('n', String.fromCharCode(count_verse));
+                $ab.setAttribute('n', g_bookNumber + "." + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + '-ritual-' + langID);
+                //$ab.setAttribute('n', String.fromCharCode(count_verse));
                 break;
             case 'backtomainlanguage':
             case 'back':
                 $ab.setAttribute('type', 'back');
-                $ab.setAttribute('xml:id', g_bookNumber + "." + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + '-back-' + langID);
-                $ab.setAttribute('n', String.fromCharCode(count_verse));
+                $ab.setAttribute('n', g_bookNumber + "." + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + '-back-' + langID);
+                //$ab.setAttribute('n', String.fromCharCode(count_verse));
                 break;
             case 'section':
                 $ab.setAttribute('type', 'section');
-                $ab.setAttribute('xml:id', g_bookNumber + "." + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + langID);
-                $ab.setAttribute('n', String.fromCharCode(count_verse));
+                $ab.setAttribute('n', g_bookNumber + "." + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + langID);
+                //$ab.setAttribute('n', String.fromCharCode(count_verse));
                 break;
             case 'untrans':
                 $ab.setAttribute('type', 'untrans');
-                $ab.setAttribute('xml:id', g_bookNumber + "." + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + langID);
-                $ab.setAttribute('n', String.fromCharCode(count_verse));
+                $ab.setAttribute('n', g_bookNumber + "." + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + langID);
+                //$ab.setAttribute('n', String.fromCharCode(count_verse));
                 break;
             default:
                 $ab.setAttribute('type', decodeURI(arr['reason_for_language_change_other']));
-                $ab.setAttribute('xml:id', g_bookNumber + "." + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + '-other-' + langID);
-                $ab.setAttribute('n', String.fromCharCode(count_verse));
+                $ab.setAttribute('n', g_bookNumber + "." + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + '-other-' + langID);
+                //$ab.setAttribute('n', String.fromCharCode(count_verse));
         }
 
         //TODO: special case for mainlangugae

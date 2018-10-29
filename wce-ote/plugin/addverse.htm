@@ -133,6 +133,12 @@
                         <td>
                             <input id="insertStanzaNumber" type="text" />
                         </td>
+                        <td width="200">
+                            <input type="radio" id="insertVerseRadio" name="versemodify" onclick="canInsertVerse();" />{#verse_insert}
+                        </td>
+                        <td>
+                            <input id="insertVerseNumber" type="text" />
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -140,10 +146,29 @@
                 <table width="100%">
                     <tr>
                         <td width="200">
-                            <input type="radio" id="insertVerseRadio" name="versemodify" onclick="canInsertVerse();" />{#verse_insert}
+                            <input type="radio" id="insertLineRadio" name="versemodify" onclick="canInsertLine();" />{#line_insert}
                         </td>
                         <td>
-                            <input id="insertVerseNumber" type="text" />
+                            <input id="insertLineNumber" type="text" />
+                        </td>
+
+                        <td width="200">
+                            <input type="radio" id="insertVerselineRadio" name="versemodify" onclick="canInsertVerseline();" />{#verseline_insert}
+                        </td>
+                        <td>
+                            <input id="insertVerselineNumber" type="text" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="insertRitualdirectionDiv">
+                <table width="100%">
+                    <tr>
+                        <td width="200">
+                            <input type="radio" id="insertRitualdirectionRadio" name="versemodify" onclick="canInsertRitualdirection();" />{#ritualdirection_insert}
+                        </td>
+                        <td>
+                            <input id="insertRitualdirectionNumber" type="text" />
                         </td>
                     </tr>
                 </table>
@@ -195,31 +220,6 @@
         }
     }
 
-    function canInsertVerse() {
-        $('#insertVerseRadio').prop('checked', true);
-        $('#insertVerseNumber').prop('disabled', false);
-        $('#insertVerseNumber').focus();
-        $('#insertBookName').prop('disabled', true);
-        $('#insertBookName_other').prop('disabled', true);
-        $('#insertChapterNumber').prop('disabled', true);
-        $('#insertStanzaNumber').prop('disabled', true);
-        $('#verseList').prop('disabled', true);
-        $('#chapterList').prop('disabled', true);
-        $('#bookList').prop('disabled', true);
-        $('#stanzaList').prop('disabled', true);
-    }
-
-    function canInsertSubscriptio() {
-        $('#insertSubscriptioRadio').prop('checked', true);
-        $('#insertVerseNumber').prop('disabled', true);
-        $('#insertChapterNumber').prop('disabled', true);
-        $('#insertBookName').prop('disabled', true);
-        $('#insertBookName_other').prop('disabled', true);
-        $('#verseList').prop('disabled', true);
-        $('#chapterList').prop('disabled', true);
-        $('#bookList').prop('disabled', true);
-    }
-
     function canInsertBook() {
         $('#insertBookRadio').prop('checked', true);
         $('#insertBookName').prop('disabled', false);
@@ -228,39 +228,138 @@
         $('#insertChapterNumber').prop('disabled', true);
         $('#insertStanzaNumber').prop('disabled', true);
         $('#insertVerseNumber').prop('disabled', true);
-        $('#verseList').prop('disabled', true);
-        $('#stanzaList').prop('disabled', true);
-        $('#chapterList').prop('disabled', true);
+        $('#insertLineNumber').prop('disabled', true);
+        $('#insertVerselineNumber').prop('disabled', true);
+        $('#insertRitualdirectionNumber').prop('disabled', true);
         $('#bookList').prop('disabled', true);
+        $('#chapterList').prop('disabled', true);
+        $('#stanzaList').prop('disabled', true);
+        $('#verseList').prop('disabled', true);
+        $('#lineList').prop('disabled', true);
+        $('#verselineList').prop('disabled', true);
+        $('#ritualdirectionList').prop('disabled', true);
     }
 
     function canInsertChapter() {
+        $('#insertBookName').prop('disabled', true);
+        $('#insertBookName_other').prop('disabled', true);
         $('#insertChapterRadio').prop('checked', true);
         $('#insertChapterNumber').prop('disabled', false);
         $('#insertChapterNumber').focus();
-        $('#insertVerseNumber').prop('disabled', true);
         $('#insertStanzaNumber').prop('disabled', true);
-        $('#insertBookName').prop('disabled', true);
-        $('#insertBookName_other').prop('disabled', true);
-        $('#verseList').prop('disabled', true);
-        $('#stanzaList').prop('disabled', true);
-        $('#chapterList').prop('disabled', true);
+        $('#insertVerseNumber').prop('disabled', true);
+        $('#insertLineNumber').prop('disabled', true);
+        $('#insertVerselineNumber').prop('disabled', true);
+        $('#insertRitualdirectionNumber').prop('disabled', true);
         $('#bookList').prop('disabled', true);
+        $('#chapterList').prop('disabled', true);
+        $('#stanzaList').prop('disabled', true);
+        $('#verseList').prop('disabled', true);
+        $('#lineList').prop('disabled', true);
+        $('#verselineList').prop('disabled', true);
+        $('#ritualdirectionList').prop('disabled', true);
     }
 
     function canInsertStanza() {
+        $('#insertBookName').prop('disabled', true);
+        $('#insertBookName_other').prop('disabled', true);
+        $('#insertChapterNumber').prop('disabled', true);
         $('#insertStanzaRadio').prop('checked', true);
         $('#insertStanzaNumber').prop('disabled', false);
         $('#insertStanzaNumber').focus();
         $('#insertVerseNumber').prop('disabled', true);
-        $('#insertChapterNumber').prop('disabled', true);
+        $('#insertLineNumber').prop('disabled', true);
+        $('#insertVerselineNumber').prop('disabled', true);
+        $('#insertRitualdirectionNumber').prop('disabled', true);
+        $('#bookList').prop('disabled', true);
+        $('#chapterList').prop('disabled', true);
+        $('#stanzaList').prop('disabled', true);
+        $('#verseList').prop('disabled', true);
+        $('#lineList').prop('disabled', true);
+        $('#verselineList').prop('disabled', true);
+        $('#ritualdirectionList').prop('disabled', true);
+    }
+
+    function canInsertVerse() {
         $('#insertBookName').prop('disabled', true);
         $('#insertBookName_other').prop('disabled', true);
-        $('#verseList').prop('disabled', true);
+        $('#insertChapterNumber').prop('disabled', true);
+        $('#insertStanzaNumber').prop('disabled', true);
+        $('#insertVerseRadio').prop('checked', true);
+        $('#insertVerseNumber').prop('disabled', false);
+        $('#insertVerseNumber').focus();
+        $('#insertLineNumber').prop('disabled', true);
+        $('#insertVerselineNumber').prop('disabled', true);
+        $('#insertRitualdirectionNumber').prop('disabled', true);
+        $('#bookList').prop('disabled', true);
+        $('#chapterList').prop('disabled', true);
         $('#stanzaList').prop('disabled', true);
+        $('#verseList').prop('disabled', true);
+        $('#lineList').prop('disabled', true);
+        $('#verselineList').prop('disabled', true);
+        $('#ritualdirectionList').prop('disabled', true);
+    }
+
+    function canInsertLine() {
+        $('#insertBookName').prop('disabled', true);
+        $('#insertBookName_other').prop('disabled', true);
+        $('#insertChapterNumber').prop('disabled', true);
+        $('#insertStanzaNumber').prop('disabled', true);
+        $('#insertVerseNumber').prop('disabled', true);
+        $('#insertLineRadio').prop('checked', true);
+        $('#insertLineNumber').prop('disabled', false);
+        $('#insertLineNumber').focus();
+        $('#insertVerselineNumber').prop('disabled', true);
+        $('#insertRitualdirectionNumber').prop('disabled', true);
+        $('#bookList').prop('disabled', true);
+        $('#chapterList').prop('disabled', true);
+        $('#stanzaList').prop('disabled', true);
+        $('#verseList').prop('disabled', true);
+        $('#lineList').prop('disabled', true);
+        $('#verselineList').prop('disabled', true);
+        $('#ritualdirectionList').prop('disabled', true);
+    }
+
+    function canInsertVerseline() {
+        $('#insertBookName').prop('disabled', true);
+        $('#insertBookName_other').prop('disabled', true);
+        $('#insertChapterNumber').prop('disabled', true);
+        $('#insertStanzaNumber').prop('disabled', true);
+        $('#insertVerseNumber').prop('disabled', true);
+        $('#insertLineNumber').prop('disabled', true);
+        $('#insertVerselineRadio').prop('checked', true);
+        $('#insertVerselineNumber').prop('disabled', false);
+        $('#insertVerselineNumber').focus();
+        $('#insertRitualdirectionNumber').prop('disabled', true);
+        $('#chapterList').prop('disabled', true);
+        $('#verseList').prop('disabled', true);
+        $('#bookList').prop('disabled', true);
+        $('#stanzaList').prop('disabled', true);
+        $('#lineList').prop('disabled', true);
+        $('#verselineList').prop('disabled', true);
+        $('#ritualdirectionList').prop('disabled', true);
+    }
+
+    function canInsertRitualdirection() {
+        $('#insertBookName').prop('disabled', true);
+        $('#insertBookName_other').prop('disabled', true);
+        $('#insertChapterNumber').prop('disabled', true);
+        $('#insertStanzaNumber').prop('disabled', true);
+        $('#insertVerseNumber').prop('disabled', true);
+        $('#insertLineNumber').prop('disabled', true);
+        $('#insertVerselineNumber').prop('disabled', true);
+        $('#insertRitualdirectionNumber').prop('disabled', false);
+        $('#insertRitualdirectionRadio').prop('checked', true);
+        $('#insertRitualdirectionNumber').focus();
         $('#chapterList').prop('disabled', true);
         $('#bookList').prop('disabled', true);
+        $('#stanzaList').prop('disabled', true);
+        $('#verseList').prop('disabled', true);
+        $('#lineList').prop('disabled', true);
+        $('#verselineList').prop('disabled', true);
+        $('#ritualdirectionList').prop('disabled', true);
     }
+
 
     function init() {
         canInsertVerse();
@@ -283,38 +382,53 @@
     }
 
     function update() {
+        var newNumber;
         if ($('#insertVerseRadio').is(':checked')) {
-            var newVerseNr = $('#insertVerseNumber').val().trim();
-            newVerseNr = newVerseNr.replace(/\D/g, '');
-            if (newVerseNr != '') {
-                ed.insertContent('<span class="verse_number mceNonEditable" wce="__t=verse_number"> ' + newVerseNr + '</span> ');
+            newNumber = $('#insertVerseNumber').val().trim();
+            newNumber = newNumber.replace(/\D/g, '');
+            if (newNumber != '') {
+                ed.insertContent('<span class="verse_number mceNonEditable" wce="__t=verse_number"> ' + newNumber + '</span> ');
             }
             return;
-        } else if ($('#insertInscriptioRadio').is(':checked')) {
-            ed.insertContent('<span class="chapter_number mceNonEditable" wce="__t=chapter_number">' + 'Inscriptio' + '</span> <span class="verse_number mceNonEditable" wce="__t=verse_number"></span> PLACE THE INCIPIT HERE! ');
-            return;
-        } else if ($('#insertSubscriptioRadio').is(':checked')) {
-            ed.insertContent('<span class="chapter_number mceNonEditable" wce="__t=chapter_number">' + 'Subscriptio' + '</span> <span class="verse_number mceNonEditable" wce="__t=verse_number"></span> PLACE THE SUBSCRIPTIO HERE! ');
-            return;
         } else if ($('#insertStanzaRadio').is(':checked')) {
-            var newStanzaNr = $('#insertStanzaNumber').val().trim();
-            newStanzaNr = newStanzaNr.replace(/\D/g, '');
-            if (newStanzaNr != '') {
-                ed.insertContent('<span class="stanza_number mceNonEditable" wce="__t=stanza_number" id="' + ed.dom.uniqueId('stanza') + '"> ' + newStanzaNr + '</span> ');
+            newNumber = $('#insertStanzaNumber').val().trim();
+            newNumber = newNumber.replace(/\D/g, '');
+            if (newNumber != '') {
+                ed.insertContent('<span class="stanza_number mceNonEditable" wce="__t=stanza_number" id="' + ed.dom.uniqueId('stanza') + '"> ' + newNumber + '</span> ');
             }
             return;
         } else if ($('#insertChapterRadio').is(':checked')) {
-            var newChapterNr = $('#insertChapterNumber').val().trim();
-            newChapterNr = newChapterNr.replace(/\D/g, '');
-            if (newChapterNr != '') {
-                ed.insertContent('<span class="chapter_number mceNonEditable" wce="__t=chapter_number" id="' + ed.dom.uniqueId('chap') + '"> ' + newChapterNr + '</span> ');
+            newNumber = $('#insertChapterNumber').val().trim();
+            newNumber = newNumber.replace(/\D/g, '');
+            if (newNumber != '') {
+                ed.insertContent('<span class="chapter_number mceNonEditable" wce="__t=chapter_number" id="' + ed.dom.uniqueId('chap') + '"> ' + newNumber + '</span> ');
             }
             return;
         } else if ($('#insertBookRadio').is(':checked')) {
-            var newBookNr = $('#insertBookName').val().trim();
+            newNumber = $('#insertBookName').val().trim();
+            if (newNumber != '') {
+                ed.insertContent('<span class="book_number mceNonEditable" wce="__t=book_number" id="' + ed.dom.uniqueId('book') + '"> ' + newNumber + '</span> ');
+            }
+            return;
+        } else if ($('#insertLineRadio').is(':checked')) {
+            newNumber = $('#insertLineNumber').val().trim();
+            newNumber = newNumber.replace(/\D/g, '');
+            if (newNumber != '') {
+                ed.insertContent('<span class="line_number mceNonEditable" wce="__t=line_number" id="' + ed.dom.uniqueId('line') + '"> ' + newNumber + '</span> ');
+            }
+            return;
+        } else if ($('#insertVerselineRadio').is(':checked')) {
+            var newBookNr = $('#insertVerselineNumber').val().trim();
             //newBookNr = newBookNr.replace(/\D/g,'');
             if (newBookNr != '') {
-                ed.insertContent('<span class="book_number mceNonEditable" wce="__t=book_number" id="' + ed.dom.uniqueId('book') + '"> ' + newBookNr + '</span> ');
+                ed.insertContent('<span class="verseline_number mceNonEditable" wce="__t=verseline_number" id="' + ed.dom.uniqueId('verseline') + '"> ' + newNumber + '</span> ');
+            }
+            return;
+        } else if ($('#insertBookRadio').is(':checked')) {
+            var newNumber = $('#insertBookName').val().trim();
+            //newBookNr = newBookNr.replace(/\D/g,'');
+            if (newNumber != '') {
+                ed.insertContent('<span class="ritualdirection_number mceNonEditable" wce="__t=ritualdirection_number" id="' + ed.dom.uniqueId('ritualdirection') + '"> ' + newNumber + '</span> ');
             }
             return;
         }

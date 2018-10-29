@@ -2130,6 +2130,10 @@
                             } else
                                 info_text = '<div>' + tinymce.translate('infotext_punctuation_mark') + '</div>';
                             break;
+
+                        case 'verseline':
+                        case 'line':
+                        case 'ritualdirection':
                         case 'verse':
                             info_text = '<div>' + 'Verse';
                             if (ar['partial']) {
@@ -2701,7 +2705,7 @@
             // Add <pc> for some special characters
             // We need a lot of cases, because of different kyeboard layouts, different browsers and different platforms
             if (keyboardDebug) console.log('ek: ' + ek + '; shiftKey: ' + e.shiftKey + '; altKey: ' + e.altKey + '; langEn: ' + langEn);
-            if (ek == 59 && !e.shiftKey && langEn && !tinymce.isWebKit) { // ; en
+            /*if (ek == 59 && !e.shiftKey && langEn && !tinymce.isWebKit) { // ; en
                 tinyMCE.activeEditor.execCommand('mceAdd_pc', ';');
                 stopEvent(ed, e);
             } else if (ignoreShiftNotEn.indexOf[188] < 0 && ek == 188 && !langEn && e.shiftKey) {
@@ -2717,25 +2721,24 @@
                 tinyMCE.activeEditor.execCommand('mceAdd_pc', ',');
                 stopEvent(ed, e);
             } else if (ek == 190 && !e.shiftKey) {
-                // .
-                tinyMCE.activeEditor.execCommand('mceAdd_pc', '.');
-                stopEvent(ed, e);
-            } else if (ek == 189 && !e.shiftKey) {
+                    // .
+                    tinyMCE.activeEditor.execCommand('mceAdd_pc', '.');
+                    stopEvent(ed, e);
+            if (ek == 189 && !e.shiftKey) {
                 // .
                 tinyMCE.activeEditor.execCommand('mceAdd_pc', '\u00B7');
                 stopEvent(ed, e);
-
-            } else if (ek == 63 && e.shiftKey) { // for FF
-                tinyMCE.activeEditor.execCommand('mceAdd_pc', '?');
-                stopEvent(ed, e);
-            } else if (ek == 191 && e.shiftKey && langEn) {
-                // ? en
-                tinyMCE.activeEditor.execCommand('mceAdd_pc', '?');
-                stopEvent(ed, e);
-            } else if (ek == 219 && e.shiftKey && !langEn) {
-                // ? dt
-                tinyMCE.activeEditor.execCommand('mceAdd_pc', '?');
-                stopEvent(ed, e);
+                } else if (ek == 63 && e.shiftKey) { // for FF
+                    tinyMCE.activeEditor.execCommand('mceAdd_pc', '?');
+                    stopEvent(ed, e);
+                } else if (ek == 191 && e.shiftKey && langEn) {
+                    // ? en
+                    tinyMCE.activeEditor.execCommand('mceAdd_pc', '?');
+                    stopEvent(ed, e);
+                } else if (ek == 219 && e.shiftKey && !langEn) {
+                    // ? dt
+                    tinyMCE.activeEditor.execCommand('mceAdd_pc', '?');
+                    stopEvent(ed, e);
             } else if (ek == 56 && e.shiftKey) {
                 // ( TODO?
             } else if (ek == 57 && e.shiftKey && e.altKey) { // For Mac OS X, Middledot
@@ -2744,13 +2747,13 @@
             } else if (ek == 48 && e.shiftKey && e.altKey) { // Three Dot Punctuation
                 tinyMCE.activeEditor.execCommand('mceAdd_pc', '\u2056');
                 stopEvent(ed, e);
-            } else if (ignoreShiftNotEn.indexOf[57] < 0 && ek == 57 && e.shiftKey && !langEn) { // special handling for English keyboards
-                stopEvent(ed, e);
-                doWithoutDialog(ed, 'part_abbr', '');
-            } else if (ek == 48 && langEn) { //special handling for English keyboard
-                stopEvent(ed, e);
-                doWithoutDialog(ed, 'part_abbr', '');
-            }
+                } else if (ignoreShiftNotEn.indexOf[57] < 0 && ek == 57 && e.shiftKey && !langEn) { // special handling for English keyboards
+                    stopEvent(ed, e);
+                    doWithoutDialog(ed, 'part_abbr', '');
+                } else if (ek == 48 && langEn) { //special handling for English keyboard
+                    stopEvent(ed, e);
+                    doWithoutDialog(ed, 'part_abbr', '');
+            }*/
         },
 
         setKeyPressEvent: function (e) {
@@ -2762,7 +2765,7 @@
             var ek = e.keyCode || e.charCode || 0;
             var stopEvent = WCEUtils.stopEvent;
 
-            if (tinymce.isWebKit) { // for Chrome (on Linux and Mac) and Safari: ":" and ";" both give the same keydown code 186 (???). So we use keypress for them
+            /*if (tinymce.isWebKit) { // for Chrome (on Linux and Mac) and Safari: ":" and ";" both give the same keydown code 186 (???). So we use keypress for them
                 if (ek == 58) { // :
                     tinyMCE.activeEditor.execCommand('mceAdd_pc', ':');
                     stopEvent(ed, e);
@@ -2770,7 +2773,7 @@
                     tinyMCE.activeEditor.execCommand('mceAdd_pc', ';');
                     stopEvent(ed, e);
                 }
-            }
+            }*/
 
             if (ek == 123) {
                 if (!ed.WCE_VAR.not_N)
@@ -2788,8 +2791,10 @@
                     return;
                 }
                 //verse chapter
-                if ($(wceNode).hasClass('stanza_number') || $(wceNode).hasClass('chapter_number') ||
-                    $(wceNode).hasClass('book_number') || $(wceNode).hasClass('verse_number')) {
+                if ($(wceNode).hasClass('book_number') || $(wceNode).hasClass('chapter_number') ||
+                    $(wceNode).hasClass('stanza_number') || $(wceNode).hasClass('verse_number') ||
+                    $(wceNode).hasClass('line_number') || $(wceNode).hasClass('verseline_number') ||
+                    $(wceNode).hasClass('ritualdirection_number')) {
                     return;
                 }
                 /*if ($(wceNode).hasClass('formatting_rubrication') && wceNode.parentNode && $(wceNode.parentNode).hasClass('lang'))
@@ -3125,11 +3130,11 @@
 
             //verse add and delete
             ed.addCommand('mceVerseAdd', function () {
-                doWithDialog(ed, url, '/addverse.htm', 480, 300, 1, true, tinymce.translate('verses_title'));
+                doWithDialog(ed, url, '/addverse.htm', 800, 300, 1, true, tinymce.translate('verses_title'));
             });
 
             ed.addCommand('mceVerseDelete', function () {
-                doWithDialog(ed, url, '/deleteverse.htm', 480, 700, 1, true, tinymce.translate('verses_title'));
+                doWithDialog(ed, url, '/deleteverse.htm', 640, 700, 1, true, tinymce.translate('verses_title'));
             });
 
             ed.addShortcut("ctrl+alt+s", "Structure modify", "mceVerseAdd");
