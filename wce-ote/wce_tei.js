@@ -2298,7 +2298,9 @@ function getTeiByHtml(inputString, args) {
             }
 
             if ($(preChild).hasClass('chapter_number') || $(preChild).hasClass('stanza_number') ||
-                $(preChild).hasClass('book_number') || $(preChild).hasClass('verse_number')) {
+                $(preChild).hasClass('book_number') || $(preChild).hasClass('verse_number') ||
+                $(preChild).hasClass('line_number') || $(preChild).hasClass('verseline_number') ||
+                $(preChild).hasClass('ritualdirection_number')) {
                 preChild = preChild.previousSibling;
                 continue;
             }
@@ -3067,9 +3069,14 @@ function getTeiByHtml(inputString, args) {
                 wceAttrValue = 'chapter_number';
             } else if ($($htmlNode).hasClass('book_number')) {
                 wceAttrValue = 'book_number';
+            } else if ($($htmlNode).hasClass('line_number')) {
+                wceAttrValue = 'line_number';
+            } else if ($($htmlNode).hasClass('verseline_number')) {
+                wceAttrValue = 'verseline_number';
+            } else if ($($htmlNode).hasClass('ritualdirection_number')) {
+                wceAttrValue = 'ritualdirection_number';
             }
         }
-
         // ******************* verse *******************
         if (wceAttrValue != null && wceAttrValue.match(/verse_number/)) {
             if (wceAttrValue && !wceAttrValue.match(/partial/)) { //automatic set attribute "part"
@@ -3106,7 +3113,7 @@ function getTeiByHtml(inputString, args) {
                         g_verseNode.setAttribute('xml:lang', wceAttrValue.substring(lang_index + 5));
                     }
                 }
-                g_verseNode.setAttribute('n', g_bookNumber + '.' + g_chapterNumber + '.' + g_stanzaNumber + '.' + g_verseNumber);
+                g_verseNode.setAttribute('n', g_bookNumber + '.' + g_chapterNumber + '.' + g_verseNumber);
                 /*
                 var count_verse = 97 + Math.floor(g_verseNumber/2);
 
@@ -3135,8 +3142,8 @@ function getTeiByHtml(inputString, args) {
                 		}
                 	}
                 }*/
-                if (g_stanzaNode)
-                    g_stanzaNode.appendChild(g_verseNode);
+                if (g_chapterNode)
+                    g_chapterNode.appendChild(g_verseNode);
                 else
                     $newRoot.appendChild(g_verseNode);
                 g_currentParentNode = g_verseNode;
@@ -3146,8 +3153,8 @@ function getTeiByHtml(inputString, args) {
                 if (partial_index > -1) { // node contains information about partial
                     g_verseNode.setAttribute('part', wceAttrValue.substring(partial_index + 8, partial_index + 9));
                 }
-                if (g_stanzaNode)
-                    g_stanzaNode.appendChild(g_verseNode);
+                if (g_chapterNode)
+                    g_chapterNode.appendChild(g_verseNode);
                 else
                     $newRoot.appendChild(g_verseNode);
                 g_currentParentNode = g_verseNode;
@@ -3211,8 +3218,6 @@ function getTeiByHtml(inputString, args) {
                         g_chapterNode.setAttribute('xml:lang', wceAttrValue.substring(lang_index + 5));
                     }
                 }
-                g_chapterNode.setAttribute('n', g_chapterNumber);
-                //}
                 if (partial_index > -1) { // node contains information about partial
                     g_chapterNode.setAttribute('part', wceAttrValue.substring(partial_index + 8, partial_index + 9));
                 }
@@ -3270,10 +3275,7 @@ function getTeiByHtml(inputString, args) {
                         g_verselineNode.setAttribute('xml:lang', wceAttrValue.substring(lang_index + 5));
                     }
                 }
-                if (g_stanzaNode) {
-                    g_lineNode.setAttribute('n', g_bookNumber + '.' + g_chapterNumber + '.' + g_stanzaNumber + '.' + g_verselineNumber);
-                    g_stanzaNode.appendChild(g_verselineNode);
-                } else if (g_verseNode) {
+                if (g_verseNode) {
                     g_lineNode.setAttribute('n', g_bookNumber + '.' + g_chapterNumber + '.' + g_verseNumber + '.' + g_verselineNumber);
                     g_verseNode.appendChild(g_verselineNode);
                 } else
@@ -3301,9 +3303,6 @@ function getTeiByHtml(inputString, args) {
                 if (g_stanzaNode) {
                     g_lineNode.setAttribute('n', g_bookNumber + '.' + g_chapterNumber + '.' + g_stanzaNumber + '.' + g_lineNumber);
                     g_stanzaNode.appendChild(g_lineNode);
-                } else if (g_verseNode) {
-                    g_lineNode.setAttribute('n', g_bookNumber + '.' + g_chapterNumber + '.' + g_verseNumber + '.' + g_lineNumber);
-                    g_verseNode.appendChild(g_lineNode);
                 } else
                     $newRoot.appendChild(g_lineNode);
                 g_currentParentNode = g_lineNode;
