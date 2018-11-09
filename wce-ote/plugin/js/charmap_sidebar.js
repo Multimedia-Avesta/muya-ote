@@ -377,6 +377,27 @@ tinymce.PluginManager.add('wcecharmapsidebar', function (ed) {
       ['2743', 'GUJARATI LETTER SSA'],
       ['2744', 'GUJARATI LETTER SA'],
       ['2745', 'GUJARATI LETTER HA'],
+      ['257', 'Small letter a with macron'],
+      ['0x1E0D', 'Small letter d with dot below'],
+      ['0x1E25', 'Small letter h with dot below'],
+      ['0x1E2B ', 'Small letter h with breve below'],
+      ['299', 'Small letter i with macron'],
+      ['0x1E37', 'Small letter l with dot below'],
+      ['l+0x0325', 'Small letter l with ring below'],
+      ['l+0x0304+0x0325', 'Small letter l with macron and ring below'],
+      ['0x1E41', 'Small letter m with dot above'],
+      ['m+0x0310', 'Small letter m with candrabindu'],
+      ['0x1E43', 'Small letter m with dot below'],
+      ['241', 'Small letter n with tilde'],
+      ['0x1e45', 'Small letter n with dot above'],
+      ['0x1e47', 'Small letter n with dot below'],
+      ['r+0x0325', 'Small letter r with ring below'],
+      ['r+0x0304+0x0325', 'Small letter r with macron and ring below'],
+      ['0x1E5B', 'Small letter r with dot below'],
+      ['0x1E63', 'Small letter s with dot below'],
+      ['0x1E5B', 'Small letter s with acute'],
+      ['0x1E6D', 'Small letter t with dot below'],
+      ['363', 'Small letter u with macron'],
     ];
     }
 
@@ -442,6 +463,7 @@ tinymce.PluginManager.add('wcecharmapsidebar', function (ed) {
       ['0x017e', 'AVESTAN LETTER SSHE'],
       ['0x0068', 'AVESTAN LETTER HE'],
       ['0x0068+0x0301', 'AVESTAN LETTER HE'],
+      ['t+0x0328', 'Small letter t with ogonek'],
     ];
     }
 
@@ -471,16 +493,23 @@ tinymce.PluginManager.add('wcecharmapsidebar', function (ed) {
       ['l+0x0335', 'Small letter l with short stroke overlay'],
       ['L+0x0335', 'Capital letter L with short stroke overlay'],
       ['n+0x0331', 'Small letter n with macron below'],
+      ['N+0x0331', 'Capital letter N with macron below'],
+      ['0x006d+0x0328', 'Small letter m with ogonek'],
       ['p+0x0304', 'Small letter p with macron'],
       ['P+0x0304', 'Capital letter P with macron'],
       ['R+0x0331', 'Capital letter R with macron below'],
       ['s+0x0331', 'Small letter s with macron below'],
       ['s+0x030C', 'Small letter s with caron'],
+      ['s+0x030C+0x0745', 'Small letter s with caron and three dots'],
+      ['s+0x0745', 'Small letter s with three dots above'],
+      ['s+0x0746', 'Small letter s with three dots below'],
       ['S+0x030C', 'Capital letter S with caron'],
-      ['0x0745+s', 'Small letter s with three dots above'],
       ['t+0x0302', 'Small letter t with circumflex'],
+      ['t+0x0328', 'Small letter t with ogonek'],
       ['x+0x2081', 'Small letter x with subscript 1'],
       ['x+0x2082', 'Small letter x with subscript 2'],
+      ['x+0x0302+0x2081', 'Small letter x with circumflex and subscript 1'],
+      ['x+0x0302+0x2082', 'Small letter x with circumflex and subscript 2'],
       ['y+0x0304', 'Small letter y with macron'],
       ['Y+0x0304', 'Small letter Y with macron'],
       ['y+0x0302', 'Small letter y with circumflex'],
@@ -491,6 +520,7 @@ tinymce.PluginManager.add('wcecharmapsidebar', function (ed) {
       ['y+0x0324', 'Small letter y with diaeresis below'],
       ['Y+0x0324', 'Capital letter Y with diaeresis below'],
       ['z+0x0331', 'Small letter z with macron below'],
+      ['z+0x0302+0x0331', 'Small letter z with circumflex and macron below'],
       ['Z+0x0331', 'Capital letter Z with macron below'],
     ];
     }
@@ -656,10 +686,11 @@ tinymce.PluginManager.add('wcecharmapsidebar', function (ed) {
         sidebar = document.createElement("div");
         sidebar.classList.add("wce-charmap-sidebar");
         sidebar.style.width = "600px";
+        sidebar.style.maxHeight = String(document.querySelector('iframe#wce_editor_ifr').offsetHeight).concat("px"); //"400px";
         sidebar.style.borderRight = "1px solid #aaa";
         sidebar.style.backgroundColor = "lightgray";
         sidebar.style.position = "relative";
-        sidebar.style.overflow = "hidden";
+        sidebar.style.overflow = "scroll";
         ct.appendChild(sidebar);
         _drawCharmapsidebar(getCharMap());
         $(ed.getWin()).scroll(function (e) {

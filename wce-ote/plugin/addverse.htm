@@ -418,15 +418,15 @@
             }
             return;
         } else if ($('#insertVerselineRadio').is(':checked')) {
-            var newBookNr = $('#insertVerselineNumber').val().trim();
-            //newBookNr = newBookNr.replace(/\D/g,'');
+            newNumber = $('#insertVerselineNumber').val().trim();
+            newNumber = newNumber.replace(/\D/g, '');
             if (newBookNr != '') {
                 ed.insertContent('<span class="verseline_number mceNonEditable" wce="__t=verseline_number" id="' + ed.dom.uniqueId('verseline') + '"> ' + newNumber + '</span> ');
             }
             return;
-        } else if ($('#insertBookRadio').is(':checked')) {
-            var newNumber = $('#insertBookName').val().trim();
-            //newBookNr = newBookNr.replace(/\D/g,'');
+        } else if ($('#insertRitualdirectionRadio').is(':checked')) {
+            newNumber = $('#insertRitualdirectionNumber').val().trim();
+            newNumber = newNumber.replace(/\D/g, '');
             if (newNumber != '') {
                 ed.insertContent('<span class="ritualdirection_number mceNonEditable" wce="__t=ritualdirection_number" id="' + ed.dom.uniqueId('ritualdirection') + '"> ' + newNumber + '</span> ');
             }

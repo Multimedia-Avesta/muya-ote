@@ -358,8 +358,9 @@ function writeWceNodeInfo(val) {
         //when one adds a new element via the menu
         var wcevar = ed.WCE_VAR;
         if (wcevar.isc && wcevar.isInBE && wcevar.isCaretAtNodeEnd &&
-            (wcevar.type == ed.WCE_CON.formatEnd || wcevar.type == 'chapter_number' || wcevar.type === 'book_number' || wcevar.type == 'verse_number' ||
-                wcevar.type == 'stanza_number' || wcevar.type == 'brea')) {
+            (wcevar.type == ed.WCE_CON.formatEnd || wcevar.type == 'chapter_number' || wcevar.type === 'book_number' ||
+                wcevar.type == 'verse_number' || wcevar.type == 'stanza_number' || wcevar.type == 'line_number' ||
+                wcevar.type == 'verseline_number' || wcevar.type == 'ritualdirection_number' || wcevar.type == 'brea')) {
             var selNode = wcevar.selectedNode;
             if (wcevar.type == ed.WCE_CON.formatEnd) {
                 $(new_content).insertAfter(selNode.parentNode);
