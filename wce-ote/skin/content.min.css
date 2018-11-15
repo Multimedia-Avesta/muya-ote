@@ -523,6 +523,12 @@ span.verseline_number {
     font-size: 20px;
 }
 
+span.ritualdirection_number {
+    color: #FF3933;
+    font-size: 20px;
+}
+
+
 span.editortext[language="pal-Avst"],
 span.editortext[language="ae-Avst"],
 span.editortext[language="ae-Phlv"] {

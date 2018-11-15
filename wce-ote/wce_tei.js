@@ -53,6 +53,7 @@ function getHtmlByTei(inputString, args) {
     var $newDoc, $newRoot, $newRoot;
     var $formatStart, $formatEnd;
     var tinymce_ed = tinymce.activeEditor;
+    var alertnotshown = true;
     //tinymce.PluginManager.requireLangPack('wce');
 
     var teiIndexData = {
@@ -895,6 +896,29 @@ function getHtmlByTei(inputString, args) {
                 nodeAddText($newNode, nValue.substr(indexOfThird + 1));
             }
             $newNode.setAttribute('wce', '__t=verseline_number');
+            if ($teiNode.getAttribute('xml:lang')) {
+                addFormatElement($newNode, $teiNode.getAttribute('xml:lang'));
+            } else {
+                addFormatElement($newNode);
+            }
+        } else { // for ab without type attribute we assume verse here with a special kind of n attribute (as this was possible for some time due to a bug)
+            if (alertnotshown) {
+                alert("There are <ab> elements without @type attribute in the XML. These are converted to verses.");
+                alertnotshown = false;
+            }
+            var $newNode = $newDoc.createElement('span');
+            var type = $teiNode.getAttribute('type');
+            $newNode.setAttribute('class', 'verse_number mceNonEditable');
+            var nValue = $teiNode.getAttribute('n');
+            if (nValue && nValue != '') {
+                var indexOfFirst = nValue.lastIndexOf('V'); //
+                nodeAddText($newNode, nValue.substr(indexOfFirst + 1));
+            }
+            var verseLang = '';
+            if ($teiNode.getAttribute('xml:lang')) {
+                verseLang = '&amp;lang=' + $teiNode.getAttribute('xml:lang');
+            }
+            $newNode.setAttribute('wce', '__t=verse_number' + verseLang);
             if ($teiNode.getAttribute('xml:lang')) {
                 addFormatElement($newNode, $teiNode.getAttribute('xml:lang'));
             } else {
@@ -3087,17 +3111,6 @@ function getTeiByHtml(inputString, args) {
 
             var textNode = $htmlNode.firstChild;
             if (textNode) {
-                // TODO: This could maybe removed as the part handling has been changed.
-                /*if ($.trim(textNode.nodeValue) === "Cont.") { // special kind of verse TODO: Check, if still necessary
-                 found_ab = true;
-                 g_verseNode = $newDoc.createElement('ab');
-                 g_verseNode.setAttribute('part', 'F');
-
-                 // test, if last page ended with an hyphenation
-                 if (!final_w_found && $teiParent.lastChild && $teiParent.lastChild.previousSibling && $teiParent.lastChild.previousSibling.previousSibling &&
-                 $teiParent.lastChild.previousSibling.previousSibling.nodeName === 'pb' && $teiParent.lastChild.previousSibling.previousSibling.getAttribute("break") === "no")
-                 final_w_found = true;
-                 } else {*/
                 textNode = textNode.firstChild; // because <w>
                 g_verseNumber = textNode.nodeValue;
                 var cont_index = g_verseNumber.indexOf('Cont.');
@@ -3105,6 +3118,8 @@ function getTeiByHtml(inputString, args) {
                     g_verseNumber = g_verseNumber.substring(0, cont_index);
                 g_verseNumber = $.trim(g_verseNumber);
                 g_verseNode = $newDoc.createElement('ab');
+                g_verseNode.setAttribute('type', 'verse');
+                g_verseNode.setAttribute('n', g_bookNumber + "." + g_chapterNumber + "." + g_verseNumber);
                 if (lang_index > -1) {
                     pos = wceAttrValue.substring(lang_index).indexOf("&");
                     if (pos > -1) {
@@ -3113,41 +3128,14 @@ function getTeiByHtml(inputString, args) {
                         g_verseNode.setAttribute('xml:lang', wceAttrValue.substring(lang_index + 5));
                     }
                 }
-                g_verseNode.setAttribute('n', g_bookNumber + '.' + g_chapterNumber + '.' + g_verseNumber);
-                /*
-                var count_verse = 97 + Math.floor(g_verseNumber/2);
-
-                g_verseNode.setAttribute('xml:id', g_bookNumber + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + '-' + g_verseNumber%2)
-                g_verseNode.setAttribute('n', String.fromCharCode(count_verse));
-                g_verseNumber++; //count overall number of language changes
-                */
                 if (partial_index > -1) { // node contains information about partial
                     g_verseNode.setAttribute('part', wceAttrValue.substring(partial_index + 8, partial_index + 9));
                 }
-                /*
-                if (wceAttrValue)
-                	lang_index = wceAttrValue.indexOf('language_name=');
-                if (lang_index > -1) {
-                	var amp_index = wceAttrValue.substring(lang_index + 14).indexOf('&');
-                	if (amp_index > -1) {
-                		if (wceAttrValue.substring(lang_index + 14, lang_index + 14 + amp_index) == 'other') {
-                			lang_index = wceAttrValue.indexOf('language_name_other=');
-                			if (lang_index > -1) {
-                				var amp_index = wceAttrValue.substring(lang_index + 20).indexOf('&');
-                				if (amp_index > -1)
-                					g_verseNode.setAttribute('xml:lang', decodeURI(wceAttrValue.substring(lang_index + 20, lang_index + 20 + amp_index)));
-                			}
-                		} else {
-                			g_verseNode.setAttribute('xml:lang', wceAttrValue.substring(lang_index + 14, lang_index + 14 + amp_index));
-                		}
-                	}
-                }*/
                 if (g_chapterNode)
                     g_chapterNode.appendChild(g_verseNode);
                 else
                     $newRoot.appendChild(g_verseNode);
                 g_currentParentNode = g_verseNode;
-                //g_wordNumber = 0;
             } else { //empty verse //DO we have to add language here as well???
                 g_verseNode = $newDoc.createElement('ab');
                 if (partial_index > -1) { // node contains information about partial
@@ -3226,7 +3214,6 @@ function getTeiByHtml(inputString, args) {
                 else
                     $newRoot.appendChild(g_chapterNode);
                 g_currentParentNode = g_chapterNode;
-                //	}
             }
             return null;
         } else if (wceAttrValue != null && wceAttrValue.match(/book_number/)) {
@@ -3240,8 +3227,6 @@ function getTeiByHtml(inputString, args) {
                 g_bookNumber = $.trim(g_bookNumber);
                 g_bookNode = $newDoc.createElement('div');
                 g_bookNode.setAttribute('type', 'book');
-                //if (g_bookNumber.length == 1)// add "0" if necessary
-                //	g_bookNumber = '0' + g_bookNumber;
                 g_bookNode.setAttribute('n', g_bookNumber);
                 if (lang_index > -1) {
                     pos = wceAttrValue.substring(lang_index).indexOf("&");
@@ -3267,6 +3252,7 @@ function getTeiByHtml(inputString, args) {
                 g_verselineNumber = $.trim(g_verselineNumber);
                 g_verselineNode = $newDoc.createElement('ab');
                 g_verselineNode.setAttribute('type', 'verseline');
+                g_lineNode.setAttribute('n', g_bookNumber + '.' + g_chapterNumber + '.' + g_verseNumber + '.' + g_verselineNumber);
                 if (lang_index > -1) {
                     pos = wceAttrValue.substring(lang_index).indexOf("&");
                     if (pos > -1) {
@@ -3275,11 +3261,12 @@ function getTeiByHtml(inputString, args) {
                         g_verselineNode.setAttribute('xml:lang', wceAttrValue.substring(lang_index + 5));
                     }
                 }
-                if (g_verseNode) {
-                    g_lineNode.setAttribute('n', g_bookNumber + '.' + g_chapterNumber + '.' + g_verseNumber + '.' + g_verselineNumber);
+                if (g_verseNode)
                     g_verseNode.appendChild(g_verselineNode);
-                } else
+                else {
+                    alert("Found verse line without verse!");
                     $newRoot.appendChild(g_verselineNode);
+                }
                 g_currentParentNode = g_verselineNode;
             }
             return null;
@@ -3292,6 +3279,7 @@ function getTeiByHtml(inputString, args) {
                 g_lineNumber = $.trim(g_lineNumber);
                 g_lineNode = $newDoc.createElement('ab');
                 g_lineNode.setAttribute('type', 'line');
+                g_lineNode.setAttribute('n', g_bookNumber + '.' + g_chapterNumber + '.' + g_stanzaNumber + '.' + g_lineNumber);
                 if (lang_index > -1) {
                     pos = wceAttrValue.substring(lang_index).indexOf("&");
                     if (pos > -1) {
@@ -3300,11 +3288,12 @@ function getTeiByHtml(inputString, args) {
                         g_lineNode.setAttribute('xml:lang', wceAttrValue.substring(lang_index + 5));
                     }
                 }
-                if (g_stanzaNode) {
-                    g_lineNode.setAttribute('n', g_bookNumber + '.' + g_chapterNumber + '.' + g_stanzaNumber + '.' + g_lineNumber);
+                if (g_stanzaNode)
                     g_stanzaNode.appendChild(g_lineNode);
-                } else
+                else {
+                    alert("Found line without stanza!");
                     $newRoot.appendChild(g_lineNode);
+                }
                 g_currentParentNode = g_lineNode;
             }
             return null;
@@ -3331,8 +3320,10 @@ function getTeiByHtml(inputString, args) {
                 } else if (g_verseNode) {
                     g_ritualdirectionNode.setAttribute('n', g_bookNumber + '.' + g_chapterNumber + '.' + g_verseNumber + '.' + g_ritualdirectionNumber);
                     g_verseNode.appendChild(g_ritualdirectionNode);
-                } else
+                } else {
+                    alert("Found ritual direction without stanza or verse!");
                     $newRoot.appendChild(g_ritualdirectionNode);
+                }
                 g_currentParentNode = g_ritualdirectionNode;
             }
             return null;

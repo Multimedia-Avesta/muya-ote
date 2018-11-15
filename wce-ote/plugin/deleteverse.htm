@@ -430,7 +430,7 @@
 
         if ($(node).hasClass('book_number')) {
             bookNr = $.trim(node.innerHTML);
-        } else if ($(node).hasClass('chapter_number') && $.trim(node.innerHTML) !== 'Inscriptio' && $.trim(node.innerHTML) !== 'Subscriptio') {
+        } else if ($(node).hasClass('chapter_number')) {
             chapterNr = $.trim(node.innerHTML);
         } else if ($(node).hasClass('stanza_number')) {
             stanzaNr = $.trim(node.innerHTML);
@@ -441,7 +441,7 @@
             var id = node.getAttribute('id');
             if (v && v != '')
                 out += '<input type="checkbox" value="' + bookNr + '.' + chapterNr + '.' + (stanzaNr ? stanzaNr : verseNr) + '.' + v + '" id="' + id + '">' +
-                'Ritualdirection ' + bookNr + '.' + chapterNr + '.' + (stanzaNr ? stanzaNr : verseNr) + '.' + v + '</input><br />';
+                ed.translate('#ritual') + ' ' + bookNr + '.' + chapterNr + '.' + (stanzaNr ? stanzaNr : verseNr) + '.' + v + '</input><br />';
         }
         return out;
     }
@@ -546,128 +546,126 @@
                         endNode = ed.dom.getRoot().childNodes[ed.dom.getRoot().childNodes.length - 1];
                     delVerse(startNode, endNode);
                 }
-            } else if ($('#deleteVerseRadio').is(':checked')) {
-                var verseList = $('#verseList').find('input:checkbox');
-                for (var i = 0, len = verseList.length; i < len; i++) {
-                    var cb = verseList[i];
-                    var currentBook = '';
-                    if ($(cb).is(':checked')) {
-                        var pos = $(cb).val().indexOf('.'); // usually bookNr.chapterNr.stanzaNr.verseNr
-                        if (pos == -1) { //Inscriptio or Subscriptio found
-                            var bookNr = '';
-                            var chapterNr = $(cb).val().trim();
-                            var stanzaNr = '';
-                            var verseNr = '';
-                        } else {
-                            var bookNr = $(cb).val().substr(0, pos);
-                            var cbnew = $(cb).val().substr(pos + 1); // chapterNr.stanzaNr.verseNr
-                            pos = cbnew.indexOf('.');
-                            var chapterNr = cbnew.substr(0, pos);
-                            var cbnewnew = cbnew.substr(pos + 1);
-                            pos = cbnewnew.indexOf('.');
-                            var stanzaNr = cbnewnew.substr(0, pos);
-                            var verseNr = cbnewnew.substr(pos + 1);
-                        }
-                        var startNode = null,
-                            endNode = null;
-                        var spanList = $(contentWithVerse).find('span');
-                        for (var j = 0, len2 = spanList.length; j < len2; j++) {
-                            var span = spanList[j];
-                            var spanValue = $(span).html().trim();
-                            if ($(span).hasClass('book_number')) {
-                                currentBook = spanValue;
-                                if (startNode) { //if next entry after marked verse
-                                    endNode = span;
-                                    break;
-                                }
-                            } else if ($(span).hasClass('chapter_number')) {
-                                var currentChapter = spanValue;
-                                if (startNode) { //if next entry after marked verse
-                                    endNode = span;
-                                    break;
-                                }
-                                if (currentChapter == chapterNr && verseNr == '') //Inscriptio or Subscriptio
-                                    startNode = span; // set startNode; next verse number element will be endNode
-                                /*} else if ($(span).hasClass('stanza_number')) {
-                                    var currentStanza = spanValue;
-                                    spanValue_cnt = 96;
-                                    spanValue_old = '';
-                                    if (startNode) {
-                                        endNode = span;
-                                        break;
-                                    }*/
-                            } else if ($(span).hasClass('verse_number')) {
-                                if (spanValue_old == spanValue) {
-                                    spanValue_cnt++;
-                                    spanValue = spanValue + '-' + String.fromCharCode(spanValue_cnt);
-                                } else {
-                                    spanValue_cnt = 96;
-                                }
-                                if (startNode && verseNr !== '') {
-                                    endNode = span;
-                                    break;
-                                } else if (spanValue == verseNr && currentChapter == chapterNr && currentBook == bookNr && verseNr != '') {
-                                    startNode = span;
-                                }
-                                spanValue_old = spanValue;
+            }
+        } else if ($('#deleteVerseRadio').is(':checked')) {
+            var verseList = $('#verseList').find('input:checkbox');
+            for (var i = 0, len = verseList.length; i < len; i++) {
+                var cb = verseList[i];
+                var currentBook = '';
+                if ($(cb).is(':checked')) {
+                    var pos = $(cb).val().indexOf('.'); // usually bookNr.chapterNr.verseNr
+                    /*if (pos == -1) { //Inscriptio or Subscriptio found
+                        var bookNr = '';
+                        var chapterNr = $(cb).val().trim();
+                        var stanzaNr = '';
+                        var verseNr = '';
+                    } else {*/
+                    var bookNr = $(cb).val().substr(0, pos);
+                    var cbnew = $(cb).val().substr(pos + 1); // chapterNr.verseNr
+                    pos = cbnew.indexOf('.');
+                    var chapterNr = cbnew.substr(0, pos);
+                    var verseNr = cbnew.substr(pos + 1);
+                    //}
+                    var startNode = null,
+                        endNode = null;
+                    var spanList = $(contentWithVerse).find('span');
+                    for (var j = 0, len2 = spanList.length; j < len2; j++) {
+                        var span = spanList[j];
+                        var spanValue = $(span).html().trim();
+                        if ($(span).hasClass('book_number')) {
+                            currentBook = spanValue;
+                            if (startNode) { //if next entry after marked verse
+                                endNode = span;
+                                break;
                             }
+                        } else if ($(span).hasClass('chapter_number')) {
+                            var currentChapter = spanValue;
+                            if (startNode) { //if next entry after marked verse
+                                endNode = span;
+                                break;
+                            }
+                            //if (currentChapter == chapterNr && verseNr == '') //Inscriptio or Subscriptio
+                            //    startNode = span; // set startNode; next verse number element will be endNode
+                            /*} else if ($(span).hasClass('stanza_number')) {
+                                var currentStanza = spanValue;
+                                spanValue_cnt = 96;
+                                spanValue_old = '';
+                                if (startNode) {
+                                    endNode = span;
+                                    break;
+                                }*/
+                        } else if ($(span).hasClass('verse_number')) {
+                            if (spanValue_old == spanValue) {
+                                spanValue_cnt++;
+                                spanValue = spanValue + '-' + String.fromCharCode(spanValue_cnt);
+                            } else {
+                                spanValue_cnt = 96;
+                            }
+                            if (startNode && verseNr !== '') {
+                                endNode = span;
+                                break;
+                            } else if (spanValue == verseNr && currentChapter == chapterNr && currentBook == bookNr && verseNr != '') {
+                                startNode = span;
+                            }
+                            spanValue_old = spanValue;
                         }
-                        if (endNode == null) //startNode was last span node of document
-                            endNode = ed.dom.getRoot().childNodes[ed.dom.getRoot().childNodes.length - 1];
-                        delVerse(startNode, endNode);
+                    }
+                    if (endNode == null) //startNode was last span node of document
+                        endNode = ed.dom.getRoot().childNodes[ed.dom.getRoot().childNodes.length - 1];
+                    delVerse(startNode, endNode);
+                }
+            }
+        }
+        ed.setContent($(contentWithVerse).html());
+    }
+
+    function getCursorPositionInTextOf(element) {
+        var range = document.createRange(),
+            curRange = window.getSelection().getRangeAt(0);
+        range.setStart(element, 0);
+        range.setEnd(curRange.startContainer, curRange.startOffset);
+        //Measure the length of the text from the start of the given element to the start of the current range (position of the cursor)
+        return document.createElement("div").appendChild(range.cloneContents()).textContent.length;
+    }
+
+    function delVerse(startNode, endNode) {
+        var start;
+        var _delVerse = function(node) {
+            if (node == startNode) {
+                start = true;
+            } else if (node == endNode) {
+                start = false;
+                return true;
+            } else {
+                var temp = node.childNodes;
+                var list = new Array();
+                for (var i = 0, len = temp.length; i < len; i++) {
+                    list[i] = temp[i];
+                }
+                for (var i = 0, len = list.length; i < len; i++) {
+                    var n = list[i];
+                    if (_delVerse(n)) {
+                        return true;
                     }
                 }
             }
-            ed.setContent($(contentWithVerse).html());
-        }
-
-        function getCursorPositionInTextOf(element) {
-            var range = document.createRange(),
-                curRange = window.getSelection().getRangeAt(0);
-            range.setStart(element, 0);
-            range.setEnd(curRange.startContainer, curRange.startOffset);
-            //Measure the length of the text from the start of the given element to the start of the current range (position of the cursor)
-            return document.createElement("div").appendChild(range.cloneContents()).textContent.length;
-        }
-
-        function delVerse(startNode, endNode) {
-            var start;
-            var _delVerse = function(node) {
-                if (node == startNode) {
-                    start = true;
-                } else if (node == endNode) {
-                    start = false;
-                    return true;
-                } else {
-                    var temp = node.childNodes;
-                    var list = new Array();
-                    for (var i = 0, len = temp.length; i < len; i++) {
-                        list[i] = temp[i];
-                    }
-                    for (var i = 0, len = list.length; i < len; i++) {
-                        var n = list[i];
-                        if (_delVerse(n)) {
-                            return true;
-                        }
-                    }
-                }
-                if (start) {
-                    $(node).remove();
-                }
+            if (start) {
+                $(node).remove();
             }
-
-            _delVerse(contentWithVerse);
         }
 
-        if (!parent.tinymce.isIE) {
-            $(document).keydown(function(e) {
-                var evt = e || window.event
-                if (evt.keyCode == 13 || evt.keyCode == 10) {
-                    document.getElementById('insert').click();
-                    return false;
-                }
-            });
-        }
+        _delVerse(contentWithVerse);
+    }
+
+    if (!parent.tinymce.isIE) {
+        $(document).keydown(function(e) {
+            var evt = e || window.event
+            if (evt.keyCode == 13 || evt.keyCode == 10) {
+                document.getElementById('insert').click();
+                return false;
+            }
+        });
+    }
 
 </script>
 

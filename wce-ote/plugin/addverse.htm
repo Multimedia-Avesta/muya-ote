@@ -47,10 +47,11 @@
     <form onsubmit="return false;" action="#">
         <input type="button" id="help" name="help" value="{#help}" onclick="wce_openWindow('docu.htm#verse')" style="margin-bottom:10px" />
         <div id="insertDiv">
-            <div id="insertBookDiv">
+            <div id="insertBookDiv" style="margin-bottom: 1em;">
                 <table width="100%">
                     <tr>
-                        <td width="200">
+                        <td width="180"></td>
+                        <td width="180">
                             <input type="radio" id="insertBookRadio" name="versemodify" onclick="canInsertBook();" />{#book_insert}
                         </td>
                         <td>
@@ -107,15 +108,17 @@
                     </tr>
                     <tr>
                         <td></td>
+                        <td></td>
                         <td><input id="insertBookName_other" name="insertBookName_other" type="text" value="" size="20" maxlength="" class="required number min1 mceFocus" />
                         </td>
                     </tr>
                 </table>
             </div>
-            <div id="insertChapterDiv">
+            <div id="insertChapterDiv" style="margin-bottom: 2em">
                 <table width="100%">
                     <tr>
-                        <td width="200">
+                        <td width="180"></td>
+                        <td width="180">
                             <input type="radio" id="insertChapterRadio" name="versemodify" onclick="canInsertChapter();" />{#chapter_insert}
                         </td>
                         <td>
@@ -127,32 +130,32 @@
             <div id="insertStanzaDiv">
                 <table width="100%">
                     <tr>
-                        <td width="200">
+                        <td colspan="2">Non-metric</td>
+                        <td colspan="2">Metric</td>
+                    </tr>
+                    <tr>
+                        <td width="180">
                             <input type="radio" id="insertStanzaRadio" name="versemodify" onclick="canInsertStanza();" />{#stanza_insert}
                         </td>
                         <td>
                             <input id="insertStanzaNumber" type="text" />
                         </td>
-                        <td width="200">
+                        <td width="180">
                             <input type="radio" id="insertVerseRadio" name="versemodify" onclick="canInsertVerse();" />{#verse_insert}
                         </td>
                         <td>
                             <input id="insertVerseNumber" type="text" />
                         </td>
                     </tr>
-                </table>
-            </div>
-            <div id="insertVerseDiv">
-                <table width="100%">
                     <tr>
-                        <td width="200">
+                        <td width="180">
                             <input type="radio" id="insertLineRadio" name="versemodify" onclick="canInsertLine();" />{#line_insert}
                         </td>
                         <td>
                             <input id="insertLineNumber" type="text" />
                         </td>
 
-                        <td width="200">
+                        <td width="180">
                             <input type="radio" id="insertVerselineRadio" name="versemodify" onclick="canInsertVerseline();" />{#verseline_insert}
                         </td>
                         <td>
@@ -164,7 +167,8 @@
             <div id="insertRitualdirectionDiv">
                 <table width="100%">
                     <tr>
-                        <td width="200">
+                        <td width="180"></td>
+                        <td width="180">
                             <input type="radio" id="insertRitualdirectionRadio" name="versemodify" onclick="canInsertRitualdirection();" />{#ritualdirection_insert}
                         </td>
                         <td>

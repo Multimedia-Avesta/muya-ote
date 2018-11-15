@@ -296,7 +296,7 @@ tinymce.addI18n('en', {
     line_remove: 'Remove the following line(s) completely: ',
     verseline_insert: 'Insert verseline number: ',
     verseline_remove: 'Remove the following verse line(s) completely: ',
-    ritualdirection_insert: 'Insert ritualdirection number: ',
+    ritualdirection_insert: 'Insert ritual direction number: ',
     ritualdirection_remove: 'Remove the following ritual direction(s) completely: ',
     menu_add: 'Add',
     menu_edit: 'Edit',
