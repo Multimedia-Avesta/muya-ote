@@ -395,7 +395,7 @@ tinymce.PluginManager.add('wcecharmapsidebar', function (ed) {
       ['r+0x0304+0x0325', 'Small letter r with macron and ring below'],
       ['0x1E5B', 'Small letter r with dot below'],
       ['0x1E63', 'Small letter s with dot below'],
-      ['0x1E5B', 'Small letter s with acute'],
+      ['0x015B', 'Small letter s with acute'],
       ['0x1E6D', 'Small letter t with dot below'],
       ['363', 'Small letter u with macron'],
     ];
