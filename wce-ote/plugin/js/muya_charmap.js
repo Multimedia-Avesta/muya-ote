@@ -428,6 +428,7 @@ tinymce.PluginManager.add('muyacharmap', function (editor) {
       ['0x0068', 'AVESTAN LETTER HE'],
       ['0x0068+0x0301', 'AVESTAN LETTER HE'],
       ['t+0x0328', 'Small letter t with ogonek'],
+      ['.', 'Full stop within word'],
     ];
     }
 
@@ -499,6 +500,7 @@ tinymce.PluginManager.add('muyacharmap', function (editor) {
       ['0x10B3C', 'LARGE TWO DOTS OVER ONE DOT PUNCTUATION'],*/
       ['0x10B3D', 'Three dots (pyramid shape)'],
       ['0x10B3E', 'Three dots (v-shape)'],
+      ['.', 'Full stop within word'],
       //['0x10B3F', 'LARGE ONE RING OVER TWO RINGS PUNCTUATION'],
     ];
     }
