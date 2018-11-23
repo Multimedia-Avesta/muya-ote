@@ -1365,45 +1365,6 @@ function getHtmlByTei(inputString, args) {
         var paratexttype;
         var $temp;
 
-        /*while ($teiNode && $teiNode.nodeName == 'lb' && $teiNode.nextSibling && $teiNode.nextSibling.nodeName == 'note' && ($teiNode.nextSibling.getAttribute('type') == 'lectionary-other'
-        	|| $teiNode.nextSibling.getAttribute('type') == 'commentary')) { // ignore <lb/> added for untranscribed text
-        	cl++; //step counter
-        	paratexttype = $teiNode.nextSibling.getAttribute('type'); // remember latest type for correct value below
-        	$temp = ($teiNode.nextSibling.nextSibling) ? $teiNode.nextSibling.nextSibling : null;
-        	$teiNode.parentNode.removeChild($teiNode.nextSibling);
-        	$teiNode.parentNode.removeChild($teiNode);
-        	$teiNode = $temp;
-        }*/
-        /*if (cl > 0) {
-        	if ($teiNode) { //if note is last element do nothing
-        		$teiNode.parentNode.insertBefore($teiNode.cloneNode(true), $teiNode.nextSibling); // add latest teiNode to the tree
-        	}
-        	$newNode.setAttribute('class', 'paratext');
-
-        	var wceAttr = '__t=paratext&__n=&fw_type=' + paratexttype + '&covered=' + cl + '&text=&number=&edit_number=on&paratext_position=pagetop&paratext_position_other=&paratext_alignment=left';
-        	$newNode.setAttribute('wce', wceAttr);
-        	for (var i = 0; i < cl; i++) {
-        		$newNode.appendChild($newDoc.createElement('br'));
-        		nodeAddText($newNode, '\u21b5[');
-        		$span = $newDoc.createElement('span');
-        		$span.setAttribute('class', paratexttype);
-        		$span.setAttribute('wce', '__t=paratext&__n=&fw_type=' + paratexttype + '&covered=' + cl);
-        		if (paratexttype == "commentary")
-        			nodeAddText($span, 'comm');
-        		else
-        			nodeAddText($span, 'lect');
-        		$newNode.appendChild($span);
-        		nodeAddText($newNode, ']');
-        	}
-        	addFormatElement($newNode);
-        	$htmlParent.appendChild($newNode);
-
-        	if ($teiNode && $teiNode.nodeName === 'w') { // add space only if new word follows
-        		nodeAddText($htmlParent, ' ');
-        	}
-        	return null;
-        }*/
-
         $newNode.setAttribute('class', 'mceNonEditable brea');
         var _id = $teiNode.getAttribute('id');
         if (_id) {
@@ -2095,7 +2056,8 @@ function getTeiByHtml(inputString, args) {
                     langNode = ab.cloneNode(true);
                     if (ab.getAttribute('type') == 'untransPahlavi' ||
                         ab.getAttribute('type') == 'untrans' ||
-                        ab.getAttribute('type') == 'back') {
+                        ab.getAttribute('type') == 'back' ||
+                        ab.getAttribute('xml:lang') == 'mainlanguage') {
                         lang = null;
                         langNode = null;
                     }
@@ -2146,7 +2108,8 @@ function getTeiByHtml(inputString, args) {
             }
             if (_pre.node.getAttribute('type') === 'untransPahlavi' ||
                 _pre.node.getAttribute('type') === 'untrans' ||
-                _pre.node.getAttribute('type') === 'back') {
+                _pre.node.getAttribute('type') === 'back' ||
+                _pre.node.getAttribute('xml:lang') === 'mainlanguage') {
                 return;
             }
 
@@ -2208,6 +2171,7 @@ function getTeiByHtml(inputString, args) {
                 newAb.appendChild(c);
             });
         }
+
         var pre;
         var end = list.length - 1;
         list.forEach(function (curr, i) {
@@ -2216,7 +2180,8 @@ function getTeiByHtml(inputString, args) {
                     if (pre.node.nodeName === 'foreign') {
                         _change_change(pre, curr);
                     } else {
-                        _verse_change(pre, curr);
+                        if (curr.node != pre.node.firstChild)
+                            _verse_change(pre, curr);
                     }
                 } else {
                     if (pre.node.nodeName === 'foreign') {
@@ -4321,38 +4286,38 @@ function getTeiByHtml(inputString, args) {
         switch (reason) {
             case 'trans': //translation
                 $ab.setAttribute('type', 'trans');
-                $ab.setAttribute('n', g_bookNumber + "." + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + langID);
+                $ab.setAttribute('n', g_bookNumber + "." + g_chapterNumber + "." + (g_stanzaNumber ? g_stanzaNumber : g_verseNumber) + String.fromCharCode(count_verse) + langID);
                 //$ab.setAttribute('n', String.fromCharCode(count_verse));
                 g_verseNumber++; //count overall number of language changes
                 break;
             case 'ritual': //ritual direction
                 $ab.setAttribute('type', 'ritual');
-                $ab.setAttribute('n', g_bookNumber + "." + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + '-ritual-' + langID);
+                $ab.setAttribute('n', g_bookNumber + "." + g_chapterNumber + "." + (g_stanzaNumber ? g_stanzaNumber : g_verseNumber) + String.fromCharCode(count_verse) + '-ritual-' + langID);
                 //$ab.setAttribute('n', String.fromCharCode(count_verse));
                 break;
             case 'backtomainlanguage':
             case 'back':
                 $ab.setAttribute('type', 'back');
-                $ab.setAttribute('n', g_bookNumber + "." + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + '-back-' + langID);
+                $ab.setAttribute('n', g_bookNumber + "." + g_chapterNumber + "." + (g_stanzaNumber ? g_stanzaNumber : g_verseNumber) + String.fromCharCode(count_verse) + '-back-' + langID);
                 //$ab.setAttribute('n', String.fromCharCode(count_verse));
                 break;
             case 'section':
                 $ab.setAttribute('type', 'section');
-                $ab.setAttribute('n', g_bookNumber + "." + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + langID);
+                $ab.setAttribute('n', g_bookNumber + "." + g_chapterNumber + "." + (g_stanzaNumber ? g_stanzaNumber : g_verseNumber) + String.fromCharCode(count_verse) + langID);
                 //$ab.setAttribute('n', String.fromCharCode(count_verse));
                 break;
             case 'untrans':
                 $ab.setAttribute('type', 'untrans');
-                $ab.setAttribute('n', g_bookNumber + "." + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + langID);
+                $ab.setAttribute('n', g_bookNumber + "." + g_chapterNumber + "." + (g_stanzaNumber ? g_stanzaNumber : g_verseNumber) + String.fromCharCode(count_verse) + langID);
                 //$ab.setAttribute('n', String.fromCharCode(count_verse));
                 break;
             default:
                 $ab.setAttribute('type', decodeURI(arr['reason_for_language_change_other']));
-                $ab.setAttribute('n', g_bookNumber + "." + g_chapterNumber + "." + g_stanzaNumber + String.fromCharCode(count_verse) + '-other-' + langID);
+                $ab.setAttribute('n', g_bookNumber + "." + g_chapterNumber + "." + (g_stanzaNumber ? g_stanzaNumber : g_verseNumber) + String.fromCharCode(count_verse) + '-other-' + langID);
                 //$ab.setAttribute('n', String.fromCharCode(count_verse));
         }
 
-        //TODO: special case for mainlangugae
+        //TODO: special case for mainlanguage
         $ab.setAttribute('xml:lang', lang);
 
         if (arr['reason_for_language_change'] == 'untrans') { // we have to add a gap element

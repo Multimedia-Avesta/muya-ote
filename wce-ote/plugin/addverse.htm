@@ -56,54 +56,54 @@
                         </td>
                         <td>
                             <select id="insertBookName" name="insertBookName" onchange="checkstatus_book_name()">
-			        <option value="A">Afrinagan</option>
-					<option value="ABu">Afrin i Buzorgan</option>
-					<option value="AD">Afrin i Dahman</option>
-					<option value="AG">Afrin i Gahambar</option>
-					<option value="As">Asirvad</option>
-					<option value="AvAlph">Avestan alphabet</option>
-					<option value="Col">Colophon</option>
-                    <option value="DrYt">Drōn Yašt</option>
-					<option value="DuP">Du&#702;a Paymani</option>
-					<option value="FiO">Frahang i Oim</option>
-					<option value="FrW">Fragment Westergard</option>
-					<option value="G">Gah</option>
-					<option value="H">Herbedestan</option>
-					<option value="HB">Hosbam</option>
-					<option value="HN ">Hadoxt Nask</option>
-					<option value="N">Nerangestan</option>
-					<option value="NiAs">Nirang Asoan</option>
-					<option value="Nirang">Nirang</option>
-					<option value="NiSY">Nirang Sangriza Yastan</option>
-					<option value="NkB">Nerang i kustig bastan</option>
-					<option value="NS">Nam Stayisn</option>
-					<option value="Ny">Nyayisn</option>
-					<option value="Par">Paragna</option>
-					<option value="PaIr">Patet Irani</option>
-					<option value="PaPas">Patet Pasemanih</option>
-					<option value="PaXw">Patet Xwad</option>
-					<option value="PazT">Pazand texts</option>
-					<option value="PPhl">Payman i Pahlawi</option>
-					<option value="PS">Payman i Sanskrit</option>
-					<option value="S">Siroza</option>
-					<option value="SrB">Sros Baj</option>
-					<option value="V">Videvdad</option>
-					<option value="VN">Vae&#977;a Nask</option>
-					<option value="Vr">Visparad</option>
-					<option value="VrS">Visperad Sade</option>
-					<option value="VS">Videvdad Sade</option>
-					<!--<option value="VrS">Additions in Visperad Sade ceremony</option>
+                                <option value="A">Afrinagan</option>
+                                <option value="ABu">Afrin i Buzorgan</option>
+                                <option value="AD">Afrin i Dahman</option>
+                                <option value="AG">Afrin i Gahambar</option>
+                                <option value="As">Asirvad</option>
+                                <option value="AvAlph">Avestan alphabet</option>
+                                <option value="Col">Colophon</option>
+                                <option value="DrYt">Drōn Yašt</option>
+                                <option value="DuP">Du&#702;a Paymani</option>
+                                <option value="FiO">Frahang i Oim</option>
+                                <option value="FrW">Fragment Westergard</option>
+                                <option value="G">Gah</option>
+                                <option value="H">Herbedestan</option>
+                                <option value="HB">Hosbam</option>
+                                <option value="HN ">Hadoxt Nask</option>
+                                <option value="N">Nerangestan</option>
+                                <option value="NiAs">Nirang Asoan</option>
+                                <option value="Nirang">Nirang</option>
+                                <option value="NiSY">Nirang Sangriza Yastan</option>
+                                <option value="NkB">Nerang i kustig bastan</option>
+                                <option value="NS">Nam Stayisn</option>
+                                <option value="Ny">Nyayisn</option>
+                                <option value="Par">Paragna</option>
+                                <option value="PaIr">Patet Irani</option>
+                                <option value="PaPas">Patet Pasemanih</option>
+                                <option value="PaXw">Patet Xwad</option>
+                                <option value="PazT">Pazand texts</option>
+                                <option value="PPhl">Payman i Pahlawi</option>
+                                <option value="PS">Payman i Sanskrit</option>
+                                <option value="S">Siroza</option>
+                                <option value="SrB">Sros Baj</option>
+                                <option value="V">Videvdad</option>
+                                <option value="VN">Vae&#977;a Nask</option>
+                                <option value="Vr">Visparad</option>
+                                <option value="VrS">Visperad Sade</option>
+                                <option value="VS">Videvdad Sade</option>
+                                <!--<option value="VrS">Additions in Visperad Sade ceremony</option>
 					<option value="VS">Additions in Videvdad Sade ceremony</option>-->
-					<option value="Vyt">Vistasp Yast</option>
-					<option value="VytS">Vishtasp Yasht Sade</option>
-					<option value="Y" selected="selected">Yasna</option>
-					<option value="Yt">Yast</option>
-					<!--<option value="YVr">Variants of the Yasna in the Visperad ceremony</option>-->
-                    <option value="YiR">Yasna ī Rapihwin</option>
-					<option value="YVr">Yasna Visperad</option>
-					<option value="Y-gah">Yazisn-gah</option>
-					<option value="other">{#other}</option>
-                </select>
+                                <option value="Vyt">Vistasp Yast</option>
+                                <option value="VytS">Vishtasp Yasht Sade</option>
+                                <option value="Y" selected="selected">Yasna</option>
+                                <option value="Yt">Yast</option>
+                                <!--<option value="YVr">Variants of the Yasna in the Visperad ceremony</option>-->
+                                <option value="YiR">Yasna ī Rapihwin</option>
+                                <option value="YVr">Yasna Visperad</option>
+                                <option value="Y-gah">Yazisn-gah</option>
+                                <option value="other">{#other}</option>
+                            </select>
                         </td>
                     </tr>
                     <tr>
@@ -424,7 +424,7 @@
         } else if ($('#insertVerselineRadio').is(':checked')) {
             newNumber = $('#insertVerselineNumber').val().trim();
             newNumber = newNumber.replace(/\D/g, '');
-            if (newBookNr != '') {
+            if (newNumber != '') {
                 ed.insertContent('<span class="verseline_number mceNonEditable" wce="__t=verseline_number" id="' + ed.dom.uniqueId('verseline') + '"> ' + newNumber + '</span> ');
             }
             return;

@@ -338,38 +338,10 @@ function addMenuItems(ed) {
                 });*/
                 //menu.addSeparator();
                 menu.add({
-                    text: tinymce.translate('pahlavi_phlv'),
+                    text: tinymce.translate('avestan'),
                     icon: '',
                     onclick: function () {
-                        ed.execCommand('mce_set_language', 'pal-Phlv');
-                    }
-                });
-                menu.add({
-                    text: tinymce.translate('pahlavi_avst'),
-                    icon: '',
-                    onclick: function () {
-                        ed.execCommand('mce_set_language', 'pal-Avst');
-                    }
-                });
-                menu.add({
-                    text: tinymce.translate('pahlavi_phli'),
-                    icon: '',
-                    onclick: function () {
-                        ed.execCommand('mce_set_language', 'pal-Phli');
-                    }
-                });
-                menu.add({
-                    text: tinymce.translate('avestan_avst'),
-                    icon: '',
-                    onclick: function () {
-                        ed.execCommand('mce_set_language', 'ae-Avst');
-                    }
-                });
-                menu.add({
-                    text: tinymce.translate('avestan_phlv'),
-                    icon: '',
-                    onclick: function () {
-                        ed.execCommand('mce_set_language', 'ae-Phlv');
+                        ed.execCommand('mce_set_language', 'ae');
                     }
                 });
                 menu.add({
@@ -387,10 +359,87 @@ function addMenuItems(ed) {
                     }
                 });
                 menu.add({
+                    text: tinymce.translate('persian_phlv'),
+                    icon: '',
+                    onclick: function () {
+                        ed.execCommand('mce_set_language', 'fa-Phlv');
+                    }
+                });
+                menu.add({
                     text: tinymce.translate('sanskrit'),
                     icon: '',
                     onclick: function () {
                         ed.execCommand('mce_set_language', 'sa');
+                    }
+                });
+                menu.add({
+                    text: tinymce.translate('avestan_avst'),
+                    icon: '',
+                    onclick: function () {
+                        ed.execCommand('mce_set_language', 'ae-Avst');
+                    }
+                });
+                menu.add({
+                    text: tinymce.translate('avestan_phlv'),
+                    icon: '',
+                    onclick: function () {
+                        ed.execCommand('mce_set_language', 'ae-Phlv');
+                    }
+                });
+                menu.add({
+                    text: tinymce.translate('avestan_gujr'),
+                    icon: '',
+                    onclick: function () {
+                        ed.execCommand('mce_set_language', 'ae-Gujr');
+                    }
+                });
+                menu.add({
+                    text: tinymce.translate('pahlavi_avst'),
+                    icon: '',
+                    onclick: function () {
+                        ed.execCommand('mce_set_language', 'pal-Avst');
+                    }
+                });
+                menu.add({
+                    text: tinymce.translate('pahlavi_phlv'),
+                    icon: '',
+                    onclick: function () {
+                        ed.execCommand('mce_set_language', 'pal-Phlv');
+                    }
+                });
+                menu.add({
+                    text: tinymce.translate('pahlavi_gujr'),
+                    icon: '',
+                    onclick: function () {
+                        ed.execCommand('mce_set_language', 'pal-Gujr');
+                    }
+                });
+                menu.add({
+                    text: tinymce.translate('pahlavi_phli'),
+                    icon: '',
+                    onclick: function () {
+                        ed.execCommand('mce_set_language', 'pal-Phli');
+                    }
+                });
+                menu.add({
+                    text: tinymce.translate('gujarati_arab'),
+                    icon: '',
+                    onclick: function () {
+                        ed.execCommand('mce_set_language', 'gu-Arab');
+                    }
+                });
+                menu.add({
+                    text: tinymce.translate('gujarati_gujr'),
+                    icon: '',
+                    onclick: function () {
+                        ed.execCommand('mce_set_language', 'gu-Gujr');
+                    }
+                });
+                menu.add({
+                    text: tinymce.translate('arabic'),
+                    icon: '',
+                    onclick: function () {
+                        ed.execCommand('mce_set_language', 'ar');
                     }
                 });
                 menu.add({
