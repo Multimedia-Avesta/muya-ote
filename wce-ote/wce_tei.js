@@ -1052,7 +1052,8 @@ function getHtmlByTei(inputString, args) {
             '&gap_reason_dummy_illegible=illegible' +
             '&gap_reason_dummy_unspecified=unspecified' +
             '&gap_reason_dummy_inferredPage=inferredPage' +
-            '&gap_reason_dummy_paperRepaired=paperRepaired';
+            '&gap_reason_dummy_paperRepaired=paperRepaired' +
+            '&gap_reason_dummy_abbreviatedText=abbreviatedText';
         var mapping = {
             'reason': '&gap_reason=',
             'unit': {
@@ -2179,15 +2180,16 @@ function getTeiByHtml(inputString, args) {
                 if (curr.node.nodeName === 'foreign') {
                     if (pre.node.nodeName === 'foreign') {
                         _change_change(pre, curr);
-                    } else {
-                        if (curr.node != pre.node.firstChild)
+                    } else { //foreign-ab
+                        if (curr.node != pre.node.firstChild && curr.node != pre.node.nextSibling)
                             _verse_change(pre, curr);
                     }
                 } else {
                     if (pre.node.nodeName === 'foreign') {
                         _change_verse(pre);
-                    } else {
-                        _verse(pre);
+                    } else { //ab-ab
+                        if (curr.node != pre.node.firstChild && curr.node != pre.node.nextSibling)
+                            _verse(pre);
                     }
                 }
 

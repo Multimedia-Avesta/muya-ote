@@ -75,6 +75,10 @@
                         <label for="gap_reason_dummy_paperRepaired">{#paperRepaired}</label>
                     </td>
                     <td>
+                        <input type="radio" id="gap_reason_dummy_abbreviatedText" name="gap_reason_dummy" value="abbreviatedText" onchange="checkstatus_gapreason()">
+                        <label for="gap_reason_dummy_abbreviatedText">{#abbreviatedText}</label>
+                    </td>
+                    <td>
                         <input id="gap_reason" name="gap_reason" value="" type="hidden" />
                     </td>
                 </tr>
@@ -94,7 +98,7 @@
                             <option value="verse">{#unit_verse}</option>
                             <option value="stanza">{#unit_stanza}</option>
                             <option value="word">{#unit_word}</option>
-							<option value="unspecified">{#unspecified}</option>
+                            <option value="unspecified">{#unspecified}</option>
                             <option value="other">{#other}</option>
                         </select></td>
                     <td colspan="2">
@@ -214,10 +218,11 @@
             document.gapinfo.gap_reason.value = "illegible";
         else if (radioWert(document.gapinfo.gap_reason_dummy) == "inferredPage")
             document.gapinfo.gap_reason.value = "inferredPage";
-        else if (radioWert(document.gapinfo.gap_reason_dummy) == "paperRepaired") {
+        else if (radioWert(document.gapinfo.gap_reason_dummy) == "paperRepaired")
             document.gapinfo.gap_reason.value = "paperRepaired";
-            //document.gapinfo.supplied_source.value = "restorer";
-        } else {
+        else if (radioWert(document.gapinfo.gap_reason_dummy) == "abbreviatedText")
+            document.gapinfo.gap_reason.value = "abbreviatedText";
+        else {
             document.gapinfo.gap_reason.value = "unspecified";
             if (info)
                 alert(tinymce.translate('info_lacuna_illegible'));
@@ -240,6 +245,8 @@
         else if (document.gapinfo.gap_reason.value == "inferredPage")
             document.gapinfo.gap_reason_dummy_inferredPage.checked = true;
         else if (document.gapinfo.gap_reason.value == "paperRepaired")
+            document.gapinfo.gap_reason_dummy_paperRepaired.checked = true;
+        else if (document.gapinfo.gap_reason.value == "abbreviatedText")
             document.gapinfo.gap_reason_dummy_paperRepaired.checked = true;
         else //default
             document.gapinfo.gap_reason_dummy_illegible.checked = true;

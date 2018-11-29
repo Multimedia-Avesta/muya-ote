@@ -196,6 +196,7 @@ tinymce.addI18n('en', {
     obscured_in_image: "Obscured in image",
     covered_by_tape: "Covered by tape",
     paperRepaired: "Paper repaired",
+    abbreviatedText: "Abbreviated text",
     supplied_source_title: "Please specify the supplied source",
     supplied_source_data: "Information about the supplied source",
     supplied_source: "Supplied source",

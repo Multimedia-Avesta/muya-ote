@@ -33,7 +33,7 @@
 */
 
 (function () {
-    var wfce_editor = "0.9.6beta (2018-11-23)";
+    var wfce_editor = "0.9.6beta (2018-11-28)";
 
     // Load plugin specific language pack
     tinymce.PluginManager.requireLangPack('wce');
@@ -2041,6 +2041,8 @@
                                 info_text += tinymce.translate('inferredPage') + '</div>';
                             } else if (ar['gap_reason'] == 'paperRepaired') {
                                 info_text += tinymce.translate('paperRepaired') + '</div>';
+                            } else if (ar['gap_reason'] == 'abbreviatedText') {
+                                info_text += tinymce.translate('abbreviatedText') + '</div>';
                             } else {
                                 info_text += tinymce.translate('unspecified') + '</div>';
                             }
