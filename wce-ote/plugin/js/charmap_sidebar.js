@@ -622,7 +622,7 @@ tinymce.PluginManager.add('wcecharmapsidebar', function (ed) {
         var x, y;
         charmap = charmap ? charmap : getCharMap();
         var width = Math.floor(currwidth / 25);
-        var height = Math.ceil(charmap.length / width);
+        var height = (width == 0 ? 0 : Math.ceil(charmap.length / width));
         for (y = 0; y < height; y++) {
             gridHtml += '<tr>';
             for (x = 0; x < width; x++) {
