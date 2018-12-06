@@ -3219,7 +3219,7 @@ function getTeiByHtml(inputString, args) {
                 g_verselineNumber = $.trim(g_verselineNumber);
                 g_verselineNode = $newDoc.createElement('ab');
                 g_verselineNode.setAttribute('type', 'verseline');
-                g_lineNode.setAttribute('n', g_bookNumber + '.' + g_chapterNumber + '.' + g_verseNumber + '.' + g_verselineNumber);
+                g_verselineNode.setAttribute('n', g_bookNumber + '.' + g_chapterNumber + '.' + g_verseNumber + '.' + g_verselineNumber);
                 if (lang_index > -1) {
                     pos = wceAttrValue.substring(lang_index).indexOf("&");
                     if (pos > -1) {
