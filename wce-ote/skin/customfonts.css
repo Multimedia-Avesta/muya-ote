@@ -1,0 +1,51 @@
+@font-face {
+    font-family: MUYA;
+    src: url(fonts/NotoSans-Regular.ttf) format('truetype');
+    font-style: normal;
+}
+
+/*@font-face {
+    font-family: MUYA;
+    src: url(fonts/GentiumPlus-I.tff) format('truetype');
+    font-style: italic;
+}*/
+
+@font-face {
+    font-family: MUYA;
+    src: url(fonts/NotoSansAvestan-Regular.ttf) format('truetype');
+    font-style: normal;
+    unicode-range: U+10B00-10B3F;
+}
+
+@font-face {
+    font-family: MUYA;
+    src: url(fonts/NotoSansGujaratiUI-Regular.ttf) format('truetype');
+    font-style: normal;
+    unicode-range: U+0A80-0AFF;
+}
+
+@font-face {
+    font-family: MUYA;
+    src: url(fonts/NotoSansSyriacEastern-Regular.ttf) format('truetype');
+    font-style: normal;
+    unicode-range: U+0745-0746;
+}
+
+@font-face {
+    font-family: MUYA;
+    src: url(fonts/NotoSansDevanagariUI-Regular.ttf) format('truetype');
+    font-style: normal;
+    unicode-range: U+0900-097F, U+A8E0-A8FF;
+}
+
+@font-face {
+    font-family: MUYA;
+    src: url(fonts/NotoSansInscriptionalPahlavi-Regular.ttf) format('truetype');
+    font-style: normal;
+    unicode-range: U+10B60-10B7F;
+}
+
+@font-face {
+    font-family: Fallback;
+    src: url(fonts/UnicodeBMPFallback.ttf) format('truetype');
+}
