@@ -1242,7 +1242,7 @@
             }
 
             w.not_P = !w.isc;
-            console.log(w.type);
+            //console.log(w.type);
             switch (w.type) {
                 case 'gap':
                     _disableAllControls(ed, true);
@@ -1407,8 +1407,8 @@
             if (sf && ef && sf.nodeType == 3) {
                 var sfParent = sf.parentNode;
                 var efParent = ef.parentNode;
-                console.log(sf.nodeValue.charCodeAt(0));
-                console.log(ef.nodeValue.charCodeAt(0));
+                //console.log(sf.nodeValue.charCodeAt(0));
+                //console.log(ef.nodeValue.charCodeAt(0));
                 if (sfParent && efParent && ((sfParent.parentNode === efParent.parentNode &&
                             sf.nodeValue.charCodeAt(0) === 8249 && ef.nodeValue.charCodeAt(0) === 8250) ||
                         (sf.nodeValue.charCodeAt(0) === 8249 && ef.nodeValue.charCodeAt(0) === 65279) ||

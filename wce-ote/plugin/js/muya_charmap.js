@@ -77,7 +77,7 @@ tinymce.PluginManager.add('muyacharmap', function (editor) {
       ['189', 'fraction one half'],
       ['190', 'fraction three quarters'],
       // math / logical
-      ['402', 'function / florin'],
+      /*['402', 'function / florin'],
       ['8747', 'integral'],
       ['8721', 'n-ary sumation'],
       ['8734', 'infinity'],
@@ -103,7 +103,7 @@ tinymce.PluginManager.add('muyacharmap', function (editor) {
       ['8711', 'backward difference'],
       ['8727', 'asterisk operator'],
       ['8733', 'proportional to'],
-      ['8736', 'angle'],
+      ['8736', 'angle'],*/
       // undefined
       ['180', 'acute accent'],
       ['184', 'cedilla'],
@@ -242,14 +242,14 @@ tinymce.PluginManager.add('muyacharmap', function (editor) {
       ['968', 'psi'],
       ['969', 'omega'],
       // symbols
-      ['8501', 'alef symbol'],
+      /*['8501', 'alef symbol'],
       ['982', 'pi symbol'],
       ['8476', 'real part symbol'],
       ['978', 'upsilon - hook symbol'],
       ['8472', 'Weierstrass p'],
-      ['8465', 'imaginary part'],
+      ['8465', 'imaginary part'],*/
       // arrows
-      ['8592', 'leftwards arrow'],
+      /*['8592', 'leftwards arrow'],
       ['8593', 'upwards arrow'],
       ['8594', 'rightwards arrow'],
       ['8595', 'downwards arrow'],
@@ -280,7 +280,7 @@ tinymce.PluginManager.add('muyacharmap', function (editor) {
       ['9824', 'black spade suit'],
       ['9827', 'black club suit'],
       ['9829', 'black heart suit'],
-      ['9830', 'black diamond suit'],
+      ['9830', 'black diamond suit'],*/
       ['8194', 'en space'],
       ['8195', 'em space'],
       ['8201', 'thin space'],
@@ -446,6 +446,8 @@ tinymce.PluginManager.add('muyacharmap', function (editor) {
       ['D+0x0302', 'Capital letter D with circumflex'],
       ['d+0x0308', 'Small letter d with diaeresis'],
       ['D+0x0308', 'Capital letter D with diaeresis'],
+      ['d+0x0324', 'Small letter d with diaresis below'],
+      ['D+0x0324', 'Capital letter D with diaresis below'],
       ['g+0x0304', 'Small letter g with macron'],
       ['G+0x0331', 'Capital letter G with macron below'],
       ['g+0x0302', 'Small letter g with circumflex'],

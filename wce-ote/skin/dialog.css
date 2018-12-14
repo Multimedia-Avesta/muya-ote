@@ -1,5 +1,5 @@
 /*
-	Copyright (C) 2012-2017 Center for Digital Humanities, Trier
+	Copyright (C) 2012-2018 Center for Digital Humanities, Trier
 
 	This file is part of the Online Transcription Editor (OTE).
 
@@ -31,46 +31,71 @@
     Sie sollten eine Kopie der GNU Lesser General Public License zusammen mit diesem
     Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
 */
-@font-face{
-	font-family: GentiumPlusW;
-    src: url(fonts/GentiumPlus-R.woff) format('woff');
-	 /* should work for all recent browsers */
-	font-style: normal;
+/*@font-face {
+    font-family: MUYA;
+    src: url(fonts/GentiumPlus-R.ttf) format('truetype');
+    font-style: normal;
 }
 
-@font-face{
-	font-family: GentiumPlusW;
-    src: url(fonts/GentiumPlus-I.woff) format('woff');
-	font-style: italic;
+@font-face {
+    font-family: MUYA;
+    src: url(fonts/GentiumPlus-I.tff) format('truetype');
+    font-style: italic;
 }
+
+@font-face {
+    font-family: MUYA;
+    src: url(fonts/NotoSansAvestan-Regular.ttf) format('truetype');
+    font-style: normal;
+    unicode-range: U+10B00-10B3F
+}
+
+@font-face {
+    font-family: MUYA;
+    src: url(fonts/NotoSansGujaratiUI-Regular.ttf) format('truetype');
+    font-style: normal;
+    unicode-range: U+0A80-0AFF
+}
+
+@font-face {
+    font-family: MUYA;
+    src: url(fonts/NotoSansSyriacEastern-Regular.ttf) format('truetype');
+    font-style: normal;
+    unicode-range: U+0745-0746;
+}
+
+@font-face {
+    font-family: Fallback;
+    src: url(fonts/LastResort.ttf) format('truetype');
+}*/
 
 /* Generic */
 body {
 
-font-family: GentiumPlusW, Verdana, Arial, Helvetica, sans-serif;
-	 font-size:12px;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
 
-scrollbar-3dlight-color:#F0F0EE;
+    scrollbar-3dlight-color: #F0F0EE;
 
-scrollbar-arrow-color:#676662;
+    scrollbar-arrow-color: #676662;
 
-scrollbar-base-color:#F0F0EE;
+    scrollbar-base-color: #F0F0EE;
 
-scrollbar-darkshadow-color:#DDDDDD;
+    scrollbar-darkshadow-color: #DDDDDD;
 
-scrollbar-face-color:#E0E0DD;
+    scrollbar-face-color: #E0E0DD;
 
-scrollbar-highlight-color:#F0F0EE;
+    scrollbar-highlight-color: #F0F0EE;
 
-scrollbar-shadow-color:#F0F0EE;
+    scrollbar-shadow-color: #F0F0EE;
 
-scrollbar-track-color:#F5F5F5;
+    scrollbar-track-color: #F5F5F5;
 
-background:#F0F0EE;
+    background: #F0F0EE;
 
-padding:0;
+    padding: 0;
 
-margin:8px 8px 0 8px;
+    margin: 8px 8px 0 8px;
 
 
 }
@@ -78,132 +103,143 @@ margin:8px 8px 0 8px;
 
 
 html {
-	background:#F0F0EE;
+    background: #F0F0EE;
 }
 
 
 td {
-	font-family:Verdana, Arial, Helvetica, sans-serif;
-	 font-size:10px;
+    font-family: MUYA, Fallback;
+    font-size: 10px;
 }
 
 
 textarea {
-	resize:none;
-	outline:none;
+    resize: none;
+    outline: none;
 }
 
 
-a:link, a:visited {
-	color:black;
+a:link,
+a:visited {
+    color: black;
 }
 
 
 a:hover {
-	color:#2B6FB6;
+    color: #2B6FB6;
 }
 
 
 .nowrap {
-	white-space: nowrap
+    white-space: nowrap
 }
 
 
 
 /* Forms */
 fieldset {
-	margin:0;
-	 padding:4px;
-	 border:1px solid #919B9C;
-	 font-family:Verdana, Arial;
-	 font-size:12px;
+    margin: 0;
+    padding: 4px;
+    border: 1px solid #919B9C;
+    font-family: MUYA, Fallback;
+    font-size: 12px;
 }
 
 
 legend {
-	color:#2B6FB6;
-	 font-weight:bold;
+    color: #2B6FB6;
+    font-weight: bold;
 }
 
 
 label {
-	font-family: Verdana, Arial;
-	 width: 200px;
+    font-family: MUYA, Fallback;
+    width: 200px;
 }
 
 
 label.msg {
-	display:none;
+    display: none;
 }
 
 
 label.invalid {
-	color:#EE0000;
-	 display:inline;
+    color: #EE0000;
+    display: inline;
 }
 
 
 input.invalid {
-	border:1px solid #EE0000;
+    border: 1px solid #EE0000;
 }
 
 
 input {
-	background:#FFF;
-	 border:1px solid #CCC;
+    background: #FFF;
+    border: 1px solid #CCC;
 }
 
 
-input, select, textarea {
-	font-family:Verdana, Arial, Helvetica, sans-serif;
-	 font-size:10px;
+input,
+select,
+textarea {
+    font-family: MUYA, Fallback;
+    font-size: 10px;
 }
 
 
-input, select, textarea {
-	border:1px solid #808080;
+input,
+select,
+textarea {
+    border: 1px solid #808080;
 }
 
 
 input.radio {
-	border:1px none #000000;
-	 background:transparent;
-	 vertical-align:middle;
+    border: 1px none #000000;
+    background: transparent;
+    vertical-align: middle;
 }
 
 
 input.checkbox {
-	border:1px none #000000;
-	 background:transparent;
-	 vertical-align:middle;
+    border: 1px none #000000;
+    background: transparent;
+    vertical-align: middle;
 }
 
 
 .input_noborder {
-	border:0;
+    border: 0;
 }
 
 
 
 /* Buttons */
-#insert, #cancel, #help, #close, #copy, input.button, .updateButton {
+#insert,
+#cancel,
+#help,
+#close,
+#copy,
+input.button,
+.updateButton {
 
-border:0;
-	 margin:0;
-	 padding:0;
+    border: 0;
+    margin: 0;
+    padding: 0;
 
-font-weight:bold;
+    font-weight: bold;
 
-width:94px;
-	 height:26px;
+    width: 94px;
+    height: 26px;
 
-background:url(img/buttons.png) 0 -26px;
+    background: url(img/buttons.png) 0 -26px;
 
-cursor:pointer;
+    cursor: pointer;
 
-padding-bottom:2px;
+    padding-bottom: 2px;
 
-float:left;
+    float: left;
 
 
 }
@@ -211,422 +247,430 @@ float:left;
 
 
 #insert {
-	background:url(img/buttons.png) 0 -52px
+    background: url(img/buttons.png) 0 -52px
 }
 
 
 #cancel {
-	background:url(img/buttons.png) 0 0;
-	 float:right
+    background: url(img/buttons.png) 0 0;
+    float: right
 }
 
 
 #help {
-	background:url(img/buttons.png) 0 -52px;
-	 float:right
+    background: url(img/buttons.png) 0 -52px;
+    float: right
 }
 
 
 #close {
-	background:url(img/buttons.png) 0 52px
+    background: url(img/buttons.png) 0 52px
 }
 
 
-#copy{
-	background:url(img/buttons.png) 0 -52px;
-	 float:right;
+#copy {
+    background: url(img/buttons.png) 0 -52px;
+    float: right;
 }
 
 
 
 /* Browse */
-a.pickcolor, a.browse {
-	text-decoration:none
+a.pickcolor,
+a.browse {
+    text-decoration: none
 }
 
 
 a.browse span {
-	display:block;
-	 width:20px;
-	 height:18px;
-	 background:url(../../img/icons.gif) -860px 0;
-	 border:1px solid #FFF;
-	 margin-left:1px;
+    display: block;
+    width: 20px;
+    height: 18px;
+    background: url(../../img/icons.gif) -860px 0;
+    border: 1px solid #FFF;
+    margin-left: 1px;
 }
 
 
 .mceOldBoxModel a.browse span {
-	width:22px;
-	 height:20px;
+    width: 22px;
+    height: 20px;
 }
 
 
 a.browse:hover span {
-	border:1px solid #0A246A;
-	 background-color:#B2BBD0;
+    border: 1px solid #0A246A;
+    background-color: #B2BBD0;
 }
 
 
 a.browse span.disabled {
-	border:1px solid white;
-	 opacity:0.3;
-	 -ms-filter:'alpha(opacity=30)';
-	 filter:alpha(opacity=30)
+    border: 1px solid white;
+    opacity: 0.3;
+    -ms-filter: 'alpha(opacity=30)';
+    filter: alpha(opacity=30)
 }
 
 
 a.browse:hover span.disabled {
-	border:1px solid white;
-	 background-color:transparent;
+    border: 1px solid white;
+    background-color: transparent;
 }
 
 
 a.pickcolor span {
-	display:block;
-	 width:20px;
-	 height:16px;
-	 background:url(../../img/icons.gif) -840px 0;
-	 margin-left:2px;
+    display: block;
+    width: 20px;
+    height: 16px;
+    background: url(../../img/icons.gif) -840px 0;
+    margin-left: 2px;
 }
 
 
 .mceOldBoxModel a.pickcolor span {
-	width:21px;
-	 height:17px;
+    width: 21px;
+    height: 17px;
 }
 
 
 a.pickcolor:hover span {
-	background-color:#B2BBD0;
+    background-color: #B2BBD0;
 }
 
 
-a.pickcolor:hover span.disabled {
-}
+a.pickcolor:hover span.disabled {}
 
 
 
 /* Charmap */
 table.charmap {
-	border:1px solid #AAA;
-	 text-align:center
+    border: 1px solid #AAA;
+    text-align: center
 }
 
 
-td.charmap, #charmap a {
-	width:28px;
-	 height:24px;
-	 color:#000;
-	 border:1px solid #AAA;
-	 text-align:center;
-	 font-size:18px;
-	 vertical-align:middle;
-	 line-height: 24px;
+td.charmap,
+#charmap a {
+    width: 28px;
+    height: 24px;
+    color: #000;
+    border: 1px solid #AAA;
+    text-align: center;
+    font-size: 18px;
+    vertical-align: middle;
+    line-height: 24px;
 }
 
 
 #charmap a {
-	display:block;
-	 color:#000;
-	 text-decoration:none;
-	 border:0
+    display: block;
+    color: #000;
+    text-decoration: none;
+    border: 0
 }
 
 
 #charmap a:hover {
-	background:#CCC;
-	color:#2B6FB6
+    background: #CCC;
+    color: #2B6FB6
 }
 
 
 #charmap #codeN {
-	font-size:10px;
-	 font-family: Verdana,Arial,Helvetica,sans-serif;
-	 text-align:center
+    font-size: 10px;
+    font-family: MUYA, Fallback;
+    text-align: center
 }
 
 
 #charmap #codeV {
-	font-size:40px;
-	 font-family: GentiumPlusW,Verdana;
-	 height:80px;
-	 border:1px solid #AAA;
-	 text-align:center
+    font-size: 40px;
+    font-family: MUYA, Fallback;
+    height: 80px;
+    border: 1px solid #AAA;
+    text-align: center
 }
 
 
 #charmap #codeA {
-	font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-family: MUYA, Fallback;
 }
 
 
 #charmap #codeB {
-	font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-family: MUYA, Fallback;
 }
 
 
 .title {
-	font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-family: MUYA, Fallback;
 }
 
 
 .heading {
-	font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-family: MUYA, Fallback;
 }
 
 
 
 /* Source */
 .wordWrapCode {
-	vertical-align:middle;
-	 border:1px none #000000;
-	 background:transparent;
+    vertical-align: middle;
+    border: 1px none #000000;
+    background: transparent;
 }
 
 
 .mceActionPanel {
-	margin-top:5px;
+    margin-top: 5px;
 }
 
 
 
 /* Tabs classes */
 .tabs {
-	width:100%;
-	 height:18px;
-	 line-height:normal;
-	 background:url(img/tabs.gif) repeat-x 0 -72px;
+    width: 100%;
+    height: 18px;
+    line-height: normal;
+    background: url(img/tabs.gif) repeat-x 0 -72px;
 }
 
 
 .tabs ul {
-	margin:0;
-	 padding:0;
-	 list-style:none;
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
 
 .tabs li {
-	float:left;
-	 background:url(img/tabs.gif) no-repeat 0 0;
-	 margin:0 2px 0 0;
-	 padding:0 0 0 10px;
-	 line-height:17px;
-	 height:18px;
-	 display:block;
+    float: left;
+    background: url(img/tabs.gif) no-repeat 0 0;
+    margin: 0 2px 0 0;
+    padding: 0 0 0 10px;
+    line-height: 17px;
+    height: 18px;
+    display: block;
 }
 
 
 .tabs li.current {
-	background:url(img/tabs.gif) no-repeat 0 -18px;
-	 margin-right:2px;
+    background: url(img/tabs.gif) no-repeat 0 -18px;
+    margin-right: 2px;
 }
 
 
 .tabs span {
-	float:left;
-	 display:block;
-	 background:url(img/tabs.gif) no-repeat right -36px;
-	 padding:0px 10px 0 0;
+    float: left;
+    display: block;
+    background: url(img/tabs.gif) no-repeat right -36px;
+    padding: 0px 10px 0 0;
 }
 
 
 .tabs .current span {
-	background:url(img/tabs.gif) no-repeat right -54px;
+    background: url(img/tabs.gif) no-repeat right -54px;
 }
 
 
 .tabs a {
-	text-decoration:none;
-	 font-family:Verdana, Arial;
-	 font-size:10px;
+    text-decoration: none;
+    font-family: MUYA, Fallback;
+    font-size: 10px;
 }
 
 
-.tabs a:link, .tabs a:visited, .tabs a:hover {
-	color:black;
+.tabs a:link,
+.tabs a:visited,
+.tabs a:hover {
+    color: black;
 }
 
 
 
 /* Panels */
 .panel_wrapper div.panel {
-	display:none;
+    display: none;
 }
 
 
 .panel_wrapper div.current {
-	display:block;
-	 width:100%;
-	 height:300px;
-	 overflow:visible;
+    display: block;
+    width: 100%;
+    height: 300px;
+    overflow: visible;
 }
 
 
 .panel_wrapper {
-	border:1px solid #919B9C;
-	 border-top:0px;
-	 padding:10px;
-	 padding-top:5px;
-	 clear:both;
-	 background:white;
+    border: 1px solid #919B9C;
+    border-top: 0px;
+    padding: 10px;
+    padding-top: 5px;
+    clear: both;
+    background: white;
 }
 
 
 
 /* Columns */
 .column {
-	float:left;
+    float: left;
 }
 
 
 .properties {
-	width:100%;
+    width: 100%;
 }
 
 
-.properties .column1 {
-}
+.properties .column1 {}
 
 
 .properties .column2 {
-	text-align:left;
+    text-align: left;
 }
 
 
 
 /* Titles */
-h1, h2, h3, h4 {
-	color:#2B6FB6;
-	 margin:0;
-	 padding:0;
-	 padding-top:5px;
+h1,
+h2,
+h3,
+h4 {
+    color: #2B6FB6;
+    margin: 0;
+    padding: 0;
+    padding-top: 5px;
 }
 
 
 h3 {
-	font-size:14px;
+    font-size: 14px;
 }
 
 
 .title {
-	font-size:12px;
-	 font-weight:bold;
-	 color:#2B6FB6;
+    font-size: 12px;
+    font-weight: bold;
+    color: #2B6FB6;
 }
 
 
 
 /* Dialog specific */
-#link .panel_wrapper, #link div.current {
-	height:125px;
+#link .panel_wrapper,
+#link div.current {
+    height: 125px;
 }
 
 
-#image .panel_wrapper, #image div.current {
-	height:200px;
+#image .panel_wrapper,
+#image div.current {
+    height: 200px;
 }
 
 
 #plugintable thead {
-	font-weight:bold;
-	 background:#DDD;
+    font-weight: bold;
+    background: #DDD;
 }
 
 
-#plugintable, #about #plugintable td {
-	border:1px solid #919B9C;
+#plugintable,
+#about #plugintable td {
+    border: 1px solid #919B9C;
 }
 
 
 #plugintable {
-	width:96%;
-	 margin-top:10px;
+    width: 96%;
+    margin-top: 10px;
 }
 
 
 #pluginscontainer {
-	height:290px;
-	 overflow:auto;
+    height: 290px;
+    overflow: auto;
 }
 
 
 #colorpicker #preview {
-	display:inline-block;
-	 padding-left:40px;
-	 height:14px;
-	 border:1px solid black;
-	 margin-left:5px;
-	 margin-right: 5px
+    display: inline-block;
+    padding-left: 40px;
+    height: 14px;
+    border: 1px solid black;
+    margin-left: 5px;
+    margin-right: 5px
 }
 
 
 #colorpicker #previewblock {
-	position: relative;
-	 top: -3px;
-	 padding-left:5px;
-	 padding-top: 0px;
-	 display:inline
+    position: relative;
+    top: -3px;
+    padding-left: 5px;
+    padding-top: 0px;
+    display: inline
 }
 
 
 #colorpicker #preview_wrapper {
-	 text-align:center;
-	 padding-top:4px;
-	 white-space: nowrap
+    text-align: center;
+    padding-top: 4px;
+    white-space: nowrap
 }
 
 
 #colorpicker #colors {
-	float:left;
-	 border:1px solid gray;
-	 cursor:crosshair;
+    float: left;
+    border: 1px solid gray;
+    cursor: crosshair;
 }
 
 
 #colorpicker #light {
-	border:1px solid gray;
-	 margin-left:5px;
-	 float:left;
-	width:15px;
-	 height:150px;
-	 cursor:crosshair;
+    border: 1px solid gray;
+    margin-left: 5px;
+    float: left;
+    width: 15px;
+    height: 150px;
+    cursor: crosshair;
 }
 
 
 #colorpicker #light div {
-	overflow:hidden;
+    overflow: hidden;
 }
 
 
 #colorpicker .panel_wrapper div.current {
-	height:175px;
+    height: 175px;
 }
 
 
 #colorpicker #namedcolors {
-	width:150px;
+    width: 150px;
 }
 
 
 #colorpicker #namedcolors a {
-	display:block;
-	 float:left;
-	 width:10px;
-	 height:10px;
-	 margin:1px 1px 0 0;
-	 overflow:hidden;
+    display: block;
+    float: left;
+    width: 10px;
+    height: 10px;
+    margin: 1px 1px 0 0;
+    overflow: hidden;
 }
 
 
 #colorpicker #colornamecontainer {
-	margin-top:5px;
+    margin-top: 5px;
 }
 
 
 #colorpicker #picker_panel fieldset {
-	margin:auto;
-	width:325px;
+    margin: auto;
+    width: 325px;
 }
 
 
@@ -635,7 +679,7 @@ h3 {
 
     display: none;
 
-	width: 150px;
+    width: 150px;
 
     background-color: yellow;
 
@@ -650,86 +694,63 @@ h3 {
 
 
 
-span[class*='wce_supplied_source']{
+span[class*='wce_supplied_source'] {
 
-	color: red;
-
-
-}
-
-
-
-span[class*='__t=formatting_rubrication']{
-
-	color: red;
+    color: red;
 
 
 }
 
 
 
-span[class*='__t=formatting_gold']{
+span[class*='__t=formatting_rubrication'] {
 
-	color: gold;
-
-
-}
-
-
-
-span[class*='__t=formatting_blue']{
-
-	color: blue;
+    color: red;
 
 
 }
 
 
 
-span[class*='__t=formatting_green']{
+span[class*='__t=formatting_gold'] {
 
-	color: green;
-
-
-}
-
-
-
-span[class*='__t=formatting_yellow']{
-
-	color: yellow;
+    color: gold;
 
 
 }
 
 
 
-span[class*='__t=formatting_other']{
+span[class*='__t=formatting_blue'] {
 
-	color: black;
-
-
-}
-
-
-
-
-span[class*='__t=formatting_overline']{
-
-	text-decoration: overline;
+    color: blue;
 
 
 }
 
 
 
-span[class*='__t=formatting_capitals']{
+span[class*='__t=formatting_green'] {
 
-	width: .75em;
+    color: green;
 
-	font-size: 48px;
 
-	line-height: 24px;
+}
+
+
+
+span[class*='__t=formatting_yellow'] {
+
+    color: yellow;
+
+
+}
+
+
+
+span[class*='__t=formatting_other'] {
+
+    color: black;
 
 
 }
@@ -737,18 +758,41 @@ span[class*='__t=formatting_capitals']{
 
 
 
-span[class*='wce_abbr_nomenSacrum_Overline']{
+span[class*='__t=formatting_overline'] {
 
-	text-decoration: overline;
+    text-decoration: overline;
 
 
 }
 
 
 
-span[class*='wce_abbr_numeral_Overline']{
+span[class*='__t=formatting_capitals'] {
 
-	text-decoration: overline;
+    width: .75em;
+
+    font-size: 48px;
+
+    line-height: 24px;
+
+
+}
+
+
+
+
+span[class*='wce_abbr_nomenSacrum_Overline'] {
+
+    text-decoration: overline;
+
+
+}
+
+
+
+span[class*='wce_abbr_numeral_Overline'] {
+
+    text-decoration: overline;
 
 
 }
@@ -758,52 +802,56 @@ span[class*='wce_abbr_numeral_Overline']{
 
 .rubrication {
 
-color : red;
+    color: red;
 }
 
-.selectBoxArrow{
-		margin-top:1px;
-		float:left;
-		position:absolute;
-		right:1px;
+.selectBoxArrow {
+    margin-top: 1px;
+    float: left;
+    position: absolute;
+    right: 1px;
 
 
-	}
-	.selectBoxInput{
-		border:0px;
-		padding-left:1px;
-		height:16px;
-		position:absolute;
-		top:0px;
-		left:0px;
-	}
+}
 
-	.selectBox{
-		border:1px solid #7f9db9;
-		height:20px;
+.selectBoxInput {
+    border: 0px;
+    padding-left: 1px;
+    height: 16px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
 
-	}
-	.selectBoxOptionContainer{
-		position:absolute;
-		border:1px solid #7f9db9;
-		height:100px;
-		background-color:#FFF;
-		left:-1px;
-		top:20px;
-		visibility:hidden;
-		overflow:auto;
-	}
-	.selectBoxAnOption{
-		font-family:arial;
-		font-size:12px;
-		cursor:default;
-		margin:1px;
-		overflow:hidden;
-		white-space:nowrap;
-	}
-	.selectBoxIframe{
-		position:absolute;
-		background-color:#FFF;
-		border:0px;
-		z-index:999;
-	}
+.selectBox {
+    border: 1px solid #7f9db9;
+    height: 20px;
+
+}
+
+.selectBoxOptionContainer {
+    position: absolute;
+    border: 1px solid #7f9db9;
+    height: 100px;
+    background-color: #FFF;
+    left: -1px;
+    top: 20px;
+    visibility: hidden;
+    overflow: auto;
+}
+
+.selectBoxAnOption {
+    font-family: MUYA, Fallback;
+    font-size: 12px;
+    cursor: default;
+    margin: 1px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.selectBoxIframe {
+    position: absolute;
+    background-color: #FFF;
+    border: 0px;
+    z-index: 999;
+}

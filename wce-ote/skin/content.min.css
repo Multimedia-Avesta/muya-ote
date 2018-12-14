@@ -41,7 +41,7 @@
     background: transparent;
     text-decoration: none;
     color: black;
-    font-family: Arial;
+    font-family: MUYA, "Arial Unicode", Cambria, "Lucida Grande", Fallback;
     font-size: 11px;
     text-shadow: none;
     float: none;
@@ -241,10 +241,9 @@ th[data-mce-selected] {
 }
 */
 
-@font-face {
+/*@font-face {
     font-family: GentiumPlusW;
     src: url(fonts/GentiumPlus-R.woff) format('woff');
-    /* should work for all recent browsers */
     font-style: normal;
 }
 
@@ -254,6 +253,43 @@ th[data-mce-selected] {
     font-style: italic;
 }
 
+@font-face {
+    font-family: MUYA;
+    src: url(fonts/GentiumPlus-R.ttf) format('truetype');
+    font-style: normal;
+}
+
+@font-face {
+    font-family: MUYA;
+    src: url(fonts/GentiumPlus-I.tff) format('truetype');
+    font-style: italic;
+}
+
+@font-face {
+    font-family: MUYA;
+    src: url(fonts/NotoSansAvestan-Regular.ttf) format('truetype');
+    font-style: normal;
+    unicode-range: U+10B00-10B3F
+}
+
+@font-face {
+    font-family: MUYA;
+    src: url(fonts/NotoSansSyriacEastern-Regular.ttf) format('truetype');
+    font-style: normal;
+    unicode-range: U+0745-0746;
+}
+
+@font-face {
+    font-family: MUYA;
+    src: url(fonts/NotoSansGujaratiUI-Regular.ttf) format('truetype');
+    font-style: normal;
+    unicode-range: U+0A80-0AFF
+}
+
+@font-face {
+    font-family: Fallback;
+    src: url(fonts/LastResort.ttf) format('truetype');
+}*/
 
 /*.mce-ico.mce-i-fa {
     display: inline-block;
@@ -265,7 +301,7 @@ th[data-mce-selected] {
 }*/
 
 .mce-content-body .mce-reset {
-    font-family: Avesta, "Times New Roman", Times, "TITUS Cyberbit Basic", GentiumPlusW;
+    font-family: MUYA, "Arial Unicode", Cambria, "Lucida Grande", Fallback;
 }
 
 body,
@@ -275,7 +311,7 @@ pre {
     font-size: 24px;
     margin: 8px;
     line-height: 48px;
-    font-family: Avesta, "Times New Roman", Times, "TITUS Cyberbit Basic", GentiumPlusW;
+    font-family: MUYA, "Arial Unicode", Cambria, "Lucida Grande", Fallback;
 }
 
 body {
@@ -844,4 +880,8 @@ header {
 
 .mce-charmap-* {
     flex: none | [1 1 || auto];
+}
+
+input[disabled] {
+    pointer-events: none
 }

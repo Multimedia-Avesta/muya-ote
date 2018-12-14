@@ -6,71 +6,66 @@
 <%@ page import="org.crosswire.xml.XMLDataElement" %>
 <?xml version="1.0" encoding="UTF-8" ?>
 <Module>
-  <ModulePrefs
-	title="Transcription Editor"
-	author_email="sievers@uni-trier.de"
-	author="Trier University, TCDH"
-	description="Transcription Editor"
-	screenshot="http://www.uni-trier.de/fileadmin/templates/inc/logo_universitaet-trier.gif"
-	thumbnail="http://www.uni-trier.de/fileadmin/templates/inc/logo_universitaet-trier.gif"
-        scrolling="false"
-   >
-<Optional feature="pubsub-2">
-  <Param name="topics">
-    <![CDATA[
+    <ModulePrefs title="Transcription Editor" author_email="sievers@uni-trier.de" author="Trier University, TCDH" description="Transcription Editor" screenshot="http://www.uni-trier.de/fileadmin/templates/inc/logo_universitaet-trier.gif" thumbnail="http://www.uni-trier.de/fileadmin/templates/inc/logo_universitaet-trier.gif" scrolling="false">
+        <Optional feature="pubsub-2">
+            <Param name="topics">
+            <![CDATA[
     <Topic title="Transcription Saved" name="interedition.transcription.saved"
             description="Transcription has been saved" type="void"
             subscribe="true"/>
     ]]>
-  </Param>
-</Optional>
-<Optional feature="dynamic-height"/>
-<Require feature="opensocial-0.8"/>
-</ModulePrefs>
+            </Param>
+        </Optional>
+        <Optional feature="dynamic-height" />
+        <Require feature="opensocial-0.8" />
+    </ModulePrefs>
 
-<UserPref name="transcriptionOwner" datatype="enum" display_name="Transcription Owner" default_value="user">
-	<EnumValue value="user" display_value="Current User"/>
-	<EnumValue value="project" display_value="Current Project"/>
-	<EnumValue value="PUBLISHED" display_value="PUBLISHED"/>
-</UserPref>
+    <UserPref name="transcriptionOwner" datatype="enum" display_name="Transcription Owner" default_value="user">
+        <EnumValue value="user" display_value="Current User" />
+        <EnumValue value="project" display_value="Current Project" />
+        <EnumValue value="PUBLISHED" display_value="PUBLISHED" />
+    </UserPref>
 
-<UserPref name="height" datatype="enum" display_name="Gadget Height" default_value="550">
-	<EnumValue value="400" display_value="Short"/>
-	<EnumValue value="550" display_value="Medium"/>
-	<EnumValue value="700" display_value="Tall"/>
-</UserPref>
-<UserPref name="baseText" datatype="enum" display_name="Base Text" default_value="Language Dependent">
-<EnumValue value="Language Dependent" display_value="Language Dependent"/>
-<%
+    <UserPref name="height" datatype="enum" display_name="Gadget Height" default_value="550">
+        <EnumValue value="400" display_value="Short" />
+        <EnumValue value="550" display_value="Medium" />
+        <EnumValue value="700" display_value="Tall" />
+    </UserPref>
+    <UserPref name="baseText" datatype="enum" display_name="Base Text" default_value="Language Dependent">
+        <EnumValue value="Language Dependent" display_value="Language Dependent" />
+        <%
 try {
 	String modListURL = "http://www.crosswire.org/study/fetchdata.jsp";
 	StringBuffer result = HTTPUtils.postURL(modListURL, null);
 	XMLBlock modules = XMLBlock.createXMLBlock(result.toString());
 	for (XMLDataElement module : modules.getElements("module")) {
 		if ("Biblical Texts".equals(module.getAttribute("category"))) {
-%><EnumValue value="<%= module.getAttribute("id") %>" display_value="<%= HTTPUtils.canonize(module.getText()) %>"/><%
+%>
+        <EnumValue value="<%= module.getAttribute(" id") %>" display_value="
+            <%= HTTPUtils.canonize(module.getText()) %>"/>
+            <%
 		}
      }
 }
 catch (Exception e) {}
 %>
-</UserPref>
-<UserPref name="baseTextDocID" datatype="string" display_name="Base Text DocID" default_value="" />
-<UserPref name="direction" datatype="bool" display_name="Right to Left" default_value="false"/>
+    </UserPref>
+    <UserPref name="baseTextDocID" datatype="string" display_name="Base Text DocID" default_value="" />
+    <UserPref name="direction" datatype="bool" display_name="Right to Left" default_value="false" />
 
 
-<UserPref name="baseTextServiceURL" datatype="string" display_name="Base Text Service URL" default_value="http://crosswire.org/study/fetchdata.jsp" />
+    <UserPref name="baseTextServiceURL" datatype="string" display_name="Base Text Service URL" default_value="http://crosswire.org/study/fetchdata.jsp" />
 
-<UserPref name="announceChanges" datatype="bool" display_name="Announce Changes" default_value="false"/>
-<UserPref name="autoSave" datatype="bool" display_name="Autosave" default_value="true"/>
+    <UserPref name="announceChanges" datatype="bool" display_name="Announce Changes" default_value="false" />
+    <UserPref name="autoSave" datatype="bool" display_name="Autosave" default_value="true" />
 
-<UserPref name="reconciler" datatype="enum" display_name="Reconciler" default_value="../reconciler/reconciler.jsp">
-	<EnumValue value="../reconciler/reconciler.jsp" display_value="Cat-tastic Reconciler"/>
-	<EnumValue value="mergely_reconciler.jsp" display_value="Mergely"/>
-</UserPref>
+    <UserPref name="reconciler" datatype="enum" display_name="Reconciler" default_value="../reconciler/reconciler.jsp">
+        <EnumValue value="../reconciler/reconciler.jsp" display_value="Cat-tastic Reconciler" />
+        <EnumValue value="mergely_reconciler.jsp" display_value="Mergely" />
+    </UserPref>
 
-<Content type="html">
-<![CDATA[
+    <Content type="html">
+        <![CDATA[
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -97,7 +92,7 @@ body {
 	margin-left: auto;
 	margin-right: auto;
 	background-color: #666;
-	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-family: MUYA, Fallback;
 	font-size: 14px;
 }
 
@@ -1175,5 +1170,5 @@ e.g., Jn 18:1-5
 
 </html>
 ]]>
-</Content>
+    </Content>
 </Module>
