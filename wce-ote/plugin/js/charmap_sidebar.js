@@ -699,7 +699,8 @@ tinymce.PluginManager.add('wcecharmapsidebar', function (ed) {
         ct.appendChild(sidebar);
         _drawCharmapsidebar(getCharMap());
         $(ed.getWin()).scroll(function (e) {
-            _drawCharmapsidebar(getCharMap());
+            var currentcharmap = lookup(radioGroup, "value", charmap_filter_value);
+            _drawCharmapsidebar(currentcharmap.charmap());
         });
         $(ed.getWin()).resize(function () {
             /*var currentcharmap =
