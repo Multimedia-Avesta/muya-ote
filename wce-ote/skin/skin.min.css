@@ -4,12 +4,6 @@
     font-style: normal;
 }
 
-/*@font-face {
-    font-family: MUYA;
-    src: url(fonts/GentiumPlus-I.tff) format('truetype');
-    font-style: italic;
-}*/
-
 @font-face {
     font-family: MUYA;
     src: url(fonts/NotoSansAvestan-Regular.ttf) format('truetype');
