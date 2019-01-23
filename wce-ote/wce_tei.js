@@ -565,6 +565,10 @@ function getHtmlByTei(inputString, args) {
                 return Tei2Html_abbr($htmlParent, $teiNode, teiNodeName);
                 // abbreviation
 
+            case 'expan':
+                return null;
+                // abbreviation
+
             case 'comm':
                 return Tei2Html_paratext($htmlParent, $teiNode, teiNodeName);
                 // paratext
@@ -1057,7 +1061,7 @@ function getHtmlByTei(inputString, args) {
         var mapping = {
             'reason': '&gap_reason=',
             'unit': {
-                '0': '@char@line@page@quire@book@chapter@verse@stanza@word@unspecified',
+                '0': '@char@line@page@quire@book@chapter@verse@stanza@structural_line@word@unspecified',
                 '1': '&unit_other=&unit=',
                 '2': '&unit=other&unit_other='
             },
@@ -1257,6 +1261,7 @@ function getHtmlByTei(inputString, args) {
                 '2': '&abbr_type=other&abbr_type_other='
             }
         };
+
         var toMerge;
         var _moveSupplied = function (_supp) {
             var _hi = _supp.firstChild;
@@ -1302,6 +1307,12 @@ function getHtmlByTei(inputString, args) {
         $newNode.setAttribute('class', className);
 
         wceAttr += getWceAttributeByTei($teiNode, mapping);
+        var expansion = '';
+        var $parentnode = $teiNode.parentNode;
+        if ($parentnode && $parentnode.nodeName == "choice")
+            if ($teiNode.previousSibling.nodeName == "expan")
+                var expansion = $teiNode.previousSibling.firstChild.textContent;
+        wceAttr += '&abbr_expansion=' + encodeURIComponent(expansion);
         $newNode.setAttribute('wce', wceAttr);
 
         var $tempParent = $newDoc.createElement('t');
@@ -3925,10 +3936,6 @@ function getTeiByHtml(inputString, args) {
      */
     var html2Tei_abbr = function (arr, $teiParent, $htmlNode) {
         var $abbr = $newDoc.createElement('abbr');
-        /*var extAttr = $htmlNode.getAttribute('ext');
-        if (extAttr) {
-            $abbr.setAttribute('ext', extAttr);
-        }*/
 
         // type
         var abbr_type = arr['abbr_type'];
@@ -3946,20 +3953,14 @@ function getTeiByHtml(inputString, args) {
             var $choice = $newDoc.createElement('choice');
             nodeAddText($abbr, $htmlNode.firstChild.textContent);
         }
-        /*var $innerNode = $newDoc.createDocumentFragment();
-        var childList = $htmlNode.childNodes;*/
-
-        /*if (arr['add_overline'] === 'overline') {
-            var $hi = $newDoc.createElement('hi');
-            $hi.setAttribute('rend', 'overline');
-            $abbr.appendChild($hi);
-        }*/
 
         if ($choice) {
+            var $w = $newDoc.createElement('w');
             $choice.appendChild($expan);
             $choice.appendChild($abbr);
-            $teiParent.appendChild($choice);
-            //appendNodeInW($teiParent, $choice, $htmlNode);
+            $w.appendChild($choice);
+            $teiParent.appendChild($w);
+            //appendNodeInW($teiParent, $tempParent, $htmlNode);
             return {
                 0: $teiParent,
                 1: true

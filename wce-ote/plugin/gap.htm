@@ -97,6 +97,7 @@
                             <option value="chapter">{#unit_chapter}</option>
                             <option value="verse">{#unit_verse}</option>
                             <option value="stanza">{#unit_stanza}</option>
+                            <option value="structural_line">{#unit_structural_line}</option>
                             <option value="word">{#unit_word}</option>
                             <option value="unspecified">{#unspecified}</option>
                             <option value="other">{#other}</option>
@@ -263,7 +264,7 @@
             return;
         }
 
-        if (document.gapinfo.unit.options[11].selected == true) { //other unit
+        if (document.gapinfo.unit.options[12].selected == true) { //other unit
             document.gapinfo.unit_other.disabled = false;
             document.getElementById('unit_other').style.backgroundColor = "white";
         } else {

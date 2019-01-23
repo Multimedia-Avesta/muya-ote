@@ -33,7 +33,7 @@
 */
 
 (function () {
-    var wfce_editor = "0.9.7 (2018-12-18)";
+    var wfce_editor = "0.9.8 (2019-01-23)";
 
     // Load plugin specific language pack
     tinymce.PluginManager.requireLangPack('wce');
@@ -1890,6 +1890,9 @@
                                 case 'other':
                                     info_text = ar['abbr_type_other'];
                                     break;
+                            }
+                            if (ar['abbr_expansion'] && ar['abbr_expansion'] != '') {
+                                info_text += '<div>' + tinymce.translate('abbr_expansion') + ': ' + ar['abbr_expansion'] + '</div>';
                             }
                             break;
                             /*case 'part':
