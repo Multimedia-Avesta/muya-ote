@@ -377,11 +377,13 @@ function writeWceNodeInfo(val) {
             if (gap_unit == "line") {
                 if (gap_extent !== 'part' && gap_extent !== 'unspecified') {
                     wceUtils.updateBreakCounter(ed, 'lb', 0);
-                    ed.selection.setContent(wceUtils.getBreakHtml(ed, 'lb', null, null, null, gap_id) + ' ');
+                    ed.selection.setContent(wceUtils.getBreakHtml(ed, 'lb', null, null, null, gap_id));
+                    ed.selection.setContent('&nbsp;');
                 }
             } else if (gap_unit == "page") {
                 wceUtils.updateBreakCounter(ed, 'pb', 0);
-                ed.selection.setContent(wceUtils.getBreakHtml(ed, 'pb', null, null, null, gap_id) + ' ');
+                ed.selection.setContent(wceUtils.getBreakHtml(ed, 'pb', null, null, null, gap_id));
+                ed.selection.setContent('&nbsp;');
             }
 
             /*if (document.getElementById('unit').value == "line")
