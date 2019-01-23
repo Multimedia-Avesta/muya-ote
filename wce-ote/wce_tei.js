@@ -1914,7 +1914,7 @@ function getTeiByHtml(inputString, args) {
     var g_bookNumber = '';
     var g_witValue = args.witness;
     var g_manuscriptLang = args.manuscriptLang;
-
+    var withoutW = false;
     /*if(g_bookNumber && (g_bookNumber instanceof Function || typeof g_bookNumber == "function" || typeof g_bookNumber == "Function")){
     	g_bookNumber=g_bookNumber();
     }*/
@@ -2702,8 +2702,11 @@ function getTeiByHtml(inputString, args) {
 
         if ($htmlNode.nodeType == 1 || $htmlNode.nodeType == 11) {
             if ($htmlNode.nodeName == 'w') {
-                //$htmlNode.setAttribute('id',++global_id);//only for test
-                $teiParent.appendChild($htmlNode.cloneNode(true));
+                //if ($htmlNode.nextSibling && !$($htmlNode.nextSibling).hasClass('abbr'))
+                if (withoutW)
+                    $teiParent.appendChild($htmlNode.firstChild.cloneNode(true));
+                else
+                    $teiParent.appendChild($htmlNode.cloneNode(true));
                 return;
             } else if ($htmlNode.nodeName == 'header') {
                 //getMetaData($teiParent, $htmlNode);
@@ -3951,7 +3954,23 @@ function getTeiByHtml(inputString, args) {
             var $expan = $newDoc.createElement('expan');
             nodeAddText($expan, decodeURIComponent(arr['abbr_expansion']));
             var $choice = $newDoc.createElement('choice');
-            nodeAddText($abbr, $htmlNode.firstChild.textContent);
+            //var $tempParent = $newDoc.createElement('t');
+            var cList = $htmlNode.childNodes;
+            for (var i = 0, c, l = cList.length; i < l; i++) {
+                $c = cList[i];
+                if (!$c) {
+                    break;
+                }
+                if ($c.nodeType == 3)
+                    nodeAddText($tempParent, $c.nodeValue);
+                else {
+                    withoutW = true;
+                    readAllHtmlNodes($abbr, $c);
+                    withoutW = false;
+                }
+            }
+
+            //nodeAddText($abbr, $htmlNode.firstChild.textContent);
         }
 
         if ($choice) {
@@ -3960,7 +3979,6 @@ function getTeiByHtml(inputString, args) {
             $choice.appendChild($abbr);
             $w.appendChild($choice);
             $teiParent.appendChild($w);
-            //appendNodeInW($teiParent, $tempParent, $htmlNode);
             return {
                 0: $teiParent,
                 1: true
