@@ -33,7 +33,7 @@
 */
 
 (function () {
-    var wfce_editor = "0.9.8 (2019-01-23)";
+    var wfce_editor = "0.9.8 (2019-01-24)";
 
     // Load plugin specific language pack
     tinymce.PluginManager.requireLangPack('wce');
@@ -1537,9 +1537,12 @@
                         return false;
                     }
                 }
-
+                //} else if ($(ep).hasClass('formatting_rubrication') &&
+                //    ep.previousSibling && $(ep.previousSibling).hasClass('langchange')) {
+                //return true;
             } else if (endContainer.parentNode != ed.getBody()) {
-                if (!$(endContainer.parentNode).hasClass('verse_number')) // for verses go to next check
+                if ($(ep).hasClass('formatting_rubrication') &&
+                    ep.previousSibling && $(ep.previousSibling).hasClass('langchange')) {} else if (!$(endContainer.parentNode).hasClass('verse_number')) // for verses go to next check
                     return false;
             }
 
