@@ -33,7 +33,7 @@
 */
 
 (function () {
-    var wfce_editor = "0.9.8 (2019-01-24)";
+    var wfce_editor = "0.9.9 (2019-02-14)";
 
     // Load plugin specific language pack
     tinymce.PluginManager.requireLangPack('wce');
@@ -1249,7 +1249,7 @@
                     w.not_D = false;
                     w.not_O = !wholeSelect;
                     //when select whole gap, can add corr.
-                    w.not_C = !wholeSelect;
+                    w.not_C = wholeSelect;
                     w.not_A = !wholeSelect;
                     break;
 

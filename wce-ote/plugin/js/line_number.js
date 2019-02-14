@@ -64,7 +64,6 @@ tinymce.PluginManager.add('wcelinenumber', function (ed) {
             var arr = wceAttr.split('&');
             for (var i = 0, ai; i < arr.length; i++) {
                 ai = arr[i];
-                console.log(ai);
                 if (ai && ai.indexOf('break_type=') > -1) {
                     return ai.replace('break_type=', '');
                 } else if (ai && ai.indexOf('unit=line') > -1) {

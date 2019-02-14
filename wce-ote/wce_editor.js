@@ -64,7 +64,15 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
         //book : (getBook) ? getBook : "",
         witness: (getWitness) ? getWitness : "",
         manuscriptLang: (getWitnessLang) ? getWitnessLang : "",
-        plugins: "pagebreak,save,wordcount,autosave,paste,code,contextmenu,noneditable",
+        plugins: "pagebreak,save,wordcount,paste,code,contextmenu,noneditable",
+        plugins: "localautosave",
+        las_seconds: 60,
+        las_nVersions: 15,
+        las_keyName: "LocalAutoSave",
+        las_callback: function () {
+            var content = this.content; //content saved
+            var time = this.time; //time on save action
+        },
         paste_as_text: true,
         external_plugins: {
             'wce': '../../wce-ote/plugin/plugin.js',
@@ -83,7 +91,7 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
         // Theme options
         toolbar: "undo redo muyacharmap | LoadFile save | contextmenu cut copy paste | " +
             "breaks correction illegible decoration abbreviation paratext note punctuation language versemodify | " +
-            "showTeiByHtml | showHtmlByTei | info code",
+            "showTeiByHtml | showHtmlByTei | info code| localautosave",
         theme_advanced_buttons2: "",
         theme_advanced_toolbar_location: "top",
         theme_advanced_toolbar_align: "left",
