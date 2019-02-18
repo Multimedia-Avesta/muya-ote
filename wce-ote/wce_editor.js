@@ -84,7 +84,7 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
         show_linenumber: true, //default false,
         show_charmapsidebar: true,
         inner_hi: false, // ticket #6130
-        content_css: 'skin/customfonts.css?' + new Date().getTime(),
+        content_css: tinymce.baseURL + '../../../wce-ote/skin/' + 'customfonts.css?' + new Date().getTime(),
         //ignoreShiftNotEn: [188, 190],
         keyboardDebug: true,
         init_instance_callback: "wceReload",
