@@ -31,48 +31,11 @@
     Sie sollten eine Kopie der GNU Lesser General Public License zusammen mit diesem
     Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
 */
-/*@font-face {
-    font-family: MUYA;
-    src: url(fonts/GentiumPlus-R.ttf) format('truetype');
-    font-style: normal;
-}
-
-@font-face {
-    font-family: MUYA;
-    src: url(fonts/GentiumPlus-I.tff) format('truetype');
-    font-style: italic;
-}
-
-@font-face {
-    font-family: MUYA;
-    src: url(fonts/NotoSansAvestan-Regular.ttf) format('truetype');
-    font-style: normal;
-    unicode-range: U+10B00-10B3F
-}
-
-@font-face {
-    font-family: MUYA;
-    src: url(fonts/NotoSansGujaratiUI-Regular.ttf) format('truetype');
-    font-style: normal;
-    unicode-range: U+0A80-0AFF
-}
-
-@font-face {
-    font-family: MUYA;
-    src: url(fonts/NotoSansSyriacEastern-Regular.ttf) format('truetype');
-    font-style: normal;
-    unicode-range: U+0745-0746;
-}
-
-@font-face {
-    font-family: Fallback;
-    src: url(fonts/LastResort.ttf) format('truetype');
-}*/
 
 /* Generic */
 body {
 
-    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-family: MUYA, FreeSans, sans-serif, Fallback;
     font-size: 12px;
 
     scrollbar-3dlight-color: #F0F0EE;
@@ -108,7 +71,7 @@ html {
 
 
 td {
-    font-family: MUYA, Fallback;
+    font-family: MUYA, FreeSans, sans-serif, Fallback;
     font-size: 10px;
 }
 
@@ -141,7 +104,7 @@ fieldset {
     margin: 0;
     padding: 4px;
     border: 1px solid #919B9C;
-    font-family: MUYA, Fallback;
+    font-family: MUYA, FreeSans, sans-serif, Fallback;
     font-size: 12px;
 }
 
@@ -153,7 +116,7 @@ legend {
 
 
 label {
-    font-family: MUYA, Fallback;
+    font-family: MUYA, FreeSans, sans-serif, Fallback;
     width: 200px;
 }
 
@@ -183,7 +146,7 @@ input {
 input,
 select,
 textarea {
-    font-family: MUYA, Fallback;
+    font-family: MUYA, FreeSans, sans-serif, Fallback;
     font-size: 10px;
 }
 
@@ -378,14 +341,14 @@ td.charmap,
 
 #charmap #codeN {
     font-size: 10px;
-    font-family: MUYA, Fallback;
+    font-family: MUYA, FreeSans, sans-serif, Fallback;
     text-align: center
 }
 
 
 #charmap #codeV {
     font-size: 40px;
-    font-family: MUYA, Fallback;
+    font-family: MUYA, FreeSans, sans-serif, Fallback;
     height: 80px;
     border: 1px solid #AAA;
     text-align: center
@@ -393,22 +356,22 @@ td.charmap,
 
 
 #charmap #codeA {
-    font-family: MUYA, Fallback;
+    font-family: MUYA, FreeSans, sans-serif, Fallback;
 }
 
 
 #charmap #codeB {
-    font-family: MUYA, Fallback;
+    font-family: MUYA, FreeSans, sans-serif, Fallback;
 }
 
 
 .title {
-    font-family: MUYA, Fallback;
+    font-family: MUYA, FreeSans, sans-serif, Fallback;
 }
 
 
 .heading {
-    font-family: MUYA, Fallback;
+    font-family: MUYA, FreeSans, sans-serif, Fallback;
 }
 
 
@@ -475,7 +438,7 @@ td.charmap,
 
 .tabs a {
     text-decoration: none;
-    font-family: MUYA, Fallback;
+    font-family: MUYA, FreeSans, sans-serif, Fallback;
     font-size: 10px;
 }
 
@@ -841,7 +804,7 @@ span[class*='wce_abbr_numeral_Overline'] {
 }
 
 .selectBoxAnOption {
-    font-family: MUYA, Fallback;
+    font-family: MUYA, FreeSans, sans-serif, Fallback;
     font-size: 12px;
     cursor: default;
     margin: 1px;

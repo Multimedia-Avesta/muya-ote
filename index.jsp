@@ -92,7 +92,7 @@ body {
 	margin-left: auto;
 	margin-right: auto;
 	background-color: #666;
-	font-family: MUYA, Fallback;
+	font-family: MUYA, FreeSans, sans-serif, Fallback;
 	font-size: 14px;
 }
 

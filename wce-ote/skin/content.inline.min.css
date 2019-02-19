@@ -7,7 +7,7 @@
     background: transparent;
     text-decoration: none;
     color: black;
-    font-family: MUYA, "Arial Unicode", Cambria, "Lucida Grande", Fallback;
+    font-family: MUYA, FreeSans, sans-serif, Fallback;
     font-size: 11px;
     text-shadow: none;
     float: none;

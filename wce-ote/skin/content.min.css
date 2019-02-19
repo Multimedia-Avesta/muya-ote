@@ -1,5 +1,5 @@
 /*
-	Copyright (C) 2012-2017 Center for Digital Humanities, Trier
+	Copyright (C) 2012-2019 Center for Digital Humanities, Trier
 
 	This file is part of the Online Transcription Editor (OTE).
 
@@ -41,7 +41,7 @@
     background: transparent;
     text-decoration: none;
     color: black;
-    font-family: MUYA, "Arial Unicode", Cambria, "Lucida Grande", Fallback;
+    font-family: MUYA, sans-serif, Fallback;
     font-size: 11px;
     text-shadow: none;
     float: none;
@@ -217,91 +217,8 @@ th[data-mce-selected] {
     zoom: 1
 }
 
-
-/* above is the default skin values from the tinymce skin creator. below is the skin values from wce-ote for tinymce 3.x
-   update this accordingly
-*/
-
-/*@font-face{
-	font-family: "TITUS Cyberbit Basic";
-	src: local('TITUS Cyberbit Basic'), local('TITUS Cyberbit Basic'),
-	url(fonts/TITUSCBZ.TTF) format('truetype');
-}
-
-@font-face{
-	font-family: Avesta;
-	src: local('avesta.org transcription'), local('avesta.org transcription'),
-	url(fonts/avesta.orgtranscription.otf) format('opentype');
-}
-
-@font-face{
-	font-family: ave_bl_l4;
-	src: local('ave_bl_l4'), local('ave_bl_l4'),
-	url(fonts/ave_bl_l4.otf) format('opentype');
-}
-*/
-
-/*@font-face {
-    font-family: GentiumPlusW;
-    src: url(fonts/GentiumPlus-R.woff) format('woff');
-    font-style: normal;
-}
-
-@font-face {
-    font-family: GentiumPlusW;
-    src: url(fonts/GentiumPlus-I.woff) format('woff');
-    font-style: italic;
-}
-
-@font-face {
-    font-family: MUYA;
-    src: url(fonts/GentiumPlus-R.ttf) format('truetype');
-    font-style: normal;
-}
-
-@font-face {
-    font-family: MUYA;
-    src: url(fonts/GentiumPlus-I.tff) format('truetype');
-    font-style: italic;
-}
-
-@font-face {
-    font-family: MUYA;
-    src: url(fonts/NotoSansAvestan-Regular.ttf) format('truetype');
-    font-style: normal;
-    unicode-range: U+10B00-10B3F
-}
-
-@font-face {
-    font-family: MUYA;
-    src: url(fonts/NotoSansSyriacEastern-Regular.ttf) format('truetype');
-    font-style: normal;
-    unicode-range: U+0745-0746;
-}
-
-@font-face {
-    font-family: MUYA;
-    src: url(fonts/NotoSansGujaratiUI-Regular.ttf) format('truetype');
-    font-style: normal;
-    unicode-range: U+0A80-0AFF
-}
-
-@font-face {
-    font-family: Fallback;
-    src: url(fonts/LastResort.ttf) format('truetype');
-}*/
-
-/*.mce-ico.mce-i-fa {
-    display: inline-block;
-    font: normal normal normal 14px/1 FontAwesome;
-    font-size: inherit;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}*/
-
 .mce-content-body .mce-reset {
-    font-family: MUYA, "Arial Unicode", Cambria, "Lucida Grande", Fallback;
+    font-family: MUYA, sans-serif, Fallback;
 }
 
 body,
@@ -311,7 +228,7 @@ pre {
     font-size: 24px;
     margin: 8px;
     line-height: 48px;
-    font-family: MUYA, "Arial Unicode", Cambria, "Lucida Grande", Fallback;
+    font-family: MUYA, sans-serif, Fallback;
 }
 
 body {
