@@ -58,7 +58,9 @@
     -webkit-box-sizing: content-box;
     box-sizing: content-box;
     direction: ltr;
-    max-width: none
+    max-width: none;
+    //overflow-x: scroll;
+    //overflow-y: scroll,
 }
 
 .mce-object {

@@ -615,6 +615,65 @@
                     delVerse(startNode, endNode);
                 }
             }
+        } else if ($('deleteVerselineRadio').is(':checked')) {
+            var verseList = $('#verselineList').find('input:checkbox');
+            for (var i = 0, len = verseList.length; i < len; i++) {
+                var cb = verseList[i];
+                var currentBook = '';
+                if ($(cb).is(':checked')) {
+                    var pos = $(cb).val().indexOf('.'); // usually bookNr.chapterNr.verseNr
+                    var bookNr = $(cb).val().substr(0, pos);
+                    var cbnew = $(cb).val().substr(pos + 1); // chapterNr.verseNr.verselineNr
+                    pos = cbnew.indexOf('.');
+                    var chapterNr = cbnew.substr(0, pos);
+                    var verseNr = cbnew.substr(pos + 1);
+                    pos = verseNr.indexOf('.');
+                    verselineNr = verseNr.substr(pos + 1);
+                    verseNr = verseNr.substr(0, pos);
+                    alert(bookNr + ' ' + chapterNr + ' ' +
+                        verseNr + ' ' + verselineNr);
+                    //}
+                    var startNode = null,
+                        endNode = null;
+                    var spanList = $(contentWithVerse).find('span');
+                    for (var j = 0, len2 = spanList.length; j < len2; j++) {
+                        var span = spanList[j];
+                        var spanValue = $(span).html().trim();
+                        if ($(span).hasClass('book_number')) {
+                            currentBook = spanValue;
+                            if (startNode) { //if next entry after marked verse
+                                endNode = span;
+                                break;
+                            }
+                        } else if ($(span).hasClass('chapter_number')) {
+                            var currentChapter = spanValue;
+                            if (startNode) { //if next entry after marked verse
+                                endNode = span;
+                                break;
+                            }
+                        } else if ($(span).hasClass('verse_number')) {
+                            var currentVerse = spanValue;
+                            if (startNode) { //if next entry after marked verse
+                                endNode = span;
+                                break;
+                            }
+                        } else if ($(span).hasClass('verseline_number')) {
+                            if (startNode && verselineNr !== '') {
+                                endNode = span;
+                                break;
+                            } else if (spanValue == verselineNr && currentVerse == verseNr &&
+                                currentChapter == chapterNr && currentBook == bookNr &&
+                                verselineNr != '') {
+                                startNode = span;
+                            }
+                            spanValue_old = spanValue;
+                        }
+                    }
+                    if (endNode == null) //startNode was last span node of document
+                        endNode = ed.dom.getRoot().childNodes[ed.dom.getRoot().childNodes.length - 1];
+                    delVerse(startNode, endNode);
+                }
+            }
         }
         ed.setContent($(contentWithVerse).html());
     }

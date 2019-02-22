@@ -33,7 +33,7 @@
 */
 
 (function () {
-    var wfce_editor = "0.9.9 (2019-02-19)";
+    var wfce_editor = "0.9.10 (2019-02-20)";
 
     // Load plugin specific language pack
     tinymce.PluginManager.requireLangPack('wce');
@@ -1249,7 +1249,7 @@
                     w.not_D = false;
                     w.not_O = !wholeSelect;
                     //when select whole gap, can add corr.
-                    w.not_C = wholeSelect;
+                    w.not_C = !wholeSelect; //TODO: MS Check, whether to use wholeSelect
                     w.not_A = !wholeSelect;
                     break;
 
@@ -3023,7 +3023,6 @@
 
             ed.addButton('versemodify', {
                 title: tinymce.translate('menu_structure') + ' (Ctrl+Alt+S)',
-                //cmd: 'mceVerseModify',
                 image: url + '/img/button_S.png',
                 type: 'menubutton',
                 icons: false,
@@ -3038,6 +3037,7 @@
                         var oldwce = selectedNode.getAttribute('wce');
                         var pos = oldwce.substring(4).indexOf('_');
                         var type = oldwce.substring(4, 4 + pos);
+                        //alert(type);
                     }
                     if (type && (type == 'book' || type == 'chapter' || type == 'verse' ||
                             type == 'stanza' || type == 'line' || type == 'verseline' ||
