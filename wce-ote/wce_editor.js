@@ -64,9 +64,8 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
         //book : (getBook) ? getBook : "",
         witness: (getWitness) ? getWitness : "",
         manuscriptLang: (getWitnessLang) ? getWitnessLang : "",
-        plugins: "pagebreak,save,wordcount,paste,contextmenu,noneditable",
-        selector: "textarea", // change this value according to your HTML
-        plugins: "code,localautosave",
+        plugins: "pagebreak,save,wordcount,paste,contextmenu,noneditable,code,localautosave",
+        //selector: "textarea", // change this value according to your HTML
         las_seconds: 60,
         las_nVersions: 15,
         las_keyName: "LocalAutoSave",
@@ -92,7 +91,7 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
         // Theme options
         toolbar: "undo redo muyacharmap | LoadFile save | contextmenu cut copy paste | " +
             "breaks correction illegible decoration abbreviation paratext note punctuation language versemodify | " +
-            "showTeiByHtml | showHtmlByTei | info code | localautosave",
+            "showTeiByHtml | showHtmlByTei | info code | localautosave ",
         theme_advanced_buttons2: "",
         theme_advanced_toolbar_location: "top",
         theme_advanced_toolbar_align: "left",
