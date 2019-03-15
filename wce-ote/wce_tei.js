@@ -1,5 +1,5 @@
 /*
-	Copyright (C) 2012-2018 Trier Center for Digital Humanities, Trier (Germany)
+	Copyright (C) 2012-2019 Trier Center for Digital Humanities, Trier (Germany)
 
 	This file is part of the Online Transcription Editor (OTE).
 
@@ -144,6 +144,7 @@ function getHtmlByTei(inputString, args) {
             if (_change.getAttribute('type') == 'untransPahlavi' ||
                 _change.getAttribute('type') == 'untrans' ||
                 _change.getAttribute('type') == 'back' ||
+                //_change.getAttribute('type') == 'changeofscript' || MS: Is this necessary?
                 _change.getAttribute('type') == '' ||
                 _change.getAttribute('type') == 'undefined'
             ) {
@@ -4305,37 +4306,30 @@ function getTeiByHtml(inputString, args) {
 
         var reason = arr['reason_for_language_change'] ? arr['reason_for_language_change'] : 'back';
         switch (reason) {
-            case 'trans': //translation
+            /*case 'trans': //translation
                 $ab.setAttribute('type', 'trans');
                 $ab.setAttribute('n', g_bookNumber + "." + g_chapterNumber + "." + (g_stanzaNumber ? g_stanzaNumber : g_verseNumber) + String.fromCharCode(count_verse) + langID);
-                //$ab.setAttribute('n', String.fromCharCode(count_verse));
                 g_verseNumber++; //count overall number of language changes
-                break;
+                break;*/
             case 'ritual': //ritual direction
                 $ab.setAttribute('type', 'ritual');
                 $ab.setAttribute('n', g_bookNumber + "." + g_chapterNumber + "." + (g_stanzaNumber ? g_stanzaNumber : g_verseNumber) + String.fromCharCode(count_verse) + '-ritual-' + langID);
-                //$ab.setAttribute('n', String.fromCharCode(count_verse));
                 break;
             case 'backtomainlanguage':
             case 'back':
                 $ab.setAttribute('type', 'back');
                 $ab.setAttribute('n', g_bookNumber + "." + g_chapterNumber + "." + (g_stanzaNumber ? g_stanzaNumber : g_verseNumber) + String.fromCharCode(count_verse) + '-back-' + langID);
-                //$ab.setAttribute('n', String.fromCharCode(count_verse));
                 break;
+            case 'trans':
             case 'section':
-                $ab.setAttribute('type', 'section');
-                $ab.setAttribute('n', g_bookNumber + "." + g_chapterNumber + "." + (g_stanzaNumber ? g_stanzaNumber : g_verseNumber) + String.fromCharCode(count_verse) + langID);
-                //$ab.setAttribute('n', String.fromCharCode(count_verse));
-                break;
             case 'untrans':
-                $ab.setAttribute('type', 'untrans');
+            case 'changeofscript':
+                $ab.setAttribute('type', reason);
                 $ab.setAttribute('n', g_bookNumber + "." + g_chapterNumber + "." + (g_stanzaNumber ? g_stanzaNumber : g_verseNumber) + String.fromCharCode(count_verse) + langID);
-                //$ab.setAttribute('n', String.fromCharCode(count_verse));
                 break;
             default:
                 $ab.setAttribute('type', decodeURI(arr['reason_for_language_change_other']));
                 $ab.setAttribute('n', g_bookNumber + "." + g_chapterNumber + "." + (g_stanzaNumber ? g_stanzaNumber : g_verseNumber) + String.fromCharCode(count_verse) + '-other-' + langID);
-                //$ab.setAttribute('n', String.fromCharCode(count_verse));
         }
 
         //TODO: special case for mainlanguage
