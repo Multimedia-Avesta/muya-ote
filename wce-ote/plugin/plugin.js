@@ -33,7 +33,7 @@
 */
 
 (function () {
-    var wfce_editor = "1.0.0 BETA (2019-04-01)";
+    var wfce_editor = "1.0.0 BETA (2019-04-08)";
 
     // Load plugin specific language pack
     tinymce.PluginManager.requireLangPack('wce');
@@ -2121,7 +2121,22 @@
                             info_text = '<div>' + 'Verseline';
                             if (ar['lang']) {
                                 var lang = ar['lang'];
-                                info_text += '<div>' + tinymce.translate('language_name') + ': ' + lang + '</div>';
+                                info_text += '<div>' + tinymce.translate('language_name') + ': ' + tinymce.translate(lang.replace("-", "")) + '</div>';
+                            }
+                            if (ar['partial']) {
+                                switch (ar['partial']) {
+                                    case "I":
+                                        info_text += '<div>' + tinymce.translate('initial_portion') + '</div>';
+                                        break;
+                                    case "M":
+                                        info_text += '<div>' + tinymce.translate('medial_portion') + '</div>';
+                                        break;
+                                    case "F":
+                                        info_text += '<div>' + tinymce.translate('final_portion') + '</div>';
+                                        break;
+                                    default:
+                                        info_text += '<div>' + 'Unknown partial information' + '</div>';
+                                }
                             }
                             info_text += '</div>';
                             break;
@@ -2129,7 +2144,22 @@
                             info_text = '<div>' + 'Line';
                             if (ar['lang']) {
                                 var lang = ar['lang'];
-                                info_text += '<div>' + tinymce.translate('language_name') + ': ' + lang + '</div>';
+                                info_text += '<div>' + tinymce.translate('language_name') + ': ' + tinymce.translate(lang.replace("-", "")) + '</div>';
+                            }
+                            if (ar['partial']) {
+                                switch (ar['partial']) {
+                                    case "I":
+                                        info_text += '<div>' + tinymce.translate('initial_portion') + '</div>';
+                                        break;
+                                    case "M":
+                                        info_text += '<div>' + tinymce.translate('medial_portion') + '</div>';
+                                        break;
+                                    case "F":
+                                        info_text += '<div>' + tinymce.translate('final_portion') + '</div>';
+                                        break;
+                                    default:
+                                        info_text += '<div>' + 'Unknown partial information' + '</div>';
+                                }
                             }
                             info_text += '</div>';
                             break;
@@ -2137,7 +2167,7 @@
                             info_text = '<div>' + 'Ritual direction';
                             if (ar['lang']) {
                                 var lang = ar['lang'];
-                                info_text += '<div>' + tinymce.translate('language_name') + ': ' + lang + '</div>';
+                                info_text += '<div>' + tinymce.translate('language_name') + ': ' + tinymce.translate(lang.replace("-", "")) + '</div>';
                             }
                             info_text += '</div>';
                             break;
@@ -2153,7 +2183,7 @@
                             }
                             if (ar['lang']) {
                                 var lang = ar['lang'];
-                                info_text += '<div>' + tinymce.translate('language_name') + ': ' + lang + '</div>';
+                                info_text += '<div>' + tinymce.translate('language_name') + ': ' + tinymce.translate(lang.replace("-", "")) + '</div>';
                             }
                             info_text += '</div>';
                             break;
@@ -2169,7 +2199,7 @@
                             }
                             if (ar['lang']) {
                                 var lang = ar['lang'];
-                                info_text += '<div>' + tinymce.translate('language_name') + ': ' + lang + '</div>';
+                                info_text += '<div>' + tinymce.translate('language_name') + ': ' + tinymce.translate(lang.replace("-", "")) + '</div>';
                             }
                             info_text += '</div>';
                             break;
@@ -2177,7 +2207,7 @@
                             info_text = '<div>' + 'Chapter number';
                             if (ar['lang']) {
                                 var lang = ar['lang'];
-                                info_text += '<div>' + tinymce.translate('language_name') + ': ' + lang + '</div>';
+                                info_text += '<div>' + tinymce.translate('language_name') + ': ' + tinymce.translate(lang.replace("-", "")) + '</div>';
                             }
                             info_text += '</div>';
                             break;
@@ -2185,7 +2215,7 @@
                             info_text = '<div>' + 'Book name';
                             if (ar['lang']) {
                                 var lang = ar['lang'];
-                                info_text += '<div>' + tinymce.translate('language_name') + ': ' + lang + '</div>';
+                                info_text += '<div>' + tinymce.translate('language_name') + ': ' + tinymce.translate(lang.replace("-", "")) + '</div>';
                             }
                             info_text += '</div>';
                             break;

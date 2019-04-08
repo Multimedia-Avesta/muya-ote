@@ -1,5 +1,5 @@
 <!--
-	Copyright (C) 2012-2018 Trier Center for Digital Humanities, Trier (Germany)
+	Copyright (C) 2012-2019 Trier Center for Digital Humanities, Trier (Germany)
 
 	This file is part of the Online Transcription Editor (OTE).
 
@@ -55,15 +55,15 @@
                     <td><label id="fw_label" for="fw_type">{#paratext}</label>
                     </td>
                     <td colspan="3"><select id="fw_type" name="fw_type" onchange="checkstatus_typ()">
-							<option value="commentary">{#fw_commentary_text}</option>
-							<option value="runTitle">{#fw_running_title}</option>
-							<option value="colophon">{#fw_colophon}</option>
-							<option value="pageNum">{#fw_pagenumber}</option>
-							<option value="isolated">{#fw_isolated}</option>
-							<option value="orn">{#fw_ornament}</option>
+                            <option value="commentary">{#fw_commentary_text}</option>
+                            <option value="runTitle">{#fw_running_title}</option>
+                            <option value="colophon">{#fw_colophon}</option>
+                            <option value="pageNum">{#fw_pagenumber}</option>
+                            <option value="isolated">{#fw_isolated}</option>
+                            <option value="orn">{#fw_ornament}</option>
                             <option value="catch">{#fw_catchword}</option>
-							<option value="other">{#other}</option>
-					</select>
+                            <option value="other">{#other}</option>
+                        </select>
                     </td>
                     <td><input id="fw_type_other" name="fw_type_other" type="text" value="" size="20" maxlength="" class="required number min1 mceFocus" />
                     </td>
@@ -80,23 +80,23 @@
                     <td><label id="language_name_label" for="language_name">{#language_name}</label></td>
                     <td>
                         <select id="language_name" name="language_name" onchange="checkstatus_language()">
-				            <option value=""></option>
+                            <option value=""></option>
                             <option value="ae">{#avestan}</option>
                             <option value="gu">{#gujarati}</option>
-							<option value="fa">{#persian}</option>
-							<option value="sa">{#sanskrit}</option>
-							<option value="ae-Avst">{#avestan_avst}</option>
-							<option value="ae-Phlv">{#avestan_phlv}</option>
+                            <option value="fa">{#persian}</option>
+                            <option value="sa">{#sanskrit}</option>
+                            <option value="ae-Avst">{#avestan_avst}</option>
+                            <option value="ae-Phlv">{#avestan_phlv}</option>
                             <option value="ae-Gujr">{#avestan_gujr}</option>
-							<option value="pal-Avst">{#pahlavi_avst}</option>
+                            <option value="pal-Avst">{#pahlavi_avst}</option>
                             <option value="pal-Phlv">{#pahlavi_phlv}</option>
-							<option value="pal-Gujr">{#pahlavi_gujr}</option>
+                            <option value="pal-Gujr">{#pahlavi_gujr}</option>
                             <option value="pal-Phli">{#pahlavi_phli}</option>
                             <option value="gu-Arab">{#gujarati_arab}</option>
                             <option value="gu-Gujr">{#gujarati_gujr}</option>
                             <option value="ar">{#arabic}</option>
-							<option value="other">{#other}</option>
-							</select>
+                            <option value="other">{#other}</option>
+                        </select>
                     </td>
                     <td>
                         <input id="language_name_other" name="language_name_other" type="text" value="" size="30" />
@@ -112,23 +112,23 @@
                     <td><label id="paratext_position_label" for="paratext_position">{#position}</label>
                     </td>
                     <td><select id="paratext_position" name="paratext_position" onchange="checkstatus_position()">
-							<option value=""></option>
-							<option value="pagetop">{#position_pagetop}</option>
-							<option value="pagebottom">{#position_pagebottom}</option>
-							<option value="pageleft">{#position_pageleft}</option>
-							<option value="pageright">{#position_pageright}</option>
-							<option value="coltop">{#position_coltop}</option>
-							<option value="colbottom">{#position_colbottom}</option>
-							<option value="colleft">{#position_colleft}</option>
-							<option value="colright">{#position_colright}</option>
-							<option value="lineleft">{#position_lineleft}</option>
-							<option value="lineright">{#position_lineright}</option>
-							<option value="above">{#position_above}</option>
-							<option value="below">{#position_below}</option>
-							<option value="here">{#position_thispoint}</option>
-							<option value="overwritten">{#position_overwritten}</option>
-							<option value="other">{#other}</option>
-					</select>
+                            <option value=""></option>
+                            <option value="pagetop">{#position_pagetop}</option>
+                            <option value="pagebottom">{#position_pagebottom}</option>
+                            <option value="pageleft">{#position_pageleft}</option>
+                            <option value="pageright">{#position_pageright}</option>
+                            <option value="coltop">{#position_coltop}</option>
+                            <option value="colbottom">{#position_colbottom}</option>
+                            <option value="colleft">{#position_colleft}</option>
+                            <option value="colright">{#position_colright}</option>
+                            <option value="lineleft">{#position_lineleft}</option>
+                            <option value="lineright">{#position_lineright}</option>
+                            <option value="above">{#position_above}</option>
+                            <option value="below">{#position_below}</option>
+                            <option value="here">{#position_thispoint}</option>
+                            <option value="overwritten">{#position_overwritten}</option>
+                            <option value="other">{#other}</option>
+                        </select>
                     </td>
                     <td><input id="paratext_position_other" name="paratext_position_other" type="text" value="" size="20" maxlength="" class="required number min1 mceFocus" />
                     </td>
@@ -137,11 +137,11 @@
                     <td><label id="paratext_alignment_label" for="paratext_alignment">{#alignment}</label></td>
                     <td colspan="2">
                         <select id="paratext_alignment" name="paratext_alignment">
-							<option value=""></option>
-							<option value="left">{#alignment_l}</option>
-							<option value="center">{#alignment_c}</option>
-							<option value="right">{#alignment_r}</option>
-					   </select>
+                            <option value=""></option>
+                            <option value="left">{#alignment_l}</option>
+                            <option value="center">{#alignment_c}</option>
+                            <option value="right">{#alignment_r}</option>
+                        </select>
                     </td>
                 </tr>
             </table>
@@ -183,14 +183,14 @@
             force_p_newlines: false,
             entity_encoding: "raw",
             theme_advanced_path: false,
-            plugins: "pagebreak,paste",
+            plugins: "pagebreak,paste,contextmenu",
             paste_as_text: true,
             external_plugins: {
                 'wce': '../../wce-ote/plugin/plugin.js',
                 'muyacharmap': '../../wce-ote/plugin/js/muya_charmap.js',
-                'punctuation': '../../wce-ote/plugin/js/punctuation.js',
-                'wcelinenumber': '../../wce-ote/plugin/js/line_number.js',
-                'wcecharmapsidebar': '../../wce-ote/plugin/js/charmap_sidebar.js'
+                'punctuation': '../../wce-ote/plugin/js/punctuation.js'
+                //'wcelinenumber': '../../wce-ote/plugin/js/line_number.js',
+                //'wcecharmapsidebar': '../../wce-ote/plugin/js/charmap_sidebar.js'
             },
             internal_editor: true,
             toolbar: "undo redo muyacharmap | contextmenu cut copy paste | " +
