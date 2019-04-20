@@ -577,6 +577,7 @@ span.unclear {
     border: 1px dotted #f00;
     margin: 0px 0px 0px 1px;
     padding: 0;
+    color: silver;
 }
 
 span.witnessend {

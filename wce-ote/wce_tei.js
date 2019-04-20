@@ -685,7 +685,7 @@ function getHtmlByTei(inputString, args) {
             textValue = '(' + textValue + ')';
         } else if (oldNodeParentName == 'unclear') {
             // unclear
-            var unclear_text = "";
+            /*var unclear_text = "";
             for (var i = 0, ch, l = textValue.length; i < l; i++) {
                 ch = textValue.charAt(i);
                 if (ch == ' ') {
@@ -694,7 +694,7 @@ function getHtmlByTei(inputString, args) {
                     unclear_text += ch + '\u0323';
                 }
             }
-            textValue = unclear_text;
+            textValue = unclear_text;*/
         }
 
         nodeAddText($htmlParent, textValue);
@@ -4227,7 +4227,7 @@ function getTeiByHtml(inputString, args) {
     var html2Tei_unclear = function (arr, $teiParent, $htmlNode) {
         //remove Dot Below
         var str = xml2String($htmlNode);
-        str = str.replace(/\u0323/g, '');
+        //str = str.replace(/\u0323/g, '');
         $htmlNode = loadXMLString(str).documentElement;
 
         var $unclear = $newDoc.createElement('unclear');
