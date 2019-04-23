@@ -249,7 +249,7 @@ function writeWceNodeInfo(val) {
                 }
                 break;
             case 'unclear':
-                if (selected_content.indexOf('<span') == -1) { // take care of spaces element
+                /*if (selected_content.indexOf('<span') == -1) { // take care of spaces element
                     var unclear_text = "";
                     for (var i = 0; i < selected_content.length; i++) {
                         if (selected_content.charAt(i) == ' ') {
@@ -259,7 +259,7 @@ function writeWceNodeInfo(val) {
                         }
                     }
                     selected_content = unclear_text;
-                }
+                }*/
                 break;
             case 'note':
                 new_content = selected_content + '<span wce="' + newWceAttr + '"' + original_text + wceClass + '>' + startFormatHtml + 'Note' + endFormatHtml + '</span>';
