@@ -54,8 +54,8 @@
                     <td><label id="reason_for_language_change_label" for="reason_for_language_change">{#reason_for_language_change}</label></td>
                     <td>
                         <select id="reason_for_language_change" name="reason_for_language_change" onchange="checkstatus_reason()">
-                            <option value="trans">{#translation}</option>
-                            <option value="ritual">{#ritual}</option>
+                            <option value="translation">{#translation}</option>
+                            <!--<option value="ritual">{#ritual}</option>-->
                             <option value="section">{#section}</option>
                             <option value="changeofscript">{#changeofscript}</option>
                             <option value="other">{#other}</option>
@@ -90,7 +90,7 @@
                         <input id="language_name_other" name="language_name_other" type="text" value="" size="30" />
                     </td>
                 </tr>
-                <tr>
+                <!--<tr>
                     <td>
                         <label id="color_label" for="color">{#menu_hl_color}</label>
                     </td>
@@ -100,7 +100,7 @@
                             <option value="red">{#menu_hl_red}</option>
                         </select>
                     </td>
-                </tr>
+                </tr>-->
                 <!--<tr>
                     <td>
                         <label id="number_of_lines_label" for="number_of_lines">{#covered}</label>
@@ -184,7 +184,7 @@
 
     function testOther() {
         if ((document.languageinfo.language_name.options[15].selected == true && document.getElementById('language_name_other').value == '') ||
-            (document.languageinfo.reason_for_language_change.options[4].selected == true && document.getElementById('reason_for_language_change_other').value == ''))
+            (document.languageinfo.reason_for_language_change.options[3].selected == true && document.getElementById('reason_for_language_change_other').value == ''))
             return false;
         return true;
     }
@@ -204,39 +204,39 @@
             $('#reason_for_language_change_other').css('background', '#ccc');
         }
         switch ($('#reason_for_language_change').val()) {
-            case 'trans':
+            case 'translation':
                 $('#language_name').attr('disabled', false);
                 $('#language_name').css('background', '#fff');
-                $('#color').attr('disabled', false);
-                $('#color').css('background', '#fff');
-                $('#color').val('black');
+                //$('#color').attr('disabled', false);
+                //$('#color').css('background', '#fff');
+                //$('#color').val('black');
                 $('#following_language').attr('disabled', false);
                 $('#following_language').css('background', '#fff');
                 break;
-            case 'ritual':
-                $('#language_name').attr('disabled', false);
-                $('#language_name').css('background', '#fff');
-                $('#color').attr('disabled', false);
-                $('#color').css('background', '#fff');
-                $('#color').val('red');
-                $('#following_language').attr('disabled', false);
-                $('#following_language').css('background', '#fff');
-                break;
+                /*case 'ritual':
+                    $('#language_name').attr('disabled', false);
+                    $('#language_name').css('background', '#fff');
+                    $('#color').attr('disabled', false);
+                    $('#color').css('background', '#fff');
+                    $('#color').val('red');
+                    $('#following_language').attr('disabled', false);
+                    $('#following_language').css('background', '#fff');
+                    break;*/
             case 'section':
                 $('#language_name').attr('disabled', false);
                 $('#language_name').css('background', '#fff');
-                $('#color').attr('disabled', false);
-                $('#color').css('background', '#fff');
-                $('#color').val('black');
+                //$('#color').attr('disabled', false);
+                //$('#color').css('background', '#fff');
+                //$('#color').val('black');
                 $('#following_language').attr('disabled', false);
                 $('#following_language').css('background', '#fff');
                 break;
             default: //other
                 $('#language_name').attr('disabled', false);
                 $('#language_name').css('background', '#fff');
-                $('#color').attr('disabled', false);
-                $('#color').css('background', '#fff');
-                $('#color').val('black');
+                //$('#color').attr('disabled', false);
+                //$('#color').css('background', '#fff');
+                //$('#color').val('black');
                 $('#following_language').attr('disabled', false);
                 $('#following_language').css('background', '#fff');
         }

@@ -33,7 +33,7 @@
 */
 
 (function () {
-    var wfce_editor = "1.0.0 BETA (2019-04-23)";
+    var wfce_editor = "1.0.0 BETA (2019-05-01)";
 
     // Load plugin specific language pack
     tinymce.PluginManager.requireLangPack('wce');
@@ -4347,7 +4347,7 @@
                 author: 'WCE',
                 authorurl: 'http://wce',
                 infourl: 'http://wce',
-                version: "0.6.2BETA"
+                version: "1.0.0"
             };
         }
     }

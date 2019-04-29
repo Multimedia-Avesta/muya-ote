@@ -129,7 +129,7 @@ function getHtmlByTei(inputString, args) {
 
     var Tei2Html_handleLanguageChange = function ($teiNode) {
         var list = [];
-        var abNodes = $teiNode.querySelectorAll('foreign');
+        var abNodes = $teiNode.querySelectorAll('ab');
         if (abNodes) {
             var lang = '',
                 langNode;
@@ -587,7 +587,9 @@ function getHtmlByTei(inputString, args) {
                 // verse
 
             case 'foreign':
-                return Tei2Html_foreign($htmlParent, $teiNode);
+                alert("You use <foreign> in your file. This is no longer supported. Please contact the technical staff.")
+                return $htmlParent;
+                //return Tei2Html_foreign($htmlParent, $teiNode);
                 //foreign text
 
             case 'pc':
@@ -818,7 +820,8 @@ function getHtmlByTei(inputString, args) {
      * <ab>
      */
     var Tei2Html_ab = function ($htmlParent, $teiNode) {
-        if ($teiNode.getAttribute("type") && $teiNode.getAttribute("type") == 'stanza') {
+        var type = $teiNode.getAttribute("type");
+        if (type && type == 'stanza') {
             var $newNode = $newDoc.createElement('span');
             $newNode.setAttribute('class', 'stanza_number mceNonEditable');
             var nValue = $teiNode.getAttribute('n');
@@ -837,7 +840,7 @@ function getHtmlByTei(inputString, args) {
             } else {
                 addFormatElement($newNode);
             }
-        } else if ($teiNode.getAttribute("type") && $teiNode.getAttribute("type") == 'verse') { // Verse
+        } else if (type && type == 'verse') { // Verse
             var $newNode = $newDoc.createElement('span');
             var type = $teiNode.getAttribute('type');
             $newNode.setAttribute('class', 'verse_number mceNonEditable');
@@ -857,7 +860,7 @@ function getHtmlByTei(inputString, args) {
             } else {
                 addFormatElement($newNode);
             }
-        } else if ($teiNode.getAttribute("type") && $teiNode.getAttribute("type") == 'ritualdirection') { // ritualdirection
+        } else if (type && type == 'ritualdirection') { // ritualdirection
             var $newNode = $newDoc.createElement('span');
             var type = $teiNode.getAttribute('type');
             $newNode.setAttribute('class', 'ritualdirection_number mceNonEditable');
@@ -879,7 +882,7 @@ function getHtmlByTei(inputString, args) {
             } else {
                 addFormatElement($newNode);
             }
-        } else if ($teiNode.getAttribute("type") && $teiNode.getAttribute("type") == 'line') { // line
+        } else if (type && type == 'line') { // line
             var $newNode = $newDoc.createElement('span');
             var type = $teiNode.getAttribute('type');
             $newNode.setAttribute('class', 'line_number mceNonEditable');
@@ -904,7 +907,7 @@ function getHtmlByTei(inputString, args) {
             } else {
                 addFormatElement($newNode);
             }
-        } else if ($teiNode.getAttribute("type") && $teiNode.getAttribute("type") == 'verseline') { // verseline
+        } else if (type && type == 'verseline') { // verseline
             var $newNode = $newDoc.createElement('span');
             var type = $teiNode.getAttribute('type');
             $newNode.setAttribute('class', 'verseline_number mceNonEditable');
@@ -924,6 +927,121 @@ function getHtmlByTei(inputString, args) {
                 $newNode.setAttribute('wce', '__t=verseline_number&partial=' + partValue + verseLang);
             else
                 $newNode.setAttribute('wce', '__t=verseline_number' + verseLang);
+            if ($teiNode.getAttribute('xml:lang')) {
+                addFormatElement($newNode, $teiNode.getAttribute('xml:lang'));
+            } else {
+                addFormatElement($newNode);
+            }
+        } else if (type && type == 'untrans') {
+            var ed = parent.tinymce.activeEditor;
+            var $newNode = $newDoc.createElement('span');
+            $newNode.setAttribute('class', 'langchange');
+
+            var lang = $teiNode.getAttribute('xml:lang');
+            lang = lang ? lang : '';
+            var wceAttr = '__t=langchange&language_name=' + lang;
+            var innerHTML = '<span class="editortext" language="' + lang + '">' + '\u2192' + '</span>';
+            var _gap = $teiNode.querySelector('gap[extent]');
+            var _extent = parseInt(_gap.getAttribute('extent'));
+            var lang_long = '';
+            switch (lang) {
+                case 'pal-Phlv':
+                case 'pal-Avst':
+                case 'pal-Phli':
+                case 'pal-Gujr':
+                    lang_long = 'Pahlavi';
+                    break;
+                case 'ae':
+                case 'ae-Avst':
+                case 'ae-Gujr':
+                case 'ae-Phlv':
+                    lang_long = 'Avestan';
+                    break;
+                case 'gu':
+                case 'gu-Gujr':
+                case 'gu-Arab':
+                    lang_long = 'Gujarati';
+                    break;
+                case 'fa':
+                    lang_long = 'Persian';
+                    break;
+                case 'sa':
+                    lang_long = 'Sanskrit';
+                    break;
+                case 'ar':
+                    lang_long = 'Arabic';
+                    break;
+            }
+            var covertext = ed.translate('untrans') + ' in ' + lang_long;
+            for (var i = 0; i < _extent; i++) {
+                covertext += '<span class="mceNonEditable brea" wce="__t=brea&amp;__n=&amp;hasBreak=no&amp;break_type=lb&amp;number=&amp;rv=&amp;page_number=&amp;running_title=&amp;facs=&amp;lb_alignment=">' +
+                    '<span class="format_start mceNonEditable">‹</span><br />↵<span class="format_end mceNonEditable">›</span></span>' +
+                    ed.translate('untrans') + ' in ' + lang_long;
+            }
+            innerHTML += '<span class="editortext">' + covertext + '</span>';
+
+            wceAttr += '&reason_for_language_change=' + type + '&reason_for_language_change_other=' + '&number_of_lines=' + _extent;
+            _gap.remove();
+            var verseLang = '';
+            if ($teiNode.getAttribute('xml:lang')) {
+                verseLang = '&lang=' + $teiNode.getAttribute('xml:lang');
+            }
+            $newNode.setAttribute('wce', wceAttr);
+            $newNode.setAttribute('language', lang);
+            $tmp = $('<temp>' + innerHTML + '</temp>')[0];
+            while ($tmp.firstChild) {
+                $newNode.appendChild($tmp.firstChild);
+            }
+            if ($teiNode.getAttribute('xml:lang')) {
+                addFormatElement($newNode, $teiNode.getAttribute('xml:lang'));
+            } else {
+                addFormatElement($newNode);
+            }
+        } else if (type == 'other') {
+            var $newNode = $newDoc.createElement('span');
+            $newNode.setAttribute('class', 'langchange');
+
+            var lang = $teiNode.getAttribute('xml:lang');
+            lang = lang ? lang : '';
+            var wceAttr = '__t=langchange&language_name=' + lang;
+            var innerHTML = '<span class="editortext" language="' + lang + '">' + '\u2192' + '</span>';
+
+            wceAttr += '&reason_for_language_change=other&reason_for_language_change_other=' + subtype;
+            var verseLang = '';
+            if ($teiNode.getAttribute('xml:lang')) {
+                verseLang = '&lang=' + $teiNode.getAttribute('xml:lang');
+            }
+            $newNode.setAttribute('wce', wceAttr);
+            $newNode.setAttribute('language', lang);
+            $tmp = $('<temp>' + innerHTML + '</temp>')[0];
+            while ($tmp.firstChild) {
+                $newNode.appendChild($tmp.firstChild);
+            }
+            if ($teiNode.getAttribute('xml:lang')) {
+                addFormatElement($newNode, $teiNode.getAttribute('xml:lang'));
+            } else {
+                addFormatElement($newNode);
+            }
+        } else if (type) {
+            var $newNode = $newDoc.createElement('span');
+            $newNode.setAttribute('class', 'langchange');
+
+            var lang = $teiNode.getAttribute('xml:lang');
+            lang = lang ? lang : '';
+            var wceAttr = '__t=langchange&language_name=' + lang;
+            var innerHTML = '<span class="editortext" language="' + lang + '">' + '\u2192' + '</span>';
+            wceAttr += '&reason_for_language_change=' + type + '&reason_for_language_change_other=';
+            var verseLang = '';
+            if ($teiNode.getAttribute('xml:lang')) {
+                verseLang = '&lang=' + $teiNode.getAttribute('xml:lang');
+            }
+            $newNode.setAttribute('wce', wceAttr);
+            $newNode.setAttribute('language', lang);
+            $tmp = $('<temp>' + innerHTML + '</temp>')[0];
+            while ($tmp.firstChild) {
+                $newNode.appendChild($tmp.firstChild);
+            }
+
             if ($teiNode.getAttribute('xml:lang')) {
                 addFormatElement($newNode, $teiNode.getAttribute('xml:lang'));
             } else {
@@ -958,7 +1076,7 @@ function getHtmlByTei(inputString, args) {
         return $htmlParent;
     };
 
-    var Tei2Html_foreign = function ($htmlParent, $teiNode) {
+    /*var Tei2Html_foreign = function ($htmlParent, $teiNode) {
         var ed = parent.tinymce.activeEditor;
         var $newNode = $newDoc.createElement('span');
         $newNode.setAttribute('class', 'langchange');
@@ -1036,7 +1154,7 @@ function getHtmlByTei(inputString, args) {
         $htmlParent.appendChild($newNode);
         nodeAddText($htmlParent, ' ');
         return $htmlParent;
-    };
+    };*/
 
     /*
      * <pc>
@@ -2078,7 +2196,7 @@ function getTeiByHtml(inputString, args) {
     var html2Tei_handleLanguageChange = function ($node) {
         //var mainLang = .querySelector('text').getAttribute('xml:lang');
         var mainLang = mainLang ? mainLang : 'previous';
-        var abNodes = $node.querySelectorAll('ab,foreign');
+        var abNodes = $node.querySelectorAll('ab');
         var list = [];
         if (abNodes) {
             var lang = '',
@@ -2086,7 +2204,7 @@ function getTeiByHtml(inputString, args) {
             abNodes.forEach(function (ab) {
                 var att_type = '';
                 var att_lang = ab.getAttribute('xml:lang');
-                if (ab.nodeName == 'foreign') {
+                if (ab.nodeName == 'ab') {
                     att_type = 'languageChange';
                     lang = att_lang;
                     langNode = ab.cloneNode(true);
@@ -2212,15 +2330,15 @@ function getTeiByHtml(inputString, args) {
         var end = list.length - 1;
         list.forEach(function (curr, i) {
             if (pre) {
-                if (curr.node.nodeName === 'foreign') {
-                    if (pre.node.nodeName === 'foreign') {
+                if (curr.node.nodeName === 'ab') {
+                    if (pre.node.nodeName === 'ab') {
                         _change_change(pre, curr);
                     } else { //foreign-ab
                         if (curr.node != pre.node.firstChild && curr.node != pre.node.nextSibling)
                             _verse_change(pre, curr);
                     }
                 } else {
-                    if (pre.node.nodeName === 'foreign') {
+                    if (pre.node.nodeName === 'ab') {
                         _change_verse(pre);
                     } else { //ab-ab
                         if (curr.node != pre.node.firstChild && curr.node != pre.node.nextSibling)
@@ -2230,7 +2348,7 @@ function getTeiByHtml(inputString, args) {
 
                 //last
                 if (i == end) {
-                    if (curr.node.nodeName === 'foreign') {
+                    if (curr.node.nodeName === 'ab') {
                         _change_verse(curr);
                     } else {
                         _verse(curr);
@@ -4316,7 +4434,7 @@ function getTeiByHtml(inputString, args) {
     };
 
     var html2Tei_langchange = function (arr, $teiParent, $htmlNode) {
-        var $ab = $newDoc.createElement('foreign');
+        var $ab = $newDoc.createElement('ab');
         var count_verse = 97 + Math.floor(g_verseNumber / 2);
         var langID;
 
@@ -4342,16 +4460,17 @@ function getTeiByHtml(inputString, args) {
                 $ab.setAttribute('n', g_bookNumber + "." + g_chapterNumber + "." + (g_stanzaNumber ? g_stanzaNumber : g_verseNumber) + String.fromCharCode(count_verse) + langID);
                 g_verseNumber++; //count overall number of language changes
                 break;*/
-            case 'ritual': //ritual direction
+            /*case 'ritual': //ritual direction
                 $ab.setAttribute('type', 'ritual');
                 $ab.setAttribute('n', g_bookNumber + "." + g_chapterNumber + "." + (g_stanzaNumber ? g_stanzaNumber : g_verseNumber) + String.fromCharCode(count_verse) + '-ritual-' + langID);
-                break;
+                break;*/
             case 'backtomainlanguage':
             case 'back':
                 $ab.setAttribute('type', 'back');
                 $ab.setAttribute('n', g_bookNumber + "." + g_chapterNumber + "." + (g_stanzaNumber ? g_stanzaNumber : g_verseNumber) + String.fromCharCode(count_verse) + '-back-' + langID);
                 break;
             case 'trans':
+            case 'translation':
             case 'section':
             case 'untrans':
             case 'changeofscript':
@@ -4364,7 +4483,8 @@ function getTeiByHtml(inputString, args) {
         }
 
         //TODO: special case for mainlanguage
-        $ab.setAttribute('xml:lang', lang);
+        if (lang !== "mainlanguage")
+            $ab.setAttribute('xml:lang', lang);
 
         if (arr['reason_for_language_change'] == 'untrans') { // we have to add a gap element
             var $gap = $newDoc.createElement('gap');
