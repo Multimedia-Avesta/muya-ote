@@ -783,11 +783,15 @@ function getHtmlByTei(inputString, args) {
         if (divType == 'book') {
             var $newNode = $newDoc.createElement('span');
             $newNode.setAttribute('class', 'book_number mceNonEditable');
+            var partValue = $teiNode.getAttribute('part');
             var verseLang = '';
             if ($teiNode.getAttribute('xml:lang')) {
                 verseLang = '&lang=' + $teiNode.getAttribute('xml:lang');
             }
-            $newNode.setAttribute('wce', '__t=book_number' + verseLang);
+            if (partValue)
+                $newNode.setAttribute('wce', '__t=book_number&partial=' + partValue + verseLang);
+            else
+                $newNode.setAttribute('wce', '__t=book_number' + verseLang);
             $newNode.setAttribute('id', ++gid);
             var $booknumber = $teiNode.getAttribute('n');
             if ($booknumber && $booknumber != '')
@@ -796,10 +800,15 @@ function getHtmlByTei(inputString, args) {
             var $newNode = $newDoc.createElement('span');
             $newNode.setAttribute('class', 'chapter_number mceNonEditable');
             var verseLang = '';
+            var partValue = $teiNode.getAttribute('part');
+            var verseLang = '';
             if ($teiNode.getAttribute('xml:lang')) {
                 verseLang = '&lang=' + $teiNode.getAttribute('xml:lang');
             }
-            $newNode.setAttribute('wce', '__t=chapter_number' + verseLang);
+            if (partValue)
+                $newNode.setAttribute('wce', '__t=chapter_number&partial=' + partValue + verseLang);
+            else
+                $newNode.setAttribute('wce', '__t=chapter_number' + verseLang);
             $newNode.setAttribute('id', ++gid);
             var nValue = $teiNode.getAttribute('n');
             if (nValue && nValue != '') {
@@ -831,10 +840,15 @@ function getHtmlByTei(inputString, args) {
                 nodeAddText($newNode, nValue.substr(indexOfSecond + 1));
             }
             var verseLang = '';
+            var partValue = $teiNode.getAttribute('part');
+            var verseLang = '';
             if ($teiNode.getAttribute('xml:lang')) {
                 verseLang = '&lang=' + $teiNode.getAttribute('xml:lang');
             }
-            $newNode.setAttribute('wce', '__t=stanza_number' + verseLang);
+            if (partValue)
+                $newNode.setAttribute('wce', '__t=stanza_number&partial=' + partValue + verseLang);
+            else
+                $newNode.setAttribute('wce', '__t=stanza_number' + verseLang);
             if ($teiNode.getAttribute('xml:lang')) {
                 addFormatElement($newNode, $teiNode.getAttribute('xml:lang'));
             } else {
@@ -850,11 +864,15 @@ function getHtmlByTei(inputString, args) {
                 var indexOfSecond = nValue.indexOf('.', indexOfFirst + 1); // dot after chapter number
                 nodeAddText($newNode, nValue.substr(indexOfSecond + 1));
             }
+            var partValue = $teiNode.getAttribute('part');
             var verseLang = '';
             if ($teiNode.getAttribute('xml:lang')) {
                 verseLang = '&lang=' + $teiNode.getAttribute('xml:lang');
             }
-            $newNode.setAttribute('wce', '__t=verse_number' + verseLang);
+            if (partValue)
+                $newNode.setAttribute('wce', '__t=verse_number&partial=' + partValue + verseLang);
+            else
+                $newNode.setAttribute('wce', '__t=verse_number' + verseLang);
             if ($teiNode.getAttribute('xml:lang')) {
                 addFormatElement($newNode, $teiNode.getAttribute('xml:lang'));
             } else {
@@ -871,12 +889,15 @@ function getHtmlByTei(inputString, args) {
                 var indexOfThird = nValue.indexOf('.', indexOfSecond + 1); // dot after stanza/verse number
                 nodeAddText($newNode, nValue.substr(indexOfThird + 1));
             }
-            //var rdLang = $teiNode.getAttribute('xml:lang') ? '&amp;lang=' + $teiNode.getAttribute('xml:lang') : '';
+            var partValue = $teiNode.getAttribute('part');
             var verseLang = '';
             if ($teiNode.getAttribute('xml:lang')) {
                 verseLang = '&lang=' + $teiNode.getAttribute('xml:lang');
             }
-            $newNode.setAttribute('wce', '__t=ritualdirection_number' + verseLang);
+            if (partValue)
+                $newNode.setAttribute('wce', '__t=ritualdirection_number&partial=' + partValue + verseLang);
+            else
+                $newNode.setAttribute('wce', '__t=ritualdirection_number' + verseLang);
             if ($teiNode.getAttribute('xml:lang')) {
                 addFormatElement($newNode, $teiNode.getAttribute('xml:lang'));
             } else {
@@ -935,7 +956,7 @@ function getHtmlByTei(inputString, args) {
         } else if (type && type == 'untrans') {
             var ed = parent.tinymce.activeEditor;
             var $newNode = $newDoc.createElement('span');
-            $newNode.setAttribute('class', 'langchange');
+            $newNode.setAttribute('class', 'langchange mceNonEditable');
 
             var lang = $teiNode.getAttribute('xml:lang');
             lang = lang ? lang : '';
@@ -999,7 +1020,7 @@ function getHtmlByTei(inputString, args) {
             }
         } else if (type == 'other') {
             var $newNode = $newDoc.createElement('span');
-            $newNode.setAttribute('class', 'langchange');
+            $newNode.setAttribute('class', 'langchange mceNonEditable');
 
             var lang = $teiNode.getAttribute('xml:lang');
             lang = lang ? lang : '';
@@ -1024,7 +1045,7 @@ function getHtmlByTei(inputString, args) {
             }
         } else if (type) {
             var $newNode = $newDoc.createElement('span');
-            $newNode.setAttribute('class', 'langchange');
+            $newNode.setAttribute('class', 'langchange mceNonEditable');
 
             var lang = $teiNode.getAttribute('xml:lang');
             lang = lang ? lang : '';
@@ -2441,8 +2462,8 @@ function getTeiByHtml(inputString, args) {
                 continue;
             }
 
-            if ($(preChild).hasClass('chapter_number') || $(preChild).hasClass('stanza_number') ||
-                $(preChild).hasClass('book_number') || $(preChild).hasClass('verse_number') ||
+            if ($(preChild).hasClass('book_number') || $(preChild).hasClass('chapter_number') ||
+                $(preChild).hasClass('stanza_number') || $(preChild).hasClass('verse_number') ||
                 $(preChild).hasClass('line_number') || $(preChild).hasClass('verseline_number') ||
                 $(preChild).hasClass('ritualdirection_number')) {
                 preChild = preChild.previousSibling;
@@ -2875,7 +2896,7 @@ function getTeiByHtml(inputString, args) {
     /*
      * read meta data and add them to the <teiHeader> element
      */
-    var getMetaData = function ($teiParent, $htmlNode) {
+    /*var getMetaData = function ($teiParent, $htmlNode) {
         var today = new Date();
         var dd = today.getDate();
         var mm = today.getMonth() + 1; //January is 0!
@@ -2940,7 +2961,7 @@ function getTeiByHtml(inputString, args) {
         $newNodeMd.appendChild($newNodeMi);
         $teiParent.appendChild($newNodeMd);
         return;
-    }
+    }*/
 
     /*
      * append wce node into <w>, only for supplied, unclear,  highlight etc.
@@ -3298,9 +3319,9 @@ function getTeiByHtml(inputString, args) {
                         g_stanzaNode.setAttribute('xml:lang', wceAttrValue.substring(lang_index + 5));
                     }
                 }
-                /*if (partial_index > -1) { // node contains information about partial
+                if (partial_index > -1) { // node contains information about partial
                     g_stanzaNode.setAttribute('part', wceAttrValue.substring(partial_index + 8, partial_index + 9));
-                }*/
+                }
                 if (g_chapterNode)
                     g_chapterNode.appendChild(g_stanzaNode);
                 else
@@ -3309,7 +3330,7 @@ function getTeiByHtml(inputString, args) {
             }
             return null;
         } else if (wceAttrValue != null && wceAttrValue.match(/chapter_number/)) {
-            //partial_index = wceAttrValue.indexOf('partial');
+            partial_index = wceAttrValue.indexOf('partial');
             lang_index = wceAttrValue.indexOf('lang');
 
             // ******************* chapter *******************
@@ -3329,9 +3350,9 @@ function getTeiByHtml(inputString, args) {
                         g_chapterNode.setAttribute('xml:lang', wceAttrValue.substring(lang_index + 5));
                     }
                 }
-                /*if (partial_index > -1) { // node contains information about partial
+                if (partial_index > -1) { // node contains information about partial
                     g_chapterNode.setAttribute('part', wceAttrValue.substring(partial_index + 8, partial_index + 9));
-                }*/
+                }
                 if (g_bookNode)
                     g_bookNode.appendChild(g_chapterNode);
                 else
@@ -3340,7 +3361,7 @@ function getTeiByHtml(inputString, args) {
             }
             return null;
         } else if (wceAttrValue != null && wceAttrValue.match(/book_number/)) {
-            //partial_index = wceAttrValue.indexOf('partial');
+            partial_index = wceAttrValue.indexOf('partial');
             lang_index = wceAttrValue.indexOf('lang');
 
             var textNode = $htmlNode.firstChild;
@@ -3359,9 +3380,9 @@ function getTeiByHtml(inputString, args) {
                         g_bookNode.setAttribute('xml:lang', wceAttrValue.substring(lang_index + 5));
                     }
                 }
-                /*if (partial_index > -1) { // node contains information about partial
+                if (partial_index > -1) { // node contains information about partial
                     g_bookNode.setAttribute('part', wceAttrValue.substring(partial_index + 8, partial_index + 9));
-                }*/
+                }
                 $newRoot.appendChild(g_bookNode);
                 g_currentParentNode = g_bookNode;
             }
@@ -3429,6 +3450,7 @@ function getTeiByHtml(inputString, args) {
             }
             return null;
         } else if (wceAttrValue != null && wceAttrValue.match(/ritualdirection_number/)) {
+            partial_index = wceAttrValue.indexOf('partial');
             lang_index = wceAttrValue.indexOf('lang');
             var textNode = $htmlNode.firstChild;
             if (textNode) {
@@ -3444,6 +3466,9 @@ function getTeiByHtml(inputString, args) {
                     } else {
                         g_ritualdirectionNode.setAttribute('xml:lang', wceAttrValue.substring(lang_index + 5));
                     }
+                }
+                if (partial_index > -1) { // node contains information about partial
+                    g_ritualdirectionNode.setAttribute('part', wceAttrValue.substring(partial_index + 8, partial_index + 9));
                 }
                 if (g_stanzaNode) {
                     g_ritualdirectionNode.setAttribute('n', g_bookNumber + '.' + g_chapterNumber + '.' + g_stanzaNumber + '.' + g_ritualdirectionNumber);
@@ -4438,8 +4463,7 @@ function getTeiByHtml(inputString, args) {
         var count_verse = 97 + Math.floor(g_verseNumber / 2);
         var langID;
 
-        // This could be arr[language_name] as well
-        var lang = $htmlNode.getAttribute("language");
+        var lang = arr['lang'];
         if (lang.indexOf("Avst") > -1)
             langID = 'A';
         else if (lang.indexOf("pal") > -1 || lang.indexOf("Phlv") > -1)
@@ -4454,6 +4478,7 @@ function getTeiByHtml(inputString, args) {
             langID = 'O'; //Other
 
         var reason = arr['reason_for_language_change'] ? arr['reason_for_language_change'] : 'back';
+        var partial = arr['partial'] ? arr['partial'] : '';
         switch (reason) {
             /*case 'trans': //translation
                 $ab.setAttribute('type', 'trans');
@@ -4486,6 +4511,9 @@ function getTeiByHtml(inputString, args) {
         if (lang !== "mainlanguage")
             $ab.setAttribute('xml:lang', lang);
 
+        if (partial !== '')
+            $ab.setAttribute('part', partial);
+
         if (arr['reason_for_language_change'] == 'untrans') { // we have to add a gap element
             var $gap = $newDoc.createElement('gap');
             $gap.setAttribute('unit', 'line');
@@ -4493,7 +4521,7 @@ function getTeiByHtml(inputString, args) {
             $ab.appendChild($gap);
         }
 
-        var childList = $htmlNode.childNodes;
+        /*var childList = $htmlNode.childNodes;
         for (var i = 0, $c, l = childList.length; i < l; i++) {
             $c = childList[i];
             if (!$c) {
@@ -4503,9 +4531,25 @@ function getTeiByHtml(inputString, args) {
             }
         }
 
-        /*if (arr['reason_for_language_change'] == "backtomainlanguage") {
-            alert("YES");
-            $ab.remove();
+        if (arr['reason_for_language_change'] == "backtomainlanguage" || lang == 'mainlanguage') {
+            //$ab.remove();
+            var $tempParent = $newDoc.createElement('t');
+            for (var i = 0, c, l = cList.length; i < l; i++) {
+                c = cList[i];
+                if (!c) {
+                    break;
+                }
+                if (c.nodeType == 3)
+                    nodeAddText($tempParent, c.nodeValue);
+                else
+                    readAllChildrenOfTeiNode($tempParent, c);
+            }
+
+            if ($tempParent) {
+                while ($tempParent.firstChild) {
+                    $newNode.appendChild($tempParent.firstChild);
+                }
+            }
             while ($ab.firstChild) {
                 $teiParent.appendChild($ab.firstChild)
             }

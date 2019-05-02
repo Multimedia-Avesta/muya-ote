@@ -65,9 +65,9 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><label id="language_name_label" for="language_name">{#language_name}</label></td>
+                    <td><label id="lang_label" for="lang">{#language_name}</label></td>
                     <td>
-                        <select id="language_name" name="language_name" onchange="checkstatus_language()">
+                        <select id="lang" name="lang" onchange="checkstatus_language()">
                             <option value="ae">{#avestan}</option>
                             <option value="gu">{#gujarati}</option>
                             <option value="fa">{#persian}</option>
@@ -87,7 +87,7 @@
                         </select>
                     </td>
                     <td>
-                        <input id="language_name_other" name="language_name_other" type="text" value="" size="30" />
+                        <input id="lang_other" name="lang_other" type="text" value="" size="30" />
                     </td>
                 </tr>
                 <!--<tr>
@@ -115,7 +115,7 @@
                     </td>
                     <td colspan="1">
                         <select id="following_language" name="following_language">
-                            <option value="mainlanguage" selected="selected">{#mainlanguage}</option>
+                            <option value="mainlanguage" selected="selected">{#previouslanguage}</option>
                             <option value="ae">{#avestan}</option>
                             <option value="gu">{#gujarati}</option>
                             <option value="fa">{#persian}</option>
@@ -176,14 +176,14 @@
 
     function init() {
         comboBindReturnEvent('insert');
-        wceInfoInit('langchangerange');
+        wceInfoInit('langchange');
         readWceNodeInfo();
         checkstatus_reason();
         checkstatus_language();
     }
 
     function testOther() {
-        if ((document.languageinfo.language_name.options[15].selected == true && document.getElementById('language_name_other').value == '') ||
+        if ((document.languageinfo.lang.options[15].selected == true && document.getElementById('lang_other').value == '') ||
             (document.languageinfo.reason_for_language_change.options[3].selected == true && document.getElementById('reason_for_language_change_other').value == ''))
             return false;
         return true;
@@ -205,8 +205,8 @@
         }
         switch ($('#reason_for_language_change').val()) {
             case 'translation':
-                $('#language_name').attr('disabled', false);
-                $('#language_name').css('background', '#fff');
+                $('#lang').attr('disabled', false);
+                $('#lang').css('background', '#fff');
                 //$('#color').attr('disabled', false);
                 //$('#color').css('background', '#fff');
                 //$('#color').val('black');
@@ -223,8 +223,8 @@
                     $('#following_language').css('background', '#fff');
                     break;*/
             case 'section':
-                $('#language_name').attr('disabled', false);
-                $('#language_name').css('background', '#fff');
+                $('#lang').attr('disabled', false);
+                $('#lang').css('background', '#fff');
                 //$('#color').attr('disabled', false);
                 //$('#color').css('background', '#fff');
                 //$('#color').val('black');
@@ -243,24 +243,24 @@
     }
 
     function checkstatus_language() {
-        if ($('#language_name').val() == 'other') {
-            $('#language_name_other').attr('disabled', false);
-            $('#language_name_other').css('background', '#fff');
+        if ($('#lang').val() == 'other') {
+            $('#lang_other').attr('disabled', false);
+            $('#lang_other').css('background', '#fff');
         } else {
-            $('#language_name_other').attr('disabled', true);
-            $('#language_name_other').css('background', '#ccc');
+            $('#lang_other').attr('disabled', true);
+            $('#lang_other').css('background', '#ccc');
         }
     }
 
-    function checkstatus_color() { // for later usage
-        /*if ($('#language_name').val() == 'other') {
+    /*function checkstatus_color() { // for later usage
+        if ($('#language_name').val() == 'other') {
         $('#language_name_other').attr('disabled', false);
         $('#language_name_other').css('background', '#fff');
         } else {
         $('#language_name_other').attr('disabled', true);
         $('#language_name_other').css('background', '#ccc');
-        }*/
-    }
+        }
+    }*/
 
     if (!tinyMCE.isIE) {
         $(document).keydown(function(e) {

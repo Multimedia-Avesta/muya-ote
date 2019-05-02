@@ -302,21 +302,20 @@ function writeWceNodeInfo(val) {
                 new_content = '<span wce="' + newWceAttr + '"' + wceClass + '>' + startFormatHtml + covertext + endFormatHtml + '</span>';
                 break;
             case 'langchange':
-            case 'langchangerange':
                 var covertext = '';
                 var following_language = '';
                 var language = '';
                 new_content = '';
-
+                wceClass = 'class="langchange mceNonEditable"';
                 // we start a new language, i.e. we add a langchange element
-                if (document.getElementById('reason_for_language_change').value == 'backtomainlanguage')
+                /*if (document.getElementById('reason_for_language_change').value == 'backtomainlanguage')
                     language = g_mainLang ? g_mainLang : "mainlanguage";
                 else
                     language = document.getElementById('language_name').value !== 'other' ? document.getElementById('language_name').value : document.getElementById('language_name_other').value;
-
-                new_content += '<span wce="' + newWceAttr + '"' + wceClass + ' language="' + language + '">' +
-                    startFormatHtml + '<span class="editortext" language="' + language + '">' + '\u2192' + '</span>' +
-                    endFormatHtml + '</span>';
+                    */
+                new_content += '<span wce="' + newWceAttr + '"' + wceClass + '">' + '→' + '</span>';
+                /*startFormatHtml + '<span class="editortext" language="' + language + '">' + '\u2192' + '</span>' +
+                endFormatHtml + '</span>';*/
 
                 // for untranscribed Pahlavi text we add some placeholder text
                 if (document.getElementById('reason_for_language_change').value == 'untrans') {
@@ -327,16 +326,17 @@ function writeWceNodeInfo(val) {
                     }
                     new_content += '<span class="editortext">' + covertext + '</span>' + endFormatHtml;
                 } else {
-                    if (document.getElementById('color').value == 'red') {
+                    /*if (document.getElementById('color').value == 'red') {
                         new_content += '<span class="formatting_rubrication" wce_orig="' + selected_content + '" wce="__t=formatting_rubrication">' +
                             startFormatHtml + (selected_content == '' ? 'write here' : selected_content) + endFormatHtml + '</span>';
-                    } else {
-                        new_content += selected_content;
-                    }
+                    } else {*/
+                    new_content += selected_content;
+                    //}
                 }
                 following_language = document.getElementById('following_language') ? document.getElementById('following_language').value : '';
                 if (following_language !== '') {
-                    new_content += ' <span wce="' + newWceAttr + '"' + wceClass + ' language="' + following_language + '">' + startFormatHtml + '<span class="editortext" language="' + following_language + '">' + '\u2192' + '</span>' + endFormatHtml + '</span>';
+                    new_content += ' <span wce="' + newWceAttr + '"' + wceClass + ' lang="' + following_language + '">' + '→' + '</span>';
+                    //startFormatHtml + '<span class="editortext" language="' + following_language + '">' + '\u2192' + '</span>' + endFormatHtml + '</span>';
                 }
                 new_content += ' ';
                 break;

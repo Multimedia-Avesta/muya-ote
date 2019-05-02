@@ -483,50 +483,67 @@ span.ritualdirection_number {
     font-size: 20px;
 }
 
+span.langchange {
+    color: blue;
+}
 
-span.editortext[language="pal-Avst"],
+/*span.langchange[lang="pal-Avst"],
+span.langchange[lang="ae-Avst"],
+span.langchange[lang="ae-Phlv"] {
+    color: green;
+}
+
+span.langchange[lang="pal-Phli"],
+span.langchange[lang="pal-Phlv"] {
+    color: purple;
+}
+
+span.langchange[lang="gu"] {
+    color: red;
+}
+
+span.langchange[lang="fa"],
+span.langchange[lang="prs"] {
+    color: yellow;
+}
+
+span.langchange[lang="sa"] {
+    color: blue;
+}*/
+
+/*span.editortext[language="pal-Avst"],
 span.editortext[language="ae-Avst"],
 span.editortext[language="ae-Phlv"] {
-    border: 1px dotted #f00;
     margin: 0px 0px 0px 1px;
     padding: 0;
     color: green;
-    /*    background-color: green;*/
 }
 
 span.editortext[language="pal-Phli"],
 span.editortext[language="pal-Phlv"] {
-    border: 1px dotted #f00;
     margin: 0px 0px 0px 1px;
     padding: 0;
     color: purple;
-    /*    background-color: purple;*/
 }
 
 span.editortext[language="gu"] {
-    border: 1px dotted #f00;
     margin: 0px 0px 0px 1px;
     padding: 0;
     color: red;
-    /*    background-color: red;*/
 }
 
 span.editortext[language="fa"],
 span.editortext[language="prs"] {
-    border: 1px dotted #f00;
     margin: 0px 0px 0px 1px;
     padding: 0;
     color: yellow;
-    /*    background-color: yellow;*/
 }
 
 span.editortext[language="sa"] {
-    border: 1px dotted #f00;
     margin: 0px 0px 0px 1px;
     padding: 0;
     color: blue;
-    /*    background-color: blue;*/
-}
+}*/
 
 span.editortext {
     border: 1px dotted #f00;

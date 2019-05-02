@@ -54,8 +54,8 @@
             </legend>
             <div style="text-align: left">
                 <button onclick="if (testOther()){addCorrector(); selectCorrItem();}else{alert('{#empty_other}');};return false;">
-				{#new_hand}
-				</button>
+                    {#new_hand}
+                </button>
             </div>
             <div style="height: 445px; overflow: auto">
                 <ul id="correction_ul" style="list-style-position: inside; list-style-type: none; margin: 0px; padding: 10px"></ul>
@@ -93,7 +93,7 @@
                             <select id="corrector_name" name="corrector_name" onclick="saveCurrCorrector(true);" onchange="checkstatus_hand()">
                                 <option value="corrector">{#corrector}</option>
                                 <option value="firsthand">{#firsthand}</option>
-								<option value="secundamanu">{#secunda_manu}</option>
+                                <option value="secundamanu">{#secunda_manu}</option>
                                 <option value="corrector1">{#corrector}1</option>
                                 <option value="corrector2">{#corrector}2</option>
                                 <option value="other">{#other}</option>
@@ -149,8 +149,8 @@
                                 <option value="underdot">{#del_underdot}</option>
                                 <option value="strikethrough">{#del_striketrough}</option>
                                 <option value="vertical_line">{#del_vertical_line}</option>
-								<option value="overdots">{#del_overdots}</option>
-								<option value="ringed_circled">{#del_ringedcircled}</option>
+                                <option value="overdots">{#del_overdots}</option>
+                                <option value="ringed_circled">{#del_ringedcircled}</option>
                                 <option value="other">{#other}</option>
                             </select></td>
                     </tr>
@@ -193,7 +193,7 @@
             theme: "modern",
             menubar: false,
             skin_url: "../skin/",
-            extended_valid_elements: 'span[class|wce_orig|style|wce|id|ext|language]',
+            extended_valid_elements: 'span[class|wce_orig|style|wce|id|ext|lang|partial]',
             forced_root_block: false,
             force_br_newlines: true,
             force_p_newlines: false,
