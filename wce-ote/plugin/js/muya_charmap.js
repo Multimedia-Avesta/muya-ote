@@ -479,6 +479,7 @@ tinymce.PluginManager.add('muyacharmap', function (editor) {
       ['s+0x0746', 'Small letter s with three dots below'],
       ['S+0x030C', 'Capital letter S with caron'],
       ['t+0x0302', 'Small letter t with circumflex'],
+      ['T+0x0302', 'Capital letter t with circumflex'],
       ['t+0x0308', 'Small letter t with diaresis'],
       ['t+0x0328', 'Small letter t with ogonek'],
       ['0x1E6B', 'Small letter t with dot above'],
