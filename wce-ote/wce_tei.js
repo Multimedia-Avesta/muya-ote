@@ -1068,7 +1068,7 @@ function getHtmlByTei(inputString, args) {
             var lang = $teiNode.getAttribute('xml:lang');
             lang = lang ? lang : '';
             var wceAttr = '__t=langchange&language_name=' + lang;
-            var innerHTML = '<span class="editortext" language="' + lang + '">' + '\u2192' + '</span>';
+            //var innerHTML = '<span class="editortext" language="' + lang + '">' + '\u2192' + '</span>';
 
             wceAttr += '&reason_for_language_change=other&reason_for_language_change_other=' + subtype;
             var verseLang = '';
@@ -1076,11 +1076,11 @@ function getHtmlByTei(inputString, args) {
                 verseLang = '&lang=' + $teiNode.getAttribute('xml:lang');
             }
             $newNode.setAttribute('wce', wceAttr);
-            $newNode.setAttribute('language', lang);
-            $tmp = $('<temp>' + innerHTML + '</temp>')[0];
+            //$newNode.setAttribute('language', lang);
+            /*$tmp = $('<temp>' + innerHTML + '</temp>')[0];
             while ($tmp.firstChild) {
                 $newNode.appendChild($tmp.firstChild);
-            }
+            }*/
             if ($teiNode.getAttribute('xml:lang')) {
                 addFormatElement($newNode, $teiNode.getAttribute('xml:lang'));
             } else {
@@ -1093,24 +1093,25 @@ function getHtmlByTei(inputString, args) {
             var lang = $teiNode.getAttribute('xml:lang');
             lang = lang ? lang : '';
             var wceAttr = '__t=langchange&language_name=' + lang;
-            var innerHTML = '<span class="editortext" language="' + lang + '">' + '\u2192' + '</span>';
+            //var innerHTML = '<span class="editortext" language="' + lang + '">' + '\u2192' + '</span>';
             wceAttr += '&reason_for_language_change=' + type + '&reason_for_language_change_other=';
             var verseLang = '';
             if ($teiNode.getAttribute('xml:lang')) {
                 verseLang = '&lang=' + $teiNode.getAttribute('xml:lang');
             }
             $newNode.setAttribute('wce', wceAttr);
-            $newNode.setAttribute('language', lang);
-            $tmp = $('<temp>' + innerHTML + '</temp>')[0];
+            //$newNode.setAttribute('language', lang);
+            nodeAddText($newNode, ' → ');
+            /*$tmp = $('<temp>' + innerHTML + '</temp>')[0];
             while ($tmp.firstChild) {
                 $newNode.appendChild($tmp.firstChild);
-            }
+            }*/
 
-            if ($teiNode.getAttribute('xml:lang')) {
+            /*if ($teiNode.getAttribute('xml:lang')) {
                 addFormatElement($newNode, $teiNode.getAttribute('xml:lang'));
             } else {
                 addFormatElement($newNode);
-            }
+            }*/
         } else { // for ab without type attribute we assume verse here with a special kind of n attribute (as this was possible for some time due to a bug)
             if (alertnotshown) {
                 alert("There are <ab> elements without @type attribute in the XML. These are converted to verses.");
@@ -1258,7 +1259,9 @@ function getHtmlByTei(inputString, args) {
         $newNode.setAttribute('class', 'gap');
         // for gap *and* supplied
 
-        var wceAttr = '__t=gap&__n=&gap_reason_dummy_lacuna=lacuna' +
+        var wceAttr = '__t=gap&__n=' +
+            '&gap_reason_dummy_editorial=editorial' +
+            '&gap_reason_dummy_lacuna=lacuna' +
             '&gap_reason_dummy_illegible=illegible' +
             '&gap_reason_dummy_unspecified=unspecified' +
             '&gap_reason_dummy_inferredPage=inferredPage' +
@@ -1290,6 +1293,7 @@ function getHtmlByTei(inputString, args) {
             if (!$teiNode.getAttribute('source'))
                 wceAttr += '&supplied_source_other=&supplied_source=none';
         }
+        wceAttr += '&untranscribed_language=' + ($teiNode.getAttribute('xml:lang') ? $teiNode.getAttribute('xml:lang') : '');
 
         $newNode.setAttribute('wce', wceAttr);
 
@@ -3752,9 +3756,12 @@ function getTeiByHtml(inputString, args) {
             }
         }
         var extAttr = $htmlNode.getAttribute('ext');
-        if (extAttr) {
+        if (extAttr)
             $newNode.setAttribute('ext', extAttr);
-        }
+
+        var langAttr = arr['untranscribed_language'];
+        if (langAttr)
+            $newNode.setAttribute('xml:lang', langAttr);
 
         if ($newNode.nodeName === 'supplied') {
             $htmlNode = removeBracketOfSupplied($htmlNode);

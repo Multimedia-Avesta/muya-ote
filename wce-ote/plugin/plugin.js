@@ -2039,7 +2039,9 @@
                                 break;
                             }
                             info_text = '<div>' + tinymce.translate('gap') + '</div><div style="margin-top:10px"> ' + tinymce.translate('reason') + ': ';
-                            if (ar['gap_reason'] == 'lacuna') {
+                            if (ar['gap_reason'] == 'editorial') {
+                                info_text += tinymce.translate('infotext_untranscribed') + ' in ' + tinymce.translate(ar['untranscribed_language'].replace("-", "")) + '</div>';
+                            } else if (ar['gap_reason'] == 'lacuna') {
                                 info_text += tinymce.translate('infotext_lacuna') + '</div>';
                             } else if (ar['gap_reason'] == 'illegible') {
                                 info_text += tinymce.translate('infotext_illegible') + '</div>';
@@ -4061,11 +4063,11 @@
 
             // Add gaps/*********/
             ed.addCommand('mceAddGap', function () {
-                doWithDialog(ed, url, '/gap.htm', 900, 320, 1, true, tinymce.translate('gap_title'));
+                doWithDialog(ed, url, '/gap.htm', 1024, 320, 1, true, tinymce.translate('gap_title'));
             });
             // Edit gaps and spacing
             ed.addCommand('mceEditGap', function () {
-                doWithDialog(ed, url, '/gap.htm', 900, 320, 1, false, tinymce.translate('gap_title'));
+                doWithDialog(ed, url, '/gap.htm', 1024, 320, 1, false, tinymce.translate('gap_title'));
             });
 
             ed.addCommand('mceAddGap_Shortcut', function () {
