@@ -1,5 +1,5 @@
 <!--
-	Copyright (C) 2012-2018 Trier Center for Digital Humanities, Trier (Germany)
+	Copyright (C) 2012-2019 Trier Center for Digital Humanities, Trier (Germany)
 
 	This file is part of the Online Transcription Editor (OTE).
 
@@ -57,9 +57,7 @@
                     <td colspan="2">
                         <select id="break_type" name="break_type" onchange="checkstatus_break('new')">
                             <option value="lb">{#linebreak}</option>
-                            <!--<option value="cb">{#columnbreak}</option>-->
                             <option value="pb">{#pagebreak}</option>
-                            <option value="gb">{#quire}</option>
                         </select></td>
                 </tr>
                 <tr>
@@ -159,9 +157,6 @@
             //document.breakinfo.number.value = qsParm['line'];
         } else { // edit mode => number not empty
             switch (old_break_type) {
-                case 'gb':
-                    qsParm['quire'] = document.breakinfo.number.value;
-                    break;
                 case 'pb':
                     qsParm['page'] = document.breakinfo.number.value;
                     break;
@@ -214,9 +209,6 @@
             document.breakinfo.lb_alignment.disabled = true;
             document.getElementById('lb_alignment').style.backgroundColor = "#CCCCCC";
         }
-        /*if (document.breakinfo.break_type.options[1].selected == true) {//CB
-        	document.breakinfo.number.value = qsParm['column'];
-        }*/
         if (document.breakinfo.break_type.options[1].selected == true) { //PB
             document.breakinfo.rv.disabled = false;
             document.getElementById('rv').style.backgroundColor = "white";
@@ -240,9 +232,6 @@
             document.breakinfo.facs.disabled = true;
             document.getElementById('facs').style.backgroundColor = "#CCCCCC";
         }
-        /*if (document.breakinfo.break_type.options[2].selected == true) {//QB
-        	document.breakinfo.number.value = qsParm['quire'];
-        }*/
 
         //only enable edit highest-node of a break-group
         if (wce_node && $(wce_node).hasClass('brea')) {

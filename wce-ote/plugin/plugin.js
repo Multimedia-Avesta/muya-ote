@@ -33,7 +33,7 @@
 */
 
 (function () {
-    var wfce_editor = "1.0.0 BETA (2019-05-01)";
+    var wfce_editor = "1.0.0 BETA (2019-05-16)";
 
     // Load plugin specific language pack
     tinymce.PluginManager.requireLangPack('wce');
@@ -58,8 +58,9 @@
             //c.endFormatHtml = '<span class="format_end">&rsaquo;</span>';
 
             //blocked elements :If the Caret is inside, this will prohibit the key operation
-            c.blockedElements = new Array('gap', 'corr', 'lection_number', 'book_number',
-                'chapter_number', 'stanza_number', 'verse_number', 'abbr', 'spaces', 'note',
+            c.blockedElements = new Array('gap', 'corr', 'book_number',
+                'chapter_number', 'stanza_number', 'verse_number', 'verseline_number', 'line_number',
+                'ritualdirection_number', 'abbr', 'spaces', 'note',
                 'unclear', 'brea', 'paratext', 'pc', 'figure');
 
             // not blocked elements
@@ -258,14 +259,14 @@
                 //TODO: Check for figure element to deactivate menues
                 else if (node.getAttribute("class") && node.getAttribute("class") === 'figure')
                     return true;
-                else if (node.getAttribute("class") && node.getAttribute("class") == 'langchangerange')
+                else if (node.getAttribute("class") && node.getAttribute("class") === 'langchange')
                     return false;
-                else {
+                /*else {
                     var p = node.previousSibling;
                     if (node.getAttribute("class") && node.getAttribute("class") == 'formatting_rubrication' &&
                         p && p.getAttribute("class") && p.getAttribute("class") == 'langchange')
                         return false;
-                }
+                }*/
                 return true;
             }
             return false; //TODO: This used to be "true", but users wanted to alter text ...
@@ -801,7 +802,7 @@
             // control L setActive?
             w.not_L = b;
             // control LR setActive?
-            w.not_LR = b;
+            //w.not_LR = b;
             // control V setActive?
             w.not_V = b;
         },
@@ -1065,7 +1066,7 @@
                     w.not_C = true;
                 w.not_A = true;
                 w.not_O = true;
-                w.not_LR = true;
+                w.not_L = true;
 
                 // move caret to EndOfPreviousSibling, mainly for IE:
                 /* TODO: What the frick is this? puts us in the wrong span when we are at the start of a text node
@@ -1110,7 +1111,7 @@
                 w.not_B = true;
                 w.not_N = true;
                 w.not_C = true;
-                w.not_L = true;
+                w.not_L = false;
 
                 var adaptiveCheckbox = tinymce.DOM.get(ed.id + '_adaptive_selection');
                 if (adaptiveCheckbox && adaptiveCheckbox.checked) {
@@ -1226,6 +1227,7 @@
 
             var canInsertNode = !w.isc ? false : WCEUtils.canInsertNote(ed, rng);
             w.not_N = !canInsertNode;
+            w.not_L = !canInsertNode;
 
             //highlighting red, blue, yellow .....
             if (w.type && w.type != "formatting_capitals" && w.type.match(/formatting/)) {
@@ -1237,8 +1239,8 @@
 
             if (canMakeCorrection) {
                 w.not_C = false;
-                w.not_L = true;
-                w.not_LR = false;
+                w.not_L = false;
+                //w.not_LR = false;
             }
 
             w.not_P = !w.isc;
@@ -2285,7 +2287,8 @@
                                 ar['extent'] + ' ' + tinymce.translate('infotext_lines_covered');
                             break;
                         case 'langchange':
-                            info_text = '<div>' + tinymce.translate('langchange');
+                            info_text = '<div>' + tinymce.translate(ar['reason_for_language_change']) + '</div>';
+                            info_text += '<div>' + tinymce.translate('langchange');
                             if (ar['lang']) {
                                 var lang = ar['lang'];
                                 info_text += ' ' + tinymce.translate(lang.replace("-", "")) + '</div>';
@@ -3838,31 +3841,16 @@
                 title: tinymce.translate('menu_language') + ' (Ctrl+Alt+L)',
                 image: url + '/img/button_L.png',
                 icons: false,
-                type: 'menubutton',
                 onPostRender: function () {
                     ed.WCE_CON.buttons[this.settings.icon] = this;
                 },
-                onshow: function (a) {
-                    var items = a.control.items();
+                onclick: function () {
                     var w = ed.WCE_VAR;
-                    items[0].disabled(w.not_L);
-                    items[1].disabled(w.not_LR);
-                },
-                menu: [{
-                        text: tinymce.translate('menu_language_position'),
-                        id: 'menu-language-position',
-                        onclick: function () {
-                            ed.execCommand('mceAddLanguage_Shortcut');
-                        }
-                        },
-                    {
-                        text: tinymce.translate('menu_language_range'),
-                        id: 'menu-language-range',
-                        onclick: function () {
-                            ed.execCommand('mceAddLanguageRange');
-                        }
-                        }
-                    ]
+                    if (w.type == 'lang')
+                        ed.execCommand('mceEditLanguage');
+                    else
+                        ed.execCommand('mceAddLanguage');
+                }
             });
 
             ed.addShortcut("ctrl+alt+l", "Set language", "mceAddLanguage_Shortcut");
@@ -4315,13 +4303,13 @@
                 }
             });
 
-            ed.addCommand('mceAddLanguageRange', function () {
+            /*ed.addCommand('mceAddLanguageRange', function () {
                 var w = ed.WCE_VAR;
                 if (w.not_LR) {
                     return;
                 }
                 doWithDialog(ed, url, '/language_range.htm', 800, 320, 1, true, tinymce.translate('language_title'));
-            });
+            });*/
 
 
             ed.addCommand('printData', function () { // Problem in IE

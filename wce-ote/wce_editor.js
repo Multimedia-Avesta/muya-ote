@@ -453,6 +453,13 @@ function addMenuItems(ed) {
                         ed.execCommand('mce_set_language', 'ar');
                     }
                 });
+                menu.add({
+                    text: tinymce.translate('removeLanguage'),
+                    icon: '',
+                    onclick: function () {
+                        ed.execCommand('mce_remove_language');
+                    }
+                });
                 if (type !== 'langchange') {
                     menu.add({
                         text: tinymce.translate('removeLanguage'),
@@ -515,9 +522,11 @@ function addMenuItems(ed) {
     ed.addCommand('mce_set_language', function (l) {
         ed.execCommand('mce_remove_language');
         oldwce = ed.selection.getNode().getAttribute('wce');
+        ed.selection.getNode().setAttribute('lang', l);
         ed.selection.getNode().setAttribute('wce', oldwce + '&lang=' + l);
     });
     ed.addCommand('mce_remove_language', function () {
+        ed.selection.getNode().setAttribute('lang', "");
         oldwce = ed.selection.getNode().getAttribute('wce');
         pos = oldwce.indexOf("lang=");
         if (pos > -1) {

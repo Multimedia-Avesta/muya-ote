@@ -220,11 +220,6 @@ function writeWceNodeInfo(val) {
                         }
                         gap_id = '_4_' + wceUtils.getRandomID(ed, '');
                         wceUtils.addToCounter(ed, 'pb', gap_extent);
-                    } else if (gap_unit == "quire") {
-                        for (var i = 0; i < gap_extent; i++) {
-                            gap_text += '<br/>QB<br/>[...]';
-                        }
-                        wceUtils.addToCounter(ed, 'gb', gap_extent);
                     } else {
                         gap_text = '[...]';
                     }
@@ -302,42 +297,12 @@ function writeWceNodeInfo(val) {
                 new_content = '<span wce="' + newWceAttr + '"' + wceClass + '>' + startFormatHtml + covertext + endFormatHtml + '</span>';
                 break;
             case 'langchange':
-                var covertext = '';
-                var following_language = '';
-                var language = '';
+                //var covertext = '';
+                var langValue = document.getElementById('lang').value;
                 new_content = '';
-                wceClass = 'class="langchange mceNonEditable"';
-                // we start a new language, i.e. we add a langchange element
-                /*if (document.getElementById('reason_for_language_change').value == 'backtomainlanguage')
-                    language = g_mainLang ? g_mainLang : "mainlanguage";
-                else
-                    language = document.getElementById('language_name').value !== 'other' ? document.getElementById('language_name').value : document.getElementById('language_name_other').value;
-                    */
-                new_content += '<span wce="' + newWceAttr + '"' + wceClass + '">' + '→' + '</span>';
-                /*startFormatHtml + '<span class="editortext" language="' + language + '">' + '\u2192' + '</span>' +
-                endFormatHtml + '</span>';*/
-
-                // for untranscribed Pahlavi text we add some placeholder text
-                if (document.getElementById('reason_for_language_change').value == 'untrans') {
-                    covertext = ed.translate('untrans') + ' in ' + ed.translate(language.replace("-", ""));
-                    for (var i = 0; i < document.getElementById('number_of_lines').value; i++) {
-                        covertext += '<span class="mceNonEditable brea" wce="__t=brea&amp;__n=&amp;hasBreak=no&amp;break_type=lb&amp;number=&amp;rv=&amp;page_number=&amp;running_title=&amp;facs=&amp;lb_alignment=">' +
-                            '<span class="format_start mceNonEditable">‹</span><br />↵<span class="format_end mceNonEditable">›</span></span>' + ed.translate('untrans') + ' in ' + ed.translate(language.replace("-", ""));
-                    }
-                    new_content += '<span class="editortext">' + covertext + '</span>' + endFormatHtml;
-                } else {
-                    /*if (document.getElementById('color').value == 'red') {
-                        new_content += '<span class="formatting_rubrication" wce_orig="' + selected_content + '" wce="__t=formatting_rubrication">' +
-                            startFormatHtml + (selected_content == '' ? 'write here' : selected_content) + endFormatHtml + '</span>';
-                    } else {*/
-                    new_content += selected_content;
-                    //}
-                }
-                following_language = document.getElementById('following_language') ? document.getElementById('following_language').value : '';
-                if (following_language !== '') {
-                    new_content += ' <span wce="' + newWceAttr + '"' + wceClass + ' lang="' + following_language + '">' + '→' + '</span>';
-                    //startFormatHtml + '<span class="editortext" language="' + following_language + '">' + '\u2192' + '</span>' + endFormatHtml + '</span>';
-                }
+                wceClass += ' lang="' + langValue + '"';
+                //new_content += '<span wce="' + newWceAttr + '"' + wceClass + '">' + '→' + selected_content + '←' + '</span>';
+                new_content += '<span wce="' + newWceAttr + '"' + wceClass + '">' + selected_content + '</span>';
                 new_content += ' ';
                 break;
             default:
@@ -478,12 +443,12 @@ function writeWceNodeInfo(val) {
                 		wce_node.textContent = '[...]';
                 	}
                 }*/
-            } else if (wce_type == 'lang') {
-                selected_content = ed.execCommand('wceDelNode', false, true);
-                add_new_wce_node = true;
-                return writeWceNodeInfo(val);
             } else if (wce_type == 'figure') {
                 selected_content = wceUtils.wceDelNode(ed, true);
+                add_new_wce_node = true;
+                return writeWceNodeInfo(val);
+            } else if (wce_type == 'langchange') {
+                selected_content = ed.execCommand('wceDelNode', false, true);
                 add_new_wce_node = true;
                 return writeWceNodeInfo(val);
             }

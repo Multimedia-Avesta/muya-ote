@@ -96,7 +96,6 @@
                             <option value="char">{#unit_char}</option>
                             <option value="line">{#unit_line}</option>
                             <option value="page">{#unit_page}</option>
-                            <option value="quire">{#unit_quire}</option>
                             <option value="book">{#unit_book}</option>
                             <option value="chapter">{#unit_chapter}</option>
                             <option value="verse">{#unit_verse}</option>
@@ -248,6 +247,8 @@
         if (radioWert(document.gapinfo.gap_reason_dummy) == "editorial") {
             document.gapinfo.gap_reason.value = "editorial";
             document.gapinfo.untranscribed_language.disabled = false;
+            document.gapinfo.mark_as_supplied.checked = false;
+            checkstatus_mark_as_supplied();
         } else if (radioWert(document.gapinfo.gap_reason_dummy) == "lacuna")
             document.gapinfo.gap_reason.value = "lacuna";
         else if (radioWert(document.gapinfo.gap_reason_dummy) == "illegible")
@@ -303,7 +304,7 @@
             return;
         }
 
-        if (document.gapinfo.unit.options[12].selected == true) { //other unit
+        if (document.gapinfo.unit.options[11].selected == true) { //other unit
             document.gapinfo.unit_other.disabled = false;
             document.getElementById('unit_other').style.backgroundColor = "white";
         } else {
@@ -335,7 +336,7 @@
                     document.gapinfo.supplied_source.disabled = true;
                     document.gapinfo.supplied_source_other.disabled = true;
                 }
-            } else if (document.gapinfo.unit.options[3].selected == true || document.gapinfo.unit.options[4].selected == true) { //page or quire
+            } else if (document.gapinfo.unit.options[3].selected == true) { //page
                 document.gapinfo.mark_as_supplied.checked = false;
                 document.gapinfo.mark_as_supplied.disabled = true;
                 document.gapinfo.supplied_source.disabled = true;
@@ -421,7 +422,7 @@
             document.getElementById('supplied_source_other').value == '') {
             return false;
         }
-        if (document.gapinfo.unit.options[12].selected == true && document.getElementById('unit_other').value == '') {
+        if (document.gapinfo.unit.options[11].selected == true && document.getElementById('unit_other').value == '') {
             return false;
         }
         //if (document.gapinfo.gap_reason.options[5].selected == true && document.getElementById('gap_reason_other').value == '')

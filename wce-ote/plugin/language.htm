@@ -53,18 +53,11 @@
                 <tr>
                     <td><label id="reason_for_language_change_label" for="reason_for_language_change">{#reason_for_language_change}</label></td>
                     <td>
-                        <select id="reason_for_language_change" name="reason_for_language_change" onchange="checkstatus_reason()">
+                        <select id="reason_for_language_change" name="reason_for_language_change">
                             <option value="translation">{#translation}</option>
-                            <!--<option value="ritual">{#ritual}</option>-->
-                            <option value="backtomainlanguage">{#backtopreviouslanguage}</option>
                             <option value="section">{#section}</option>
-                            <option value="untrans">{#untrans}</option>
-                            <option value="changeofscript">{#changeofscript}</option>
                             <option value="other">{#other}</option>
                         </select></td>
-                    <td>
-                        <input id="reason_for_language_change_other" name="reason_for_language_change_other" type="text" value="" size="30" />
-                    </td>
                 </tr>
                 <tr>
                     <td><label id="lang_label" for="lang">{#language_name}</label></td>
@@ -90,25 +83,6 @@
                     </td>
                     <td>
                         <input id="lang_other" name="lang_other" type="text" value="" size="30" />
-                    </td>
-                </tr>
-                <!--<tr>
-                    <td>
-                        <label id="color_label" for="color">{#menu_hl_color}</label>
-                    </td>
-                    <td colspan="1">
-                        <select id="color" name="color" onchange="checkstatus_color">
-                            <option value="black">{#menu_hl_black}</option>
-                            <option value="red">{#menu_hl_red}</option>
-                        </select>
-                    </td>
-                </tr>-->
-                <tr>
-                    <td>
-                        <label id="number_of_lines_label" for="number_of_lines">{#covered}</label>
-                    </td>
-                    <td>
-                        <input id="number_of_lines" name="number_of_lines" type="text" value="0" size="10" maxlength="" class="required number min1 mceFocus" />
                     </td>
                 </tr>
             </table>
@@ -160,14 +134,12 @@
     }
 
     function testOther() {
-        if ((document.languageinfo.lang.options[15].selected == true && document.getElementById('lang_other').value == '') ||
-            (document.languageinfo.reason_for_language_change.options[5].selected == true && document.getElementById('reason_for_language_change_other').value == '') ||
-            (document.languageinfo.reason_for_language_change.options[3].selected == true && (document.getElementById('number_of_lines').value == '') || (document.getElementById('number_of_lines').value < 0)))
+        if (document.languageinfo.lang.options[15].selected == true && document.getElementById('lang_other').value == '')
             return false;
         return true;
     }
 
-    function checkstatus_reason() {
+    /*function checkstatus_reason() {
         if ($('#reason_for_language_change').val() == 'other') {
             $('#reason_for_language_change_other').attr('disabled', false);
             $('#reason_for_language_change_other').css('background', '#fff');
@@ -175,75 +147,7 @@
             $('#reason_for_language_change_other').attr('disabled', true);
             $('#reason_for_language_change_other').css('background', '#ccc');
         }
-        switch ($('#reason_for_language_change').val()) {
-            case 'translation':
-                $('#lang').attr('disabled', false);
-                $('#lang').css('background', '#fff');
-                //$('#color').attr('disabled', false);
-                //$('#color').css('background', '#fff');
-                //$('#color').val('black');
-                $('#number_of_lines').attr('disabled', true);
-                $('#number_of_lines').css('background', '#ccc');
-                $('#following_language').attr('disabled', false);
-                $('#following_language').css('background', '#fff');
-                break;
-                /*case 'ritual':
-                    $('#language_name').attr('disabled', false);
-                    $('#language_name').css('background', '#fff');
-                    $('#color').attr('disabled', false);
-                    $('#color').css('background', '#fff');
-                    $('#color').val('red');
-                    $('#number_of_lines').attr('disabled', true);
-                    $('#number_of_lines').css('background', '#ccc');
-                    $('#following_language').attr('disabled', false);
-                    $('#following_language').css('background', '#fff');
-                    break;*/
-            case 'backtomainlanguage':
-                $('#lang').attr('disabled', true);
-                $('#lang').css('background', '#ccc');
-                //$('#color').attr('disabled', true);
-                //$('#color').css('background', '#ccc');
-                //$('#color').val('black');
-                $('#number_of_lines').attr('disabled', true);
-                $('#number_of_lines').css('background', '#ccc');
-                $('#following_language').attr('disabled', true);
-                $('#following_language').css('background', '#ccc');
-                break;
-            case 'untrans':
-                $('#lang').attr('disabled', false);
-                $('#lang').css('background', '#fff');
-                $('#lang').val('pal-Phlv');
-                $('#number_of_lines').attr('disabled', false);
-                $('#number_of_lines').css('background', '#fff');
-                //$('#color').attr('disabled', true);
-                //$('#color').css('background', '#ccc');
-                //$('#color').val('black');
-                $('#following_language').attr('disabled', false);
-                $('#following_language').css('background', '#fff');
-                break;
-            case 'section':
-                $('#lang').attr('disabled', false);
-                $('#lang').css('background', '#fff');
-                $('#number_of_lines').attr('disabled', true);
-                $('#number_of_lines').css('background', '#ccc');
-                //$('#color').attr('disabled', false);
-                //$('#color').css('background', '#fff');
-                //$('#color').val('black');
-                $('#following_language').attr('disabled', false);
-                $('#following_language').css('background', '#fff');
-                break;
-            default: //other
-                $('#lang').attr('disabled', false);
-                $('#lang').css('background', '#fff');
-                $('#number_of_lines').attr('disabled', true);
-                $('#number_of_lines').css('background', '#ccc');
-                //$('#color').attr('disabled', false);
-                //$('#color').css('background', '#fff');
-                //$('#color').val('black');
-                $('#following_language').attr('disabled', false);
-                $('#following_language').css('background', '#fff');
-        }
-    }
+    }*/
 
     function checkstatus_language() {
         if ($('#lang').val() == 'other') {
@@ -254,16 +158,6 @@
             $('#lang_other').css('background', '#ccc');
         }
     }
-
-    /*function checkstatus_color() { // for later usage
-        if ($('#language_name').val() == 'other') {
-        $('#language_name_other').attr('disabled', false);
-        $('#language_name_other').css('background', '#fff');
-        } else {
-        $('#language_name_other').attr('disabled', true);
-        $('#language_name_other').css('background', '#ccc');
-        }
-    }*/
 
     if (!tinyMCE.isIE) {
         $(document).keydown(function(e) {

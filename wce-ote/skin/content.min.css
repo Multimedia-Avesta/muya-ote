@@ -483,33 +483,84 @@ span.ritualdirection_number {
     font-size: 20px;
 }
 
-span.langchange {
-    color: blue;
-}
-
-/*span.langchange[lang="pal-Avst"],
-span.langchange[lang="ae-Avst"],
-span.langchange[lang="ae-Phlv"] {
+span.langchange[lang="pal-Avst"]:before,
+span.langchange[lang="ae-Avst"]:before,
+span.langchange[lang="ae-Phlv"]:before,
+span.langchange[lang="ae-Gujr"]:before,
+span.langchange[lang="ae"]:before {
     color: green;
+    content: '→';
 }
 
-span.langchange[lang="pal-Phli"],
-span.langchange[lang="pal-Phlv"] {
+span.langchange[lang="pal-Avst"]:after,
+span.langchange[lang="ae-Avst"]:after,
+span.langchange[lang="ae-Phlv"]:after,
+span.langchange[lang="ae-Gujr"]:after,
+span.langchange[lang="ae"]:after {
+    color: green;
+    content: '←';
+}
+
+span.langchange[lang="pal-Phli"]:before,
+span.langchange[lang="pal-Phlv"]:before,
+span.langchange[lang="pal-Gujr"]:before {
     color: purple;
+    content: '→';
 }
 
-span.langchange[lang="gu"] {
+span.langchange[lang="pal-Phli"]:after,
+span.langchange[lang="pal-Phlv"]:after,
+span.langchange[lang="pal-Gujr"]:after {
+    color: purple;
+    content: '←';
+}
+
+span.langchange[lang="gu"]:before,
+span.langchange[lang="gu-Arab"]:before,
+span.langchange[lang="gu-Gujr"]:before {
     color: red;
+    content: '→';
 }
 
-span.langchange[lang="fa"],
-span.langchange[lang="prs"] {
+span.langchange[lang="gu"]:after,
+span.langchange[lang="gu-Arab"]:after,
+span.langchange[lang="gu-Gujr"]:after {
+    color: red;
+    content: '←';
+}
+
+span.langchange[lang="fa"]:before,
+span.langchange[lang="fa-Phlv"]:before {
     color: yellow;
+    content: '→';
 }
 
-span.langchange[lang="sa"] {
+span.langchange[lang="fa"]:after,
+span.langchange[lang="fa-Phlv"]:after {
+    color: yellow;
+    content: '←';
+}
+
+
+span.langchange[lang="sa"]:before {
     color: blue;
-}*/
+    content: '→';
+}
+
+span.langchange[lang="sa"]:after {
+    color: blue;
+    content: '←';
+}
+
+span.langchange:before {
+    content: '→';
+    color: gray;
+}
+
+span.langchange:after {
+    content: '←';
+    color: gray;
+}
 
 /*span.editortext[language="pal-Avst"],
 span.editortext[language="ae-Avst"],
