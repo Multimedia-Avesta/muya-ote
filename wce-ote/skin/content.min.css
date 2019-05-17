@@ -483,50 +483,118 @@ span.ritualdirection_number {
     font-size: 20px;
 }
 
+span.langchange[lang="pal-Avst"]:before,
+span.langchange[lang="ae-Avst"]:before,
+span.langchange[lang="ae-Phlv"]:before,
+span.langchange[lang="ae-Gujr"]:before,
+span.langchange[lang="ae"]:before {
+    color: green;
+    content: '→';
+}
 
-span.editortext[language="pal-Avst"],
+span.langchange[lang="pal-Avst"]:after,
+span.langchange[lang="ae-Avst"]:after,
+span.langchange[lang="ae-Phlv"]:after,
+span.langchange[lang="ae-Gujr"]:after,
+span.langchange[lang="ae"]:after {
+    color: green;
+    content: '←';
+}
+
+span.langchange[lang="pal-Phli"]:before,
+span.langchange[lang="pal-Phlv"]:before,
+span.langchange[lang="pal-Gujr"]:before {
+    color: purple;
+    content: '→';
+}
+
+span.langchange[lang="pal-Phli"]:after,
+span.langchange[lang="pal-Phlv"]:after,
+span.langchange[lang="pal-Gujr"]:after {
+    color: purple;
+    content: '←';
+}
+
+span.langchange[lang="gu"]:before,
+span.langchange[lang="gu-Arab"]:before,
+span.langchange[lang="gu-Gujr"]:before {
+    color: red;
+    content: '→';
+}
+
+span.langchange[lang="gu"]:after,
+span.langchange[lang="gu-Arab"]:after,
+span.langchange[lang="gu-Gujr"]:after {
+    color: red;
+    content: '←';
+}
+
+span.langchange[lang="fa"]:before,
+span.langchange[lang="fa-Phlv"]:before {
+    color: yellow;
+    content: '→';
+}
+
+span.langchange[lang="fa"]:after,
+span.langchange[lang="fa-Phlv"]:after {
+    color: yellow;
+    content: '←';
+}
+
+
+span.langchange[lang="sa"]:before {
+    color: blue;
+    content: '→';
+}
+
+span.langchange[lang="sa"]:after {
+    color: blue;
+    content: '←';
+}
+
+span.langchange:before {
+    content: '→';
+    color: gray;
+}
+
+span.langchange:after {
+    content: '←';
+    color: gray;
+}
+
+/*span.editortext[language="pal-Avst"],
 span.editortext[language="ae-Avst"],
 span.editortext[language="ae-Phlv"] {
-    border: 1px dotted #f00;
     margin: 0px 0px 0px 1px;
     padding: 0;
     color: green;
-    /*    background-color: green;*/
 }
 
 span.editortext[language="pal-Phli"],
 span.editortext[language="pal-Phlv"] {
-    border: 1px dotted #f00;
     margin: 0px 0px 0px 1px;
     padding: 0;
     color: purple;
-    /*    background-color: purple;*/
 }
 
 span.editortext[language="gu"] {
-    border: 1px dotted #f00;
     margin: 0px 0px 0px 1px;
     padding: 0;
     color: red;
-    /*    background-color: red;*/
 }
 
 span.editortext[language="fa"],
 span.editortext[language="prs"] {
-    border: 1px dotted #f00;
     margin: 0px 0px 0px 1px;
     padding: 0;
     color: yellow;
-    /*    background-color: yellow;*/
 }
 
 span.editortext[language="sa"] {
-    border: 1px dotted #f00;
     margin: 0px 0px 0px 1px;
     padding: 0;
     color: blue;
-    /*    background-color: blue;*/
-}
+}*/
 
 span.editortext {
     border: 1px dotted #f00;

@@ -46,7 +46,7 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
         theme: "modern",
         menubar: false,
         skin_url: tinymce.baseURL + "../../../wce-ote/skin/",
-        extended_valid_elements: 'span[class|wce_orig|style|wce|ext|id|language]',
+        extended_valid_elements: 'span[class|wce_orig|style|wce|ext|id|lang|partial]',
         forced_root_block: false,
         force_br_newlines: true,
         //force_p_newlines : false, //DEPRECATED!
@@ -309,9 +309,14 @@ function addMenuItems(ed) {
         // added my options
         if (selectedNode.getAttribute('wce')) {
             oldwce = selectedNode.getAttribute('wce');
-            pos = oldwce.substring(4).indexOf('_');
-            type = oldwce.substring(4, 4 + pos);
-            if (type == 'line' || type == 'verseline') {
+            var pos = oldwce.substring(4).indexOf('&');
+            if (pos > -1)
+                type = oldwce.substring(4, 4 + pos);
+            else
+                type = oldwce.substring(4);
+            if (type == 'book_number' || type == 'chapter_number' || type == 'verse_number' ||
+                type == 'stanza_number' || type == 'line_number' || type == 'verseline_number' ||
+                type == 'ritualdirection_number' || type == 'langchange') {
                 menu.add({
                     text: tinymce.translate('initial_portion'),
                     icon: '',
@@ -343,41 +348,6 @@ function addMenuItems(ed) {
                 menu.add({
                     text: '|'
                 });
-            }
-            if (type == 'book' || type == 'chapter' || type == 'verse' || type == 'stanza' ||
-                type == 'line' || type == 'verseline' || type == 'ritualdirection') {
-                /*menu.add({
-                    text: '|'
-                });*/
-                /*menu.add({
-                    text: tinymce.translate('initial_portion'),
-                    icon: '',
-                    onclick: function () {
-                        ed.execCommand('mce_set_partial', 'I');
-                    }
-                });
-                menu.add({
-                    text: tinymce.translate('medial_portion'),
-                    icon: '',
-                    onclick: function () {
-                        ed.execCommand('mce_set_partial', 'M');
-                    }
-                });
-                menu.add({
-                    text: tinymce.translate('final_portion'),
-                    icon: '',
-                    onclick: function () {
-                        ed.execCommand('mce_set_partial', 'F');
-                    }
-                });
-                menu.add({
-                    text: tinymce.translate('remove_partial'),
-                    icon: '',
-                    onclick: function () {
-                        ed.execCommand('mce_remove_partial');
-                    }
-                });*/
-                //menu.addSeparator();
                 menu.add({
                     text: tinymce.translate('avestan'),
                     icon: '',
@@ -490,6 +460,15 @@ function addMenuItems(ed) {
                         ed.execCommand('mce_remove_language');
                     }
                 });
+                if (type !== 'langchange') {
+                    menu.add({
+                        text: tinymce.translate('removeLanguage'),
+                        icon: '',
+                        onclick: function () {
+                            ed.execCommand('mce_remove_language');
+                        }
+                    });
+                }
             } else if (selectedNode.getAttribute('wce').indexOf('break_type=pb') > -1 &&
                 selectedNode.textContent.indexOf('PB') > -1) {
                 isPreviousActive = (selectedNode.getAttribute('wce').indexOf('hasBreak=yes') > -1);
@@ -512,16 +491,6 @@ function addMenuItems(ed) {
                     }
                 });
                 menu.items()[menu.items().length - 1].disabled(!isPreviousActive);
-                /*} else if (selectedNode.getAttribute('class') != null &&
-                ($(selectedNode).hasClass('languagechange') ||
-                    ($(selectedNode).hasClass('formatting_rubrication')))) {
-			menu.add({
-				text : tinymce.translate('wce.removeLanguage'),
-				icon : '',
-				onclick : function() {
-					ed.execCommand('mce_remove_language', true);
-				}
-                });*/
             } else {
                 //other selection
                 contextMenu.hide();
@@ -553,9 +522,11 @@ function addMenuItems(ed) {
     ed.addCommand('mce_set_language', function (l) {
         ed.execCommand('mce_remove_language');
         oldwce = ed.selection.getNode().getAttribute('wce');
+        ed.selection.getNode().setAttribute('lang', l);
         ed.selection.getNode().setAttribute('wce', oldwce + '&lang=' + l);
     });
     ed.addCommand('mce_remove_language', function () {
+        ed.selection.getNode().setAttribute('lang', "");
         oldwce = ed.selection.getNode().getAttribute('wce');
         pos = oldwce.indexOf("lang=");
         if (pos > -1) {

@@ -55,6 +55,10 @@
                 <tr>
                     <td><label id="gap_reason_dummy_label" for="gap_reason_dummy">{#reason}</label></td>
                     <td>
+                        <input type="radio" id="gap_reason_dummy_editorial" name="gap_reason_dummy" value="editorial" onchange="checkstatus_gapreason()">
+                        <label for="gap_reason_dummy_editorial">{#untrans}</label>
+                    </td>
+                    <td>
                         <input type="radio" id="gap_reason_dummy_lacuna" name="gap_reason_dummy" value="lacuna" onchange="checkstatus_gapreason()">
                         <label for="gap_reason_dummy_lacuna">{#lacuna}</label>
                     </td>
@@ -92,7 +96,6 @@
                             <option value="char">{#unit_char}</option>
                             <option value="line">{#unit_line}</option>
                             <option value="page">{#unit_page}</option>
-                            <option value="quire">{#unit_quire}</option>
                             <option value="book">{#unit_book}</option>
                             <option value="chapter">{#unit_chapter}</option>
                             <option value="verse">{#unit_verse}</option>
@@ -133,6 +136,33 @@
                         </select></td>
                     <td colspan="2">
                         <input id="supplied_source_other" name="supplied_source_other" type="text" value="" size="30" maxlength="" class="required number min1 mceFocus" />
+                    </td>
+                </tr>
+                <tr>
+                    <td><label id="untranscribed_language_label" for="untranscribed_language">{#language_name}</label></td>
+                    <td>
+                        <select id="untranscribed_language" name="untranscribed_language" onchange="checkstatus_language()">
+                            <option value=""></option>
+                            <option value="ae">{#avestan}</option>
+                            <option value="gu">{#gujarati}</option>
+                            <option value="fa">{#persian}</option>
+                            <option value="fa-Phlv">{#persian_phlv}</option>
+                            <option value="sa">{#sanskrit}</option>
+                            <option value="ae-Avst">{#avestan_avst}</option>
+                            <option value="ae-Phlv">{#avestan_phlv}</option>
+                            <option value="ae-Gujr">{#avestan_gujr}</option>
+                            <option value="pal-Avst">{#pahlavi_avst}</option>
+                            <option value="pal-Phlv">{#pahlavi_phlv}</option>
+                            <option value="pal-Gujr">{#pahlavi_gujr}</option>
+                            <option value="pal-Phli">{#pahlavi_phli}</option>
+                            <option value="gu-Arab">{#gujarati_arab}</option>
+                            <option value="gu-Gujr">{#gujarati_gujr}</option>
+                            <option value="ar">{#arabic}</option>
+                            <option value="other">{#other}</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input id="untranscribed_language_other" name="untranscribed_language_other" type="text" value="" size="30" />
                     </td>
                 </tr>
             </table>
@@ -213,7 +243,13 @@
     }
 
     function checkstatus_gapreason() {
-        if (radioWert(document.gapinfo.gap_reason_dummy) == "lacuna")
+        document.gapinfo.untranscribed_language.disabled = true;
+        if (radioWert(document.gapinfo.gap_reason_dummy) == "editorial") {
+            document.gapinfo.gap_reason.value = "editorial";
+            document.gapinfo.untranscribed_language.disabled = false;
+            document.gapinfo.mark_as_supplied.checked = false;
+            checkstatus_mark_as_supplied();
+        } else if (radioWert(document.gapinfo.gap_reason_dummy) == "lacuna")
             document.gapinfo.gap_reason.value = "lacuna";
         else if (radioWert(document.gapinfo.gap_reason_dummy) == "illegible")
             document.gapinfo.gap_reason.value = "illegible";
@@ -229,6 +265,7 @@
                 alert(parent.tinymce.translate('info_lacuna_illegible'));
         }
         info = true;
+        checkstatus_language();
     }
 
     function radioWert(rObj) {
@@ -239,7 +276,9 @@
     }
 
     function setstatus_gapreason() {
-        if (document.gapinfo.gap_reason.value == "lacuna")
+        if (document.gapinfo.gap_reason.value == "editorial")
+            document.gapinfo.gap_reason_dummy_editorial.checked = true;
+        else if (document.gapinfo.gap_reason.value == "lacuna")
             document.gapinfo.gap_reason_dummy_lacuna.checked = true;
         else if (document.gapinfo.gap_reason.value == "unspecified")
             document.gapinfo.gap_reason_dummy_unspecified.checked = true;
@@ -251,6 +290,7 @@
             document.gapinfo.gap_reason_dummy_paperRepaired.checked = true;
         else //default
             document.gapinfo.gap_reason_dummy_illegible.checked = true;
+        checkstatus_language();
     }
 
     function checkstatus_gapunit() {
@@ -264,7 +304,7 @@
             return;
         }
 
-        if (document.gapinfo.unit.options[12].selected == true) { //other unit
+        if (document.gapinfo.unit.options[11].selected == true) { //other unit
             document.gapinfo.unit_other.disabled = false;
             document.getElementById('unit_other').style.backgroundColor = "white";
         } else {
@@ -286,7 +326,6 @@
 
         document.gapinfo.extent.focus();
 
-
         if (!ed.WCE_VAR.isc || !add_new_wce_node) { //real selection or edit mode
             if (document.gapinfo.unit.options[1].selected == true || document.gapinfo.unit.options[2].selected == true) { // char or line
                 document.gapinfo.mark_as_supplied.disabled = false;
@@ -297,7 +336,7 @@
                     document.gapinfo.supplied_source.disabled = true;
                     document.gapinfo.supplied_source_other.disabled = true;
                 }
-            } else if (document.gapinfo.unit.options[3].selected == true || document.gapinfo.unit.options[4].selected == true) { //page or quire
+            } else if (document.gapinfo.unit.options[3].selected == true) { //page
                 document.gapinfo.mark_as_supplied.checked = false;
                 document.gapinfo.mark_as_supplied.disabled = true;
                 document.gapinfo.supplied_source.disabled = true;
@@ -367,12 +406,23 @@
 
     }
 
+    function checkstatus_language() {
+        if ($('#untranscribed_language').val() == 'other') {
+            $('#untranscribed_language_other').attr('disabled', false);
+            $('#untranscribed_language_other').css('background', '#fff');
+            $('#untranscribed_language_other').css('background', '#fff');
+        } else {
+            $('#untranscribed_language_other').attr('disabled', true);
+            $('#untranscribed_language_other').css('background', '#ccc');
+        }
+    }
+
     function testOther() {
         if (document.gapinfo.mark_as_supplied.checked && document.gapinfo.supplied_source.options[3].selected == true &&
             document.getElementById('supplied_source_other').value == '') {
             return false;
         }
-        if (document.gapinfo.unit.options[12].selected == true && document.getElementById('unit_other').value == '') {
+        if (document.gapinfo.unit.options[11].selected == true && document.getElementById('unit_other').value == '') {
             return false;
         }
         //if (document.gapinfo.gap_reason.options[5].selected == true && document.getElementById('gap_reason_other').value == '')
@@ -381,7 +431,8 @@
     }
 
     function testUnit() {
-        if ($('#unit').val() != '' && $.trim($('#extent').val()) == '') {
+        if (($('#unit').val() != '' && $.trim($('#extent').val()) == '')
+            || (document.gapinfo.gap_reason.value == "editorial" && $('#unit').val() == '')) {
             return false;
         }
         return true;

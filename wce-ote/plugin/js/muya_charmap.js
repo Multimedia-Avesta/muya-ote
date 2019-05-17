@@ -660,8 +660,8 @@ tinymce.PluginManager.add('muyacharmap', function (editor) {
                 charmap: getGuCharMap
       }, {
                 id: 'charmap_av',
-                value: 'Avesta_only',
-                i18n: 'charmap_avesta_only',
+                value: 'Avestan_only',
+                i18n: 'charmap_avestan_only',
                 charmap: getAvCharMap
       }, {
                 id: 'charmap_pa',
