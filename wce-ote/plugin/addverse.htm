@@ -38,7 +38,7 @@
 <head>
     <title>{#verses_title}</title>
     <script type="text/javascript" src="js/wce.js"></script>
-    <script type="text/javascript" src="../jquery.js"></script>
+    <script type="text/javascript" src="../jquery-3.4.1.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../skin/dialog.css" />
     <link rel="stylesheet" type="text/css" href="../skin/ui.css" />
 </head>
@@ -177,9 +177,38 @@
                     </tr>
                 </table>
             </div>
+            <table width="100%" style="margin-top: 15px">
+            <tr>
+                    <td><label id="lang_label" for="lang">{#language_name}</label></td>
+                    <td>
+                        <select id="lang" name="lang" onchange="checkstatus_language()">
+                            <option value=""></option>
+                            <option value="ae">{#avestan}</option>
+                            <option value="gu">{#gujarati}</option>
+                            <option value="fa">{#persian}</option>
+                            <option value="fa-Phlv">{#persian_phlv}</option>
+                            <option value="sa">{#sanskrit}</option>
+                            <option value="ae-Avst">{#avestan_avst}</option>
+                            <option value="ae-Phlv">{#avestan_phlv}</option>
+                            <option value="ae-Gujr">{#avestan_gujr}</option>
+                            <option value="pal-Avst">{#pahlavi_avst}</option>
+                            <option value="pal-Phlv">{#pahlavi_phlv}</option>
+                            <option value="pal-Gujr">{#pahlavi_gujr}</option>
+                            <option value="pal-Phli">{#pahlavi_phli}</option>
+                            <option value="gu-Arab">{#gujarati_arab}</option>
+                            <option value="gu-Gujr">{#gujarati_gujr}</option>
+                            <option value="ar">{#arabic}</option>
+                            <option value="other">{#other}</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input id="lang_other" name="lang_other" type="text" value="" size="30" />
+                    </td>
+                </tr>
+            </table>
         </div>
         <div class="mceActionPanel" style="margin-bottom:10px">
-            <input type="button" id="insert" name="insert" value="{#apply}" onclick="update();parent.tinymce.activeEditor.windowManager.close();" />
+            <input type="button" id="insert" name="insert" value="{#apply}" onclick="if (testOther()){update();parent.tinymce.activeEditor.windowManager.close();}else{alert('{#empty_other}');}" />
             <input type="button" id="cancel" name="cancel" value="{#cancel}" onclick="parent.tinymce.activeEditor.windowManager.close();" />
         </div>
     </form>
@@ -199,6 +228,7 @@
         translate();
         setConstants();
         init();
+        checkstatus_language();
     });
 
     function translate() {
@@ -387,52 +417,53 @@
 
     function update() {
         var newNumber;
+        var langValue = $('#lang').val();
         if ($('#insertVerseRadio').is(':checked')) {
             newNumber = $('#insertVerseNumber').val().trim();
             newNumber = newNumber.replace(/\D/g, '');
             if (newNumber != '') {
-                ed.insertContent('<span class="verse_number mceNonEditable" wce="__t=verse_number"> ' + newNumber + '</span> ');
+                ed.insertContent('<span class="verse_number mceNonEditable" wce="__t=verse_number&lang=' + langValue + '" lang="' + langValue + '"> ' + newNumber + '</span> ');
             }
             return;
         } else if ($('#insertStanzaRadio').is(':checked')) {
             newNumber = $('#insertStanzaNumber').val().trim();
             newNumber = newNumber.replace(/\D/g, '');
             if (newNumber != '') {
-                ed.insertContent('<span class="stanza_number mceNonEditable" wce="__t=stanza_number" id="' + ed.dom.uniqueId('stanza') + '"> ' + newNumber + '</span> ');
+                ed.insertContent('<span class="stanza_number mceNonEditable" wce="__t=stanza_number&lang=' + langValue + '" lang="' + langValue + '"' + 'id="' + ed.dom.uniqueId('stanza') + '"> ' + newNumber + '</span> ');
             }
             return;
         } else if ($('#insertChapterRadio').is(':checked')) {
             newNumber = $('#insertChapterNumber').val().trim();
             newNumber = newNumber.replace(/\D/g, '');
             if (newNumber != '') {
-                ed.insertContent('<span class="chapter_number mceNonEditable" wce="__t=chapter_number" id="' + ed.dom.uniqueId('chap') + '"> ' + newNumber + '</span> ');
+                ed.insertContent('<span class="chapter_number mceNonEditable" wce="__t=chapter_number&lang=' + langValue + '" lang="' + langValue + '"' + 'id="' + ed.dom.uniqueId('chap') + '"> ' + newNumber + '</span> ');
             }
             return;
         } else if ($('#insertBookRadio').is(':checked')) {
             newNumber = $('#insertBookName').val().trim();
             if (newNumber != '') {
-                ed.insertContent('<span class="book_number mceNonEditable" wce="__t=book_number" id="' + ed.dom.uniqueId('book') + '"> ' + newNumber + '</span> ');
+                ed.insertContent('<span class="book_number mceNonEditable" wce="__t=book_number&lang=' + langValue + '" lang="' + langValue + '"' + 'id="' + ed.dom.uniqueId('book') + '"> ' + newNumber + '</span> ');
             }
             return;
         } else if ($('#insertLineRadio').is(':checked')) {
             newNumber = $('#insertLineNumber').val().trim();
             newNumber = newNumber.replace(/\D/g, '');
             if (newNumber != '') {
-                ed.insertContent('<span class="line_number mceNonEditable" wce="__t=line_number" id="' + ed.dom.uniqueId('line') + '"> ' + newNumber + '</span> ');
+                ed.insertContent('<span class="line_number mceNonEditable" wce="__t=line_number&lang=' + langValue + '" lang="' + langValue + '"' + 'id="' + ed.dom.uniqueId('line') + '"> ' + newNumber + '</span> ');
             }
             return;
         } else if ($('#insertVerselineRadio').is(':checked')) {
             newNumber = $('#insertVerselineNumber').val().trim();
             newNumber = newNumber.replace(/\D/g, '');
             if (newNumber != '') {
-                ed.insertContent('<span class="verseline_number mceNonEditable" wce="__t=verseline_number" id="' + ed.dom.uniqueId('verseline') + '"> ' + newNumber + '</span> ');
+                ed.insertContent('<span class="verseline_number mceNonEditable" wce="__t=verseline_number&lang=' + langValue + '" lang="' + langValue + '"' + 'id="' + ed.dom.uniqueId('verseline') + '"> ' + newNumber + '</span> ');
             }
             return;
         } else if ($('#insertRitualdirectionRadio').is(':checked')) {
             newNumber = $('#insertRitualdirectionNumber').val().trim();
             newNumber = newNumber.replace(/\D/g, '');
             if (newNumber != '') {
-                ed.insertContent('<span class="ritualdirection_number mceNonEditable" wce="__t=ritualdirection_number" id="' + ed.dom.uniqueId('ritualdirection') + '"> ' + newNumber + '</span> ');
+                ed.insertContent('<span class="ritualdirection_number mceNonEditable" wce="__t=ritualdirection_number&lang=' + langValue + '" lang="' + langValue + '"' + 'id="' + ed.dom.uniqueId('ritualdirection') + '"> ' + newNumber + '</span> ');
             }
             return;
         }
@@ -448,6 +479,21 @@
         return document.createElement("div").appendChild(range.cloneContents()).textContent.length;
     }
 
+    function checkstatus_language() {
+        if ($('#lang').val() == 'other') {
+            $('#lang_other').attr('disabled', false);
+            $('#lang_other').css('background', '#fff');
+        } else {
+            $('#lang_other').attr('disabled', true);
+            $('#lang_other').css('background', '#ccc');
+        }
+    }
+
+    function testOther() {
+        if ($('#lang').val() == 'other' && $('#lang_other').val() == '')
+            return false;
+        return true;
+    }
 
     if (!parent.tinymce.isIE) {
         $(document).keydown(function(e) {
