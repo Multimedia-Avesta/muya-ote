@@ -448,7 +448,7 @@ function writeWceNodeInfo(val) {
                 add_new_wce_node = true;
                 return writeWceNodeInfo(val);
             } else if (wce_type == 'langchange') {
-                selected_content = ed.execCommand('wceDelNode', false, true);
+                selected_content = wceUtils.wceDelNode(ed, true);
                 add_new_wce_node = true;
                 return writeWceNodeInfo(val);
             }

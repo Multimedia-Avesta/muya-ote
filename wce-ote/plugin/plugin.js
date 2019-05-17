@@ -1542,7 +1542,7 @@
                 //} else if ($(ep).hasClass('formatting_rubrication') &&
                 //    ep.previousSibling && $(ep.previousSibling).hasClass('langchange')) {
                 //return true;
-            } else if (endContainer.parentNode != ed.getBody()) {
+            } else if (endContainer.parentNode != ed.getBody()) { //TODO: This is probably wrong (MS)
                 if ($(ep).hasClass('formatting_rubrication') &&
                     ep.previousSibling && $(ep.previousSibling).hasClass('langchange')) {} else if (!$(endContainer.parentNode).hasClass('verse_number')) // for verses go to next check
                     return false;

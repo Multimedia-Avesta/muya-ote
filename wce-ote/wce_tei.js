@@ -105,7 +105,7 @@ function getHtmlByTei(inputString, args) {
         $newDoc = loadXMLString("<TEMP></TEMP>");
         $newRoot = $newDoc.documentElement;
 
-        Tei2Html_handleLanguageChange($oldRoot);
+        //Tei2Html_handleLanguageChange($oldRoot);
         initTeiInput($oldRoot);
         args.inner_hi ? Tei2Html_handleHiNode($oldRoot) : {};
 
@@ -413,7 +413,7 @@ function getHtmlByTei(inputString, args) {
             if ($($node).hasClass('verse_number') || $($node).hasClass('stanza_number') ||
                 $($node).hasClass('chapter_number') || $($node).hasClass('book_number') ||
                 $($node).hasClass('line_number') || $($node).hasClass('verseline_number') ||
-                $($node).hasClass('ritualdirection_number')) {
+                $($node).hasClass('ritualdirection_number') || $($node).hasClass('langchange')) {
                 return;
             }
         }
@@ -905,25 +905,7 @@ function getHtmlByTei(inputString, args) {
                 var indexOfThird = nValue.indexOf('.', indexOfSecond + 1); // dot after stanza/verse number
                 nodeAddText($newNode, nValue.substr(indexOfThird + 1));
             }
-            /*} else if (type && type == 'other') {
-                var $newNode = $newDoc.createElement('span');
-                $newNode.setAttribute('class', 'langchange mceNonEditable');
-
-                var lang = $teiNode.getAttribute('xml:lang') ? $teiNode.getAttribute('xml:lang') : '';
-                var wceAttr = '__t=langchange&language_name=' + lang;
-                wceAttr += '&reason_for_language_change=other&reason_for_language_change_other=' + subtype;
-                $newNode.setAttribute('wce', wceAttr);
-                //$newNode.setAttribute('language', lang);
-                /*$tmp = $('<temp>' + innerHTML + '</temp>')[0];
-                while ($tmp.firstChild) {
-                    $newNode.appendChild($tmp.firstChild);
-                }*/
-            /*if ($teiNode.getAttribute('xml:lang')) {
-                addFormatElement($newNode, $teiNode.getAttribute('xml:lang'));
-            } else {
-                addFormatElement($newNode);
-            }*/
-        } else {
+        } else { //translation or section or other
             var $newNode = $newDoc.createElement('span');
             $newNode.setAttribute('class', 'langchange');
             $newNode.setAttribute('lang', langValue);
@@ -947,19 +929,10 @@ function getHtmlByTei(inputString, args) {
             if (langValue !== '')
                 wceAttr += '&lang=' + langValue;
             $newNode.setAttribute('wce', wceAttr);
-
-            var $firstChild = $teiNode.firstChild;
-            alert("TES");
-
-            if (!$firstChild)
-                return;
-            alert("TES");
-
-            $newNode.appendChild($firstchild);
         }
         $htmlParent.appendChild($newNode);
         nodeAddText($htmlParent, ' ');
-        return $htmlParent;
+        return $newNode;
     };
 
     var Tei2Html_foreign = function ($htmlParent, $teiNode) {
@@ -979,10 +952,10 @@ function getHtmlByTei(inputString, args) {
             wceAttr += '&lang=' + langValue;
         $newNode.setAttribute('wce', wceAttr);
 
-        addFormatElement($newNode);
+        //addFormatElement($newNode);
         $htmlParent.appendChild($newNode);
         nodeAddText($htmlParent, ' ');
-        return $htmlParent;
+        return $newNode;
     };
 
     /*
@@ -1979,7 +1952,7 @@ function getTeiByHtml(inputString, args) {
 
         html2Tei_mergeNodes($newRoot, true);
         html2Tei_removeBlankW_addAttributePartI($newRoot);
-        html2Tei_handleLanguageChange($newRoot);
+        //html2Tei_handleLanguageChange($newRoot);
 
         //ticket #6130
         args.inner_hi ? html2Tei_handleHiNode($newRoot) : '';
