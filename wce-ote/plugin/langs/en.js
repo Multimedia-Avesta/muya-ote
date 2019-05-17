@@ -384,6 +384,7 @@ tinymce.addI18n('en', {
     infotext_omission: 'Omission',
     infotext_language: 'Language',
     error_part_abbr: 'Error at part-worded abbreviation. Parentheses do not match or invalid nesting!',
+    partial_information: 'Partial',
     initial_portion: 'Partial (initial portion)',
     medial_portion: 'Partial (medial portion)',
     final_portion: 'Partial (final portion)',
