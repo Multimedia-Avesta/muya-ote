@@ -88,6 +88,17 @@
                         <input id="lang_other" name="lang_other" type="text" value="" size="30" />
                     </td>
                 </tr>
+                <tr>
+                    <td><label id="editpartial_label" for="editpartial">{#partial_information}</label></td>
+                    <td>
+                        <select id="editpartial" name="editpartial">
+                            <option value=""></option>
+                            <option value="I">{#initial_portion}</option>
+                            <option value="M">{#medial_portion}</option>
+                            <option value="F">{#final_portion}</option>
+                        </select>
+                    </td>
+                </tr>
             </table>
         </fieldset>
         <div class="mceActionPanel" style="margin-bottom:10px">
@@ -136,6 +147,13 @@
             document.editNumberInfo.editNumber.value = selectedNode.innerHTML;
             var langValue = selectedNode.getAttribute("lang") ? selectedNode.getAttribute("lang") : '';
             document.editNumberInfo.lang.value = langValue;
+            var oldwce = selectedNode.getAttribute('wce');
+            var posA = oldwce.indexOf('partial=')+8;
+            var posB = oldwce.substr(posA).indexOf('&');
+            if (posB > -1)
+                document.editNumberInfo.editpartial.value = oldwce.substring(posA,posA+posB);
+            else
+                document.editNumberInfo.editpartial.value = oldwce.substring(posA);
         }
     }
 
@@ -145,6 +163,8 @@
         //newNumber = newNumber.replace(/\D/g, '');
         var oldLangValue = '';
         var newLangValue = $('#lang').val();
+        var oldPartValue = '';
+        var newPartValue = $('#editpartial').val();
         var selectedNode = ed.selection.getNode();
         if (newNumber != '') {
             if (selectedNode.getAttribute('wce')) { //TODO: Not needed? (MS)
@@ -166,6 +186,16 @@
             else
                 oldLangValue = oldwce.substring(posA);
             selectedNode.setAttribute('wce', oldwce.replace('lang=' + oldLangValue, 'lang=' + newLangValue));
+
+            // read @wce again due to changed positions
+            oldwce = selectedNode.getAttribute('wce');
+            posA = oldwce.indexOf('partial=')+8;
+            posB = oldwce.substr(posA).indexOf('&');
+            if (posB > -1)
+                oldPartValue = oldwce.substring(posA,posA+posB);
+            else
+                oldPartValue = oldwce.substring(posA);
+            selectedNode.setAttribute('wce', oldwce.replace('partial=' + oldPartValue, 'partial=' + newPartValue));
         }
         return;
     }

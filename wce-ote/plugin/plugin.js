@@ -33,7 +33,7 @@
 */
 
 (function () {
-    var wfce_editor = "1.0.0 BETA (2019-05-17)";
+    var wfce_editor = "1.0.0 BETA (2019-05-20)";
 
     // Load plugin specific language pack
     tinymce.PluginManager.requireLangPack('wce');
@@ -3191,15 +3191,15 @@
 
             //verse add and delete
             ed.addCommand('mceVerseAdd', function () {
-                doWithDialog(ed, url, '/addverse.htm', 800, 300, 1, true, tinymce.translate('verses_title'));
+                doWithDialog(ed, url, '/addverse.htm', 800, 400, 1, true, tinymce.translate('verses_title'));
             });
 
             ed.addCommand('mceVerseEdit', function () {
-                doWithDialog(ed, url, '/editverse.htm', 640, 700, 1, false, tinymce.translate('verses_title'));
+                doWithDialog(ed, url, '/editverse.htm', 800, 400, 1, false, tinymce.translate('verses_title'));
             });
 
             ed.addCommand('mceVerseDelete', function () {
-                doWithDialog(ed, url, '/deleteverse.htm', 640, 700, 1, true, tinymce.translate('verses_title'));
+                doWithDialog(ed, url, '/deleteverse.htm', 800, 700, 1, true, tinymce.translate('verses_title'));
             });
 
             ed.addShortcut("ctrl+alt+s", "Structure modify", "mceVerseAdd");
