@@ -89,9 +89,9 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><label id="editpartial_label" for="editpartial">{#partial_information}</label></td>
+                    <td><label id="partial_label" for="partial">{#partial_information}</label></td>
                     <td>
-                        <select id="editpartial" name="editpartial">
+                        <select id="partial" name="partial">
                             <option value=""></option>
                             <option value="I">{#initial_portion}</option>
                             <option value="M">{#medial_portion}</option>
@@ -112,7 +112,6 @@
         var _ed = parent.tinymce.activeEditor;
         ed = _ed;
         translate();
-        //setConstants();
         init();
         checkstatus_language();
     });
@@ -141,7 +140,8 @@
     }
 
     function init() {
-        readWceNodeInfo();
+        //readWceNodeInfo();
+
         var selectedNode = ed.selection.getNode();
         if (selectedNode) {
             document.editNumberInfo.editNumber.value = selectedNode.innerHTML;
@@ -151,9 +151,9 @@
             var posA = oldwce.indexOf('partial=')+8;
             var posB = oldwce.substr(posA).indexOf('&');
             if (posB > -1)
-                document.editNumberInfo.editpartial.value = oldwce.substring(posA,posA+posB);
+                document.editNumberInfo.partial.value = oldwce.substring(posA,posA+posB);
             else
-                document.editNumberInfo.editpartial.value = oldwce.substring(posA);
+                document.editNumberInfo.partial.value = oldwce.substring(posA);
         }
     }
 
@@ -161,42 +161,23 @@
         var selectedNode = ed.selection.getNode();
         var newNumber = $('#editNumber').val().trim();
         //newNumber = newNumber.replace(/\D/g, '');
-        var oldLangValue = '';
+        //var oldLangValue = '';
         var newLangValue = $('#lang').val();
-        var oldPartValue = '';
-        var newPartValue = $('#editpartial').val();
+        //var oldPartValue = '';
+        var newPartValue = $('#partial').val();
         var selectedNode = ed.selection.getNode();
         if (newNumber != '') {
-            if (selectedNode.getAttribute('wce')) { //TODO: Not needed? (MS)
+            /*if (selectedNode.getAttribute('wce')) { //TODO: Not needed? (MS)
                 var oldwce = selectedNode.getAttribute('wce');
                 var pos = oldwce.substring(4).indexOf('_');
                 var type = oldwce.substring(4, 4 + pos);
-            }
-            if (type) {
-                selectedNode.innerHTML = newNumber;
-            }
+            }*/
+            //if (type) {
+            selectedNode.innerHTML = newNumber;
+            //}
         }
-        selectedNode.setAttribute("lang", newLangValue);
-        if (selectedNode.getAttribute('wce')) {
-            var oldwce = selectedNode.getAttribute('wce');
-            var posA = oldwce.indexOf('lang=')+5;
-            var posB = oldwce.substr(posA).indexOf('&');
-            if (posB > -1)
-                oldLangValue = oldwce.substring(posA,posA+posB);
-            else
-                oldLangValue = oldwce.substring(posA);
-            selectedNode.setAttribute('wce', oldwce.replace('lang=' + oldLangValue, 'lang=' + newLangValue));
-
-            // read @wce again due to changed positions
-            oldwce = selectedNode.getAttribute('wce');
-            posA = oldwce.indexOf('partial=')+8;
-            posB = oldwce.substr(posA).indexOf('&');
-            if (posB > -1)
-                oldPartValue = oldwce.substring(posA,posA+posB);
-            else
-                oldPartValue = oldwce.substring(posA);
-            selectedNode.setAttribute('wce', oldwce.replace('partial=' + oldPartValue, 'partial=' + newPartValue));
-        }
+        ed.execCommand('mce_set_language', newLangValue);
+        ed.execCommand('mce_set_partial', newPartValue);
         return;
     }
 

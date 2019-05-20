@@ -342,7 +342,7 @@ function addMenuItems(ed) {
                     text: tinymce.translate('remove_partial'),
                     icon: '',
                     onclick: function () {
-                        ed.execCommand('mce_remove_partial');
+                        ed.execCommand('mce_set_partial', '');
                     }
                 });
                 menu.add({
@@ -457,18 +457,18 @@ function addMenuItems(ed) {
                     text: tinymce.translate('removeLanguage'),
                     icon: '',
                     onclick: function () {
-                        ed.execCommand('mce_remove_language');
+                        ed.execCommand('mce_set_language', '');
                     }
                 });
-                if (type !== 'langchange') {
+                /*if (type !== 'langchange') {
                     menu.add({
                         text: tinymce.translate('removeLanguage'),
                         icon: '',
                         onclick: function () {
-                            ed.execCommand('mce_remove_language');
+                            ed.execCommand('mce_set_language', '');
                         }
                     });
-                }
+                }*/
             } else if (selectedNode.getAttribute('wce').indexOf('break_type=pb') > -1 &&
                 selectedNode.textContent.indexOf('PB') > -1) {
                 isPreviousActive = (selectedNode.getAttribute('wce').indexOf('hasBreak=yes') > -1);
@@ -513,30 +513,24 @@ function addMenuItems(ed) {
     });
     ed.addCommand('mce_remove_partial', function () {
         oldwce = ed.selection.getNode().getAttribute('wce');
-        pos = oldwce.indexOf("partial=");
-        if (pos > -1) {
-            //alert(oldwce.substring(pos, pos + 9));
-            ed.selection.getNode().setAttribute('wce', oldwce.replace(oldwce.substring(pos, pos + 9), ""));
-        }
+        infoArr = strToArray(oldwce);
+        arr = infoArr[0];
+        var oldPartValue = arr['partial'] ? arr['partial'] : '';
+        ed.selection.getNode().setAttribute('wce', oldwce.replace('partial=' + oldPartValue, ''));
     });
     ed.addCommand('mce_set_language', function (l) {
         ed.execCommand('mce_remove_language');
         oldwce = ed.selection.getNode().getAttribute('wce');
-        ed.selection.getNode().setAttribute('lang', l);
         ed.selection.getNode().setAttribute('wce', oldwce + '&lang=' + l);
+        ed.selection.getNode().setAttribute('lang', l);
     });
     ed.addCommand('mce_remove_language', function () {
-        ed.selection.getNode().setAttribute('lang', "");
+        ed.selection.getNode().setAttribute('lang', '');
         oldwce = ed.selection.getNode().getAttribute('wce');
-        pos = oldwce.indexOf("lang=");
-        if (pos > -1) {
-            posa = oldwce.substring(pos).indexOf("&");
-            if (posa > -1) {
-                ed.selection.getNode().setAttribute('wce', oldwce.replace(oldwce.substring(pos - 1, pos + posa), ""));
-            } else {
-                ed.selection.getNode().setAttribute('wce', oldwce.replace(oldwce.substring(pos - 1), ""));
-            }
-        }
+        infoArr = strToArray(oldwce);
+        arr = infoArr[0];
+        var oldLangValue = arr['lang'] ? arr['lang'] : '';
+        ed.selection.getNode().setAttribute('wce', oldwce.replace('lang=' + oldLangValue, ''));
     });
     ed.addCommand('mce_previous_hyphenation', function (b) {
         pos = oldwce.indexOf("number=");
@@ -564,3 +558,31 @@ if ((typeof Range !== "undefined") && !Range.prototype.createContextualFragment)
         return frag;
     };
 }
+
+var strToArray = function (str) {
+    if (!str)
+        return null;
+    var outArr = new Array();
+
+    var arr0 = str.split('@');
+    var p1, k0, v0, k1, v, v1, k2, v2, arr1, arr2;
+    for (k0 in arr0) {
+        v = arr0[k0];
+        outArr[k0] = new Array();
+        arr1 = v.split('&');
+        for (p1 in arr1) {
+            v1 = arr1[p1];
+            arr2 = v1.split('=');
+            if (arr2.length > 0) {
+                k2 = arr2[0];
+                v2 = arr2[1];
+                try {
+                    outArr[k0][k2] = v2;
+                } catch (e) {
+                    alert(e);
+                }
+            }
+        }
+    }
+    return outArr;
+};
