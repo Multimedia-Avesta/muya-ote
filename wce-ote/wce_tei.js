@@ -1969,171 +1969,75 @@ function getTeiByHtml(inputString, args) {
     };
 
     var html2Tei_handleLanguageChange = function ($node) {
-        //var mainLang = .querySelector('text').getAttribute('xml:lang');
-        //var mainLang = mainLang ? mainLang : 'previous';
         var abNodes = $node.querySelectorAll('ab');
         var list = [];
         if (abNodes) {
-            var lang = '',
-                langNode = null;
+            //var lang = '',
+            //    langNode = null;
             abNodes.forEach(function (ab) {
-                var att_type = '';
-                var att_lang = ab.getAttribute('xml:lang');
-                if (ab.nodeName == 'ab') {
-                    att_type = 'languageChange';
-                    lang = att_lang;
-                    langNode = ab.cloneNode(true);
-                    /*if (ab.getAttribute('type') == 'untransPahlavi' ||
-                        ab.getAttribute('type') == 'untrans' ||
-                        ab.getAttribute('type') == 'back' ||
-                        ab.getAttribute('xml:lang') == 'mainlanguage') {
-                        lang = null;
-                        langNode = null;
-                    }*/
-                } else if (att_lang) {
-                    //if verse has xml:lang
-                    lang = null;
-                    langNode = null;
-                }
-
+                var att_type = ab.getAttribute('type');
 
                 list.push({
                     node: ab,
-                    lang: lang,
-                    type: att_type,
-                    langRefNode: langNode
+                    type: att_type
                 });
-            });
-        }
-
-        function _verse_change(_verse, _change) {
-            /*if (_verse.lang == mainLang || _verse.node.getAttribute('xml:lang') || !_verse.langRefNode) {
-                return;
-            } TODO: Check, whether needed or not */
-
-            var _childNodes = [];
-            var _add = true;
-            _verse.node.childNodes.forEach(function (c) {
-                if (c === _change.node) {
-                    _add = false;
-                    return;
-                }
-                if (_add) {
-                    _childNodes.push(c);
-                }
-            });
-
-            var newAb = _verse.langRefNode.cloneNode(true);
-            _verse.node.insertBefore(newAb, _verse.node.firstChild);
-            _childNodes.forEach(function (c) {
-                newAb.appendChild(c);
-            });
-        }
-
-        function _change_change(_pre, _current) {
-            /*if (_pre.lang == mainLang) {
-                _pre.node.remove();
-                return;
-            } TODO: Check, whether needed or not */
-            /*if (_pre.node.getAttribute('type') === 'untransPahlavi' ||
-                _pre.node.getAttribute('type') === 'untrans' ||
-                _pre.node.getAttribute('type') === 'back' ||
-                _pre.node.getAttribute('xml:lang') === 'mainlanguage') {
-                return;
-            }*/
-
-            var _childNodes = [];
-            var _add = false;
-            _pre.node.parentNode.childNodes.forEach(function (c) {
-                if (c === _pre.node) {
-                    _add = true;
-                    return;
-                } else if (c === _current.node) {
-                    _add = false;
-                }
-                if (_add) {
-                    _childNodes.push(c);
-                }
-            });
-            _childNodes.forEach(function (c) {
-                _pre.node.appendChild(c);
-            });
-        }
-
-        function _change_verse(_change) {
-            /*if (_change.lang == mainLang) {
-                _change.node.remove();
-                return;
-            }*/
-            /*if (_change.node.getAttribute('type') === 'untransPahlavi' ||
-                _change.node.getAttribute('type') === 'untrans') {
-                return;
-            }*/
-
-            var _childNodes = [];
-            var _add = false;
-            _change.node.parentNode.childNodes.forEach(function (c) {
-                if (c === _change.node) {
-                    _add = true;
-                    return;
-                }
-                if (_add) {
-                    _childNodes.push(c);
-                }
-            });
-            _childNodes.forEach(function (c) {
-                _change.node.appendChild(c);
-            });
-        }
-
-        function _verse(_verse) {
-            /*if (_verse.lang == mainLang || _verse.node.getAttribute('xml:lang') || !_verse.langRefNode) {
-                return;
-            }*/
-            var _childNodes = [];
-            _verse.node.childNodes.forEach(function (c) {
-                _childNodes.push(c);
-            });
-            var newAb = _verse.langRefNode.cloneNode(true);
-            _verse.node.insertBefore(newAb, _verse.node.firstChild);
-            _childNodes.forEach(function (c) {
-                newAb.appendChild(c);
             });
         }
 
         var pre;
         var end = list.length - 1;
+        var j = -1;
         list.forEach(function (curr, i) {
             if (pre) {
-                if (curr.node.nodeName === 'ab') {
-                    if (pre.node.nodeName === 'ab') {
-                        _change_change(pre, curr);
-                    } else { //foreign-ab
-                        if (curr.node != pre.node.firstChild && curr.node != pre.node.nextSibling)
-                            _verse_change(pre, curr);
-                    }
+                var _childNodes = [];
+                var _add = false;
+
+                if (pre.node.contains(curr.node)) { // check whether curr.node is a child of pre.node
+                    var newab = pre.node.cloneNode(false);
+
+                    // collect all child nodes of $pre till you reach the child <ab> ($curr)
+                    _add = true; //  start collecting child nodes
+                    pre.node.childNodes.forEach(function (c) {
+                        if (c === curr.node) {
+                            _add = false; // stop collecting child nodes
+                        }
+                        if (_add) {
+                            _childNodes.push(c);
+                        }
+                    });
+                    // append all child nodes to temporary node $newab
+                    _childNodes.forEach(function (c) {
+                        newab.appendChild(c);
+                    });
+                    // remember this node to later deletion
+                    if (j == -1)
+                        j = i - 1; //remember $pre
+                    // insert node into tree
+                    pre.node.parentNode.insertBefore(newab, pre.node);
                 } else {
-                    if (pre.node.nodeName === 'ab') {
-                        _change_verse(pre);
-                    } else { //ab-ab
-                        if (curr.node != pre.node.firstChild && curr.node != pre.node.nextSibling)
-                            _verse(pre);
+                    var newab = pre.node.cloneNode(true);
+                    if (j > -1) {
+                        abNodes[j].parentNode.replaceChild(newab, abNodes[j]);
+                        j = -1;
+                    } else {
+                        pre.node.parentNode.replaceChild(newab, pre.node);
                     }
                 }
 
                 //last
                 if (i == end) {
-                    if (curr.node.nodeName === 'ab') {
-                        _change_verse(curr);
+                    if (j > -1) { // check, whether last <ab> was child of another <ab>
+                        //abNodes[j].parentNode.insertBefore(curr.node, abNodes[j]);
+                        abNodes[j].parentNode.replaceChild(newab, abNodes[j]);
                     } else {
-                        _verse(curr);
+                        var newab = curr.node.cloneNode(true);
+                        curr.node.parentNode.replaceChild(newab, curr.node);
                     }
                 }
-            }
 
+            }
             pre = curr;
         })
-
     }
 
     var html2Tei_handleHiNode_addHi = function ($node, $hiClone) {
