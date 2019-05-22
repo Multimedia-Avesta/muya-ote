@@ -516,7 +516,7 @@ function addMenuItems(ed) {
         infoArr = strToArray(oldwce);
         arr = infoArr[0];
         var oldPartValue = arr['partial'] ? arr['partial'] : '';
-        ed.selection.getNode().setAttribute('wce', oldwce.replace('partial=' + oldPartValue, ''));
+        ed.selection.getNode().setAttribute('wce', oldwce.replace('&partial=' + oldPartValue, ''));
     });
     ed.addCommand('mce_set_language', function (l) {
         ed.execCommand('mce_remove_language');
@@ -530,7 +530,7 @@ function addMenuItems(ed) {
         infoArr = strToArray(oldwce);
         arr = infoArr[0];
         var oldLangValue = arr['lang'] ? arr['lang'] : '';
-        ed.selection.getNode().setAttribute('wce', oldwce.replace('lang=' + oldLangValue, ''));
+        ed.selection.getNode().setAttribute('wce', oldwce.replace('&lang=' + oldLangValue, ''));
     });
     ed.addCommand('mce_previous_hyphenation', function (b) {
         pos = oldwce.indexOf("number=");

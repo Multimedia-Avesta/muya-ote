@@ -2029,6 +2029,7 @@ function getTeiByHtml(inputString, args) {
                     if (j > -1) { // check, whether last <ab> was child of another <ab>
                         //abNodes[j].parentNode.insertBefore(curr.node, abNodes[j]);
                         abNodes[j].parentNode.replaceChild(newab, abNodes[j]);
+                        newab.parentNode.appendChild(curr.node);
                     } else {
                         var newab = curr.node.cloneNode(true);
                         curr.node.parentNode.replaceChild(newab, curr.node);
@@ -4078,6 +4079,15 @@ function getTeiByHtml(inputString, args) {
                 var $ab = $newDoc.createElement('ab');
                 $ab.setAttribute('type', reason);
                 $ab.setAttribute('n', g_bookNumber + "." + g_chapterNumber + "." + (g_stanzaNumber ? g_stanzaNumber : g_verseNumber) + String.fromCharCode(count_verse) + langID);
+                var $next = $htmlNode.nextSibling;
+                while ($next && ($next.hasAttribute("before") || $next.hasAttribute("after"))) {
+                    if ($next == $htmlNode.parentNode.lastChild)
+                        alert("A structural element is missing after \"" + $htmlNode.textContent + "\"");
+                    $next = $next.nextSibling;
+                }
+                if ($next && !isStructuralElement($next)) {
+                    alert("A structural element is missing after \"" + $htmlNode.textContent + "\"");
+                }
                 break;
             default:
                 var $ab = $newDoc.createElement('foreign');
@@ -4419,3 +4429,14 @@ var removeSpaceAfterLb = function ($node) {
         }
     }
 };
+
+function isStructuralElement($node) {
+    var classVal = $node.getAttribute("class") ? $node.getAttribute("class") : '';
+    if (classVal.startsWith("book_number") || classVal.startsWith("chapter_number") ||
+        classVal.startsWith("stanza_number") || classVal.startsWith("verse_number") ||
+        classVal.startsWith("line_number") || classVal.startsWith("verseline_number") ||
+        classVal.startsWith("ritualdirection_number")) {
+        return true;
+    } else
+        return false;
+}
