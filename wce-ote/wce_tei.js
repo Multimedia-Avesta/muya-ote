@@ -4080,16 +4080,14 @@ function getTeiByHtml(inputString, args) {
                 $ab.setAttribute('type', reason);
                 $ab.setAttribute('n', g_bookNumber + "." + g_chapterNumber + "." + (g_stanzaNumber ? g_stanzaNumber : g_verseNumber) + String.fromCharCode(count_verse) + langID);
                 var $next = $htmlNode.nextSibling;
-                while ($next && ($next.hasAttribute("before") || $next.hasAttribute("after"))) {
-                    if ($next == $htmlNode.parentNode.lastChild)
-                        alert("A structural element is missing after \"" + $htmlNode.textContent + "\"");
+                while ($next && $next.innerHTML == '')
                     $next = $next.nextSibling;
-                }
-                if ($next && !isStructuralElement($next)) {
+                //if ($next)
+                //    alert($next.innerHTML);
+                if ($next && (!isStructuralElement($next) || $next == $htmlNode.parentNode.lastChild))
                     alert("A structural element is missing after \"" + $htmlNode.textContent + "\"");
-                }
                 break;
-            default:
+            default: //other
                 var $ab = $newDoc.createElement('foreign');
                 $ab.setAttribute('n', g_bookNumber + "." + g_chapterNumber + "." + (g_stanzaNumber ? g_stanzaNumber : g_verseNumber) + String.fromCharCode(count_verse) + langID);
                 break;
@@ -4435,8 +4433,12 @@ function isStructuralElement($node) {
     if (classVal.startsWith("book_number") || classVal.startsWith("chapter_number") ||
         classVal.startsWith("stanza_number") || classVal.startsWith("verse_number") ||
         classVal.startsWith("line_number") || classVal.startsWith("verseline_number") ||
-        classVal.startsWith("ritualdirection_number")) {
+        classVal.startsWith("ritualdirection_number") ||
+        (classVal.startsWith("langchange") && $node.getAttribute("wce") &&
+            !$node.getAttribute("wce").includes("reason_for_language_change=other"))) {
         return true;
-    } else
+    } //else if (classVal == '' && $node.innerHTML == '')
+    //    return true;
+    else
         return false;
 }
