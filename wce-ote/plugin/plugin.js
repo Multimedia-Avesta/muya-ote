@@ -33,7 +33,7 @@
 */
 
 (function () {
-    var wfce_editor = "1.0.0 BETA (2019-05-22)";
+    var wfce_editor = "1.0.0 BETA (2019-05-23)";
 
     // Load plugin specific language pack
     tinymce.PluginManager.requireLangPack('wce');
@@ -2121,146 +2121,14 @@
                                 info_text = '<div>' + tinymce.translate('infotext_punctuation_mark') + '</div>';
                             break;
 
-                        case 'verseline':
-                            info_text = '<div>' + 'Verseline';
-                            if (ar['lang']) {
-                                var lang = ar['lang'];
-                                info_text += '<div>' + tinymce.translate('language_name') + ': ' + tinymce.translate(lang.replace("-", "")) + '</div>';
-                            }
-                            if (ar['partial']) {
-                                switch (ar['partial']) {
-                                    case "I":
-                                        info_text += '<div>' + tinymce.translate('initial_portion') + '</div>';
-                                        break;
-                                    case "M":
-                                        info_text += '<div>' + tinymce.translate('medial_portion') + '</div>';
-                                        break;
-                                    case "F":
-                                        info_text += '<div>' + tinymce.translate('final_portion') + '</div>';
-                                        break;
-                                    default:
-                                        info_text += '<div>' + 'Unknown partial information' + '</div>';
-                                }
-                            }
-                            info_text += '</div>';
-                            break;
-                        case 'line':
-                            info_text = '<div>' + 'Line';
-                            if (ar['lang']) {
-                                var lang = ar['lang'];
-                                info_text += '<div>' + tinymce.translate('language_name') + ': ' + tinymce.translate(lang.replace("-", "")) + '</div>';
-                            }
-                            if (ar['partial']) {
-                                switch (ar['partial']) {
-                                    case "I":
-                                        info_text += '<div>' + tinymce.translate('initial_portion') + '</div>';
-                                        break;
-                                    case "M":
-                                        info_text += '<div>' + tinymce.translate('medial_portion') + '</div>';
-                                        break;
-                                    case "F":
-                                        info_text += '<div>' + tinymce.translate('final_portion') + '</div>';
-                                        break;
-                                    default:
-                                        info_text += '<div>' + 'Unknown partial information' + '</div>';
-                                }
-                            }
-                            info_text += '</div>';
-                            break;
-                        case 'ritualdirection':
-                            info_text = '<div>' + 'Ritual direction';
-                            if (ar['lang']) {
-                                var lang = ar['lang'];
-                                info_text += '<div>' + tinymce.translate('language_name') + ': ' + tinymce.translate(lang.replace("-", "")) + '</div>';
-                            }
-                            if (ar['partial']) {
-                                switch (ar['partial']) {
-                                    case "I":
-                                        info_text += '<div>' + tinymce.translate('initial_portion') + '</div>';
-                                        break;
-                                    case "M":
-                                        info_text += '<div>' + tinymce.translate('medial_portion') + '</div>';
-                                        break;
-                                    case "F":
-                                        info_text += '<div>' + tinymce.translate('final_portion') + '</div>';
-                                        break;
-                                    default:
-                                        info_text += '<div>' + 'Unknown partial information' + '</div>';
-                                }
-                            }
-                            info_text += '</div>';
-                            break;
-                        case 'verse':
-                            info_text = '<div>' + 'Verse';
-                            if (ar['lang']) {
-                                var lang = ar['lang'];
-                                info_text += '<div>' + tinymce.translate('language_name') + ': ' + tinymce.translate(lang.replace("-", "")) + '</div>';
-                            }
-                            if (ar['partial']) {
-                                switch (ar['partial']) {
-                                    case "I":
-                                        info_text += '<div>' + tinymce.translate('initial_portion') + '</div>';
-                                        break;
-                                    case "M":
-                                        info_text += '<div>' + tinymce.translate('medial_portion') + '</div>';
-                                        break;
-                                    case "F":
-                                        info_text += '<div>' + tinymce.translate('final_portion') + '</div>';
-                                        break;
-                                    default:
-                                        info_text += '<div>' + 'Unknown partial information' + '</div>';
-                                }
-                            }
-                            info_text += '</div>';
-                            break;
-                        case 'stanza':
-                            info_text = '<div>' + 'Stanza number';
-                            if (ar['lang']) {
-                                var lang = ar['lang'];
-                                info_text += '<div>' + tinymce.translate('language_name') + ': ' + tinymce.translate(lang.replace("-", "")) + '</div>';
-                            }
-                            if (ar['partial']) {
-                                switch (ar['partial']) {
-                                    case "I":
-                                        info_text += '<div>' + tinymce.translate('initial_portion') + '</div>';
-                                        break;
-                                    case "M":
-                                        info_text += '<div>' + tinymce.translate('medial_portion') + '</div>';
-                                        break;
-                                    case "F":
-                                        info_text += '<div>' + tinymce.translate('final_portion') + '</div>';
-                                        break;
-                                    default:
-                                        info_text += '<div>' + 'Unknown partial information' + '</div>';
-                                }
-                            }
-                            info_text += '</div>';
-                            break;
-                        case 'chapter':
-                            info_text = '<div>' + 'Chapter number';
-                            if (ar['lang']) {
-                                var lang = ar['lang'];
-                                info_text += '<div>' + tinymce.translate('language_name') + ': ' + tinymce.translate(lang.replace("-", "")) + '</div>';
-                            }
-                            if (ar['partial']) {
-                                switch (ar['partial']) {
-                                    case "I":
-                                        info_text += '<div>' + tinymce.translate('initial_portion') + '</div>';
-                                        break;
-                                    case "M":
-                                        info_text += '<div>' + tinymce.translate('medial_portion') + '</div>';
-                                        break;
-                                    case "F":
-                                        info_text += '<div>' + tinymce.translate('final_portion') + '</div>';
-                                        break;
-                                    default:
-                                        info_text += '<div>' + 'Unknown partial information' + '</div>';
-                                }
-                            }
-                            info_text += '</div>';
-                            break;
                         case 'book':
-                            info_text = '<div>' + 'Book name';
+                        case 'chapter':
+                        case 'verse':
+                        case 'verseline':
+                        case 'stanza':
+                        case 'line':
+                        case 'ritualdirection':
+                            info_text = '<div>' + tinymce.translate(switchvar) + ' ' + (ar['n'] ? ar['n'] : '');
                             if (ar['lang']) {
                                 var lang = ar['lang'];
                                 info_text += '<div>' + tinymce.translate('language_name') + ': ' + tinymce.translate(lang.replace("-", "")) + '</div>';
