@@ -2874,8 +2874,7 @@ function getTeiByHtml(inputString, args) {
      * read html-node, create tei-node and return
      */
     var getTeiNodeByHtmlNode = function ($teiParent, $htmlNode) {
-        var partial_index = -1;
-        var lang_index = -1;
+        var partValue = '';
         var langValue = '';
         var pos;
 
@@ -2910,6 +2909,10 @@ function getTeiByHtml(inputString, args) {
         }
 
         infoArr = strToArray(wceAttrValue);
+        if (!infoArr) {
+            return null;
+        }
+
         arr = infoArr[0];
         partValue = arr['partial'] ? arr['partial'] : '';
         langValue = $htmlNode.getAttribute('lang') ? $htmlNode.getAttribute('lang') : '';
@@ -3092,10 +3095,10 @@ function getTeiByHtml(inputString, args) {
         }
 
         // for other type
-        infoArr = strToArray(wceAttrValue);
+        /*infoArr = strToArray(wceAttrValue);
         if (!infoArr) {
             return null;
-        }
+        }*/
 
         // get attribute of wce "<span class="" wce="">, determination wce type
         arr = infoArr[0];
@@ -3310,8 +3313,8 @@ function getTeiByHtml(inputString, args) {
         if (extAttr)
             $newNode.setAttribute('ext', extAttr);
 
-        var langAttr = arr['untranscribed_language'];
-        if (langAttr && langAttr !== '')
+        var langAttr = arr['untranscribed_language'] ? arr['untranscribed_language'] : '';
+        if (langAttr !== '')
             $newNode.setAttribute('xml:lang', langAttr);
 
         if ($newNode.nodeName === 'supplied') {
@@ -3332,7 +3335,6 @@ function getTeiByHtml(inputString, args) {
             if ($newNode.getAttribute('unit') != 'word') {
                 var pre = $htmlNode.previousSibling;
                 var next = $htmlNode.nextSibling;
-
                 while (pre) {
                     if (pre.nodeName == 'w') {
                         var lastAfter = pre.getAttribute('after');
