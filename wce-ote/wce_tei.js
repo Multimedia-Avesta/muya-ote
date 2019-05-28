@@ -2976,7 +2976,29 @@ function getTeiByHtml(inputString, args) {
                 g_currentParentNode = g_stanzaNode;
             }
             return null;
-        } else if (wceAttrValue != null && wceAttrValue.match(/line_number/)) {
+         } else if (wceAttrValue != null && wceAttrValue.match(/verseline_number/)) {
+             var textNode = $htmlNode.firstChild;
+             if (textNode) {
+                 textNode = textNode.firstChild; // because <w>
+                 g_verselineNumber = textNode.nodeValue;
+                 g_verselineNumber = $.trim(g_verselineNumber);
+                 g_verselineNode = $newDoc.createElement('ab');
+                 g_verselineNode.setAttribute('type', 'verseline');
+                 g_verselineNode.setAttribute('n', g_bookNumber + '.' + g_chapterNumber + '.' + g_verseNumber + '.' + g_verselineNumber);
+                 if (langValue !== '')
+                     g_verselineNode.setAttribute('xml:lang', langValue);
+                 if (partValue !== '')
+                     g_verselineNode.setAttribute('part', partValue);
+                 if (g_verseNode)
+                     g_verseNode.appendChild(g_verselineNode);
+                 else {
+                     alert("Found verse line without verse!");
+                     $newRoot.appendChild(g_verselineNode);
+                 }
+                 g_currentParentNode = g_verselineNode;
+             }
+             return null;
+         } else if (wceAttrValue != null && wceAttrValue.match(/line_number/)) {
             var textNode = $htmlNode.firstChild;
             if (textNode) {
                 textNode = textNode.firstChild; // because <w>
@@ -3037,28 +3059,6 @@ function getTeiByHtml(inputString, args) {
                 //g_wordNumber = 0;
             }
             note = 0; //reset note counter
-            return null;
-        } else if (wceAttrValue != null && wceAttrValue.match(/verseline_number/)) {
-            var textNode = $htmlNode.firstChild;
-            if (textNode) {
-                textNode = textNode.firstChild; // because <w>
-                g_verselineNumber = textNode.nodeValue;
-                g_verselineNumber = $.trim(g_verselineNumber);
-                g_verselineNode = $newDoc.createElement('ab');
-                g_verselineNode.setAttribute('type', 'verseline');
-                g_verselineNode.setAttribute('n', g_bookNumber + '.' + g_chapterNumber + '.' + g_verseNumber + '.' + g_verselineNumber);
-                if (langValue !== '')
-                    g_verselineNode.setAttribute('xml:lang', langValue);
-                if (partValue !== '')
-                    g_verselineNode.setAttribute('part', partValue);
-                if (g_verseNode)
-                    g_verseNode.appendChild(g_verselineNode);
-                else {
-                    alert("Found verse line without verse!");
-                    $newRoot.appendChild(g_verselineNode);
-                }
-                g_currentParentNode = g_verselineNode;
-            }
             return null;
         } else if (wceAttrValue != null && wceAttrValue.match(/ritualdirection_number/)) {
             var textNode = $htmlNode.firstChild;
