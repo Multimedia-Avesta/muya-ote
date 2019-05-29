@@ -1312,6 +1312,7 @@ function getHtmlByTei(inputString, args) {
       nodeAddText($newNode, 'sp');
       addFormatElement($newNode);
       $htmlParent.appendChild($newNode);
+      nodeAddText($htmlParent, ' ');
 
       return null;
    };
