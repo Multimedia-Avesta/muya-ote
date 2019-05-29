@@ -244,20 +244,20 @@
 
     function checkstatus_gapreason() {
         document.gapinfo.untranscribed_language.disabled = true;
-        if (radioWert(document.gapinfo.gap_reason_dummy) == "editorial") {
+        if (radioWert(document.gapinfo.gap_reason_dummy) === "editorial") {
             document.gapinfo.gap_reason.value = "editorial";
             document.gapinfo.untranscribed_language.disabled = false;
             document.gapinfo.mark_as_supplied.checked = false;
             checkstatus_mark_as_supplied();
-        } else if (radioWert(document.gapinfo.gap_reason_dummy) == "lacuna")
+        } else if (radioWert(document.gapinfo.gap_reason_dummy) === "lacuna")
             document.gapinfo.gap_reason.value = "lacuna";
-        else if (radioWert(document.gapinfo.gap_reason_dummy) == "illegible")
+        else if (radioWert(document.gapinfo.gap_reason_dummy) === "illegible")
             document.gapinfo.gap_reason.value = "illegible";
-        else if (radioWert(document.gapinfo.gap_reason_dummy) == "inferredPage")
+        else if (radioWert(document.gapinfo.gap_reason_dummy) === "inferredPage")
             document.gapinfo.gap_reason.value = "inferredPage";
-        else if (radioWert(document.gapinfo.gap_reason_dummy) == "paperRepaired")
+        else if (radioWert(document.gapinfo.gap_reason_dummy) === "paperRepaired")
             document.gapinfo.gap_reason.value = "paperRepaired";
-        else if (radioWert(document.gapinfo.gap_reason_dummy) == "abbreviatedText")
+        else if (radioWert(document.gapinfo.gap_reason_dummy) === "abbreviatedText")
             document.gapinfo.gap_reason.value = "abbreviatedText";
         else {
             document.gapinfo.gap_reason.value = "unspecified";
@@ -287,7 +287,7 @@
         else if (document.gapinfo.gap_reason.value == "paperRepaired")
             document.gapinfo.gap_reason_dummy_paperRepaired.checked = true;
         else if (document.gapinfo.gap_reason.value == "abbreviatedText")
-            document.gapinfo.gap_reason_dummy_paperRepaired.checked = true;
+            document.gapinfo.gap_reason_dummy_abbreviatedText.checked = true;
         else //default
             document.gapinfo.gap_reason_dummy_illegible.checked = true;
         checkstatus_language();
