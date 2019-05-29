@@ -1038,27 +1038,28 @@ function getHtmlByTei(inputString, args) {
                 nodeAddText($newNode, ']');
             }
         } else { // gap
-            //if ($htmlParent.nodeName !== 't'){
             gap_text = '';
-            //var reason = $teiNode.getAttribute("reason");
+            var reason = $teiNode.getAttribute("reason");
             var extent = $teiNode.getAttribute("extent") ? $teiNode.getAttribute("extent") : '';
             var unit = $teiNode.getAttribute("unit") ? $teiNode.getAttribute("unit") : '';
             var lang = $teiNode.getAttribute("xml:lang") ? $teiNode.getAttribute("xml:lang") : '';
 
-            if (unit == "char") {
+            //if (reason === "editorial")
+
+            if (unit === "char") {
                 if ($teiNode.getAttribute('extent'))
                     nodeAddText($newNode, '[' + decodeURIComponent($teiNode.getAttribute('extent')) + ']');
                 else
                     nodeAddText($newNode, '[...]');
-            } else if (unit == "line") {
+            } else if (unit === "line") {
                 // TODO: numbering
-                if (extent == 'part' || extent == 'unspecified')
+                if (extent === 'part' || extent === 'unspecified')
                     nodeAddText($newNode, '[...]');
                 else {
-                    if (lang !== '')
+                    /*if (lang !== '')
                         var covertext_init = ed.translate('untrans') + ' in ' + ed.translate(lang);
                     else
-                        var covertext_init = '[...]';
+                        var covertext_init = '[...]';*/
                     var _extent = parseInt(extent);
 
                     /*nodeAddText($newNode, covertext);
@@ -1067,7 +1068,7 @@ function getHtmlByTei(inputString, args) {
                         $newNode.appendChild($br);
                         nodeAddText($newNode, '\u21B5' + covertext)
                     }*/
-                    var covertext = covertext_init;
+                    /*var covertext = covertext_init;
                     covertext += '<span class="mceNonEditable brea" wce="__t=brea&amp;__n=&amp;hasBreak=no&amp;break_type=lb&amp;number=&amp;rv=&amp;page_number=&amp;running_title=&amp;facs=&amp;lb_alignment=">' + '<span class="format_start mceNonEditable">‹</span><br />↵<span class="format_end mceNonEditable">›</span></span>' +
                         covertext_init;
 
@@ -1075,16 +1076,16 @@ function getHtmlByTei(inputString, args) {
                     $tmp = $('<temp>' + innerHTML + '</temp>')[0];
                     while ($tmp.firstChild) {
                         $newNode.appendChild($tmp.firstChild);
-                    }
+                    }*/
 
-                    /*nodeAddText($newNode, '[...]');
-                    for (var i = 0; i < $teiNode.getAttribute('extent'); i++) {
+                    nodeAddText($newNode, '[...]');
+                    for (var i = 0; i < _extent; i++) {
                         $br = $newDoc.createElement('br');
                         $newNode.appendChild($br);
                         nodeAddText($newNode, '\u21B5[...]');
-                    }*/
+                    }
                 }
-            } else if (unit == "page") {
+            } else if (unit === "page") {
                 // TODO: numbering
                 var _extent = parseInt(extent);
                 for (var i = 0; i < _extent; i++) {
@@ -1099,13 +1100,12 @@ function getHtmlByTei(inputString, args) {
                 nodeAddText($newNode, '[...]');
             }
         }
-        //}
-
 
         addFormatElement($newNode);
         //var s=getOriginalTextByTeiNode($teiNode); alert(s);
         //$newNode.setAttribute('wce_orig', s);//TODO: test wce_orig
         $htmlParent.appendChild($newNode);
+        nodeAddText($htmlParent, ' ');
         return null;
     };
 
@@ -3297,10 +3297,10 @@ function getTeiByHtml(inputString, args) {
             // <supplied>
             $newNode = $newDoc.createElement('supplied');
             var _supplied_source = arr['supplied_source'];
-            if (_supplied_source && _supplied_source != '') {
-                if (_supplied_source == 'other' && arr['supplied_source_other'])
+            if (_supplied_source && _supplied_source !== '') {
+                if (_supplied_source === 'other' && arr['supplied_source_other'])
                     $newNode.setAttribute('source', arr['supplied_source_other']);
-                else if (_supplied_source != 'none')
+                else if (_supplied_source !== 'none')
                     $newNode.setAttribute('source', _supplied_source);
             }
         } else {
@@ -3315,7 +3315,7 @@ function getTeiByHtml(inputString, args) {
         if (arr['mark_as_supplied'] && arr['mark_as_supplied'] !== 'supplied') {
             // unit
             var unitValue = arr['unit'];
-            if (unitValue != '') {
+            if (unitValue !== '') {
                 if (unitValue == 'other' && arr['unit_other']) {
                     $newNode.setAttribute('unit', arr['unit_other']);
                 } else {
@@ -3350,11 +3350,11 @@ function getTeiByHtml(inputString, args) {
             //
 
             //test if gap exist independent
-            if ($newNode.getAttribute('unit') != 'word') {
+            if ($newNode.getAttribute('unit') !== 'word') {
                 var pre = $htmlNode.previousSibling;
                 var next = $htmlNode.nextSibling;
                 while (pre) {
-                    if (pre.nodeName == 'w') {
+                    if (pre.nodeName === 'w') {
                         var lastAfter = pre.getAttribute('after');
                         break;
                     }
@@ -3362,14 +3362,15 @@ function getTeiByHtml(inputString, args) {
                 }
 
                 while (next) {
-                    if (next.nodeName == 'w') {
+                    if (next.nodeName === 'w') {
                         var nextBefore = next.getAttribute('before');
                         break;
                     }
                     next = next.firstChild;
                 }
 
-                if (((lastAfter && lastAfter == "1") || !lastAfter) && (!nextBefore || (nextBefore && nextBefore == "1"))) {
+                if (((lastAfter && lastAfter === "1") || !lastAfter) &&
+                   (!nextBefore || (nextBefore && nextBefore ==="1"))) {
                     $teiParent.appendChild($newNode);
                     finished = 1;
                 }

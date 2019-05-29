@@ -33,7 +33,7 @@
 */
 
 (function () {
-    var wfce_editor = "1.0.0 BETA (2019-05-27)";
+    var wfce_editor = "1.0.0 BETA (2019-05-29)";
 
     // Load plugin specific language pack
     tinymce.PluginManager.requireLangPack('wce');
@@ -2036,35 +2036,37 @@
                             info_text += '<div style="margin-top:10px">' + tinymce.translate('infotext_alignment') + ': ' + (ar['paratext_alignment'] ? ar['paratext_alignment'] : tinymce.translate('none')) + '</div>';
                             break;
                         case 'gap':
-                            if (ar['unit'] == '' && ar['gap_reason'] == '') {
+                            if (ar['unit'] === '' && ar['gap_reason'] === '') {
                                 info_text = tinymce.translate('infotext_no_information_reason');
                                 break;
                             }
                             info_text = '<div>' + tinymce.translate('gap') + '</div><div style="margin-top:10px"> ' + tinymce.translate('reason') + ': ';
-                            if (ar['gap_reason'] == 'editorial') {
-                                info_text += tinymce.translate('infotext_untranscribed') + ' in ' + tinymce.translate(ar['untranscribed_language'].replace("-", "")) + '</div>';
-                            } else if (ar['gap_reason'] == 'lacuna') {
+                            if (ar['gap_reason'] === 'editorial') {
+                                info_text += tinymce.translate('infotext_untranscribed');
+                                if (ar['untranscribed_language'])
+                                    info_text += ' in ' + tinymce.translate(ar['untranscribed_language'].replace("-", "")) + '</div>';
+                            } else if (ar['gap_reason'] === 'lacuna') {
                                 info_text += tinymce.translate('infotext_lacuna') + '</div>';
-                            } else if (ar['gap_reason'] == 'illegible') {
+                            } else if (ar['gap_reason'] === 'illegible') {
                                 info_text += tinymce.translate('infotext_illegible') + '</div>';
-                            } else if (ar['gap_reason'] == 'inferredPage') {
+                            } else if (ar['gap_reason'] === 'inferredPage') {
                                 info_text += tinymce.translate('inferredPage') + '</div>';
-                            } else if (ar['gap_reason'] == 'paperRepaired') {
+                            } else if (ar['gap_reason'] === 'paperRepaired') {
                                 info_text += tinymce.translate('paperRepaired') + '</div>';
-                            } else if (ar['gap_reason'] == 'abbreviatedText') {
+                            } else if (ar['gap_reason'] === 'abbreviatedText') {
                                 info_text += tinymce.translate('abbreviatedText') + '</div>';
                             } else {
                                 info_text += tinymce.translate('unspecified') + '</div>';
                             }
 
-                            if (ar['mark_as_supplied'] == 'supplied') {
+                            if (ar['mark_as_supplied'] === 'supplied') {
                                 info_text += '<div style="margin-top:10px">' + tinymce.translate('suppliedsource') + ': ';
-                                if (ar['supplied_source'] == 'other')
+                                if (ar['supplied_source'] === 'other')
                                     info_text += ar['supplied_source_other'] + '</div>';
                                 else
                                     info_text += tinymce.translate(ar['supplied_source']) + '</div>';
                             } else {
-                                if (ar['extent'] && ar['extent'] != null) {
+                                if (ar['extent'] && ar['extent'] !== null) {
                                     info_text += '<div style="margin-top:10px">' + tinymce.translate('extent') + ': ' + ar['extent'] + ' ';
                                     if (ar['unit'] == 'other') {
                                         info_text += ar['unit_other'] + '</div>';
