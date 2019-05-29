@@ -1304,7 +1304,8 @@ function getHtmlByTei(inputString, args) {
             '1': '&sp_unit_other=&sp_unit=',
             '2': '&sp_unit=other&sp_unit_other='
          },
-         'extent': '&sp_extent='
+         'extent': '&sp_extent=',
+         'quantity': '&sp_extent='
       };
       wceAttr += getWceAttributeByTei($teiNode, mapping);
       $newNode.setAttribute('wce', wceAttr);
@@ -3874,7 +3875,10 @@ var html2Tei_spaces = function(arr, $teiParent, $htmlNode) {
 
    sp_unit_value = arr['sp_extent'];
    if (sp_unit_value) {
-      $space.setAttribute('extent', sp_unit_value);
+      if (isNaN(parseInt(sp_unit_value)))
+         $space.setAttribute('extent', sp_unit_value);
+      else
+         $space.setAttribute('quantity', sp_unit_value);
    }
    $teiParent.appendChild($space);
 
