@@ -225,9 +225,9 @@
     </form>
 </body>
 <script type="text/javascript">
-    var verseNode;
+    //var verseNode;
     var contentWithVerse;
-    var chapterNr, bookNr, stanzaNr;
+    //var chapterNr, bookNr, stanzaNr;
     var subverse = 96;
     var v_old = '';
     var spanValue_cnt = 96;
@@ -436,7 +436,7 @@
             newNumber = newNumber.replace(/\D/g, '');
             if (newNumber != '') {
                 ed.insertContent('<span class="verse_number mceNonEditable" wce="__t=verse_number&lang=' + langValue + '&partial=' + partValue + '"'
-                                 + ' lang="' + langValue + '"> ' + newNumber + '</span> ');
+                                 + ' lang="' + langValue + '"' + 'id="' + ed.dom.uniqueId('verse') + '"> ' + newNumber + '</span> ');
             }
             return;
         } else if ($('#insertStanzaRadio').is(':checked')) {
@@ -526,5 +526,4 @@
     }
 
 </script>
-
 </html>

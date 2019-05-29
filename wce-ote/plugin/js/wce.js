@@ -297,11 +297,9 @@ function writeWceNodeInfo(val) {
                 new_content = '<span wce="' + newWceAttr + '"' + wceClass + '>' + startFormatHtml + covertext + endFormatHtml + '</span>';
                 break;
             case 'langchange':
-                //var covertext = '';
                 var langValue = document.getElementById('lang').value;
                 new_content = '';
                 wceClass += ' lang="' + langValue + '"';
-                //new_content += '<span wce="' + newWceAttr + '"' + wceClass + '">' + '→' + selected_content + '←' + '</span>';
                 new_content += '<span wce="' + newWceAttr + '"' + wceClass + '">' + selected_content + '</span>';
                 new_content += ' ';
                 break;
@@ -323,9 +321,9 @@ function writeWceNodeInfo(val) {
         //when one adds a new element via the menu
         var wcevar = ed.WCE_VAR;
         if (wcevar.isc && wcevar.isInBE && wcevar.isCaretAtNodeEnd &&
-            (wcevar.type == ed.WCE_CON.formatEnd || wcevar.type == 'chapter_number' || wcevar.type === 'book_number' ||
-                wcevar.type == 'verse_number' || wcevar.type == 'stanza_number' || wcevar.type == 'line_number' ||
-                wcevar.type == 'verseline_number' || wcevar.type == 'ritualdirection_number' || wcevar.type == 'brea')) {
+            (wcevar.type == ed.WCE_CON.formatEnd || wcevar.type === 'chapter_number' || wcevar.type === 'book_number' ||
+                wcevar.type === 'verse_number' || wcevar.type === 'stanza_number' || wcevar.type === 'line_number' ||
+                wcevar.type === 'verseline_number' || wcevar.type === 'ritualdirection_number' || wcevar.type === 'brea')) {
             var selNode = wcevar.selectedNode;
             if (wcevar.type == ed.WCE_CON.formatEnd) {
                 $(new_content).insertAfter(selNode.parentNode);
@@ -345,7 +343,7 @@ function writeWceNodeInfo(val) {
                     ed.selection.setContent(wceUtils.getBreakHtml(ed, 'lb', null, null, null, gap_id));
                     ed.selection.setContent('&nbsp;');
                 }
-            } else if (gap_unit == "page") {
+            } else if (gap_unit === "page") {
                 wceUtils.updateBreakCounter(ed, 'pb', 0);
                 ed.selection.setContent(wceUtils.getBreakHtml(ed, 'pb', null, null, null, gap_id));
                 ed.selection.setContent('&nbsp;');
