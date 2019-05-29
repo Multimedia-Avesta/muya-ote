@@ -3075,7 +3075,7 @@ function getTeiByHtml(inputString, args) {
                 else
                     $newRoot.appendChild(g_verseNode);
                 g_currentParentNode = g_verseNode;
-                //g_stanzaNode = null;
+                g_stanzaNode = null;
             }
             note = 0; //reset note counter
             return null;
