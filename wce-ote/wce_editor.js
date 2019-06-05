@@ -112,6 +112,7 @@ function wceReload() {
    //setTEI('<text><body><div type="book" xml:id="Yasna" n="Yasna"><pb n="P1r-Test8" type="folio"/><lb n="P1rL-Test8"/><div type="chapter" xml:id="Yasna1" n="1"><ab type="stanza" xml:id="Yasna1.1" n="1"><w>The</w><pc>P+.</pc><w>text</w><pc>P+.</pc><w>begins</w><pc>P+.</pc><w>in</w><pc>P+.</pc><w>Avestan</w><pc>P+.</pc><lb n="P1rL-Test8"/><w>language</w><pc>P+.</pc><foreign type="ritual" xml:id="Yasna1.1a-ritual-P" n="a" xml:lang="pal-Phlv"><w><hi rend="rubric">rest</hi></w><w><hi rend="rubric">of</hi></w><w><hi rend="rubric">stanza</hi></w><w><hi rend="rubric">abbreviated</hi></w></foreign><foreign type="" xml:id="Yasna1.1a-other-G" n="a" xml:lang="mainlanguage"/></ab><ab type="stanza" xml:id="Yasna1.2" n="2"><foreign type="" xml:id="Yasna1.1a-other-G" n="a" xml:lang="mainlanguage"/></ab><ab type="stanza" xml:id="Yasna1.3" n="3"><foreign type="" xml:id="Yasna1.1a-other-G" n="a" xml:lang="mainlanguage"/></ab><ab type="stanza" xml:id="Yasna1.4" n="4"><foreign type="" xml:id="Yasna1.1a-other-G" n="a" xml:lang="mainlanguage"><w>and</w><pc>P+.</pc><lb n="P1rL-Test8"/><w>then</w><pc>P+.</pc><w>continues</w><pc>P+.</pc></foreign><foreign type="ritual" xml:id="Yasna1.4a-ritual-P" n="a" xml:lang="pal-Phlv"><w><hi rend="rubric">Put</hi></w><w><hi rend="rubric">text</hi></w><w><hi rend="rubric">of</hi></w><w><hi rend="rubric">ritual</hi></w><w><hi rend="rubric">direction</hi></w><w><hi rend="rubric">here</hi></w></foreign><foreign type="back" xml:id="Yasna1.4a-back-G" n="a" xml:lang="mainlanguage"/></ab><ab type="stanza" xml:id="Yasna1.5" n="5"/><ab type="stanza" xml:id="Yasna1.6" n="6"/><ab type="stanza" xml:id="Yasna1.7" n="7"><w>back</w><pc>P+.</pc><w>to</w><pc>P+.</pc><w>avestan</w><pc>P+.</pc><lb n="P1rL-Test8"/><w>text</w><pc>P+.</pc></ab></div></div></body></text>');
 }
 
+
 // get dirty-value of editor
 function isEditorDirty() {
    return tinyMCE.activeEditor.isDirty();
@@ -159,9 +160,6 @@ function getTeiIndexData() {
 */
 // get TEI String from editor html content
 function getTEI() {
-   //teiIndexData[0] = tinymce.get(tinyMCE.activeEditor.id).settings.book;
-   //teiIndexData[1] = tinymce.get(tinyMCE.activeEditor.id).settings.witness;
-   //teiIndexData[2] = tinymce.get(tinyMCE.activeEditor.id).settings.manuscriptLang;
    return getTeiByHtml(getData(), tinyMCE.activeEditor.settings);
 }
 
