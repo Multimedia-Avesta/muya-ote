@@ -62,7 +62,7 @@
                 <tr>
                     <td><label id="lang_label" for="lang">{#language_name}</label></td>
                     <td>
-                        <select id="lang" name="lang" onchange="checkstatus_language()">
+                        <select id="lang" name="lang">
                             <option value="ae">{#avestan}</option>
                             <option value="gu">{#gujarati}</option>
                             <option value="fa">{#persian}</option>
@@ -78,12 +78,12 @@
                             <option value="gu-Arab">{#gujarati_arab}</option>
                             <option value="gu-Gujr">{#gujarati_gujr}</option>
                             <option value="ar">{#arabic}</option>
-                            <option value="other">{#other}</option>
+                            <!--<option value="other">{#other}</option>-->
                         </select>
                     </td>
-                    <td>
+                    <!--<td>
                         <input id="lang_other" name="lang_other" type="text" value="" size="30" />
-                    </td>
+                    </td>-->
                 </tr>
             </table>
         </fieldset>
@@ -134,8 +134,8 @@
     }
 
     function testOther() {
-        if (document.languageinfo.lang.options[15].selected == true && document.getElementById('lang_other').value == '')
-            return false;
+        //if (document.languageinfo.lang.options[15].selected == true && document.getElementById('lang_other').value == '')
+         //   return false;
         return true;
     }
 

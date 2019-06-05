@@ -1,4 +1,5 @@
-﻿<!--
+﻿
+<!--
 	Copyright (C) 2012-2019 Trier Center for Digital Humanities, Trier (Germany)
 
 	This file is part of the Online Transcription Editor (OTE).
@@ -36,246 +37,247 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <title>Changelog</title>
-    <script type="text/javascript" src="../jquery.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            var _ed = window.opener.tinymce.activeEditor;
-            translate();
-        });
+   <title>Changelog</title>
+   <script type="text/javascript" src="../jquery.js"></script>
+   <script type="text/javascript">
+      $(document).ready(function() {
+         var _ed = window.opener.tinymce.activeEditor;
+         translate();
+      });
 
-        function translate() {
-            var c = document.body.innerHTML;
-            var d = document.title;
-            var a;
-            if (parent.tinymce.isIE) {
-                c = c.replace(/ (value|title|alt)=([^"][^\s>]+)/gi, ' $1="$2"')
-            }
-            a = c.replace(/\{\#([^\}]+)\}/g, function(a, b) {
-                var c = parent.tinymce.translate(b);
-                return (c != b) ? c : '{#' + b + '}';
-            });
-            if (a != c) {
-                document.body.innerHTML = a
-            }
-            a = d.replace(/\{\#([^\}]+)\}/g, function(a, b) {
-                var c = parent.tinymce.translate(b);
-                return (c != b) ? c : '{#' + b + '}';
-            });
-            if (a != d) {
-                document.title = d = a
-            }
-        }
-
-    </script>
+      function translate() {
+         var c = document.body.innerHTML;
+         var d = document.title;
+         var a;
+         if (parent.tinymce.isIE) {
+            c = c.replace(/ (value|title|alt)=([^"][^\s>]+)/gi, ' $1="$2"')
+         }
+         a = c.replace(/\{\#([^\}]+)\}/g, function(a, b) {
+            var c = parent.tinymce.translate(b);
+            return (c != b) ? c : '{#' + b + '}';
+         });
+         if (a != c) {
+            document.body.innerHTML = a
+         }
+         a = d.replace(/\{\#([^\}]+)\}/g, function(a, b) {
+            var c = parent.tinymce.translate(b);
+            return (c != b) ? c : '{#' + b + '}';
+         });
+         if (a != d) {
+            document.title = d = a
+         }
+      }
+   </script>
 </head>
 
 <body>
-    <div>
-        <font size="+1">
-            <p>The Online Transcription Editor (OTE) was initiated as part of the joined project "Workspace for Collaborative Editing" and then further developed as part of the joint project MUYA. It was funded by the <a href="http://www.dfg.de/">DFG</a> and the <a href="http://www.ahrc.ac.uk/">AHRC</a> and the European Research Council (ERC).</p>
-            <p>This software is based on TinyMCE v4 and is thus published as opensource under the terms of the
-                <a href="https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html">LGPL v2.1</a>.
-            </p>
-        </font>
-        <p>Recent version 1.0 (2019-05-27)</p>
-        <br />
-        <h1>Changelog</h1>
-        <h2>Version 1.0</h2>
-        <ul>
-            <li>Change XML structure regarding language change</li>
-            <li>Change handling of language changes:
-                language changes can only be applied on selections;
-                untranscribed text is now editorial gap</li>
-            <li>Change highlighting of uncertain letters (#7962)</li>
-            <li>Fix lang attribute for ab elements (#7938)</li>
-            <li>Add part and language attribute to ab elements (#7917)</li>
-            <li>Add new characters (#7913, #7972)</li>
-            <li>Change tool tip info for structural elements to include @n attribute</li>
-			<li>Fix problem with export (#8025, #8026)</li>
-        </ul>
-        <h2>Version 0.9.9.10</h2>
-        <ul>
-            <li>Make character map sidebar horzontally resizeable (#7934)</li>
-            <li>Add option "changeofscript" to language change (#7871)</li>
-            <li>Fix gap dialog to use units "word" and "unspecified"</li>
-        </ul>
-        <h2>Version 0.9.9</h2>
-        <ul>
-            <li>Add localautosave plugin</li>
-            <li>Upgrade to TinyMCE 4.9.3</li>
-            <li>Add FreeSans font and fix font loading and usage</li>
-        </ul>
-        <h2>Version 0.9.8</h2>
-        <ul>
-            <li>Add unit "structural line" and rename "line" to "page-line" (#7187)</li>
-            <li>Change name of menu item A to "Abbreviation" (#7643)</li>
-            <li>Finally implemented expansion for abbreviations (#7639)</li>
-            <li>New: Adding a note to a word with in a ritual instruction</li>
-        </ul>
-        <h2>Version 0.9.7</h2>
-        <ul>
-            <li>Add t with diaeresis to Pahlavi text (#7534)</li>
-            <li>Use Google Noto font for user interface (#7542)</li>
-            <li>Fix bug #7541</li>
-            <li>Fix problem with character map's size (#7582)</li>
-            <li>Add d with diaeresis below to Pahlavi text (#7585)</li>
-        </ul>
-        <h2>Version 0.9.6beta</h2>
-        <ul>
-            <li>Fix duplicated arrows (#7470, #7523)</li>
-            <li>Fix insertion of verse line numbers (#7500)</li>
-            <li>Add item "Abbreviated text" to gap options (#7520)</li>
-        </ul>
-        <h2>Version 0.9.5beta</h2>
-        <ul>
-            <li>Bug fixes for various issues</li>
-        </ul>
-        <h2>Version 0.9.4beta</h2>
-        <ul>
-            <li>Add new function to edit structures, i.e. to modify a number</li>
-            <li>Add support for new structures "line", "verseline" and "ritualdirection"</li>
-            <li>Add new language "New Persian in Pahlavi" (#7437)</li>
-            <li>Change size for character panel (#7430)</li>
-            <li>Add characters to the character panel (incl. reordering) (#7410,#7427,#7428,#7431,#7434,#7435)</li>
-            <li>Add new book identifier "DrYt" (#7412)</li>
-            <li>Remove all @xml:id from &lt;ab&gt; and &lt;div&gt; and rename @n to book.chapter.stanza|verse.line|verseline|ritualdirection (#7413,#7414,#7415.#7416)</li>
-            <li>Remove automatic annotation of classical punctuation marks for ,;? and middledot (#7425)</li>
-        </ul>
-        <h2>Version 0.9.3beta</h2>
-        <p>Fix bug: changing options in language dialogue led to inactive combo boxes</p>
-        <h2>Version 0.9.2beta</h2>
-        <h2>Version 0.9.1beta</h2>
-        <h2>Version 0.9.0beta</h2>
-        <ul>
-            <li>Add language option for marginalia (#6844)</li>
-            <li>Add line range option for marginalia (#6845)</li>
-            <li>Add graphic element (#6854)</li>
-            <li>Reimplement language change mechanism (#7134)</li>
-            <li>Add 'stanza' to units at gap menu</li>
-            <li>Add book identifier Yasna ī Rapihwin (#7185)</li>
-            <li>Add special characters to corrections and marginalia menu (#7191)</li>
-        </ul>
-        <h2>Version 0.8.0beta</h2>
-        <ul>
-            <li>Upgrade to TinyMCE 4.7.9</li>
-            <li>Fix #6667</li>
-            <li>Remove redundant plugins</li>
-            <li>Update Gentium fonts</li>
-            <li>Remove old fonts</li>
-            <li>Resolve issues #6846, #6847, #6848, #6849, #6853, #6855, #6878, #6880, #6881 and #6864</li>
-        </ul>
-        <h2>Version 0.7.1beta</h2>
-        <p>Fix handling of header in import and export</p>
-        <h2>Version 0.7.0beta</h2>
-        <ul>
-            <li>Untranscribed text can now be any language (#6430)</li>
-            <li>Removed standalone overhead (#6489)</li>
-            <li>Added symbol "final stroke" to character map (#6476)</li>
-            <li>Removed options from marginalia dialogue (#6045)</li>
-        </ul>
-        <h2>Version 0.6.2beta</h2>
-        <ul>
-            <li>Untranscribed Pahlavi texts is now as well line numbered</li>
-            <li>Problem with writing text after language change resolved</li>
-        </ul>
-        <br />
-        <h2>Version 0.6.1beta</h2>
-        <p>Bugfix: Some old files could not be loaded, because of handling of header</p>
-        <br />
-        <h2>Version 0.6.0beta</h2>
-        <ul>
-            <li>Add feature for language change</li>
-            <li>Fix: Remove spurious space after page break within word (#6410)</li>
-            <li>Fix deletion of annotated text</li>
-            <li>Fix paste function: "paste as plain text" is now default (#6416)</li>
-        </ul>
-        <br />
-        <h2>Version 0.5.12beta</h2>
-        <p>Additional sidebar for linenumbering based on lb elements</p>
-        <br />
-        <h2>Version 0.5.11beta</h2>
-        <ul>
-            <li>Fixed insertion of special characters (#6063)</li>
-            <li>Enable red colour for all language change reasons (#6064)</li>
-        </ul>
-        <br />
-        <h2>Version 0.5.10beta</h2>
-        <p>Added transcribers to meta data dialogue</p>
-        <br />
-        <h2>Version 0.5.9beta</h2>
-        <p>Added menu for punctuation characters (including "other")</p>
-        <p>Added option "suspension" to abbreviation types</p>
-        <br />
-        <h2>Version 0.5.8beta</h2>
-        <p>Bugfix: Character map got lost</p>
-        <br />
-        <h2>Version 0.5.7beta</h2>
-        <ul>
-            <li>Fixed bug regarding manuscript identifier</li>
-            <li>Fixed bug regarding the page number handling withing the meta data dialogue</li>
-        </ul>
-        <br />
-        <h2>Version 0.5.6beta</h2>
-        <ul>
-            <li>Added metadata dialogue (menu "I")</li>
-            <li>Added start screen</li>
-            <li>Upgraded to the latest TinyMCE version</li>
-            <li>Some cleanup</li>
-        </ul>
-        <br />
-        <h2>Version 0.5.5beta</h2>
-        <p>Added support for partial information to stanzas</p>
-        <br />
-        <h2>Version 0.5.4beta</h2>
-        <ul>
-            <li>Reactivated right-click menu for information on partial verses</li>
-            <li>Reactivated right-click menu for information on hyphenations on previous pages</li>
-            <li>Bugfix: Export/Import of verses</li>
-        </ul>
-        <br />
-        <h2>Version 0.5.3beta</h2>
-        <ul>
-            <li>Added deletion for stanzas</li>
-        </ul>
-        <h2>Version 0.5.2beta</h2>
-        <ul>
-            <li>Added 'danda' and 'double danda' to character map. Changed functions for inputting punctuations accordingly. (#5959)</li>
-            <li>Added filter to character map</li>
-        </ul>
-        <br />
-        <h2>Version 0.5.1beta</h2>
-        <p>Changed punctuation input to three-digit numbers (#5953)</p>
-        <br />
-        <h2>Version 0.5beta</h2>
-        <ul>
-            <li>Fixed Bugs #5950: Problems with opening xml file in Standalone OTE</li>
-            <li>Punctuation as separate plug-in, added drop-down menu, keyboard input [P+2digitnumber]</li>
-            <li>Added muya_charmap plugin</li>
-            <li>Improved load/save functions</li>
-        </ul>
-        <br />
-        <h2>Version 0.4beta</h2>
-        <ul>
-            <li>Removed column breaks</li>
-            <li>Removed option “papyrus fibre”</li>
-            <li>Added two interpunction signs to the character map for testing (#5698)</li>
-            <li>Removed Theta from the character map</li>
-        </ul>
-        <br />
-        <h2>Version 0.3beta</h2>
-        <p>Added functions to load and save transcriptions locally. This is only meant for testing.</p>
-        <h2>Version 0.2beta</h2>
-        <ul>
-            <li>For deletion types, 'overdots' and 'ringed/circled' were included</li>
-            <li>For language change reason 'section heading; dedication' was added</li>
-            <li>Option to mark text as written upside down (e.g. ahrimen) was added</li>
-            <li>Special characters for Avestan, Pahlavi and Gujarati were added</li>
-            <li>For deficiency types, an option for text 'covered by tape' was added</li>
-        </ul>
-        <h2>Version 0.1beta</h2>
-        <p>Fork from recent version of the Workspace project. Avesta-specific additions of a previous adoption.</p>
-    </div>
+   <div>
+      <font size="+1">
+         <p>The Online Transcription Editor (OTE) was initiated as part of the joined project "Workspace for Collaborative Editing" and then further developed as part of the joint project MUYA. It was funded by the <a
+               href="http://www.dfg.de/">DFG</a> and the <a href="http://www.ahrc.ac.uk/">AHRC</a> and the European Research Council (ERC).</p>
+         <p>This software is based on TinyMCE v4 and is thus published as opensource under the terms of the
+            <a href="https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html">LGPL v2.1</a>.
+         </p>
+      </font>
+      <p>Recent version 1.0 (2019-05-27)</p>
+      <br />
+      <h1>Changelog</h1>
+      <h2>Version 1.0</h2>
+      <ul>
+         <li>Change XML structure regarding language change</li>
+         <li>Change handling of language changes:
+            language changes can only be applied on selections;
+            untranscribed text is now editorial gap</li>
+         <li>Change highlighting of uncertain letters (#7962)</li>
+         <li>Fix lang attribute for ab elements (#7938)</li>
+         <li>Add part and language attribute to ab elements (#7917)</li>
+         <li>Add new characters (#7913, #7972)</li>
+         <li>Change tool tip info for structural elements to include @n attribute</li>
+         <li>Fix problem with export (#8025, #8026)</li>
+         <li>Fix some minor problems with import and export routines</li>
+      </ul>
+      <h2>Version 0.9.9.10</h2>
+      <ul>
+         <li>Make character map sidebar horzontally resizeable (#7934)</li>
+         <li>Add option "changeofscript" to language change (#7871)</li>
+         <li>Fix gap dialog to use units "word" and "unspecified"</li>
+      </ul>
+      <h2>Version 0.9.9</h2>
+      <ul>
+         <li>Add localautosave plugin</li>
+         <li>Upgrade to TinyMCE 4.9.3</li>
+         <li>Add FreeSans font and fix font loading and usage</li>
+      </ul>
+      <h2>Version 0.9.8</h2>
+      <ul>
+         <li>Add unit "structural line" and rename "line" to "page-line" (#7187)</li>
+         <li>Change name of menu item A to "Abbreviation" (#7643)</li>
+         <li>Finally implemented expansion for abbreviations (#7639)</li>
+         <li>New: Adding a note to a word with in a ritual instruction</li>
+      </ul>
+      <h2>Version 0.9.7</h2>
+      <ul>
+         <li>Add t with diaeresis to Pahlavi text (#7534)</li>
+         <li>Use Google Noto font for user interface (#7542)</li>
+         <li>Fix bug #7541</li>
+         <li>Fix problem with character map's size (#7582)</li>
+         <li>Add d with diaeresis below to Pahlavi text (#7585)</li>
+      </ul>
+      <h2>Version 0.9.6beta</h2>
+      <ul>
+         <li>Fix duplicated arrows (#7470, #7523)</li>
+         <li>Fix insertion of verse line numbers (#7500)</li>
+         <li>Add item "Abbreviated text" to gap options (#7520)</li>
+      </ul>
+      <h2>Version 0.9.5beta</h2>
+      <ul>
+         <li>Bug fixes for various issues</li>
+      </ul>
+      <h2>Version 0.9.4beta</h2>
+      <ul>
+         <li>Add new function to edit structures, i.e. to modify a number</li>
+         <li>Add support for new structures "line", "verseline" and "ritualdirection"</li>
+         <li>Add new language "New Persian in Pahlavi" (#7437)</li>
+         <li>Change size for character panel (#7430)</li>
+         <li>Add characters to the character panel (incl. reordering) (#7410,#7427,#7428,#7431,#7434,#7435)</li>
+         <li>Add new book identifier "DrYt" (#7412)</li>
+         <li>Remove all @xml:id from &lt;ab&gt; and &lt;div&gt; and rename @n to book.chapter.stanza|verse.line|verseline|ritualdirection (#7413,#7414,#7415.#7416)</li>
+         <li>Remove automatic annotation of classical punctuation marks for ,;? and middledot (#7425)</li>
+      </ul>
+      <h2>Version 0.9.3beta</h2>
+      <p>Fix bug: changing options in language dialogue led to inactive combo boxes</p>
+      <h2>Version 0.9.2beta</h2>
+      <h2>Version 0.9.1beta</h2>
+      <h2>Version 0.9.0beta</h2>
+      <ul>
+         <li>Add language option for marginalia (#6844)</li>
+         <li>Add line range option for marginalia (#6845)</li>
+         <li>Add graphic element (#6854)</li>
+         <li>Reimplement language change mechanism (#7134)</li>
+         <li>Add 'stanza' to units at gap menu</li>
+         <li>Add book identifier Yasna ī Rapihwin (#7185)</li>
+         <li>Add special characters to corrections and marginalia menu (#7191)</li>
+      </ul>
+      <h2>Version 0.8.0beta</h2>
+      <ul>
+         <li>Upgrade to TinyMCE 4.7.9</li>
+         <li>Fix #6667</li>
+         <li>Remove redundant plugins</li>
+         <li>Update Gentium fonts</li>
+         <li>Remove old fonts</li>
+         <li>Resolve issues #6846, #6847, #6848, #6849, #6853, #6855, #6878, #6880, #6881 and #6864</li>
+      </ul>
+      <h2>Version 0.7.1beta</h2>
+      <p>Fix handling of header in import and export</p>
+      <h2>Version 0.7.0beta</h2>
+      <ul>
+         <li>Untranscribed text can now be any language (#6430)</li>
+         <li>Removed standalone overhead (#6489)</li>
+         <li>Added symbol "final stroke" to character map (#6476)</li>
+         <li>Removed options from marginalia dialogue (#6045)</li>
+      </ul>
+      <h2>Version 0.6.2beta</h2>
+      <ul>
+         <li>Untranscribed Pahlavi texts is now as well line numbered</li>
+         <li>Problem with writing text after language change resolved</li>
+      </ul>
+      <br />
+      <h2>Version 0.6.1beta</h2>
+      <p>Bugfix: Some old files could not be loaded, because of handling of header</p>
+      <br />
+      <h2>Version 0.6.0beta</h2>
+      <ul>
+         <li>Add feature for language change</li>
+         <li>Fix: Remove spurious space after page break within word (#6410)</li>
+         <li>Fix deletion of annotated text</li>
+         <li>Fix paste function: "paste as plain text" is now default (#6416)</li>
+      </ul>
+      <br />
+      <h2>Version 0.5.12beta</h2>
+      <p>Additional sidebar for linenumbering based on lb elements</p>
+      <br />
+      <h2>Version 0.5.11beta</h2>
+      <ul>
+         <li>Fixed insertion of special characters (#6063)</li>
+         <li>Enable red colour for all language change reasons (#6064)</li>
+      </ul>
+      <br />
+      <h2>Version 0.5.10beta</h2>
+      <p>Added transcribers to meta data dialogue</p>
+      <br />
+      <h2>Version 0.5.9beta</h2>
+      <p>Added menu for punctuation characters (including "other")</p>
+      <p>Added option "suspension" to abbreviation types</p>
+      <br />
+      <h2>Version 0.5.8beta</h2>
+      <p>Bugfix: Character map got lost</p>
+      <br />
+      <h2>Version 0.5.7beta</h2>
+      <ul>
+         <li>Fixed bug regarding manuscript identifier</li>
+         <li>Fixed bug regarding the page number handling withing the meta data dialogue</li>
+      </ul>
+      <br />
+      <h2>Version 0.5.6beta</h2>
+      <ul>
+         <li>Added metadata dialogue (menu "I")</li>
+         <li>Added start screen</li>
+         <li>Upgraded to the latest TinyMCE version</li>
+         <li>Some cleanup</li>
+      </ul>
+      <br />
+      <h2>Version 0.5.5beta</h2>
+      <p>Added support for partial information to stanzas</p>
+      <br />
+      <h2>Version 0.5.4beta</h2>
+      <ul>
+         <li>Reactivated right-click menu for information on partial verses</li>
+         <li>Reactivated right-click menu for information on hyphenations on previous pages</li>
+         <li>Bugfix: Export/Import of verses</li>
+      </ul>
+      <br />
+      <h2>Version 0.5.3beta</h2>
+      <ul>
+         <li>Added deletion for stanzas</li>
+      </ul>
+      <h2>Version 0.5.2beta</h2>
+      <ul>
+         <li>Added 'danda' and 'double danda' to character map. Changed functions for inputting punctuations accordingly. (#5959)</li>
+         <li>Added filter to character map</li>
+      </ul>
+      <br />
+      <h2>Version 0.5.1beta</h2>
+      <p>Changed punctuation input to three-digit numbers (#5953)</p>
+      <br />
+      <h2>Version 0.5beta</h2>
+      <ul>
+         <li>Fixed Bugs #5950: Problems with opening xml file in Standalone OTE</li>
+         <li>Punctuation as separate plug-in, added drop-down menu, keyboard input [P+2digitnumber]</li>
+         <li>Added muya_charmap plugin</li>
+         <li>Improved load/save functions</li>
+      </ul>
+      <br />
+      <h2>Version 0.4beta</h2>
+      <ul>
+         <li>Removed column breaks</li>
+         <li>Removed option “papyrus fibre”</li>
+         <li>Added two interpunction signs to the character map for testing (#5698)</li>
+         <li>Removed Theta from the character map</li>
+      </ul>
+      <br />
+      <h2>Version 0.3beta</h2>
+      <p>Added functions to load and save transcriptions locally. This is only meant for testing.</p>
+      <h2>Version 0.2beta</h2>
+      <ul>
+         <li>For deletion types, 'overdots' and 'ringed/circled' were included</li>
+         <li>For language change reason 'section heading; dedication' was added</li>
+         <li>Option to mark text as written upside down (e.g. ahrimen) was added</li>
+         <li>Special characters for Avestan, Pahlavi and Gujarati were added</li>
+         <li>For deficiency types, an option for text 'covered by tape' was added</li>
+      </ul>
+      <h2>Version 0.1beta</h2>
+      <p>Fork from recent version of the Workspace project. Avesta-specific additions of a previous adoption.</p>
+   </div>
 </body>
 
 </html>

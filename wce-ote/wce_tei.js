@@ -1039,7 +1039,7 @@ function getHtmlByTei(inputString, args) {
             nodeAddText($newNode, ']');
          }
       } else { // gap
-         gap_text = '';
+         var gap_text = '';
          var reason = $teiNode.getAttribute("reason");
          var extent = $teiNode.getAttribute("extent") ? $teiNode.getAttribute("extent") : '';
          if (extent === '') {
@@ -1313,7 +1313,6 @@ function getHtmlByTei(inputString, args) {
       addFormatElement($newNode);
       $htmlParent.appendChild($newNode);
       nodeAddText($htmlParent, ' ');
-
       return null;
    };
 
@@ -1696,11 +1695,9 @@ function getHtmlByTei(inputString, args) {
          if (!$rdg || $rdg.nodeType == 3) {
             break;
          }
-         typeValue = $rdg.getAttribute('type');
-         if (!typeValue) typeValue = '';
-         handValue = $rdg.getAttribute('hand');
-         if (!handValue) handValue = '';
-         deletionValue = $rdg.getAttribute('rend');
+         typeValue = $rdg.getAttribute('type') ? $rdg.getAttribute('type') : '';
+         handValue = $rdg.getAttribute('hand') ? $rdg.getAttribute('hand') : '';
+         deletionValue = $rdg.getAttribute('rend') ? $rdg.getAttribute('rend') : '';
 
          if (i == 1) {
             wceAttr += '__t=corr';
@@ -1725,7 +1722,7 @@ function getHtmlByTei(inputString, args) {
             wceAttr += '&original_firsthand_reading=&blank_firsthand=on';
 
          //wceAttr += '&common_firsthand_partial=';
-         if (deletionValue) {
+         if (deletionValue !== '') {
             // deletion="underline%2Cunderdot%2Cstrikethrough"
             // &deletion_erased=0
             // &deletion_underline=1
@@ -1748,7 +1745,7 @@ function getHtmlByTei(inputString, args) {
             wceAttr += '&deletion=' + encodeURIComponent(deletionstr.substring(1));
             // to get rid of very first ","
          } else { // no deletion given
-            wceAttr += '&deletion_erased=0&deletion_underline=0&deletion_underdot=0&deletion_strikethrough=0&deletion_vertical_line=0&deletion_overdots=0&deletion_ringed_circled=0&deletion_other=0&deletion=null';
+            wceAttr += '&deletion_erased=0&deletion_underline=0&deletion_underdot=0&deletion_strikethrough=0&deletion_vertical_line=0&deletion_overdots=0&deletion_ringed_circled=0&deletion_other=0&deletion=';
          }
 
          // &correction_text Contain:
@@ -3303,7 +3300,7 @@ function getTeiByHtml(inputString, args) {
          var _supplied_source = arr['supplied_source'];
          if (_supplied_source && _supplied_source !== '') {
             if (_supplied_source === 'other' && arr['supplied_source_other'])
-               $newNode.setAttribute('source', arr['supplied_source_other']);
+               $newNode.setAttribute('source', arr['supplied_source_other'].replace(/%20/g, "_"));
             else if (_supplied_source !== 'none')
                $newNode.setAttribute('source', _supplied_source);
          }
@@ -3325,7 +3322,7 @@ function getTeiByHtml(inputString, args) {
          var unitValue = arr['unit'];
          if (unitValue !== '') {
             if (unitValue == 'other' && arr['unit_other']) {
-               $newNode.setAttribute('unit', arr['unit_other']);
+               $newNode.setAttribute('unit', arr['unit_other'].replace(/%20/g, "_"));
             } else {
                $newNode.setAttribute('unit', unitValue);
             }
@@ -3466,9 +3463,9 @@ var html2Tei_correction = function(infoArr, $teiParent, $htmlNode) {
       var corrector_name = arr['corrector_name'];
       if (corrector_name == 'other') {
          if (arr['ut_videtur_corr'] === 'on')
-            corrector_name = arr['corrector_name_other'] + 'V';
+            corrector_name = arr['corrector_name_other'].replace(/%20/g, "_") + 'V';
          else
-            corrector_name = arr['corrector_name_other'];
+            corrector_name = arr['corrector_name_other'].replace(/%20/g, "_");
       }
       if (arr['ut_videtur_corr'] && arr['ut_videtur_corr'] === 'on')
          $rdg.setAttribute('hand', decodeURIComponent(corrector_name) + 'V');
@@ -3477,7 +3474,7 @@ var html2Tei_correction = function(infoArr, $teiParent, $htmlNode) {
 
       // deletion
       var deletion = decodeURIComponent(arr['deletion']);
-      if (deletion && deletion != 'null' && deletion != '') {
+      if (deletion && deletion !== 'null' && deletion !== '') {//TODO: check for "null" redundant?
          $rdg.setAttribute('rend', deletion.replace(/\,/g, ' '));
       }
 
@@ -3740,9 +3737,9 @@ var html2Tei_abbr = function(arr, $teiParent, $htmlNode) {
 
    // type
    var abbr_type = arr['abbr_type'];
-   if (abbr_type && abbr_type != '') {
-      if (abbr_type == 'other')
-         $abbr.setAttribute('type', arr['abbr_type_other']);
+   if (abbr_type && abbr_type !== '') {
+      if (abbr_type === 'other')
+         $abbr.setAttribute('type', arr['abbr_type_other'].replace(/%20/g, "_"));
       else
          $abbr.setAttribute('type', abbr_type);
    }
@@ -3797,8 +3794,8 @@ var html2Tei_note = function(arr, $teiParent, $htmlNode) {
    var $note = $newDoc.createElement('note');
    var note_type_value = arr['note_type'];
    if (note_type_value == 'other') {
-      var other_value = arr['note_type_other'];
-      if (other_value != '') {
+      var other_value = arr['note_type_other'].replace(/%20/g, "_");
+      if (other_value !== '') {
          note_type_value = other_value;
       }
    }
@@ -3867,8 +3864,8 @@ var html2Tei_spaces = function(arr, $teiParent, $htmlNode) {
    var $space = $newDoc.createElement('space');
 
    var sp_unit_value = arr['sp_unit'];
-   if (sp_unit_value == 'other' && arr['sp_unit_other'] != '') {
-      sp_unit_value = arr['sp_unit_other'];
+   if (sp_unit_value === 'other' && arr['sp_unit_other'] !== '') {
+      sp_unit_value = arr['sp_unit_other'].replace(/%20/g, "_");
    }
    if (sp_unit_value != '') {
       $space.setAttribute('unit', sp_unit_value);
@@ -3924,14 +3921,14 @@ var html2Tei_pc = function(arr, $teiParent, $htmlNode) {
 var html2Tei_paratext = function(arr, $teiParent, $htmlNode) {
    var newNodeName, fwType = arr['fw_type'];
 
-   if (fwType == 'commentary' || fwType == 'runTitle' || fwType == 'colophon' ||
-      fwType == 'catch' || fwType == 'pageNum' ||
-      fwType == 'orn' || fwType == 'other') {
+   if (fwType === 'commentary' || fwType === 'runTitle' || fwType === 'colophon' ||
+      fwType === 'catch' || fwType === 'pageNum' ||
+      fwType === 'orn' || fwType === 'other') {
       newNodeName = 'fw';
    }
    if (fwType !== 'isolated') {
       var $paratext = $newDoc.createElement(newNodeName);
-      fwType = (fwType == 'other') ? arr['fw_type_other'] : fwType;
+      fwType = (fwType === 'other') ? arr['fw_type_other'].replace(/%20/g, "_") : fwType;
       $paratext.setAttribute('type', fwType);
    }
 
@@ -3944,8 +3941,8 @@ var html2Tei_paratext = function(arr, $teiParent, $htmlNode) {
 
    // place
    var placeValue = arr['paratext_position'];
-   if (placeValue == 'other') {
-      placeValue = arr['paratext_position_other'];
+   if (placeValue === 'other') {
+      placeValue = arr['paratext_position_other'].replace(/%20/g, "_");
    }
 
    // alignment
@@ -4033,7 +4030,7 @@ var html2Tei_unclear = function(arr, $teiParent, $htmlNode) {
    var $unclear = $newDoc.createElement('unclear');
    var reasonValue = arr['unclear_text_reason'];
    if (reasonValue == 'other') {
-      reasonValue = arr['unclear_text_reason_other'];
+      reasonValue = arr['unclear_text_reason_other'].replace(/%20/g, "_");
    }
    if (reasonValue && reasonValue != '') {
       $unclear.setAttribute('reason', decodeURIComponent(reasonValue));
@@ -4052,10 +4049,10 @@ var html2Tei_unclear = function(arr, $teiParent, $htmlNode) {
 var html2Tei_partarr = function(arr, $teiParent, $htmlNode) {
    var $ex = $newDoc.createElement('ex');
    var rend = arr['exp_rend'];
-   if (rend == 'other') {
-      rend = arr['exp_rend_other'];
+   if (rend === 'other') {
+      rend = arr['exp_rend_other'].replace(/%20/g, "_");
    }
-   if (rend && rend != '') {
+   if (rend && rend !== '') {
       $ex.setAttribute('rend', decodeURIComponent(rend));
    }
    var textValue = getDomNodeText($htmlNode);
