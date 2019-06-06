@@ -553,6 +553,11 @@ function getHtmlByTei(inputString, args) {
             getDescendants($teiNode);
             return null;
 
+            /*         case 'idno':
+                        tinymce.get(tinyMCE.activeEditor.id).settings.witness = $teiNode.textContent;
+                        alert(tinymce.get(tinyMCE.activeEditor.id).settings.witness);
+                        return null;*/
+
          case 'w':
             return $htmlParent;
 
@@ -3060,18 +3065,26 @@ function getTeiByHtml(inputString, args) {
             g_ritualdirectionNumber = $.trim(g_ritualdirectionNumber);
             g_ritualdirectionNode = $newDoc.createElement('ab');
             g_ritualdirectionNode.setAttribute('type', 'ritualdirection');
-            if (langValue !== '')
-               g_ritualdirectionNode.setAttribute('xml:lang', langValue);
-            if (partValue !== '')
-               g_ritualdirectionNode.setAttribute('part', partValue);
             if (g_stanzaNode) {
                g_ritualdirectionNode.setAttribute('n', g_bookNumber + '.' + g_chapterNumber + '.' + g_stanzaNumber + '.' + g_ritualdirectionNumber);
+               if (langValue !== '')
+                  g_ritualdirectionNode.setAttribute('xml:lang', langValue);
+               if (partValue !== '')
+                  g_ritualdirectionNode.setAttribute('part', partValue);
                g_stanzaNode.appendChild(g_ritualdirectionNode);
             } else if (g_verseNode) {
                g_ritualdirectionNode.setAttribute('n', g_bookNumber + '.' + g_chapterNumber + '.' + g_verseNumber + '.' + g_ritualdirectionNumber);
+               if (langValue !== '')
+                  g_ritualdirectionNode.setAttribute('xml:lang', langValue);
+               if (partValue !== '')
+                  g_ritualdirectionNode.setAttribute('part', partValue);
                g_verseNode.appendChild(g_ritualdirectionNode);
             } else {
                alert("Found ritual direction without stanza or verse!");
+               if (langValue !== '')
+                  g_ritualdirectionNode.setAttribute('xml:lang', langValue);
+               if (partValue !== '')
+                  g_ritualdirectionNode.setAttribute('part', partValue);
                $newRoot.appendChild(g_ritualdirectionNode);
             }
             g_currentParentNode = g_ritualdirectionNode;
