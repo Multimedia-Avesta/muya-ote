@@ -791,6 +791,10 @@ function getHtmlByTei(inputString, args) {
 
       var partValue = $teiNode.getAttribute('part') ? $teiNode.getAttribute('part') : '';
       var langValue = $teiNode.getAttribute('xml:lang') ? $teiNode.getAttribute('xml:lang') : '';
+      if (isOther(langValue)) {
+         alert("Please note: The \"other\" value for xml:lang is no longer supported.\n Existing entries have been removed.");
+         langValue = '';
+      }
       var nValue = $teiNode.getAttribute('n') ? $teiNode.getAttribute('n') : '';
       if (divType === 'book') {
          var $newNode = $newDoc.createElement('span');
@@ -857,6 +861,10 @@ function getHtmlByTei(inputString, args) {
       var type = $teiNode.getAttribute("type");
       var partValue = $teiNode.getAttribute('part') ? $teiNode.getAttribute('part') : '';
       var langValue = $teiNode.getAttribute('xml:lang') ? $teiNode.getAttribute('xml:lang') : '';
+      if (isOther(langValue)) {
+         alert("Please note: The \"other\" value for xml:lang is no longer supported.\n Existing entries have been removed.");
+         langValue = '';
+      }
       var nValue = $teiNode.getAttribute('n') ? $teiNode.getAttribute('n') : '';
 
       if (type && type === 'line') { // line
@@ -933,7 +941,10 @@ function getHtmlByTei(inputString, args) {
       var $newNode = $newDoc.createElement('span');
       var partValue = $teiNode.getAttribute('part') ? $teiNode.getAttribute('part') : '';
       var langValue = $teiNode.getAttribute('xml:lang') ? $teiNode.getAttribute('xml:lang') : '';
-
+      if (isOther(langValue)) {
+         alert("Please note: The \"other\" value for xml:lang is no longer supported.\n Existing entries have been removed.");
+         langValue = '';
+      }
       $newNode.setAttribute('class', 'langchange');
       $newNode.setAttribute('lang', langValue);
 
@@ -1024,10 +1035,13 @@ function getHtmlByTei(inputString, args) {
          if (!$teiNode.getAttribute('source'))
             wceAttr += '&supplied_source_other=&supplied_source=none';
       }
-      wceAttr += '&untranscribed_language=' + ($teiNode.getAttribute('xml:lang') ? $teiNode.getAttribute('xml:lang') : '');
-
+      var lang = $teiNode.getAttribute("xml:lang") ? $teiNode.getAttribute("xml:lang") : '';
+      if (isOther(lang)) {
+         alert("Please note: The \"other\" value for xml:lang is no longer supported.\n Existing entries have been removed.");
+         lang = '';
+      }
+      wceAttr += '&untranscribed_language=' + lang;
       $newNode.setAttribute('wce', wceAttr);
-
       if (teiNodeName === 'supplied') { // supplied
          var $tempParent = $newDoc.createElement('t');
          var cList = $teiNode.childNodes;
@@ -1058,7 +1072,6 @@ function getHtmlByTei(inputString, args) {
             var _extent = parseInt(extent);
          }
          var unit = $teiNode.getAttribute("unit") ? $teiNode.getAttribute("unit") : '';
-         var lang = $teiNode.getAttribute("xml:lang") ? $teiNode.getAttribute("xml:lang") : '';
 
          if (unit === "char") {
             if (extent !== '')
@@ -1542,6 +1555,10 @@ function getHtmlByTei(inputString, args) {
       }
 
       var lang = $teiNode.getAttribute("xml:lang") ? $teiNode.getAttribute("xml:lang") : '';
+      if (isOther(lang)) {
+         alert("Please note: The \"other\" value for xml:lang is no longer supported.\n Existing entries have been removed.");
+         lang = '';
+      }
       wceAttr += '&language_name=' + lang;
 
       $newNode.setAttribute('wce', wceAttr);
@@ -4447,4 +4464,16 @@ function isStructuralElement($node) {
    //    return true;
    else
       return false;
+}
+
+function isOther(lang) {
+   if (lang === "ae" || lang === "gu" || lang === "fa" || lang === "fa-Phlv" ||
+      lang === "sa" || lang === "ae-Avst" || lang === "ae-Phlv" ||
+      lang === "ae-Gujr" || lang === "pal-Avst" || lang === "pal-Phlv" ||
+      lang === "pal-Gujr" || lang === "pal-Phli" || lang === "gu-Arab" ||
+      lang === "gu-Gujr" || lang === "ar") {
+      return false;
+   } else {
+      return true;
+   }
 }
