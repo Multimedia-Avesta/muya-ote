@@ -1082,8 +1082,8 @@ function getHtmlByTei(inputString, args) {
          var extent = $teiNode.getAttribute("extent") ? $teiNode.getAttribute("extent") : '';
          if (extent === '') {
             extent = $teiNode.getAttribute("quantity") ? $teiNode.getAttribute("quantity") : '';
-            var _extent = parseInt(extent);
          }
+         var _extent = (extent === '') ? 0 : parseInt(extent);
          var unit = $teiNode.getAttribute("unit") ? $teiNode.getAttribute("unit") : '';
 
          if (unit === "char") {

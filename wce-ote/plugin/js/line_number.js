@@ -100,7 +100,7 @@ tinymce.PluginManager.add('wcelinenumber', function (ed) {
                 sidebar.appendChild(div);
                 bottom = y;
                 i++;
-            } else if (ty > 0) {
+            } else if (ty > -1) {
                 i = +i + +ty;
             } else if (ty) {
                 i = 1;
