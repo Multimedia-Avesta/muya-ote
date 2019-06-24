@@ -33,7 +33,7 @@
 */
 
 (function() {
-   var wfce_editor = "1.0.0 (2019-06-14)";
+   var wfce_editor = "1.1.0 (2019-06-24)";
 
    // Load plugin specific language pack
    tinymce.PluginManager.requireLangPack('wce');
@@ -261,12 +261,8 @@
                return true;
             else if (node.getAttribute("class") && node.getAttribute("class") === 'langchange')
                return false;
-            /*else {
-                var p = node.previousSibling;
-                if (node.getAttribute("class") && node.getAttribute("class") == 'formatting_rubrication' &&
-                    p && p.getAttribute("class") && p.getAttribute("class") == 'langchange')
-                    return false;
-            }*/
+            else if (node.getAttribute("class") && node.getAttribute("class").indexOf("formatting") == 0)
+               return false;
             return true;
          }
          return false; //TODO: This used to be "true", but users wanted to alter text ...
@@ -2596,7 +2592,7 @@
                   $(wcevar.selectedNode).hasClass('lectionary-other'))) {
                WCEUtils.wceDelNode(ed);
                return stopEvent(ed, e);
-            } else if ((ek == 46 && wcevar.type == 'langchange')) {
+            } else if ((ek == 46 && wcevar.type === 'langchange')) {
                WCEUtils.wceDelNode(ed);
                return stopEvent(ed, e);
             } else if (ek == 46 && wcevar.isCaretAtNodeEnd && !wcevar.isNextElemBE) {

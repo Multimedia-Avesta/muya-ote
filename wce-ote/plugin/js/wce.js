@@ -199,18 +199,18 @@ function writeWceNodeInfo(val) {
             } else {
                gap_unit = document.getElementById('unit').value;
                gap_extent = document.getElementById('extent').value;
-               if (gap_unit == "char") {
-                  if (gap_extent != '')
+               if (gap_unit === "char") {
+                  if (gap_extent !== '')
                      gap_text += '[' + gap_extent + ']';
                   else
                      gap_text += '[...]';
-               } else if (gap_unit == "line") {
+               } else if (gap_unit === "line") {
                   // Check for special values
-                  if (gap_extent == 'part' || gap_extent == 'unspecified')
+                  if (gap_extent === 'part' || gap_extent === 'unspecified')
                      gap_text += '[...]';
                   else { // get integer value
                      var _extent = parseInt(gap_extent);
-                     if (_extent == 0) {
+                     if (_extent === 0) {
                         gap_text += '[...]';
                      } else {
                         for (var i = 0; i < _extent; i++) {
@@ -220,7 +220,7 @@ function writeWceNodeInfo(val) {
                      wceUtils.addToCounter(ed, 'lb', _extent);
                   }
                   gap_id = '_2_' + wceUtils.getRandomID(ed, '');
-               } else if (gap_unit == "page") {
+               } else if (gap_unit === "page") {
                   for (var i = 0; i < gap_extent; i++) {
                      gap_text += '<br/>PB<br/>[...]';
                   }
