@@ -128,7 +128,7 @@ function readWceNodeInfo() {
  *            type of wce node
  */
 function writeWceNodeInfo(val) {
-   if (typeof wce_type == 'undefined') {
+   if (typeof wce_type === 'undefined') {
       alert('wce_type error');
       return;
    }
@@ -139,12 +139,12 @@ function writeWceNodeInfo(val) {
    }
 
    var newWceAttr = arrayToString(info_arr);
-   if (wce_type != 'note' || other_info_str != '@__t=verse_number') //exception
+   if (wce_type !== 'note' || other_info_str !== '@__t=verse_number') //exception
       newWceAttr += other_info_str;
 
    var wceID = '';
 
-   if (wce_node != null && newWceAttr == '') {
+   if (wce_node !== null && newWceAttr === '') {
       if (wceUtils) {
          wceUtils.wceDelNode(ed);
          wceUtils.setWCEVariable(ed);
@@ -152,7 +152,7 @@ function writeWceNodeInfo(val) {
       }
       parent.tinymce.activeEditor.windowManager.close();
       return;
-   } else if (newWceAttr == '') {
+   } else if (newWceAttr === '') {
       parent.tinymce.activeEditor.windowManager.close();
       return;
    }

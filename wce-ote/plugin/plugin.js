@@ -1303,6 +1303,9 @@
             case 'verseline_number':
                _disableAllControls(ed, true);
                break;
+            case 'ritualdirection_number':
+               _disableAllControls(ed, true);
+            break;
 
             case 'brea':
                if (wholeSelect) {
@@ -1349,6 +1352,11 @@
             case 'note':
                _disableAllControls(ed, true);
                w.not_N = false;
+               break;
+
+            case 'langchange':
+               var canInsertNode = !w.isc ? false : WCEUtils.canInsertNote(ed, rng);
+               w.not_N = !canInsertNode;
                break;
 
             case 'format_end mceNonEditable':
@@ -1521,28 +1529,28 @@
          //caret at formatEnd
          var ep = endContainer.parentNode;
          if ($(ep).hasClass('format_end')) {
-            if (ep.parentNode.parentNode != ed.getBody()) {
+            if (ep.parentNode.parentNode !== ed.getBody()) {
                return false;
             }
             var nextTextNode = ep.parentNode.nextSibling;
             if (nextTextNode) {
-               if (nextTextNode.nodeType != 3) {
+               if (nextTextNode.nodeType !== 3) {
                   return false;
                }
                text = nextTextNode.nodeValue;
                var ch = text.charAt(0);
-               if (ch != ' ' && ch != '\xa0') {
+               if (ch !== ' ' && ch !== '\xa0') {
                   return false;
                }
             }
             //} else if ($(ep).hasClass('formatting_rubrication') &&
             //    ep.previousSibling && $(ep.previousSibling).hasClass('langchange')) {
             //return true;
-         } else if (endContainer.parentNode != ed.getBody()) { //TODO: This is probably wrong (MS)
+         } /*else if (endContainer.parentNode !== ed.getBody()) { //TODO: This is probably wrong (MS)
             if ($(ep).hasClass('formatting_rubrication') &&
                ep.previousSibling && $(ep.previousSibling).hasClass('langchange')) {} else if (!$(endContainer.parentNode).hasClass('verse_number')) // for verses go to next check
                return false;
-         }
+         }*/
 
          text = endContainer.nodeValue;
          if (text) {
@@ -1555,14 +1563,14 @@
             if (endOffset < len && endOffset > 0) {
                var c = text.charAt(endOffset - 1);
                var c1 = text.charAt(endOffset);
-               if ((c != ' ' && c != '\xa0') && (c1 == ' ' || c1 == '\xa0')) {
+               if ((c !== ' ' && c !== '\xa0') && (c1 === ' ' || c1 === '\xa0')) {
                   return true;
                }
             }
-            if (endOffset == len && endOffset > 0) { //special case for first position after correction
+            if (endOffset === len && endOffset > 0) { //special case for first position after correction
                var c = text.charAt(endOffset - 1);
                var c1 = text.charAt(endOffset);
-               if (c != ' ' && c != '\xa0' && !c1) {
+               if (c !== ' ' && c !== '\xa0' && !c1) {
                   return true;
                }
             }
