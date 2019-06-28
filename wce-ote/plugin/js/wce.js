@@ -105,7 +105,7 @@ function wceInfoInit(wp) {
             info_arr['c' + item_counter] = arr[i];
          }
       }
-   } else if (typeof selected_content != 'undefined' && selected_content != null) {
+   } else if (typeof selected_content !== 'undefined' && selected_content !== null) {
       wce_node_text = selected_content.replace(/<\/?[^>]+>/gi, '');
    }
 }
@@ -185,7 +185,7 @@ function writeWceNodeInfo(val) {
                var gap_parent_name;
                while (gap_parent) {
                   gap_parent_name = gap_parent.nodeName.toLowerCase();
-                  if (gap_parent_name == 'body' || gap_parent_name == 'html') {
+                  if (gap_parent_name === 'body' || gap_parent_name === 'html') {
                      break;
                   }
                   // Should be redundant now

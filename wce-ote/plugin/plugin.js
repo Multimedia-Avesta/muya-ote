@@ -33,7 +33,7 @@
 */
 
 (function() {
-   var wfce_editor = "1.1.0 (2019-06-24)";
+   var wfce_editor = "1.1.0 BETA (2019-06-26)";
 
    // Load plugin specific language pack
    tinymce.PluginManager.requireLangPack('wce');
@@ -91,12 +91,8 @@
 
          //each Editor hat its own variable
          if (!content) {
-            // quire count
-            v.qcnt = 0;
             // page count
             v.pcnt = 0;
-            // column count
-            //v.ccnt = 1; //Because of the predefined part from the NTVMR
             // line count
             v.lcnt = 1; //Because of the predefined part from the NTVMR
             // counting as r/v
@@ -131,7 +127,6 @@
                break;
          }
       },
-
 
       /*
        *
@@ -633,7 +628,7 @@
          var newstring = '',
             rv = '';
 
-         if (bType == 'lb') {
+         if (bType === 'lb') {
             if (lbpos === 'lbm') {
                // line break in the middle of a word
                //v.lcnt = WCEUtils.counterCalc(v.lcnt, 1);
@@ -661,13 +656,12 @@
             if (getOnlyIndention) {
                return str;
             }
-         } else if (bType == 'pb') {
+         } else if (bType === 'pb') {
             // page break
             groupCount = 3;
             var new_number, number;
             var new_rv = "";
             v.pcnt = WCEUtils.counterCalc(v.pcnt, 1);
-            v.ccnt = 0;
             v.lcnt = '';
             number = v.pcnt;
             new_number = number;
@@ -681,7 +675,7 @@
                   new_rv = "r";
                }
             }
-            if (lbpos == 'lbm') {
+            if (lbpos === 'lbm') {
                wceAttr = attr ? attr : 'wce="__t=brea&amp;__n=&amp;hasBreak=yes&amp;break_type=pb&amp;number=' + new_number + '&amp;rv=' + new_rv + '&amp;page_number=&amp;running_title=&amp;facs=&amp;lb_alignment=' + '"';
                if (attr) {
                   pos = attr.indexOf("number=");
@@ -711,7 +705,7 @@
          //a group hat same baseID, but each element hat different id,
          //id= bType+baseID
          var wceID, baseID;
-         if (bType == 'lb' && !_id) {
+         if (bType === 'lb' && !_id) {
             wceID = '';
          } else {
             baseID = _id ? _id : WCEUtils.getRandomID(ed, '');
@@ -728,13 +722,9 @@
             //also z.B. hier lb editieren wird popup von qb angezeigt
             out = out + _this(ed, 'pb', 'ignore', indention, null, baseID);
             v.pcnt = 1;
-         } else if (bType == 'pb') {
+         } else if (bType === 'pb') {
             out = out + _this(ed, 'lb', 'ignore', indention, null, baseID);
-            v.ccnt = 1;
-            /*} else if (bType == 'cb') {
-            	out = out + _this(ed, 'lb', 'ignore', indention, null, baseID);
-            	v.lcnt = 1;*/
-         } else if (bType == 'lb' && lbpos != 'lbm' && !baseID) {
+         } else if (bType === 'lb' && lbpos !== 'lbm' && !baseID) {
             out += '&nbsp;';
          }
          return out;
@@ -1226,7 +1216,7 @@
          w.not_L = !canInsertNode;
 
          //highlighting red, blue, yellow .....
-         if (w.type && w.type != "formatting_capitals" && w.type.match(/formatting/)) {
+         if (w.type && w.type !== "formatting_capitals" && w.type.match(/formatting/)) {
             w.type = 'formatting';
          }
 

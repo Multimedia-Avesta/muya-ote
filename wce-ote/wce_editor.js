@@ -263,12 +263,8 @@ function resetCounter() {
    var v = tinyMCE.activeEditor.WCE_VAR;
    if (!v)
       return false;
-   // quire count
-   v.qcnt = 0;
    // page count
    v.pcnt = 0;
-   // column count
-   v.ccnt = 1; //Because of the predefined part from the NTVMR
    // line count
    v.lcnt = 1; //Because of the predefined part from the NTVMR
    // counting as r/v
