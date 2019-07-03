@@ -349,7 +349,7 @@ tinymce.PluginManager.add('wcecharmapsidebar', function(ed) {
          ['0x006F', 'AVESTAN LETTER O'],
          ['0x014d', 'AVESTAN LETTER OO'],
          ['0x0069', 'AVESTAN LETTER I'],
-         ['0x00EF', 'Small letter i with diaresis'],
+         ['0x00EF', 'Small letter i with diaeresis'],
          ['0x012b', 'AVESTAN LETTER II'],
          ['0x0075', 'AVESTAN LETTER U'],
          ['0x016b', 'AVESTAN LETTER UU'],
@@ -419,8 +419,8 @@ tinymce.PluginManager.add('wcecharmapsidebar', function(ed) {
          ['D+0x0302', 'Capital letter D with circumflex'],
          ['d+0x0308', 'Small letter d with diaeresis'],
          ['D+0x0308', 'Capital letter D with diaeresis'],
-         ['d+0x0324', 'Small letter d with diaresis below'],
-         ['D+0x0324', 'Capital letter D with diaresis below'],
+         ['d+0x0324', 'Small letter d with diaeresis below'],
+         ['D+0x0324', 'Capital letter D with diaeresis below'],
          ['g+0x0304', 'Small letter g with macron'],
          ['G+0x0331', 'Capital letter G with macron below'],
          ['g+0x0302', 'Small letter g with circumflex'],
@@ -428,9 +428,13 @@ tinymce.PluginManager.add('wcecharmapsidebar', function(ed) {
          ['g+0x0308', 'Small letter g with diaeresis'],
          ['G+0x0308', 'Capital letter G with diaeresis'],
          ['H+0x0323', 'Capital letter H with dot below'],
-         ['0x00EF', 'Small letter i with diaresis'],
+         ['0x00EF', 'Small letter i with diaeresis'],
          ['k+0x0331', 'Small letter k with macron below'],
          ['K+0x0331', 'Capital letter K with macron below'],
+         ['k+0x0308', 'Small letter k with diaeresis'],
+         ['K+0x0308', 'Capital letter k with diaeresis'],
+         ['k+0x0324', 'Small letter k with diaeresis below'],
+         ['K+0x0324', 'Capital letter k with diaeresis below'],
          ['l+0x0335', 'Small letter l with short stroke overlay'],
          ['L+0x0335', 'Capital letter L with short stroke overlay'],
          ['n+0x0331', 'Small letter n with macron below'],
@@ -455,8 +459,8 @@ tinymce.PluginManager.add('wcecharmapsidebar', function(ed) {
          ['S+0x030C', 'Capital letter S with caron'],
          ['t+0x0302', 'Small letter t with circumflex'],
          ['T+0x0302', 'Capital letter T with circumflex'],
-         ['t+0x0308', 'Small letter t with diaresis'],
-         ['T+0x0308', 'Capital letter T with diaresis'],
+         ['t+0x0308', 'Small letter t with diaeresis'],
+         ['T+0x0308', 'Capital letter T with diaeresis'],
          ['t+0x0328', 'Small letter t with ogonek'],
          ['T+0x0328', 'Capital letter T with ogonek'],
          ['0x1E6B', 'Small letter t with dot above'],
@@ -643,6 +647,7 @@ tinymce.PluginManager.add('wcecharmapsidebar', function(ed) {
       lineheight = fontsize * 1.6;
       sidebar = document.createElement("div");
       sidebar.classList.add("wce-charmap-sidebar");
+      sidebar.id = "right_panel";
       //sidebar.style.width = String(screen.width/2).concat("px");
       sidebar.style.width = "600px";
       //alert(sidebar.style.width);
@@ -650,9 +655,8 @@ tinymce.PluginManager.add('wcecharmapsidebar', function(ed) {
       sidebar.style.borderRight = "1px solid #aaa";
       sidebar.style.backgroundColor = "lightgray";
       sidebar.style.position = "relative";
-      sidebar.style.overflow = "scroll";
-      sidebar.style.resize = "horizontal";
-      sidebar.style.direction = "rtl";
+      sidebar.style.overflow = "auto";
+      //sidebar.style.resize = "horizontal";
       ct.appendChild(sidebar);
       _drawCharmapsidebar(getCharMap());
       $(ed.getWin()).scroll(function(e) {
@@ -666,13 +670,9 @@ tinymce.PluginManager.add('wcecharmapsidebar', function(ed) {
       ed.on('ResizeEditor', function(e) {
          iframe.style.height = null;
       });
-        ed.on('change', function () {
-
-        });
-        ed.on('keyup', function () {
-
-        });
-        ed.on('setContent', function () {});
+      ed.on('change', function () {});
+      ed.on('keyup', function () {});
+      ed.on('setContent', function () {});
    }
 
    ed.addCommand('wceShowcharmapsidebar', function(b) {
@@ -683,7 +683,6 @@ tinymce.PluginManager.add('wcecharmapsidebar', function(ed) {
    });
 
    function _drawCharmapsidebar(cf) {
-      //var translate = tinymce.util.I18n.translate;
       var currentdiv = sidebar.querySelector("div");
       if (currentdiv) {
          sidebar.removeChild(currentdiv);
