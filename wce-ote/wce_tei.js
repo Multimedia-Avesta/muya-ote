@@ -1143,7 +1143,8 @@ function getHtmlByTei(inputString, args) {
       //var s=getOriginalTextByTeiNode($teiNode); alert(s);
       //$newNode.setAttribute('wce_orig', s);//TODO: test wce_orig
       $htmlParent.appendChild($newNode);
-      nodeAddText($htmlParent, ' ');
+      if (!ed.WCE_VAR.isc)
+         nodeAddText($htmlParent, ' ');
       return null;
    };
 
