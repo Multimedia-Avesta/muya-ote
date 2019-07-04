@@ -639,8 +639,8 @@ function getHtmlByTei(inputString, args) {
             // correction
 
          case 'seg': // marginal information
-            if (($teiNode.firstChild && ($teiNode.firstChild.nodeName == 'fw' || $teiNode.firstChild.nodeName == 'num')) ||
-               ($teiNode.parentNode && $teiNode.parentNode.nodeName == 'rdg'))
+            if (($teiNode.firstChild && ($teiNode.firstChild.nodeName === 'fw' || $teiNode.firstChild.nodeName === 'num')) ||
+               ($teiNode.parentNode && $teiNode.parentNode.nodeName === 'rdg'))
                return $htmlParent;
             else
                return Tei2Html_paratext($htmlParent, $teiNode, 'fw');
@@ -756,18 +756,22 @@ function getHtmlByTei(inputString, args) {
 
       $newNode.setAttribute('wce_orig', $teiNode.firstChild && $teiNode.firstChild.nodeValue ? $teiNode.firstChild.nodeValue : '');
 
-
-      if (!$teiNode.getAttribute('reason')) { // no reason given
+      var reason = ($teiNode.getAttribute('reason') ? $teiNode.getAttribute('reason') : '');
+      if (reason === '') { // no reason given
          wceAttr += '&unclear_text_reason=&unclear_text_reason_other=';
       } else {
-         var mapping = {
-            'reason': {
-               '0': '@poor image@faded ink@damage to page@covered by tape',
-               '1': '&unclear_text_reason_other=&unclear_text_reason=',
-               '2': '&unclear_text_reason=other&unclear_text_reason_other='
-            },
-         };
-         wceAttr += getWceAttributeByTei($teiNode, mapping);
+         switch (reason) {
+            case 'poor_image':
+            case 'faded_ink':
+            case 'damage_to_page':
+            case 'covered_by_tape':
+            case 'overwritten':
+                  wceAttr += '&unclear_text_reason=' + reason.replace(/_/g, " ") + '&unclear_text_reason_other=';
+               break;
+            default:
+                  wceAttr += '&unclear_text_reason=other&unclear_text_reason_other=' + reason;
+               break;
+         }
       }
       $newNode.setAttribute('wce', wceAttr);
       addFormatElement($newNode);
@@ -3956,11 +3960,11 @@ function getTeiByHtml(inputString, args) {
       $htmlNode = loadXMLString(str).documentElement;
 
       var $unclear = $newDoc.createElement('unclear');
-      var reasonValue = arr['unclear_text_reason'];
-      if (reasonValue == 'other') {
+      var reasonValue = arr['unclear_text_reason'].replace(/%20/g, "_");
+      if (reasonValue === 'other') {
          reasonValue = arr['unclear_text_reason_other'].replace(/%20/g, "_");
       }
-      if (reasonValue && reasonValue != '') {
+      if (reasonValue && reasonValue !== '') {
          $unclear.setAttribute('reason', decodeURIComponent(reasonValue));
       }
       appendNodeInW($teiParent, $unclear, $htmlNode);

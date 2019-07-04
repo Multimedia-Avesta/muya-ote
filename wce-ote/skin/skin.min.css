@@ -2492,3 +2492,22 @@ i.mce-i-backcolor {
     text-align: center;
      !important;
 }
+
+/*#right_panel {
+    position: absolute;
+    width: 96px;
+    padding-left: 4px;
+    height: 100%;
+    right: 0;
+    background-color: #f0f0ff;
+}
+
+#right_panel:after {
+ content: " ";
+    background-color: #ccc;
+    position: absolute;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    cursor: w-resize;
+}*/

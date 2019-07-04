@@ -647,7 +647,7 @@ tinymce.PluginManager.add('wcecharmapsidebar', function(ed) {
       lineheight = fontsize * 1.6;
       sidebar = document.createElement("div");
       sidebar.classList.add("wce-charmap-sidebar");
-      sidebar.id = "right_panel";
+      //sidebar.id = "right_panel";
       //sidebar.style.width = String(screen.width/2).concat("px");
       sidebar.style.width = "600px";
       //alert(sidebar.style.width);
@@ -656,7 +656,7 @@ tinymce.PluginManager.add('wcecharmapsidebar', function(ed) {
       sidebar.style.backgroundColor = "lightgray";
       sidebar.style.position = "relative";
       sidebar.style.overflow = "auto";
-      //sidebar.style.resize = "horizontal";
+      sidebar.style.resize = "horizontal";
       ct.appendChild(sidebar);
       _drawCharmapsidebar(getCharMap());
       $(ed.getWin()).scroll(function(e) {
