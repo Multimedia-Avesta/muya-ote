@@ -647,18 +647,42 @@ tinymce.PluginManager.add('wcecharmapsidebar', function(ed) {
       lineheight = fontsize * 1.6;
       sidebar = document.createElement("div");
       sidebar.classList.add("wce-charmap-sidebar");
-      //sidebar.id = "right_panel";
+      sidebar.id = "right_panel";
+      // see skin.min.class
       //sidebar.style.width = String(screen.width/2).concat("px");
-      sidebar.style.width = "600px";
+      //sidebar.style.width = "600px";
       //alert(sidebar.style.width);
       sidebar.style.maxHeight = String(document.querySelector('iframe#wce_editor_ifr').offsetHeight).concat("px"); //"400px";
       sidebar.style.borderRight = "1px solid #aaa";
-      sidebar.style.backgroundColor = "lightgray";
-      sidebar.style.position = "relative";
+      //sidebar.style.backgroundColor = "lightgray";
+      //sidebar.style.position = "relative";
       sidebar.style.overflow = "auto";
-      sidebar.style.resize = "horizontal";
+
+      let m_pos;
+      var activeresize = false;
+
+      sidebar.addEventListener('mousedown', function(e) {
+         if (e.offsetX < 4) {
+            m_pos = e.x;
+            activeresize = true;
+         }
+      }, false);
+      sidebar.addEventListener("mouseup", function() {
+         activeresize = false;
+      }, false);
+      sidebar.addEventListener('mousemove', function(e) {
+         if (activeresize) {
+            const dx = m_pos - e.x;
+            m_pos = e.x;
+            sidebar.style.width = (parseInt(getComputedStyle(sidebar).width, '') + dx) + "px";
+            var currentcharmap = lookup(radioGroup, "value", charmap_filter_value);
+            _drawCharmapsidebar(currentcharmap.charmap());
+         }
+      }, false);
+
       ct.appendChild(sidebar);
       _drawCharmapsidebar(getCharMap());
+
       $(ed.getWin()).scroll(function(e) {
          var currentcharmap = lookup(radioGroup, "value", charmap_filter_value);
          _drawCharmapsidebar(currentcharmap.charmap());
@@ -670,9 +694,23 @@ tinymce.PluginManager.add('wcecharmapsidebar', function(ed) {
       ed.on('ResizeEditor', function(e) {
          iframe.style.height = null;
       });
-      ed.on('change', function () {});
-      ed.on('keyup', function () {});
-      ed.on('setContent', function () {});
+      ed.on('change', function() {});
+      ed.on('keyup', function() {});
+      ed.on('setContent', function() {});
+
+      ed.on('mousemove', function(e) {
+         if (activeresize) {
+            const dx = m_pos - e.x;
+            m_pos = e.x;
+            sidebar.style.width = (parseInt(getComputedStyle(sidebar).width, '') + dx) + "px";
+            var currentcharmap = lookup(radioGroup, "value", charmap_filter_value);
+            _drawCharmapsidebar(currentcharmap.charmap());
+         }
+      });
+
+      ed.on('mouseup', function() {
+         activeresize = false;
+      });
    }
 
    ed.addCommand('wceShowcharmapsidebar', function(b) {
