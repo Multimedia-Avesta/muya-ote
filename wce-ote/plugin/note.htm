@@ -1,6 +1,6 @@
-<!-- 
-	Copyright (C) 2012-2017 Trier Center for Digital Humanities, Trier (Germany)
-	
+<!--
+	Copyright (C) 2012-2019 Trier Center for Digital Humanities, Trier (Germany)
+
 	This file is part of the Online Transcription Editor (OTE).
 
     OTE is free software: you can redistribute it and/or modify
@@ -18,15 +18,15 @@
 
     Diese Datei ist Teil des Online-Transkriptions-Editor (OTE).
 
-    OTE ist Freie Software: Sie können es unter den Bedingungen
+    OTE ist Freie Software: Sie kÃ¶nnen es unter den Bedingungen
     der GNU Lesser General Public License, wie von der Free Software Foundation,
-    Version 2.1 der Lizenz oder (nach Ihrer Wahl) jeder späteren
-    veröffentlichten Version, weiterverbreiten und/oder modifizieren.
+    Version 2.1 der Lizenz oder (nach Ihrer Wahl) jeder spÃ¤teren
+    verÃ¶ffentlichten Version, weiterverbreiten und/oder modifizieren.
 
-    OTE wird in der Hoffnung, dass es nützlich sein wird, aber
-    OHNE JEDE GEWÄHRLEISTUNG, bereitgestellt; sogar ohne die implizite
-    Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
-    Siehe die GNU Lesser General Public License für weitere Details.
+    OTE wird in der Hoffnung, dass es nÃ¼tzlich sein wird, aber
+    OHNE JEDE GEWÃ„HRLEISTUNG, bereitgestellt; sogar ohne die implizite
+    GewÃ¤hrleistung der MARKTFÃ„HIGKEIT oder EIGNUNG FÃœR EINEN BESTIMMTEN ZWECK.
+    Siehe die GNU Lesser General Public License fÃ¼r weitere Details.
 
     Sie sollten eine Kopie der GNU Lesser General Public License zusammen mit diesem
     Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
@@ -34,12 +34,15 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
-<title>{#note_title}</title>
-<script type="text/javascript" src="../jquery.js"></script>
-<script type="text/javascript" src="js/wce.js"></script>
-<link rel="stylesheet" type="text/css" href="../skin/dialog.css"/>
-<link rel="stylesheet" type="text/css" href="../skin/ui.css"/>
+	<title>{#note_title}</title>
+	<script type="text/javascript" src="../../js/tinymce/tinymce.min.js"></script>
+	<script type="text/javascript" src="../jquery-3.4.1.min.js"></script>
+	<script type="text/javascript" src="../rangy-core.js"></script>
+	<script type="text/javascript" src="js/wce.js"></script>
+	<link rel="stylesheet" type="text/css" href="../skin/dialog.css"/>
+	<link rel="stylesheet" type="text/css" href="../skin/ui.css"/>
 </head>
 <body id="table">
 	<form onsubmit="return false;" action="#" name="noteinfo">
@@ -56,7 +59,6 @@
 						onchange="checkstatus_notetype()">
 							<option value="local">{#local}</option>
 							<option value="editorial">{#editorial}</option>
-							<!--<option value="canonRef">{#canon}</option>-->
 							<option value="changeOfHand">{#changeOfHand}</option>
 							<option value="other">{#other}</option>
 					</select>
@@ -92,14 +94,51 @@
 	</form>
 </body>
 <script type="text/javascript">
-	$(document).ready(function() {
-		var _ed = parent.tinymce.activeEditor;
-		ed=_ed;
-		translate();
-		setConstants(); 
-		init();
-	});	
-	
+var note_text_editor;
+$(document).ready(function() {
+	 // TODO: fix this in wce.js. currently we're settin global ed variable.
+	 ed = parent.tinymce.activeEditor;
+	 translate();
+	 setConstants();
+	 note_text_editor = new tinymce.Editor('note_text', {
+		  branding: false,
+		  mode: "textareas",
+		  branding: false,
+		  theme: "modern",
+		  menubar: false,
+		  skin_url: "../skin/",
+		  extended_valid_elements: 'span[class|wce_orig|style|wce|id|ext|lang|partial]',
+		  forced_root_block: false,
+		  force_br_newlines: true,
+		  force_p_newlines: false,
+		  entity_encoding: "raw",
+		  theme_advanced_path: false,
+		  plugins: "pagebreak,print,paste",
+		  external_plugins: {
+				'wce': '../../wce-ote/plugin/plugin.js',
+				'muyacharmap': '../../wce-ote/plugin/js/muya_charmap.js',
+				//'punctuation': '../../wce-ote/plugin/js/punctuation.js',
+				//'wcelinenumber': '../../wce-ote/plugin/js/line_number.js',
+				//'wcecharmapsidebar': '../../wce-ote/plugin/js/charmap_sidebar.js'
+		  },
+		  internal_editor: true,
+		  toolbar: "muyacharmap",
+		  /*setup: function(ed) {
+
+		  }*/
+	 }, tinymce.EditorManager);
+	 note_text_editor.on('init', function() {
+		  comboBindReturnEvent('insert');
+		  wceInfoInit('note');
+		  $('#note_text_ifr').contents().find('#tinymce').css('font-family',
+				parent.$('#wce_editor_ifr').contents().find('#tinymce').css('font-family'));
+		  readWceNodeInfo();
+		  setstatus_note();
+		  note_text_editor.focus();
+	 });
+	 note_text_editor.render();
+});
+
 	function translate() {
 		var c=document.body.innerHTML;
 		var d=document.title;
@@ -116,14 +155,14 @@
 		});
 		if(a!=d){document.title=d=a}
 	}
-	
-	function init() {
-		comboBindReturnEvent('insert'); 
+
+	/*function init() {
+		comboBindReturnEvent('insert');
 		wceInfoInit('note');
 		readWceNodeInfo();
 		setstatus_note();
 		document.noteinfo.note_text.focus();
-	}
+	}*/
 	function checkstatus_notetype() {
 		if (document.noteinfo.note_type.options[3].selected == true) {
 			document.noteinfo.note_type_other.disabled = false;
@@ -139,10 +178,10 @@
 		} else {
 			document.noteinfo.newHand.disabled = true;
 			document.getElementById('newHand').style.backgroundColor = "#CCCCCC";
-			document.noteinfo.note_text.focus();
+			note_text_editor.focus();
 		}
 	}
-	
+
 	function setstatus_note() {
 		checkstatus_notetype();
 	}
@@ -150,15 +189,16 @@
 	function testOther() {
 		//if (document.noteinfo.note_type.options[3].selected == true && document.getElementById('newHand').value == '')
 			//return false;
-		if (document.noteinfo.note_type.options[3].selected == true && document.getElementById('note_type_other').value == '') 
+		if (document.noteinfo.note_type.options[3].selected == true &&
+			 document.getElementById('note_type_other').value === '')
 			return false;
 	return true;
 	}
-	
+
 	function testText() { // for change of hand the note text is optional
-		return (document.noteinfo.note_text.value !== '' || document.noteinfo.note_type.options[3].selected)
+		return (note_text_editor.getContent() !== '' || document.noteinfo.note_type.options[3].selected)
 	}
-	
+
 
 	if (!parent.tinymce.isIE) {
 		$(document).keydown(function(e) {

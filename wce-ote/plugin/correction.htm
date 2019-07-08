@@ -1,5 +1,5 @@
 ﻿<!--
-	Copyright (C) 2012-2018 Trier Center for Digital Humanities, Trier (Germany)
+	Copyright (C) 2012-2019 Trier Center for Digital Humanities, Trier (Germany)
 
 	This file is part of the Online Transcription Editor (OTE).
 
@@ -217,12 +217,7 @@
         corrector_text_editor.on('init', function() {
             comboBindReturnEvent('insert');
             wceInfoInit('corr');
-            /* TODO: check this
-            					if ($.browser.safari) {
-            						$('#content_fieldset').css('width', $('#mceActionPanel').width() - 250);
-            					}
-            */
-
+            
             for (var p in info_arr) {
                 addCorrector(p);
             }
@@ -287,7 +282,10 @@
     }
 
     function testOther() {
-        if ((document.readinginfo.corrector_name.options[5].selected == true && document.getElementById('corrector_name_other').value == '') || (document.readinginfo.place_corr.options[14].selected == true && document.getElementById('place_corr_other').value == ''))
+        if ((document.readinginfo.corrector_name.options[5].selected == true &&
+             document.getElementById('corrector_name_other').value == '') ||
+             (document.readinginfo.place_corr.options[14].selected == true &&
+               document.getElementById('place_corr_other').value == ''))
             return false;
         return true;
     }
@@ -459,10 +457,10 @@
             info_arr[_id] = formSerialize(null, corrector_name);
             corrector_name = corrector_name = $('#corrector_name').val();
         } else {
-            if (typeof info_arr[_id] != 'undefined' && info_arr[_id] != '') {
+            if (typeof info_arr[_id] !== 'undefined' && info_arr[_id] !== '') {
                 var param_arr = info_arr[_id].split('&');
                 corrector_name = param_arr[1];
-                if (typeof corrector_name != 'undefined') {
+                if (typeof corrector_name !== 'undefined') {
                     corrector_name = corrector_name.replace('__n=', '');
                 }
             }
@@ -554,5 +552,4 @@
     }
 
 </script>
-
 </html>

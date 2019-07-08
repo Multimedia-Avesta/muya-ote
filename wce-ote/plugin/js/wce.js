@@ -341,8 +341,8 @@ function writeWceNodeInfo(val) {
       } else {
          wceUtils.setContent(ed, new_content);
       }
-      if (wce_type == 'gap') {
-         if (gap_unit == "line") {
+      if (wce_type === 'gap') {
+         if (gap_unit === "line") {
             if (gap_extent !== 'part' && gap_extent !== 'unspecified') {
                if (_extent && _extent > 0) {
                   wceUtils.updateBreakCounter(ed, 'lb', 0);
@@ -657,10 +657,12 @@ function formUnserialize(str) {
          if (!v)
             continue;
          var dec_v = decodeURIComponent(v);
-         if (k == 'corrector_text' && corrector_text_editor) {
+         if (k === 'corrector_text' && corrector_text_editor) {
             corrector_text_editor.setContent(dec_v);
-         } else if (k == 'marginals_text' && marginals_text_editor) {
+         } else if (k === 'marginals_text' && marginals_text_editor) {
             marginals_text_editor.setContent(dec_v);
+         } else if (k === 'note_text' && note_text_editor) {
+            note_text_editor.setContent(dec_v);
          }
          $('#' + k).val(dec_v);
       }
@@ -699,10 +701,12 @@ function formSerialize(f, wce_name) {
       if (a.attr('type') == 'checkbox' && !a.is(':checked'))
          continue;
 
-      if (a.attr('id') == 'corrector_text') {
+      if (a.attr('id') === 'corrector_text') {
          s += '&' + a.attr('id') + '=' + encodeURIComponent(corrector_text_editor.getContent());
-      } else if (a.attr('id') == 'marginals_text') {
+      } else if (a.attr('id') === 'marginals_text') {
          s += '&' + a.attr('id') + '=' + encodeURIComponent(marginals_text_editor.getContent());
+      } else if (a.attr('id') === 'note_text') {
+         s += '&' + a.attr('id') + '=' + encodeURIComponent(note_text_editor.getContent());
       } else {
          s += '&' + a.attr('id') + '=' + encodeURIComponent(a.val());
       }

@@ -4013,11 +4013,11 @@
 
          // Add note/*********/
          ed.addCommand('mceAddNote', function() {
-            doWithDialog(ed, url, '/note.htm', 640, 380, 1, true, tinymce.translate('note_title'));
+            doWithDialog(ed, url, '/note.htm', 700, 500, 1, true, tinymce.translate('note_title'));
          });
          // Edit note
          ed.addCommand('mceEditNote', function() {
-            doWithDialog(ed, url, '/note.htm', 640, 380, 1, false, tinymce.translate('note_title'));
+            doWithDialog(ed, url, '/note.htm', 700, 500, 1, false, tinymce.translate('note_title'));
          });
 
          ed.addCommand('mceAddNote_Shortcut', function() {
