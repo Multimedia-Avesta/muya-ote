@@ -654,9 +654,8 @@ tinymce.PluginManager.add('wcecharmapsidebar', function(ed) {
       //alert(sidebar.style.width);
       sidebar.style.maxHeight = String(document.querySelector('iframe#wce_editor_ifr').offsetHeight).concat("px"); //"400px";
       sidebar.style.borderRight = "1px solid #aaa";
-      //sidebar.style.backgroundColor = "lightgray";
-      //sidebar.style.position = "relative";
       sidebar.style.overflow = "auto";
+      _drawEditor();
 
       let m_pos;
       var activeresize = false;
@@ -677,6 +676,7 @@ tinymce.PluginManager.add('wcecharmapsidebar', function(ed) {
             sidebar.style.width = (parseInt(getComputedStyle(sidebar).width, '') + dx) + "px";
             var currentcharmap = lookup(radioGroup, "value", charmap_filter_value);
             _drawCharmapsidebar(currentcharmap.charmap());
+            _drawEditor();
          }
       }, false);
 
@@ -693,6 +693,7 @@ tinymce.PluginManager.add('wcecharmapsidebar', function(ed) {
       });
       ed.on('ResizeEditor', function(e) {
          iframe.style.height = null;
+         iframe.style.width = null;
       });
       ed.on('change', function() {});
       ed.on('keyup', function() {});
@@ -705,6 +706,7 @@ tinymce.PluginManager.add('wcecharmapsidebar', function(ed) {
             sidebar.style.width = (parseInt(getComputedStyle(sidebar).width, '') + dx) + "px";
             var currentcharmap = lookup(radioGroup, "value", charmap_filter_value);
             _drawCharmapsidebar(currentcharmap.charmap());
+            _drawEditor();
          }
       });
 
@@ -731,6 +733,11 @@ tinymce.PluginManager.add('wcecharmapsidebar', function(ed) {
       sidebar.appendChild(div);
       if (!currentdiv)
          sidebar.addEventListener('click', event => charselected(event), true);
+   }
+
+   function _drawEditor() {
+      var ifr = document.querySelector('iframe#wce_editor_ifr');
+      ifr.style.width = (parseInt(window.innerWidth, '') - sidebar.offsetWidth - 40) + "px";
    }
 
 });
