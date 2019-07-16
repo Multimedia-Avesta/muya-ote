@@ -125,10 +125,12 @@ tinymce.PluginManager.add('punctuation', function(ed, jsUrl) {
       it.text = it.id + ' ' + it.title;
       if (!it.onclick) {
          it.onclick = function() {
+            tinyMCE.activeEditor.settings.insertpunctuation=true;
             if (it.id == 999)
                ed.execCommand('mceAdd_pc_char_P_other');
             else
                ed.execCommand('mceAdd_pc', it.id);
+            tinyMCE.activeEditor.settings.insertpunctuation=false;
          }
       }
    });
@@ -162,7 +164,9 @@ tinymce.PluginManager.add('punctuation', function(ed, jsUrl) {
       it.text = it.title;
       if (!it.onclick) {
          it.onclick = function() {
+            tinyMCE.activeEditor.settings.insertpunctuation=true;
             ed.execCommand('mceAdd_pc_simple', it.code);
+            tinyMCE.activeEditor.settings.insertpunctuation=false;
          }
       }
    });

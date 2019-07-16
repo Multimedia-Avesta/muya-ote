@@ -87,6 +87,7 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
       content_css: tinymce.baseURL + '../../../wce-ote/skin/' + 'customfonts.css?' + new Date().getTime(),
       //ignoreShiftNotEn: [188, 190],
       keyboardDebug: true,
+      insertpunctuation: true,
       init_instance_callback: "wceReload",
       // Theme options
       toolbar: "undo redo muyacharmap | LoadFile save | contextmenu cut copy paste | " +

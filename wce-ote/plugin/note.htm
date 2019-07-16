@@ -117,12 +117,13 @@ $(document).ready(function() {
 		  external_plugins: {
 				'wce': '../../wce-ote/plugin/plugin.js',
 				'muyacharmap': '../../wce-ote/plugin/js/muya_charmap.js',
-				//'punctuation': '../../wce-ote/plugin/js/punctuation.js',
+				'punctuation': '../../wce-ote/plugin/js/punctuation.js',
 				//'wcelinenumber': '../../wce-ote/plugin/js/line_number.js',
 				//'wcecharmapsidebar': '../../wce-ote/plugin/js/charmap_sidebar.js'
 		  },
 		  internal_editor: true,
-		  toolbar: "muyacharmap",
+		  insertpunctuation: false,
+		  toolbar: "undo redo muyacharmap | punctuation",
 		  /*setup: function(ed) {
 
 		  }*/

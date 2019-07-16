@@ -4108,7 +4108,7 @@
                return;
             }
 
-            if (w.type == 'spaces') {
+            if (w.type === 'spaces') {
                ed.execCommand('mceEditSpaces');
             } else {
                ed.execCommand('mceAddSpaces');
@@ -4158,11 +4158,19 @@
          });
 
          ed.addCommand('mceAdd_pc', function(c) {
-            doWithoutDialog(ed, 'pc', 'P+' + c);
+            var insertpunctuation = tinyMCE.activeEditor.settings.insertpunctuation;
+            if (insertpunctuation)
+               doWithoutDialog(ed, 'pc', 'P+' + c);
+            else
+               ed.insertContent(c);
          });
 
          ed.addCommand('mceAdd_pc_simple', function(c) {
-            doWithoutDialog(ed, 'pc', c);
+            var insertpunctuation = tinyMCE.activeEditor.settings.insertpunctuation;
+            if (insertpunctuation)
+               doWithoutDialog(ed, 'pc', c);
+            else
+               ed.insertContent(c);
          });
 
          ed.addCommand('mceAdd_pc_char_other', function(c) {
@@ -4179,7 +4187,6 @@
             var _setContent = WCEUtils.setContent;
             var wceClass = ' class="pc"';
             var wceAttr = ' wce="' + '__t=pc&amp;note=' + encodeURIComponent(c) + '" wce_orig=""';
-
             _setContent(ed, '<span' + wceAttr + wceClass + '>' + startFormatHtml + 'P+999' + endFormatHtml + '</span> ');
          });
 

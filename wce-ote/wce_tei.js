@@ -1100,28 +1100,7 @@ function getHtmlByTei(inputString, args) {
             if (extent === 'part' || extent === 'unspecified')
                nodeAddText($newNode, '[...]');
             else {
-               /*if (lang !== '')
-                   var covertext_init = ed.translate('untrans') + ' in ' + ed.translate(lang);
-               else
-                   var covertext_init = '[...]';*/
-               /*nodeAddText($newNode, covertext);
-               for (var i = 0; i < _extent; i++) {
-                   $br = $newDoc.createElement('br');
-                   $newNode.appendChild($br);
-                   nodeAddText($newNode, '\u21B5' + covertext)
-               }*/
-               /*var covertext = covertext_init;
-               covertext += '<span class="mceNonEditable brea" wce="__t=brea&amp;__n=&amp;hasBreak=no&amp;break_type=lb&amp;number=&amp;rv=&amp;page_number=&amp;running_title=&amp;facs=&amp;lb_alignment=">' + '<span class="format_start mceNonEditable">‹</span><br />↵<span class="format_end mceNonEditable">›</span></span>' +
-                   covertext_init;
-
-               var innerHTML = '<span class="editortext">' + covertext + '</span>';
-               $tmp = $('<temp>' + innerHTML + '</temp>')[0];
-               while ($tmp.firstChild) {
-                   $newNode.appendChild($tmp.firstChild);
-               }*/
-
                nodeAddText($newNode, '[...]');
-
                for (var i = 0; i < _extent; i++) {
                   $br = $newDoc.createElement('br');
                   $newNode.appendChild($br);
