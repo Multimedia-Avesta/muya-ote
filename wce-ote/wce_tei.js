@@ -4384,10 +4384,12 @@ function isStructuralElement($node) {
 
 function isOther(lang) {
    if (lang === "ae" || lang === "gu" || lang === "fa" || lang === "fa-Phlv" ||
-      lang === "sa" || lang === "ae-Avst" || lang === "ae-Phlv" ||
+      lang === "sa" || lang === "sa-Jaina" || lang === "sa-Deva" ||
+      lang === "ae-Avst" || lang === "ae-Phlv" ||
       lang === "ae-Gujr" || lang === "pal-Avst" || lang === "pal-Phlv" ||
       lang === "pal-Gujr" || lang === "pal-Phli" || lang === "gu-Arab" ||
-      lang === "gu-Gujr" || lang === "ar" || lang === "") {
+      lang === "gu-Gujr" || lang === "gu-Jaina" || lang === "gu-Deva" ||
+      lang === "ar" || lang === "") {
       return false;
    } else {
       return true;

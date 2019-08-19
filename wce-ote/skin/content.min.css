@@ -517,14 +517,18 @@ span.langchange[lang="pal-Gujr"]:after {
 
 span.langchange[lang="gu"]:before,
 span.langchange[lang="gu-Arab"]:before,
-span.langchange[lang="gu-Gujr"]:before {
+span.langchange[lang="gu-Gujr"]:before
+span.langchange[lang="gu-Nand"]:before
+span.langchange[lang="gu-Deva"]:before {
     color: red;
     content: '→';
 }
 
 span.langchange[lang="gu"]:after,
 span.langchange[lang="gu-Arab"]:after,
-span.langchange[lang="gu-Gujr"]:after {
+span.langchange[lang="gu-Gujr"]:after
+span.langchange[lang="gu-Nand"]:before
+span.langchange[lang="gu-Deva"]:before {
     color: red;
     content: '←';
 }
@@ -542,12 +546,16 @@ span.langchange[lang="fa-Phlv"]:after {
 }
 
 
-span.langchange[lang="sa"]:before {
+span.langchange[lang="sa"]:before
+span.langchange[lang="sa-Jaina"]:before
+span.langchange[lang="sa-Deva"]:before {
     color: blue;
     content: '→';
 }
 
-span.langchange[lang="sa"]:after {
+span.langchange[lang="sa"]:after
+span.langchange[lang="sa-Jaina"]:after
+span.langchange[lang="sa-Deva"]:after {
     color: blue;
     content: '←';
 }

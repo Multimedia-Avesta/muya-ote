@@ -731,7 +731,7 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
                      direction: 'column',
                      html: radioHtml,
                      minWidth: 300,
-                     minHeight: 100,
+                     minHeight: 120,
                      onclick: function(e) {
                         var target = e.target;
                         if (target.nodeName && target.nodeName.toLocaleLowerCase() == 'input') {
@@ -756,7 +756,8 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
             onclick: function() {
                win.close();
             }
-         }]
+         }],
+         resizable : 'yes'
       });
    }
 
