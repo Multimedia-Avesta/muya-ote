@@ -73,7 +73,7 @@ tinymce.PluginManager.add('punctuation', function(ed, jsUrl) {
       title: 'circle+9 half circles'
    }, {
       id: '021',
-      title: 'circle+10 half circle linep'
+      title: 'circle+10 half circle line'
    }, {
       id: '022',
       title: 'circle+11 half circle line'
