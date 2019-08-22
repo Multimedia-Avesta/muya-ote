@@ -188,12 +188,6 @@ function writeWceNodeInfo(val) {
                   if (gap_parent_name === 'body' || gap_parent_name === 'html') {
                      break;
                   }
-                  // Should be redundant now
-                  /*if (gap_parent_name == 'span' && gap_parent.className == 'abbr_add_overline') {
-                      gap_parent.setAttribute('ext', 'inabbr');
-                      wceClass = ' ext="inabbr" ' + wceClass;
-                      break;
-                  }*/
                   gap_parent = gap_parent.parentNode;
                }
             } else {
@@ -250,17 +244,6 @@ function writeWceNodeInfo(val) {
             }
             break;
          case 'unclear':
-            /*if (selected_content.indexOf('<span') == -1) { // take care of spaces element
-                var unclear_text = "";
-                for (var i = 0; i < selected_content.length; i++) {
-                    if (selected_content.charAt(i) == ' ') {
-                        unclear_text += selected_content.charAt(i);
-                    } else {
-                        unclear_text += selected_content.charAt(i) + '&#x0323;';
-                    }
-                }
-                selected_content = unclear_text;
-            }*/
             break;
          case 'note':
             new_content = selected_content + '<span wce="' + newWceAttr + '"' + original_text + wceClass + '>' + startFormatHtml + 'Note' + endFormatHtml + '</span>';
@@ -272,18 +255,13 @@ function writeWceNodeInfo(val) {
             break;
          case 'abbr':
             break;
-            /*case 'part_abbr':
-                selected_content = "(" + selected_content + ")";
-                break;*/
          case 'spaces':
             // default
-            //selected_content = '&nbsp;';
             new_content = '<span wce="' + newWceAttr + '"' + wceClass + '>' + startFormatHtml + 'sp' + endFormatHtml + '</span>';
             break;
          case 'paratext':
             // default
             selected_content = val;
-
             // write original_text for breaks and paratext
             new_content = '<span wce="' + newWceAttr + '"' + wceClass + original_text + '>' + startFormatHtml + selected_content + endFormatHtml + '</span>';
             break;
@@ -307,7 +285,7 @@ function writeWceNodeInfo(val) {
             new_content = '';
             wceClass += ' lang="' + langValue + '"';
             new_content += '<span wce="' + newWceAttr + '"' + wceClass + '">' + selected_content + '</span>';
-            new_content += ' ';
+            new_content += '&nbsp;';
             break;
          default:
             break;
@@ -355,11 +333,6 @@ function writeWceNodeInfo(val) {
             ed.selection.setContent(wceUtils.getBreakHtml(ed, 'pb', null, null, null, gap_id));
             ed.selection.setContent('&nbsp;');
          }
-
-         /*if (document.getElementById('unit').value == "line")
-          ed.execCommand('mceAdd_brea', 'lb', 0);
-          else if (document.getElementById('unit').value == "page")
-          ed.execCommand('mceAdd_brea', 'pb', 0);*/
       }
 
       if (wceUtils) {
@@ -582,7 +555,7 @@ function writeDocInfos(metadata) {
       }
    } else {
       oldcontent = ed.getContent();
-      ed.setContent(oldcontent + xml2String($bookNode) + wceUtils.getBreakHtml(ed, 'pb', 'lb', null, 'wce="' + newWceAttr + '"', null, false) + ' ');
+      ed.setContent(oldcontent + xml2String($bookNode) + wceUtils.getBreakHtml(ed, 'pb', 'lb', null, 'wce="' + newWceAttr + '"', null, false) + '&nbsp;');
    }
 
    if (wceUtils) {
@@ -649,7 +622,7 @@ function formUnserialize(str) {
       kv = arr[i].split('=');
       k = kv[0];
       v = kv[1] == null ? '' : kv[1];
-      v = v.replace(/\+/g, ' ');
+      v = v.replace(/\+/g, '&nbsp;');
 
       if ($('#' + k).attr('type') == 'checkbox') {
          $('#' + k).prop('checked', true);
