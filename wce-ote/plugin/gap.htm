@@ -112,7 +112,7 @@
                 <tr>
                     <td><label id="extent_label" for="extent">{#extent}</label></td>
                     <td>
-                        <input id="extent" name="extent" type="text" value="" size="10" maxlength="" class="required number min1 mceFocus" />
+                        <input id="extent" name="extent" type="text" value="" size="10" maxlength="" class="required number min1 mceFocus" onmouseover="XBT(this, {id:'tt_extent'})"/>
                     </td>
                     <td>
                         <input type="button" id="extent_unspecified" value="{#extent}={#unspecified}" onclick="if(document.gapinfo.extent.disabled == false)$('#extent').val('unspecified')" />
@@ -121,6 +121,9 @@
                         <input type="button" id="extent_part" value="{#extent}={#part}" onclick="if(document.gapinfo.extent.disabled == false)$('#extent').val('part')" />
                     </td>
                 </tr>
+                <div id="tt_extent" class="xbtooltip">
+                    {#tt_extent}
+                </div>
                 <tr>
                     <td colspan="2">
                         <input type="checkbox" name="mark_as_supplied" id="mark_as_supplied" value="supplied" onclick="checkstatus_mark_as_supplied()" checked="checked" /> {#mark_as_supplied} </td>
@@ -168,7 +171,7 @@
             </table>
         </fieldset>
         <div class="mceActionPanel">
-            <input type="button" id="insert" name="insert" value="{#insert}" onclick="var cont=testInput(); if(cont=='0'){writeWceNodeInfo()} else if(cont=='1'){alert('{#empty_other}')}else if(cont=='2'){alert('{#empty_extent}');}" />
+            <input type="button" id="insert" name="insert" value="{#insert}" onclick="var cont=testInput();if(cont=='0'){writeWceNodeInfo()}else if(cont=='1'){alert('{#empty_other}');}else if(cont=='2'){alert('{#empty_extent}');}else if(cont=='3'){alert('{#invalid_extent}');}" />
             <input type="button" id="cancel" name="cancel" value="{#cancel}" onclick="parent.tinymce.activeEditor.windowManager.close();" />
         </div>
     </form>
@@ -238,6 +241,10 @@
         cont = testUnit();
         if (!cont) {
             return 2;
+        }
+        cont = testExtent();
+        if (!cont) {
+           return 3;
         }
         return 0;
     }
@@ -431,9 +438,18 @@
     }
 
     function testUnit() {
-        if (($('#unit').val() != '' && $.trim($('#extent').val()) == '')
+        if (($('#unit').val() !== '' && $.trim($('#extent').val()) === '')
             || (document.gapinfo.gap_reason.value == "editorial" && $('#unit').val() == '')) {
             return false;
+        }
+        return true;
+    }
+
+    function testExtent() {
+        if ($('#unit').val() !== '' && $('#unit').val() !== 'other'
+         && $('#unit').val() !== 'unspecified') {
+            var e = $.trim($('#extent').val()); //has to be !== '' because of testUnit
+            return (e>=0 && parseInt(e)==e);
         }
         return true;
     }
@@ -449,5 +465,4 @@
     }
 
 </script>
-
 </html>
