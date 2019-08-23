@@ -67,7 +67,7 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
       plugins: "pagebreak,save,wordcount,paste,contextmenu,noneditable,code,localautosave",
       //selector: "textarea", // change this value according to your HTML
       las_seconds: 60,
-      las_nVersions: 15,
+      las_nVersions: 0,
       las_keyName: "LocalAutoSave",
       las_callback: function() {
          var content = this.content; //content saved
