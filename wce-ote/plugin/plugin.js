@@ -33,7 +33,7 @@
 */
 
 (function() {
-   var wfce_editor = "1.2.2BETA (2019-08-23)";
+   var wfce_editor = "1.3BETA (2019-08-28)";
 
    // Load plugin specific language pack
    tinymce.PluginManager.requireLangPack('wce');
@@ -1263,15 +1263,6 @@
                }
                break;
 
-               /*case 'langchange':
-               case 'langchangerange':
-                   _disableAllControls(ed, true);
-                   break;*/
-
-               /*case 'language_range':
-                   w.not_LR = !wholeSelect;
-                   break;*/
-
             case 'book_number':
                _disableAllControls(ed, true);
                break;
@@ -1295,6 +1286,7 @@
             case 'verseline_number':
                _disableAllControls(ed, true);
                break;
+
             case 'ritualdirection_number':
                _disableAllControls(ed, true);
             break;
@@ -1535,15 +1527,7 @@
                   return false;
                }
             }
-            //} else if ($(ep).hasClass('formatting_rubrication') &&
-            //    ep.previousSibling && $(ep.previousSibling).hasClass('langchange')) {
-            //return true;
-         } /*else if (endContainer.parentNode !== ed.getBody()) { //TODO: This is probably wrong (MS)
-            if ($(ep).hasClass('formatting_rubrication') &&
-               ep.previousSibling && $(ep.previousSibling).hasClass('langchange')) {} else if (!$(endContainer.parentNode).hasClass('verse_number')) // for verses go to next check
-               return false;
-         }*/
-
+         }
          text = endContainer.nodeValue;
          if (text) {
             var endOffset = rng.endOffset;
@@ -2355,7 +2339,7 @@
       getNodeTypeName: function(node) {
          var nodeName = node.nodeName;
          if (nodeName && nodeName.toLowerCase() == 'span') {
-            var class_types = ['book_number', 'stanza_number', 'chapter_number', 'format_start', 'format_end'];
+            var class_types = ['book_number', 'chapter_number', 'stanza_number', 'line_number', 'verse_number', 'verseline_number', 'ritualdirection_number', 'format_start', 'format_end'];
             for (var i = 0; i < class_types.length; ++i) {
                if ($(node).hasClass(class_types[i]))
                   return class_types[i];
@@ -2748,9 +2732,8 @@
                            ed.insertContent("");
                            ed.WCE_VAR.lcnt = 0;
                         }
-
                      } else { // normal case
-                        var arr = new Array('gap', 'lb', 'cb', 'pb', 'qb');
+                        var arr = new Array('gap', 'lb', 'cb', 'pb', 'qb'); //MS: Remove redundant values?
                         //for (var i = parseInt(bc) - 1; i > -1; i--) {
                         for (var i = 0, elem, l = arr.length; i < l; i++) {
                            elem = ed.dom.get(arr[i] + '_' + bc + '_' + bb);
@@ -2765,24 +2748,7 @@
                }
                isDel = true;
             }
-            /*else if ($(wceNode).hasClass('editortext') && wceNode.parentNode && ($(wceNode.parentNode).hasClass('langchange') ||
-                                   $(wceNode.parentNode).hasClass('langchangerange'))) {
-
-                               alert("B");
-                               ed.selection.setContent('');
-                               isDel = true;
-                           }
-                           else if ($(wceNode).hasClass('langchange') || $(wceNode.parentNode).hasClass('langchangerange')) {
-                                          }*/
-
-            /* else {
-             if (wceNode !== null) {
-             // Node is replaced by marker (which is then replaced by original text) => solution for problems with removing nodes under Safari (#1398)
-             ed.insertContent('<span id="_math_marker">&nbsp;</span>');
-             }
-             }*/
-
-            if ((originalText && originalText != 'null') || originalText == '') {
+            if ((originalText && originalText !== 'null') || originalText === '') {
                if (notAddOriginal) {} else {
                   ed.insertContent(originalText);
                }
@@ -3712,7 +3678,7 @@
             },
             onclick: function() {
                var w = ed.WCE_VAR;
-               if (w.type == 'lang')
+               if (w.type === 'langchange')
                   ed.execCommand('mceEditLanguage');
                else
                   ed.execCommand('mceAddLanguage');
@@ -3775,7 +3741,7 @@
                      return;
                   }
                   //if select an element tinyMCE insertContent replace only innerHTML of the element and tag remain.
-                  //Fixed: tag muss be remove.
+                  //Fixed: tag must be removed.
                   if (v.isCaretAtFormatStart && !v.isCaretAtFormatEnd) {
                      $(v.selectedStartNode).remove();
                   } else if (!v.isCaretAtFormatStart && v.isCaretAtFormatEnd) {
@@ -3846,55 +3812,6 @@
             $(ed.WCE_VAR.loadFileInput).trigger('click');
          });
 
-         ed.addCommand('mceLoadFileVAR', function() {
-            if (!window.File || !window.FileReader || !window.FileList || !window.Blob) {
-               alert('Your browser does not support load local file.')
-               return;
-            }
-            if (!ed.WCE_VAR.loadFileInput) {
-               var fileInput = document.createElement('input');
-               fileInput.accept = '.xml';
-               fileInput.setAttribute('type', 'file');
-               // For testing
-               fileInput.setAttribute('multiple', 'multiple');
-               var $fi = $(fileInput).on('change', function() {
-                  for (var i = 0; i < fileInput.files.length; i++) {
-                     //setTimeout(function () {
-                     (function(file) {
-                        var fileName = file;
-                        //  document.body.removeChild(fileInput);
-                        var reader = new FileReader();
-                        reader.onloadend = function(e) {
-                           var res = reader.result;
-                           var result = getHtmlByTei(res, ed.settings);
-                           if (result) {
-                              var htmlContent = result['htmlString'];
-                              if (htmlContent)
-                                 setData(htmlContent);
-                           }
-                        };
-
-                        if (fileName) {
-                           reader.readAsText(fileName);
-                           var textToWrite = getTEI();
-                           var textFileAsBlob = new Blob([textToWrite], {
-                              type: 'text/xml'
-                           });
-                           saveAs(textFileAsBlob, file.name + ".new");
-                        }
-
-
-                     })(fileInput.files[i]);
-                     //}, i * 1000);
-                  }
-               });
-               $fi.hide();
-               ed.WCE_VAR.loadFileInput = fileInput;
-               document.body.appendChild(fileInput);
-            }
-            $(ed.WCE_VAR.loadFileInput).trigger('click');
-         });
-
          // Add breaks
          ed.addCommand('mceAddBreak', function() {
             var wCon = ed.WCE_CON;
@@ -3911,7 +3828,7 @@
             if (w.not_B) {
                return;
             }
-            if (w.type == 'brea') {
+            if (w.type === 'brea') {
                ed.execCommand('mceEditBreak');
             } else {
                ed.execCommand('mceAddBreak');
@@ -3978,7 +3895,7 @@
             if (w.not_D) {
                return;
             }
-            if (w.type == 'gap') {
+            if (w.type === 'gap') {
                ed.execCommand('mceEditGap');
             } else {
                ed.execCommand('mceAddGap');
@@ -4002,7 +3919,7 @@
                return;
             }
 
-            if (w.type == 'unclear') {
+            if (w.type === 'unclear') {
                ed.execCommand('mceEditUnclearText');
             } else {
                ed.execCommand('mceAddUnclearText');
@@ -4027,7 +3944,7 @@
             if (w.not_N) {
                return;
             }
-            if (w.type == 'note') {
+            if (w.type === 'note') {
                ed.execCommand('mceEditNote');
             } else {
                ed.execCommand('mceAddNote');
@@ -4062,7 +3979,7 @@
             if (w.not_A) {
                return;
             }
-            if (w.type == 'abbr') {
+            if (w.type === 'abbr') {
                ed.execCommand('mceEditAbbr');
             } else {
                ed.execCommand('mceAddAbbr');
@@ -4083,7 +4000,7 @@
             if (w.not_A) {
                return;
             }
-            if (w.type == 'part_abbr') {
+            if (w.type === 'part_abbr') {
                ed.execCommand('mceEditExp');
             } else {
                ed.execCommand('mceAddExp');
@@ -4132,20 +4049,12 @@
                return;
             }
 
-            if (w.type == 'paratext') {
+            if (w.type === 'paratext') {
                ed.execCommand('mceEditParatext');
             } else {
                ed.execCommand('mceAddParatext');
             }
          });
-
-
-
-         /*
-          * ed.addCommand('mceAddPunctuation_Shortcut', function() { if (wcevar.not_PC) { return; }
-          *
-          * if (wcevar.type == 'punctuation') { ed.execCommand('mceEditPunctuation'); } else { ed.execCommand('mceAddPunctuation'); } });
-          */
 
          ed.addCommand('mceAdd_abbr', function(c) {
             doWithoutDialog(ed, 'abbr', c);
@@ -4218,21 +4127,12 @@
                return;
             }
 
-            if (w.type == 'lang') {
+            if (w.type === 'langchange') {
                ed.execCommand('mceEditLanguage');
             } else {
                ed.execCommand('mceAddLanguage');
             }
          });
-
-         /*ed.addCommand('mceAddLanguageRange', function () {
-             var w = ed.WCE_VAR;
-             if (w.not_LR) {
-                 return;
-             }
-             doWithDialog(ed, url, '/language_range.htm', 800, 320, 1, true, tinymce.translate('language_title'));
-         });*/
-
 
          ed.addCommand('printData', function() { // Problem in IE
             var ed = tinyMCE.activeEditor;

@@ -570,51 +570,12 @@ span.langchange:after {
     color: gray;
 }
 
-/*span.editortext[language="pal-Avst"],
-span.editortext[language="ae-Avst"],
-span.editortext[language="ae-Phlv"] {
-    margin: 0px 0px 0px 1px;
-    padding: 0;
-    color: green;
-}
-
-span.editortext[language="pal-Phli"],
-span.editortext[language="pal-Phlv"] {
-    margin: 0px 0px 0px 1px;
-    padding: 0;
-    color: purple;
-}
-
-span.editortext[language="gu"] {
-    margin: 0px 0px 0px 1px;
-    padding: 0;
-    color: red;
-}
-
-span.editortext[language="fa"],
-span.editortext[language="prs"] {
-    margin: 0px 0px 0px 1px;
-    padding: 0;
-    color: yellow;
-}
-
-span.editortext[language="sa"] {
-    margin: 0px 0px 0px 1px;
-    padding: 0;
-    color: blue;
-}*/
-
 span.editortext {
     border: 1px dotted #f00;
     margin: 0px 0px 0px 1px;
     padding: 0;
     color: gray;
 }
-
-/*span.ritual {
-    color: aquamarine;
-    background-color: aliceblue;
-}*/
 
 span.book_number {
     color: darkviolet;
@@ -677,6 +638,11 @@ span[class="corr"] span[class=*] {
     padding: 0;
     color: blue;
 }
+
+/*span.gap[hightlight="yes"] {
+   color: blue;
+   font-size: larger;
+}*/
 
 span.gap {
     border: 1px dotted #f00;

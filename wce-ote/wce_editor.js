@@ -309,9 +309,9 @@ function addMenuItems(ed) {
             type = oldwce.substring(4, 4 + pos);
          else
             type = oldwce.substring(4);
-         if (type == 'book_number' || type == 'chapter_number' || type == 'verse_number' ||
-            type == 'stanza_number' || type == 'line_number' || type == 'verseline_number' ||
-            type == 'ritualdirection_number' || type == 'langchange') {
+         if (type === 'book_number' || type === 'chapter_number' || type === 'verse_number' ||
+            type === 'stanza_number' || type === 'line_number' || type === 'verseline_number' ||
+            type === 'ritualdirection_number' || type == 'langchange') {
             menu.add({
                text: tinymce.translate('initial_portion'),
                icon: '',

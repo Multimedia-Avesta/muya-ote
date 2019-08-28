@@ -164,10 +164,6 @@ function writeWceNodeInfo(val) {
       // default style
       var wceClass = ' class="' + wce_type + '"';
 
-      /*	if (isCombination) {
-      $(wce_node).remove();
-      }*/
-
       // new content
       var new_content;
       var original_text = ' wce_orig="' + encodeURIComponent(selected_content) + '" ';
@@ -180,7 +176,6 @@ function writeWceNodeInfo(val) {
             var gap_id;
             if (document.getElementById('mark_as_supplied').checked == true) { // supplied text
                gap_text = '[' + selected_content + ']';
-               //test if in node abbr with overline
                var gap_parent = wce_node;
                var gap_parent_name;
                while (gap_parent) {
@@ -284,7 +279,7 @@ function writeWceNodeInfo(val) {
             var langValue = document.getElementById('lang').value;
             new_content = '';
             wceClass += ' lang="' + langValue + '"';
-            new_content += '<span wce="' + newWceAttr + '"' + wceClass + '">' + selected_content + '</span>';
+            new_content += '<span wce="' + newWceAttr + '"' + wceClass + original_text + '>' + startFormatHtml + selected_content + endFormatHtml + '</span>';
             new_content += '&nbsp;';
             break;
          default:
@@ -341,91 +336,43 @@ function writeWceNodeInfo(val) {
       }
    } else { //edit mode
       // update wce
-      if (wce_node != null) {
-         if (wce_type == 'paratext') {
+      if (wce_node !== null) {
+         if (wce_type === 'paratext') {
             selected_content = wceUtils.wceDelNode(ed, true);
             add_new_wce_node = true;
             return writeWceNodeInfo(val);
-         } else if (wce_type == 'corr') {
+         } else if (wce_type === 'corr') {
             if (document.getElementById('blank_firsthand').checked)
                wce_node.innerHTML = startFormatHtml + 'T' + endFormatHtml;
             else
                wceUtils.setInnerHTML(ed, wce_node, $('#original_firsthand_reading').val());
-         } else if (wce_type == 'brea') {
+         } else if (wce_type === 'brea') {
             // break type
             //change type
-            if (old_break_type != break_type) {
+            if (old_break_type !== break_type) {
                selected_content = wceUtils.wceDelNode(ed, true);
                add_new_wce_node = true;
                return writeWceNodeInfo(val);
             } else {
                //edit default
-               if (break_type == 'lb') {
+               if (break_type === 'lb') {
                   break_indention = wceUtils.getBreakHtml(ed, break_type, break_lbpos, break_indention, 'wce="' + newWceAttr + '"', null, true);
                   wceUtils.setInnerHTML(ed, wce_node, break_indention);
                }
                wceUtils.updateBreakCounter(ed, break_type, document.breakinfo.number.value);
             }
-         } else if (wce_type == 'abbr') {
+         } else if (wce_type === 'abbr') {
             var abbrClass = 'abbr';
             wce_node.className = abbrClass;
-         } else if (wce_type == 'gap') { // edit gap
+         } else if (wce_type === 'gap') { // edit gap
             selected_content = wceUtils.wceDelNode(ed, true);
             add_new_wce_node = true;
             return writeWceNodeInfo(val);
-            /*
-            // TODO: Additional break at the end is still missing.
-            if (document.getElementById('mark_as_supplied').checked == true) {// supplied text
-            	wce_node.textContent = '[' + wce_node.getAttribute('wce_orig') + ']';
-            } else {
-            	wce_node.removeChild(wce_node.firstChild);
-            	// remove old content
-            	if (document.getElementById('unit').value == "char") {
-            		if (document.getElementById('extent').value != '')
-            			wce_node.textContent = '[' + document.getElementById('extent').value + ']';
-            		else
-            			wce_node.textContent = '[...]';
-            	} else if (document.getElementById('unit').value == "line") {
-            		for (var i = 0; i < document.getElementById('extent').value; i++) {// generate new content
-            			$br = document.createElement('br');
-            			wce_node.appendChild($br);
-            			$text = document.createTextNode('\u21B5[...]');
-            			wce_node.appendChild($text);
-            		}
-            		wceUtils.addToCounter(ed, 'lb', document.getElementById('extent').value);
-            	} else if (document.getElementById('unit').value == "page") {
-            		for (var i = 0; i < document.getElementById('extent').value; i++) {
-            			$br = document.createElement('br');
-            			wce_node.appendChild($br);
-            			$text = document.createTextNode('PB');
-            			wce_node.appendChild($text);
-            			$br = document.createElement('br');
-            			wce_node.appendChild($br);
-            			$text = document.createTextNode('[...]');
-            			wce_node.appendChild($text);
-            		}
-            		wceUtils.addToCounter(ed, 'pb', document.getElementById('extent').value);
-            	} else if (document.getElementById('unit').value == "quire") {
-            		for (var i = 0; i < document.getElementById('extent').value; i++) {
-            			$br = document.createElement('br');
-            			wce_node.appendChild($br);
-            			$text = document.createTextNode('QB');
-            			wce_node.appendChild($text);
-            			$br = document.createElement('br');
-            			wce_node.appendChild($br);
-            			$text = document.createTextNode('[...]');
-            			wce_node.appendChild($text);
-            		}
-            		wceUtils.addToCounter(ed, 'gb', document.getElementById('extent').value);
-            	} else {
-            		wce_node.textContent = '[...]';
-            	}
-            }*/
-         } else if (wce_type == 'figure') {
+         } else if (wce_type === 'figure') {
             selected_content = wceUtils.wceDelNode(ed, true);
             add_new_wce_node = true;
             return writeWceNodeInfo(val);
-         } else if (wce_type == 'langchange') {
+         } else if (wce_type === 'langchange') {
             selected_content = wceUtils.wceDelNode(ed, true);
             add_new_wce_node = true;
             return writeWceNodeInfo(val);
