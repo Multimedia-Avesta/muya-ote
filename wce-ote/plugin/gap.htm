@@ -449,7 +449,10 @@
         if ($('#unit').val() !== '' && $('#unit').val() !== 'other'
          && $('#unit').val() !== 'unspecified') {
             var e = $.trim($('#extent').val()); //has to be !== '' because of testUnit
-            return (e>=0 && parseInt(e)==e);
+            if (e === 'rest' || e === 'all')
+               return true;
+            else
+               return (e>=0 && parseInt(e)==e);
         }
         return true;
     }
