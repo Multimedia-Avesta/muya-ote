@@ -33,7 +33,7 @@
 */
 
 (function() {
-   var wfce_editor = "1.3 (2019-08-29)";
+   var wfce_editor = "1.3.1 (2019-09-01)";
 
    // Load plugin specific language pack
    tinymce.PluginManager.requireLangPack('wce');
@@ -2551,9 +2551,9 @@
          if (wcevar.isInBE && ((!tinymce.isMac && !e.ctrlKey) || (tinymce.isMac && !e.metaKey))) {
             // keydown for insert letter
             if (wcevar.isCaretAtNodeEnd && ek != 8 && ek != 46 &&
-               (wcevar.type == ed.WCE_CON.formatEnd || wcevar.type == 'chapter_number' ||
-                  wcevar.type === 'book_number' || wcevar.type == 'stanza_number' ||
-                  wcevar.type == 'verse_number')
+               (wcevar.type == ed.WCE_CON.formatEnd || wcevar.type === 'chapter_number' ||
+                  wcevar.type === 'book_number' || wcevar.type === 'stanza_number' ||
+                  wcevar.type === 'verse_number' || wcevar.type === 'ritualdirection_number')
             ) {
                //wenn selectednode in andere BlockElement
                if (WCEUtils.isWceBE(ed, wcevar.selectedNode.parentNode.parentNode)) {
