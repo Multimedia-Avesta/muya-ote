@@ -274,7 +274,7 @@ tinymce.addI18n('en', {
     meta_general: "Misc settings",
     empty_other: "Please enter text for all required and all &quot;other&quot; fields",
     empty_extent: "Please check the values for unit and extent",
-    invalid_extent: "Extent can only be a non-negative integer",
+    invalid_extent: "Extent can only be a non-negative integer or \"all\" or \"rest\"",
     empty_number: "Please enter a number (used as attribute &quot;n&quot;)",
     empty_text: "Please enter a text",
     empty_margin: "Please select a marginal position",
