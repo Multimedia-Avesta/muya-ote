@@ -1365,7 +1365,7 @@
       hasWceParentNode: function(node) {
          var p = node.parentNode;
          while (p) {
-            if (p.nodeName.toLowerCase() == 'span' && !p.hasClass('lang')) {
+            if (p.nodeName.toLowerCase() === 'span') {
                return true;
             }
             p = p.parentNode;

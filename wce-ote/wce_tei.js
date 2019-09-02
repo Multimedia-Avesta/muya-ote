@@ -941,7 +941,8 @@ function getHtmlByTei(inputString, args) {
          $newNode.setAttribute('wce', '__t=pc');
          addFormatElement($newNode);
          $htmlParent.appendChild($newNode);
-         nodeAddText($htmlParent, ' ');
+         if ($teiNode.parentNode.lastChild !== $teiNode)
+            nodeAddText($htmlParent, ' ');
          return $newNode;
       }
    };
@@ -3539,18 +3540,10 @@ function getTeiByHtml(inputString, args) {
       if ($teiParent.nodeName == 'w' && !$newNode.getAttribute('break')) { //Complete word
          switch ($newNode.nodeName) {
             case 'lb':
-               if ($teiParent.lastChild.nodeName != 'pb') // no pb above lb
+               if ($teiParent.lastChild.nodeName !== 'pb') // no pb above lb
                   $teiParent = $teiParent.parentNode;
                break;
-               /*case 'cb':
-               	if ($teiParent.lastChild.nodeName != 'pb') // no pb above cb
-               		$teiParent = $teiParent.parentNode;
-               	break;*/
             case 'pb':
-               if ($teiParent.lastChild.nodeName != 'gb') // no gb above pb
-                  $teiParent = $teiParent.parentNode;
-               break;
-            case 'gb':
                $teiParent = $teiParent.parentNode;
                break;
          }
