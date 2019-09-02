@@ -24,7 +24,7 @@
     veröffentlichten Version, weiterverbreiten und/oder modifizieren.
 
     OTE wird in der Hoffnung, dass es nützlich sein wird, aber
-    OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite
+    OHNE JEDE GEWÄHRLEISTUNG, bereitgestellt; sogar ohne die implizite
     Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
     Siehe die GNU Lesser General Public License für weitere Details.
 
@@ -517,7 +517,8 @@ function getHtmlByTei(inputString, args) {
             var $parentnode = $teiNode.parentNode;
             if ($parentnode && ($parentnode.nodeName === 'foreign' ||
                ($parentnode.nodeName === 'ab' && $parentnode.getAttribute("type") &&
-                  ($parentnode.getAttribute("type") === "translation") || ($parentnode.getAttribute("type") === "section"))))
+                  ($parentnode.getAttribute("type") === "translation") ||
+                  ($parentnode.getAttribute("type") === "section"))) && $parentnode.lastChild === $teiNode)
                return;
             nodeAddText($htmlParent, ' ');
          }
@@ -935,13 +936,14 @@ function getHtmlByTei(inputString, args) {
          nodeAddText($newNode, 'P+999');
          addFormatElement($newNode);
          $htmlParent.appendChild($newNode);
-         nodeAddText($htmlParent, ' ');
+         //if ($teiNode.parentNode.lastChild !== $teiNode)
+            nodeAddText($htmlParent, ' ');
          return null;
       } else {
          $newNode.setAttribute('wce', '__t=pc');
          addFormatElement($newNode);
          $htmlParent.appendChild($newNode);
-         if ($teiNode.parentNode.lastChild !== $teiNode)
+         //if ($teiNode.parentNode.lastChild !== $teiNode)
             nodeAddText($htmlParent, ' ');
          return $newNode;
       }
@@ -1049,11 +1051,14 @@ function getHtmlByTei(inputString, args) {
             if (extent === 'part' || extent === 'unspecified')
                nodeAddText($newNode, '[...]');
             else {
-               nodeAddText($newNode, '[...]');
-               for (var i = 0; i < _extent; i++) {
-                  $br = $newDoc.createElement('br');
-                  $newNode.appendChild($br);
-                  nodeAddText($newNode, '\u21B5[...]');
+               if (_extent === 0)
+                  nodeAddText($newNode, '[...]');
+               else {
+                  for (var i = 0; i < _extent; i++) {
+                     $br = $newDoc.createElement('br');
+                     $newNode.appendChild($br);
+                     nodeAddText($newNode, '\u21B5[...]');
+                  }
                }
             }
          } else if (unit === "page") {
@@ -1075,7 +1080,7 @@ function getHtmlByTei(inputString, args) {
       //var s=getOriginalTextByTeiNode($teiNode); alert(s);
       //$newNode.setAttribute('wce_orig', s);//TODO: test wce_orig
       $htmlParent.appendChild($newNode);
-      if (!ed.WCE_VAR.isc)
+      //if (!ed.WCE_VAR.isc)
          nodeAddText($htmlParent, ' ');
       return null;
    };
@@ -2502,7 +2507,7 @@ function getTeiByHtml(inputString, args) {
 
       if ($htmlNode.nodeType === 1 || $htmlNode.nodeType === 11) {
          if ($htmlNode.nodeName === 'w') {
-            if (withoutW)
+            if (withoutW && $htmlNode.firstChild && $htmlNode.firstChild.nodeValue !== ' ')
                $teiParent.appendChild($htmlNode.firstChild.cloneNode(true));
             else
                $teiParent.appendChild($htmlNode.cloneNode(true));
@@ -3730,10 +3735,10 @@ function getTeiByHtml(inputString, args) {
       //Fixed #1766
       var pre = $htmlNode.previousSibling;
       var next = $htmlNode.nextSibing;
-      if (pre && pre.nodeName == 'w') {
+      if (pre && pre.nodeName === 'w') {
          pre.setAttribute('after', '1');
       }
-      if (next && next.nodeName == 'w') {
+      if (next && next.nodeName === 'w') {
          next.setAttribute('before', '1');
       }
 
@@ -3744,7 +3749,6 @@ function getTeiByHtml(inputString, args) {
       } else
          nodeAddText($pc, getDomNodeText($htmlNode));
       $teiParent.appendChild($pc);
-      //appendNodeInW($teiParent, pc, $htmlNode);
       return {
          0: $pc,
          1: true

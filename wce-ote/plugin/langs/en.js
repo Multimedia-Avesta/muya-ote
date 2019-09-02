@@ -180,7 +180,7 @@ tinymce.addI18n('en', {
     unclear_text_title: "Please specify the unclear text",
     tt_corr_deletion: "Hold down SHIFT to select ranges of options; CTRL (apple key) for multiple options",
     tt_corrtext: "Text of the correction",
-    tt_extent: "This is the (non-negative) integer of missing lines excluding the remainder of the current line.\n'0' represents the remainder of the line only.",
+    tt_extent: "This is the (non-negative) integer of missing lines excluding the remainder of the current line.\n'0' represents the remainder of the line only.\nOther allowed values are \"rest\" and \"all\".",
     charmap_greek_only: "Greek only",
     charmap_latin_only: "Latin only",
     charmap_slavistic_only: "Old Church Slavonic only",
