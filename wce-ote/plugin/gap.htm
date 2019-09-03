@@ -37,7 +37,7 @@
 
 <head>
     <title>{#gap_title}</title>
-    <script type="text/javascript" src="../jquery.js"></script>
+    <script type="text/javascript" src="../jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="js/wce.js"></script>
     <link rel="stylesheet" type="text/css" href="../skin/dialog.css" />
     <link rel="stylesheet" type="text/css" href="../skin/ui.css" />
@@ -171,7 +171,12 @@
             </table>
         </fieldset>
         <div class="mceActionPanel">
-            <input type="button" id="insert" name="insert" value="{#insert}" onclick="var cont=testInput();if(cont=='0'){writeWceNodeInfo()}else if(cont=='1'){alert('{#empty_other}');}else if(cont=='2'){alert('{#empty_extent}');}else if(cont=='3'){alert('{#invalid_extent}');}" />
+            <input type="button" id="insert" name="insert" value="{#insert}"
+            onclick="var cont=testInput();
+            if(cont=='0'){writeWceNodeInfo();}
+            else if(cont=='1'){alert('{#empty_other}');}
+            else if(cont=='2'){alert('{#empty_extent}');}
+            else if(cont=='3'){alert('{#invalid_extent}');}" />
             <input type="button" id="cancel" name="cancel" value="{#cancel}" onclick="parent.tinymce.activeEditor.windowManager.close();" />
         </div>
     </form>
