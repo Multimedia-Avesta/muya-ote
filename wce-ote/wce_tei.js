@@ -65,7 +65,7 @@ function getHtmlByTei(inputString, args) {
 
    var gid = 0;
    var g_lineNumber, g_verseNumber, g_stanzaNumber, g_chapterNumber,
-       g_bookNumber, g_lineNumber, g_verselineNumber, g_ritualdirectionNumber;
+      g_bookNumber, g_lineNumber, g_verselineNumber, g_ritualdirectionNumber;
 
    // As &om; can not be handled we go back to OMISSION
    inputString = inputString.replace(/([\r\n]|<w\s*\/\s*>)/g, '');
@@ -516,9 +516,9 @@ function getHtmlByTei(inputString, args) {
                return;
             var $parentnode = $teiNode.parentNode;
             if ($parentnode && ($parentnode.nodeName === 'foreign' ||
-               ($parentnode.nodeName === 'ab' && $parentnode.getAttribute("type") &&
-                  ($parentnode.getAttribute("type") === "translation") ||
-                  ($parentnode.getAttribute("type") === "section"))) && $parentnode.lastChild === $teiNode)
+                  ($parentnode.nodeName === 'ab' && $parentnode.getAttribute("type") &&
+                     ($parentnode.getAttribute("type") === "translation") ||
+                     ($parentnode.getAttribute("type") === "section"))) && $parentnode.lastChild === $teiNode)
                return;
             nodeAddText($htmlParent, ' ');
          }
@@ -691,8 +691,7 @@ function getHtmlByTei(inputString, args) {
       if (oldNodeParentName == 'ex') {
          // ex
          textValue = '(' + textValue + ')';
-      } else if (oldNodeParentName == 'unclear') {
-      }
+      } else if (oldNodeParentName == 'unclear') {}
       nodeAddText($htmlParent, textValue);
    };
 
@@ -716,10 +715,10 @@ function getHtmlByTei(inputString, args) {
             case 'damage_to_page':
             case 'covered_by_tape':
             case 'overwritten':
-                  wceAttr += '&unclear_text_reason=' + reason.replace(/_/g, " ") + '&unclear_text_reason_other=';
+               wceAttr += '&unclear_text_reason=' + reason.replace(/_/g, " ") + '&unclear_text_reason_other=';
                break;
             default:
-                  wceAttr += '&unclear_text_reason=other&unclear_text_reason_other=' + reason;
+               wceAttr += '&unclear_text_reason=other&unclear_text_reason_other=' + reason;
                break;
          }
       }
@@ -744,11 +743,12 @@ function getHtmlByTei(inputString, args) {
       if (!divType)
          return $htmlParent;
 
+
       var partValue = $teiNode.getAttribute('part') ? $teiNode.getAttribute('part') : '';
       var langValue = $teiNode.getAttribute('xml:lang') ? $teiNode.getAttribute('xml:lang') : '';
       if (isOther(langValue)) {
          if (alertonlangnotshown) {
-            alert("Please note: The \"other\" value for xml:lang is no longer supported.\nExisting entries have been removed.");
+            alert("Please note: The &quot;other&quot; value for xml:lang is no longer supported.\nExisting entries have been removed.");
             alertonlangnotshown = false;
          }
          langValue = '';
@@ -839,6 +839,10 @@ function getHtmlByTei(inputString, args) {
          $newNode.setAttribute('wce', wceAttr);
          if (nValue !== '')
             nodeAddText($newNode, nValue.substr(nValue.lastIndexOf('.') + 1));
+         var pre = $htmlParent.previousSibling;
+         if (!pre || (!pre.nodeType === 3 && pre.nodeName !== 'w')) { //add a space before number
+            nodeAddText($htmlParent, ' ');
+         }
          $htmlParent.appendChild($newNode);
          nodeAddText($htmlParent, ' ');
          return $htmlParent;
@@ -853,6 +857,10 @@ function getHtmlByTei(inputString, args) {
          $newNode.setAttribute('wce', wceAttr);
          if (nValue !== '')
             nodeAddText($newNode, nValue.substr(nValue.lastIndexOf('.') + 1));
+         var pre = $htmlParent.previousSibling;
+         if (!pre || (!pre.nodeType === 3 && pre.nodeName !== 'w')) { //add a space before number
+            nodeAddText($htmlParent, ' ');
+         }
          $htmlParent.appendChild($newNode);
          nodeAddText($htmlParent, ' ');
          return $htmlParent;
@@ -867,6 +875,10 @@ function getHtmlByTei(inputString, args) {
          $newNode.setAttribute('wce', wceAttr);
          if (nValue !== '')
             nodeAddText($newNode, nValue.substr(nValue.lastIndexOf('.') + 1));
+         var pre = $htmlParent.previousSibling;
+         if (!pre || (!pre.nodeType === 3 && pre.nodeName !== 'w')) { //add a space before number
+            nodeAddText($htmlParent, ' ');
+         }
          $htmlParent.appendChild($newNode);
          nodeAddText($htmlParent, ' ');
          return $htmlParent;
@@ -880,7 +892,7 @@ function getHtmlByTei(inputString, args) {
             if (type == 'translation' || type == 'section')
                wceAttr += '&reason_for_language_change=' + type;
             else {
-               alert("Unknown @type for <ab> found. This will be converted to 'other'.");
+               alert("Unknown @type " + type + " for <ab> found. This will be converted to 'other'.");
                wceAttr += '&reason_for_language_change=other';
             }
          else {
@@ -894,6 +906,10 @@ function getHtmlByTei(inputString, args) {
          wceAttr += '&lang=' + langValue;
          $newNode.setAttribute('wce', wceAttr);
          addFormatElement($newNode);
+         var pre = $htmlParent.previousSibling;
+         if (!pre || (!pre.nodeType === 3 && pre.nodeName !== 'w')) { //add a space before number
+            nodeAddText($htmlParent, ' ');
+         }
          $htmlParent.appendChild($newNode);
          nodeAddText($htmlParent, ' ');
          return $newNode;
@@ -937,14 +953,14 @@ function getHtmlByTei(inputString, args) {
          addFormatElement($newNode);
          $htmlParent.appendChild($newNode);
          //if ($teiNode.parentNode.lastChild !== $teiNode)
-            nodeAddText($htmlParent, ' ');
+         nodeAddText($htmlParent, ' ');
          return null;
       } else {
          $newNode.setAttribute('wce', '__t=pc');
          addFormatElement($newNode);
          $htmlParent.appendChild($newNode);
          //if ($teiNode.parentNode.lastChild !== $teiNode)
-            nodeAddText($htmlParent, ' ');
+         nodeAddText($htmlParent, ' ');
          return $newNode;
       }
    };
@@ -1080,7 +1096,7 @@ function getHtmlByTei(inputString, args) {
       //var s=getOriginalTextByTeiNode($teiNode); alert(s);
       //$newNode.setAttribute('wce_orig', s);//TODO: test wce_orig
       $htmlParent.appendChild($newNode);
-      //if (!ed.WCE_VAR.isc)
+      if (!ed.WCE_VAR.isc)
          nodeAddText($htmlParent, ' ');
       return null;
    };
