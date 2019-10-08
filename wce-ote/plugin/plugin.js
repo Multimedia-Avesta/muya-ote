@@ -33,7 +33,7 @@
 */
 
 (function() {
-   var wfce_editor = "1.3.2 (2019-09-04)";
+   var wfce_editor = "1.4.0 (2019-10-08)";
 
    // Load plugin specific language pack
    tinymce.PluginManager.requireLangPack('wce');
@@ -2050,7 +2050,7 @@
                            info_text += '<div style="margin-top:10px">' + tinymce.translate('extent') + ': ' + ar['extent'] + ' ';
                            if (ar['unit'] == 'other') {
                               info_text += ar['unit_other'] + '</div>';
-                           } else if (ar['unit'] != 'unspecified') {
+                           } else if (ar['unit'] !== 'unspecified') {
                               var str_unit = "unit_" + ar['unit'];
                               info_text += tinymce.translate(str_unit) + (tinyMCE.activeEditor.settings.language == 'de' ? '(e)' : '(s)') + '</div>';
                            }
@@ -2061,10 +2061,10 @@
                      info_text = '<div>' + tinymce.translate('menu_uncertain') + '</div>';
                      if (ar['unclear_text_reason'] != null) {
                         info_text += '<div>' + tinymce.translate('reason') + ': ';
-                        if (ar['unclear_text_reason'] == 'other') {
-                           info_text += ar['unclear_text_reason_other'];
+                        if (ar['unclear_text_reason'] === 'other') {
+                           info_text += ar['unclear_text_reason_other'].replace(/_/g," ");
                         } else {
-                           info_text += ar['unclear_text_reason'];
+                           info_text += ar['unclear_text_reason'].replace(/_/g," ");
                         }
                         info_text += '</div>';
                      }

@@ -715,7 +715,7 @@ function getHtmlByTei(inputString, args) {
             case 'damage_to_page':
             case 'covered_by_tape':
             case 'overwritten':
-               wceAttr += '&unclear_text_reason=' + reason.replace(/_/g, " ") + '&unclear_text_reason_other=';
+               wceAttr += '&unclear_text_reason=' + reason + '&unclear_text_reason_other=';
                break;
             default:
                wceAttr += '&unclear_text_reason=other&unclear_text_reason_other=' + reason;
