@@ -208,6 +208,7 @@
                 'wcecharmapsidebar': '../../wce-ote/plugin/js/charmap_sidebar.js'
             },
             internal_editor: true,
+            insertpunctuation: true,
             toolbar: "undo redo muyacharmap | contextmenu cut copy paste " +
                 "breaks illegible decoration abbreviation paratext punctuation language",
             setup: function(ed) {
@@ -217,7 +218,7 @@
         corrector_text_editor.on('init', function() {
             comboBindReturnEvent('insert');
             wceInfoInit('corr');
-            
+
             for (var p in info_arr) {
                 addCorrector(p);
             }

@@ -119,7 +119,7 @@ function getHtmlByTei(inputString, args) {
             readAllChildrenOfTeiNode($newRoot, $c);
          }
       }
-      addSpaceBeforeVerse($newRoot);
+      //addSpaceBeforeVerse($newRoot);
       // DOM to String
       var str = xml2String($newRoot);
       if (!str)
@@ -482,7 +482,8 @@ function getHtmlByTei(inputString, args) {
          // stop to read $teiNode
          if (!$newParent) {
             // make sure that a *single* gap is followed by a space
-            if ($teiNode.nodeName === 'gap' && $teiNode.nextSibling && $teiNode.nextSibling.nodeName !== 'unclear' && $teiNode.nextSibling.nodeValue == null)
+            if ($teiNode.nodeName === 'gap' && $teiNode.parentNode && $teiNode.parentNode.nodeName !== 'w')
+            //if ($teiNode.nodeName === 'gap' && $teiNode.nextSibling && $teiNode.nextSibling.nodeName !== 'unclear' && $teiNode.nextSibling.nodeValue == null)
                nodeAddText($htmlParent, ' ');
             return;
          }
@@ -1091,7 +1092,6 @@ function getHtmlByTei(inputString, args) {
             nodeAddText($newNode, '[...]');
          }
       }
-
       addFormatElement($newNode);
       //var s=getOriginalTextByTeiNode($teiNode); alert(s);
       //$newNode.setAttribute('wce_orig', s);//TODO: test wce_orig
@@ -1347,7 +1347,8 @@ function getHtmlByTei(inputString, args) {
                if (page_type === "page") {
                   wceAttr += '&number=' + number + '&rv=';
                } else { //folio
-                  wceAttr += '&number=' + number.substring(0, number.length - 1) + '&rv=' + number.substring(number.length - 1);
+                  wceAttr += '&number=' + number.substring(0, number.length - 1)
+                     + '&rv=' + number.substring(number.length - 1);
                }
             }
             wceAttr += '&facs=';
@@ -1376,7 +1377,7 @@ function getHtmlByTei(inputString, args) {
 
       var hasBreak = false;
       var breakValue = $teiNode.getAttribute('break');
-      if (breakValue && breakValue == 'no') { // attribute break="no" exists
+      if (breakValue && breakValue === 'no') { // attribute break="no" exists
          wceAttr += '&hasBreak=yes';
          hasBreak = true;
          nodeAddText($newNode, '\u002D');
@@ -1411,7 +1412,7 @@ function getHtmlByTei(inputString, args) {
                var pre = $teiNode.previousSibling;
                while (pre) {
                   if (pre.nodeType != 3) {
-                     if (pre.getAttribute('break') && pre.getAttribute('break') == 'no') {
+                     if (pre.getAttribute('break') && pre.getAttribute('break') === 'no') {
                         hasBreak = true;
                         break;
                      }
@@ -1794,7 +1795,7 @@ function getHtmlByTei(inputString, args) {
       var _extent = parseInt(extent);
       for (var i = 0; i < _extent; i++) {
          covertext += '<span class="brea mceNonEditable" wce="__t=brea&amp;__n=&amp;hasBreak=no&amp;break_type=lb&amp;number=&amp;rv=&amp;page_number=&amp;running_title=&amp;facs=&amp;lb_alignment=">' +
-            '<span class="format_start mceNonEditable">‹</span><br />↵<span class="format_end mceNonEditable">›</span></span>' + ed.translate('graphical_element');
+            '<span class="format_start mceNonEditable">‹</span><br/>↵<span class="format_end mceNonEditable">›</span></span>' + ed.translate('graphical_element');
       }
 
       $tmp = $('<temp>' + covertext + '</temp>')[0];
@@ -2753,7 +2754,7 @@ function getTeiByHtml(inputString, args) {
          handleSupliedInAbbr2(childList[x]);
       }
 
-      if ($node.nodeName == 'abbr') {
+      if ($node.nodeName === 'abbr') {
          $node.removeAttribute('ext');
          var xmlstr = xml2String($node);
          xmlstr = xmlstr.replace(/@{@/g, '<');
@@ -2990,7 +2991,7 @@ function getTeiByHtml(inputString, args) {
          htmlNodeName = $htmlNode.nodeName;
 
       // <br>
-      if (htmlNodeName == 'br') {
+      if (htmlNodeName === 'br') {
          return null;
       }
 
@@ -3014,7 +3015,7 @@ function getTeiByHtml(inputString, args) {
       }
 
       // gap
-      if (wceType == 'gap') {
+      if (wceType === 'gap') {
          return html2Tei_gap(arr, $teiParent, $htmlNode);
       }
 
@@ -3029,45 +3030,45 @@ function getTeiByHtml(inputString, args) {
       }
 
       // abbr
-      if (wceType == 'abbr') {
+      if (wceType === 'abbr') {
          return html2Tei_abbr(arr, $teiParent, $htmlNode);
       }
 
       // spaces
-      if (wceType == 'spaces') {
+      if (wceType === 'spaces') {
          return html2Tei_spaces(arr, $teiParent, $htmlNode);
       }
 
       // note
-      if (wceType == 'note') {
+      if (wceType === 'note') {
          return html2Tei_note(arr, $teiParent, $htmlNode);
       }
 
       // pc
-      if (wceType == 'pc') {
+      if (wceType === 'pc') {
          return html2Tei_pc(arr, $teiParent, $htmlNode);
       }
 
       // paratext
-      if (wceType == 'paratext') {
+      if (wceType === 'paratext') {
          return html2Tei_paratext(arr, $teiParent, $htmlNode);
       }
 
       // unclear
-      if (wceType == 'unclear') {
+      if (wceType === 'unclear') {
          return html2Tei_unclear(arr, $teiParent, $htmlNode);
       }
 
       // part_abbr
-      if (wceType == 'part_abbr') {
+      if (wceType === 'part_abbr') {
          return html2Tei_partarr(arr, $teiParent, $htmlNode);
       }
 
-      if (wceType == 'langchange' || wceType == 'langchangerange') {
+      if (wceType === 'langchange' || wceType === 'langchangerange') {
          return html2Tei_langchange(arr, $teiParent, $htmlNode);
       }
 
-      if (wceType == 'figure') {
+      if (wceType === 'figure') {
          return html2Tei_figure(arr, $teiParent, $htmlNode);
       }
 
@@ -3210,7 +3211,7 @@ function getTeiByHtml(inputString, args) {
          }
          // extent
          if (arr['extent']) {
-            if (isNaN(parseInt(arr['extent'])))
+            if (isNaN(parseInt(arr['extent'])))//"4-5" is also accepted!!!
                $newNode.setAttribute('extent', arr['extent']);
             else
                $newNode.setAttribute('quantity', arr['extent']);
@@ -4277,13 +4278,13 @@ var removeBlankNode = function($root) { //remove blank node,
 
 var removeSpaceAfterLb = function($node) {
    var nodeName = $node.nodeName;
-   if (nodeName && nodeName == 'lb') {
-      var toTrim = $node.getAttribute('break') && $node.getAttribute('break') == 'no';
+   if (nodeName && nodeName === 'lb') {
+      var toTrim = $node.getAttribute('break') && $node.getAttribute('break') === 'no';
       if (!toTrim) {
          var pre = $node.previousSibling;
          while (pre) {
             if (pre.nodeType != 3) {
-               if (pre.getAttribute('break') && pre.getAttribute('break') == 'no') {
+               if (pre.getAttribute('break') && pre.getAttribute('break') === 'no') {
                   toTrim = true;
                   break;
                }
