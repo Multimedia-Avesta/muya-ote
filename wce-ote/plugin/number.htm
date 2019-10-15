@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>{#number_title}</title>
-<script type="text/javascript" src="../jquery.js"></script>
+<script type="text/javascript" src="../jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="js/wce.js"></script>
 </head>
 
@@ -40,10 +40,10 @@
 		var _ed = parent.tinymce.activeEditor;
 		ed=_ed;
 		translate();
-		setConstants(); 
+		setConstants();
 		init();
-	});	
-		
+	});
+
 	function translate() {
 		var c=document.body.innerHTML;
 		var d=document.title;
@@ -60,9 +60,9 @@
 		});
 		if(a!=d){document.title=d=a}
 	}
-	
+
 	function init() {
-		comboBindReturnEvent('insert'); 
+		comboBindReturnEvent('insert');
 		wceInfoInit('numb');
 		readWceNodeInfo();
 	}

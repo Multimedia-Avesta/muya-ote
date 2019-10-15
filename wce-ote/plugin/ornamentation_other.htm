@@ -1,6 +1,6 @@
-<!-- 
+<!--
 	Copyright (C) 2012-2017 Trier Center for Digital Humanities, Trier (Germany)
-	
+
 	This file is part of the Online Transcription Editor (OTE).
 
     OTE is free software: you can redistribute it and/or modify
@@ -18,15 +18,15 @@
 
     Diese Datei ist Teil des Online-Transkriptions-Editor (OTE).
 
-    OTE ist Freie Software: Sie können es unter den Bedingungen
+    OTE ist Freie Software: Sie kï¿½nnen es unter den Bedingungen
     der GNU Lesser General Public License, wie von der Free Software Foundation,
-    Version 2.1 der Lizenz oder (nach Ihrer Wahl) jeder späteren
-    veröffentlichten Version, weiterverbreiten und/oder modifizieren.
+    Version 2.1 der Lizenz oder (nach Ihrer Wahl) jeder spï¿½teren
+    verï¿½ffentlichten Version, weiterverbreiten und/oder modifizieren.
 
-    OTE wird in der Hoffnung, dass es nützlich sein wird, aber
-    OHNE JEDE GEWÄHRLEISTUNG, bereitgestellt; sogar ohne die implizite
-    Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
-    Siehe die GNU Lesser General Public License für weitere Details.
+    OTE wird in der Hoffnung, dass es nï¿½tzlich sein wird, aber
+    OHNE JEDE GEWï¿½HRLEISTUNG, bereitgestellt; sogar ohne die implizite
+    Gewï¿½hrleistung der MARKTFï¿½HIGKEIT oder EIGNUNG Fï¿½R EINEN BESTIMMTEN ZWECK.
+    Siehe die GNU Lesser General Public License fï¿½r weitere Details.
 
     Sie sollten eine Kopie der GNU Lesser General Public License zusammen mit diesem
     Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
@@ -35,7 +35,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>{#title_other_ornamentation}</title>
-<script type="text/javascript" src="../jquery.js"></script>
+<script type="text/javascript" src="../jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="js/wce.js"></script>
 <link rel="stylesheet" type="text/css" href="../skin/dialog.css"/>
 <link rel="stylesheet" type="text/css" href="../skin/ui.css"/>
@@ -43,7 +43,7 @@
 
 <body id="table">
 	<form onsubmit="return false;" action="#" name="capitalsinfo">
-		<fieldset id="inputContainer"> 
+		<fieldset id="inputContainer">
 			<table border="0" cellpadding="4" cellspacing="0" width="100%">
 				<tr>
 					<td style="width:30%"><label id="formatting_ornamentation_other_label" for="formatting_ornamentation_other_height">{#other_ornamentation}</label></td>
@@ -51,7 +51,7 @@
 						type="text" value=""/></td>
 				</tr>
 			</table>
-		</fieldset> 
+		</fieldset>
 		<div class="mceActionPanel">
 			<input type="button"  id="insert" name="insert" value="{#insert}"
 				onclick="writeWceNodeInfo();" />
@@ -64,10 +64,10 @@
 		var _ed = parent.tinymce.activeEditor;
 		ed=_ed;
 		translate();
-		setConstants(); 
+		setConstants();
 		init();
-	});	
-	
+	});
+
 	function translate() {
 		var c=document.body.innerHTML;
 		var d=document.title;
@@ -84,9 +84,9 @@
 		});
 		if(a!=d){document.title=d=a}
 	}
-	
+
 	function init() {
-		comboBindReturnEvent('insert'); 
+		comboBindReturnEvent('insert');
 		wceInfoInit('formatting_ornamentation_other');
 		readWceNodeInfo();
 	}
