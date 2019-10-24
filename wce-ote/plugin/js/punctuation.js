@@ -11,15 +11,9 @@
 /*global tinymce:true */
 
 tinymce.PluginManager.add('punctuation', function(ed, jsUrl) {
-   var menuItemsAdd = [{
+   var menuItemsAddDots = [{
       id: '001',
       title: 'single dot'
-   }, {
-      id: '002',
-      title: 'single circle'
-   }, {
-      id: '003',
-      title: 'single circle + 3 dots on top'
    }, {
       id: '004',
       title: 'single fat dot'
@@ -36,6 +30,17 @@ tinymce.PluginManager.add('punctuation', function(ed, jsUrl) {
       id: '008',
       title: '4 dots diamond-shape arrangement'
    }, {
+      id: '013',
+      title: '4 dots diamond-shape plus red surrounding'
+   }];
+
+   var menuItemsAddCircles = [{
+      id: '002',
+      title: 'single circle'
+   }, {
+      id: '003',
+      title: 'single circle + 3 dots on top'
+   }, {
       id: '009',
       title: '3 circles v-shape'
    }, {
@@ -47,9 +52,6 @@ tinymce.PluginManager.add('punctuation', function(ed, jsUrl) {
    }, {
       id: '012',
       title: '4 circles diamond-shape arrangement'
-   }, {
-      id: '013',
-      title: '4 dots diamond-shape plus red surrounding'
    }, {
       id: '014',
       title: 'circle with red triangle above and below'
@@ -98,7 +100,9 @@ tinymce.PluginManager.add('punctuation', function(ed, jsUrl) {
    }, {
       id: '029',
       title: 'Four circles in a rhombus'
-   }, {
+   }];
+
+   var menuItemsAddLines = [{
       id: '030',
       title: 'Two parallel lines at the end of a line, left side up'
    }, {
@@ -107,7 +111,9 @@ tinymce.PluginManager.add('punctuation', function(ed, jsUrl) {
    }, {
       id: '032',
       title: 'Two parallel lines above letters'
-   }, {
+   }];
+
+   var menuItemsAddOther = [{
       id: '033',
       title: 'insertion sign v-shaped'
    }, {
@@ -121,17 +127,80 @@ tinymce.PluginManager.add('punctuation', function(ed, jsUrl) {
       title: 'Other'
    }];
 
-   menuItemsAdd.forEach(function(it) {
+   menuItemsAddDots.forEach(function(it) {
       it.text = it.id + ' ' + it.title;
       if (!it.onclick) {
          it.onclick = function() {
             if (!tinyMCE.activeEditor.settings.insertpunctuation) {
-               tinyMCE.activeEditor.settings.insertpunctuation=true;
+               tinyMCE.activeEditor.settings.insertpunctuation = true;
                if (it.id == 999)
                   ed.execCommand('mceAdd_pc_char_P_other');
                else
                   ed.execCommand('mceAdd_pc', it.id);
-               tinyMCE.activeEditor.settings.insertpunctuation=false;
+               tinyMCE.activeEditor.settings.insertpunctuation = false;
+            } else {
+               if (it.id == 999)
+                  ed.execCommand('mceAdd_pc_char_P_other');
+               else
+                  ed.execCommand('mceAdd_pc', it.id);
+            }
+         }
+      }
+   });
+
+   menuItemsAddCircles.forEach(function(it) {
+      it.text = it.id + ' ' + it.title;
+      if (!it.onclick) {
+         it.onclick = function() {
+            if (!tinyMCE.activeEditor.settings.insertpunctuation) {
+               tinyMCE.activeEditor.settings.insertpunctuation = true;
+               if (it.id == 999)
+                  ed.execCommand('mceAdd_pc_char_P_other');
+               else
+                  ed.execCommand('mceAdd_pc', it.id);
+               tinyMCE.activeEditor.settings.insertpunctuation = false;
+            } else {
+               if (it.id == 999)
+                  ed.execCommand('mceAdd_pc_char_P_other');
+               else
+                  ed.execCommand('mceAdd_pc', it.id);
+            }
+         }
+      }
+   });
+
+   menuItemsAddLines.forEach(function(it) {
+      it.text = it.id + ' ' + it.title;
+      if (!it.onclick) {
+         it.onclick = function() {
+            if (!tinyMCE.activeEditor.settings.insertpunctuation) {
+               tinyMCE.activeEditor.settings.insertpunctuation = true;
+               if (it.id == 999)
+                  ed.execCommand('mceAdd_pc_char_P_other');
+               else
+                  ed.execCommand('mceAdd_pc', it.id);
+               tinyMCE.activeEditor.settings.insertpunctuation = false;
+            } else {
+               if (it.id == 999)
+                  ed.execCommand('mceAdd_pc_char_P_other');
+               else
+                  ed.execCommand('mceAdd_pc', it.id);
+            }
+         }
+      }
+   });
+
+   menuItemsAddOther.forEach(function(it) {
+      it.text = it.id + ' ' + it.title;
+      if (!it.onclick) {
+         it.onclick = function() {
+            if (!tinyMCE.activeEditor.settings.insertpunctuation) {
+               tinyMCE.activeEditor.settings.insertpunctuation = true;
+               if (it.id == 999)
+                  ed.execCommand('mceAdd_pc_char_P_other');
+               else
+                  ed.execCommand('mceAdd_pc', it.id);
+               tinyMCE.activeEditor.settings.insertpunctuation = false;
             } else {
                if (it.id == 999)
                   ed.execCommand('mceAdd_pc_char_P_other');
@@ -172,9 +241,9 @@ tinymce.PluginManager.add('punctuation', function(ed, jsUrl) {
       if (!it.onclick) {
          it.onclick = function() {
             if (!tinyMCE.activeEditor.settings.insertpunctuation) {
-               tinyMCE.activeEditor.settings.insertpunctuation=true;
+               tinyMCE.activeEditor.settings.insertpunctuation = true;
                ed.execCommand('mceAdd_pc_simple', it.code);
-               tinyMCE.activeEditor.settings.insertpunctuation=false;
+               tinyMCE.activeEditor.settings.insertpunctuation = false;
             } else {
                ed.execCommand('mceAdd_pc_simple', it.code);
             }
@@ -216,7 +285,27 @@ tinymce.PluginManager.add('punctuation', function(ed, jsUrl) {
       },
       menu: [{
             text: tinymce.translate('menu_punctuation_add'),
-            menu: menuItemsAdd,
+            menu: [{
+                  text: tinymce.translate('menu_punctuation_add_dots'),
+                  id: 'menu-punctuation-dots',
+                  menu: menuItemsAddDots
+               },
+               {
+                  text: tinymce.translate('menu_punctuation_add_circles'),
+                  id: 'menu-punctuation-circles',
+                  menu: menuItemsAddCircles
+               },
+               {
+                  text: tinymce.translate('menu_punctuation_add_lines'),
+                  id: 'menu-punctuation-lines',
+                  menu: menuItemsAddLines
+               },
+               {
+                  text: tinymce.translate('menu_punctuation_add_other'),
+                  id: 'menu-punctuation-other',
+                  menu: menuItemsAddOther
+               }
+            ]
          },
          {
             text: tinymce.translate('menu_punctuation_add_char'),
