@@ -33,7 +33,7 @@
 */
 
 (function() {
-   var wfce_editor = "1.4.1 (2019-10-15)";
+   var wfce_editor = "1.4.2 (2019-10-25)";
 
    // Load plugin specific language pack
    tinymce.PluginManager.requireLangPack('wce');
@@ -988,7 +988,6 @@
             };
             return testNode(elem[0]);
          } catch (e) {
-            //alert("PECJ");
             return false;
          }
       },
@@ -1174,11 +1173,6 @@
             if (WCEUtils.selectionHasBlockElement(ed)) {
                w.inputDisable = true;
             }
-
-            /*if (WCEUtils.selectionContainsVerseNumber(ed)) {
-            	alert("TEST");
-            	_disableAllControls(ed, true);
-            }*/
 
             var selHasSpace = WCEUtils.selectionHasSpace(ed);
          }
@@ -2983,7 +2977,6 @@
                   var oldwce = selectedNode.getAttribute('wce');
                   var pos = oldwce.substring(4).indexOf('_');
                   var type = oldwce.substring(4, 4 + pos);
-                  //alert(type);
                }
                if (type && (type == 'book' || type == 'chapter' || type == 'verse' ||
                      type == 'stanza' || type == 'line' || type == 'verseline' ||
@@ -3086,7 +3079,6 @@
             window.open(url + "/changelog.htm", "_blank",
                "width=800,height=600,resizable=yes,status=no," +
                "menubar=no,location=no,scrollbars=yes,toolbar=no");
-            //alert(tinymce.translate('menu_info')+wfce_editor);
          });
 
          // add showHtmlByTei button
