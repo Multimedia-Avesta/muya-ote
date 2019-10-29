@@ -583,7 +583,10 @@ function formUnserialize(str) {
             marginals_text_editor.setContent(dec_v);
          } else if (k === 'note_text' && note_text_editor) {
             note_text_editor.setContent(dec_v);
+         } else if (k === 'abbr_expansion' && abbr_expansion_editor) {
+            abbr_expansion_editor.setContent(dec_v);
          }
+
          $('#' + k).val(dec_v);
       }
    }
@@ -627,6 +630,8 @@ function formSerialize(f, wce_name) {
          s += '&' + a.attr('id') + '=' + encodeURIComponent(marginals_text_editor.getContent());
       } else if (a.attr('id') === 'note_text') {
          s += '&' + a.attr('id') + '=' + encodeURIComponent(note_text_editor.getContent());
+      } else if (a.attr('id') === 'abbr_expansion') {
+         s += '&' + a.attr('id') + '=' + encodeURIComponent(abbr_expansion_editor.getContent());  
       } else {
          s += '&' + a.attr('id') + '=' + encodeURIComponent(a.val());
       }

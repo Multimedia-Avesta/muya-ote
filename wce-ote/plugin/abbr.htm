@@ -1,5 +1,5 @@
 <!--
-	Copyright (C) 2012-2018 Trier Center for Digital Humanities, Trier (Germany)
+	Copyright (C) 2012-2019 Trier Center for Digital Humanities, Trier (Germany)
 
 	This file is part of the Online Transcription Editor (OTE).
 
@@ -36,11 +36,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <title>{#abbr_title}</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script type="text/javascript" src="js/wce.js"></script>
-    <link rel="stylesheet" type="text/css" href="../skin/dialog.css" />
-    <link rel="stylesheet" type="text/css" href="../skin/ui.css" />
+   <title>{#abbr_title}</title>
+   <script type="text/javascript" src="../../js/tinymce/tinymce.min.js"></script>
+   <script type="text/javascript" src="../jquery-3.4.1.min.js"></script>
+   <script type="text/javascript" src="js/wce.js"></script>
+   <link rel="stylesheet" type="text/css" href="../skin/dialog.css" />
+   <link rel="stylesheet" type="text/css" href="../skin/ui.css" />
 </head>
 
 <body id="table">
@@ -65,8 +66,9 @@
                     <td>
                         <label id="abbr_expansion_label" for="abbr_expansion">{#abbr_expansion}</label>
                     </td>
-                    <td colspan="2">
-                        <input id="abbr_expansion" name="abbr_expansion" type="text" value="" size="30" maxlength="" class="required number min1 mceFocus" /></td>
+                       <td colspan="2"><textarea id="abbr_expansion" name="abbr_expansion"
+                             WRAP="PHYSICAL" ROWS="1" COLS="30"></textarea>
+                       </td>
                 </tr>
             </table>
         </fieldset>
@@ -78,13 +80,46 @@
     </form>
 </body>
 <script type="text/javascript">
-    $(document).ready(function() {
-        var _ed = parent.tinymce.activeEditor;
-        ed = _ed;
-        translate();
-        setConstants();
-        init();
-    });
+var abbr_expansion_editor;
+$(document).ready(function() {
+	 // TODO: fix this in wce.js. currently we're settin global ed variable.
+	 ed = parent.tinymce.activeEditor;
+	 translate();
+	 setConstants();
+    checkstatus_abbrtype();
+	 abbr_expansion_editor = new tinymce.Editor('abbr_expansion', {
+		  branding: false,
+		  mode: "textareas",
+		  branding: false,
+		  theme: "modern",
+		  menubar: false,
+		  skin_url: "../skin/",
+		  extended_valid_elements: 'span[class|wce_orig|style|wce|id|ext|lang|partial]',
+		  forced_root_block: false,
+		  force_br_newlines: true,
+		  force_p_newlines: false,
+		  entity_encoding: "raw",
+		  theme_advanced_path: false,
+		  plugins: "pagebreak,print,paste",
+		  external_plugins: {
+				'wce': '../../wce-ote/plugin/plugin.js',
+				'muyacharmap': '../../wce-ote/plugin/js/muya_charmap.js',
+				'punctuation': '../../wce-ote/plugin/js/punctuation.js',
+		  },
+		  internal_editor: true,
+		  insertpunctuation: false,
+		  toolbar: "undo redo muyacharmap | contextmenu cut copy paste",
+	 }, tinymce.EditorManager);
+	 abbr_expansion_editor.on('init', function() {
+		  comboBindReturnEvent('insert');
+		  wceInfoInit('abbr');
+		  $('#note_text_ifr').contents().find('#tinymce').css('font-family',
+				parent.$('#wce_editor_ifr').contents().find('#tinymce').css('font-family'));
+		  readWceNodeInfo();
+		  abbr_expansion_editor.focus();
+	 });
+	 abbr_expansion_editor.render();
+});
 
     function translate() {
         var c = document.body.innerHTML;
@@ -109,13 +144,6 @@
         }
     }
 
-    function init() {
-        comboBindReturnEvent('insert');
-        wceInfoInit('abbr');
-        readWceNodeInfo();
-        checkstatus_abbrtype();
-    }
-
     function checkstatus_abbrtype() {
         if (document.abbrinfo.abbr_type.options[1].selected == true) {
             document.abbrinfo.abbr_type_other.disabled = false;
@@ -127,13 +155,10 @@
     }
 
     function testOther() {
-        if (document.abbrinfo.abbr_type.options[1].selected == true && document.getElementById('abbr_type_other').value == '')
+        if (document.abbrinfo.abbr_type.options[1].selected == true &&
+            document.getElementById('abbr_type_other').value === '')
             return false;
         return true;
     }
-
-    //$(document).ready(readWceInfo);
-
 </script>
-
 </html>
