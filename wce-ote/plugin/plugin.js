@@ -1696,7 +1696,7 @@
          if (typeof newStartOffset == undefined || newStartOffset < 0 || (startOffset - newStartOffset) < (digit + 3)) {
             return;
          }
-         var innerStr = str.substr(newStartOffset + 1, startOffset - newStartOffset - 2);
+         var innerStr = str.substr(newStartOffset + 1, startOffset - newStartOffset - 1);
 
          if (!innerStr.match(/^P\+\d{3}$/)) {
             return;
@@ -2046,7 +2046,7 @@
                               info_text += ar['unit_other'] + '</div>';
                            } else if (ar['unit'] !== 'unspecified') {
                               var str_unit = "unit_" + ar['unit'];
-                              info_text += tinymce.translate(str_unit) + (tinyMCE.activeEditor.settings.language == 'de' ? '(e)' : '(s)') + '</div>';
+                              info_text += tinymce.translate(str_unit) + (tinyMCE.activeEditor.settings.language === 'de' ? '(e)' : '(s)') + '</div>';
                            }
                         }
                      }
@@ -2066,10 +2066,10 @@
                   case 'spaces':
                      info_text = '<div>' + tinymce.translate('space') + '</div><div style="margin-top:10px">' + tinymce.translate('extent') + ': ' + ar['sp_extent'] + ' ';
                      if (ar['sp_unit'] == 'other') {
-                        info_text += ar['sp_unit_other'] + (tinyMCE.activeEditor.settings.language == 'de' ? '' : '(s)') + '</div>';
+                        info_text += ar['sp_unit_other'] + (tinyMCE.activeEditor.settings.language === 'de' ? '' : '(s)') + '</div>';
                      } else {
                         var str_unit = "unit_" + ar['sp_unit'];
-                        info_text += tinymce.translate(str_unit) + (tinyMCE.activeEditor.settings.language == 'de' ? '(e)' : '(s)') + '</div>';
+                        info_text += tinymce.translate(str_unit) + (tinyMCE.activeEditor.settings.language === 'de' ? '(e)' : '(s)') + '</div>';
                      }
                      break;
                   case 'formatting':
@@ -2482,6 +2482,7 @@
          WCEUtils.setWCEVariable(ed);
 
          var language = window.navigator.userLanguage || window.navigator.language;
+         var langEn = true; //language.substring(0, 2) === "en";
 
          var ek = e.keyCode || e.charCode || 0;
 
@@ -2633,12 +2634,17 @@
             return stopEvent(ed, e);
          }
 
-         var langEn = language.substring(0, 2) == "en";
          var ignoreShiftNotEn = tinyMCE.activeEditor.settings.ignoreShiftNotEn ? tinyMCE.activeEditor.settings.ignoreShiftNotEn : [];
          var keyboardDebug = tinyMCE.activeEditor.settings.keyboardDebug;
          // Add <pc> for some special characters
          // We need a lot of cases, because of different kyeboard layouts, different browsers and different platforms
-         if (keyboardDebug) console.log('ek: ' + ek + '; shiftKey: ' + e.shiftKey + '; altKey: ' + e.altKey + '; langEn: ' + langEn);
+         if (keyboardDebug) console.log('ek: ' + ek + '; shiftKey: ' + e.shiftKey + '; altKey: ' + e.altKey + '; ctrlKey: ' + e.ctrlKey + '; langEn: ' + langEn);
+
+         if ((langEn && ek == 221) || (!langEn && ek == 57 && e.altKey && e.ctrlKey)) { //for !langEn propably buggy
+            WCEUtils.insertPunctuation(ed);
+            stopEvent(ed, e);
+         }
+
          if (ek == 190 && e.shiftKey && !langEn) {
             // :
             tinyMCE.activeEditor.execCommand('mceAdd_pc_simple', ':');
@@ -2800,10 +2806,10 @@
          ed.on('keyup', function(e) {
             var ed = this;
 
-            var ek = e.keyCode || e.charCode || 0;
-            if (ek == 57 && e.altKey) {
+            /*var ek = e.keyCode || e.charCode || 0;
+            if ((langEn && ek == 221) || (!langEn && ek == 57 && e.altKey && e.ctrlKey)) {
                WCEUtils.insertPunctuation(ed);
-            }
+            }*/
 
             if (ed.hasTempText) {
                var dataList = ed.undoManager.data;
@@ -3055,7 +3061,7 @@
          });
 
          ed.addCommand('mceShowHelp', function() {
-            if (tinyMCE.activeEditor.settings.language == 'de')
+            if (tinyMCE.activeEditor.settings.language === 'de')
                window.open(url + "/docu.htm", "_blank",
                   "width=800,height=600,resizable=yes,status=no," +
                   "menubar=no,location=no,scrollbars=yes,toolbar=no");

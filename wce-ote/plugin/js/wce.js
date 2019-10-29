@@ -723,7 +723,7 @@ function comboBindReturnEvent(id1) {
 function wce_openWindow(txt) {
    var smallwindow;
    if ((smallwindow == null) || (smallwindow.closed)) {
-      if (parent.tinyMCE.activeEditor.settings.language == 'de')
+      if (parent.tinyMCE.activeEditor.settings.language === 'de')
          smallwindow = window.open(txt, "_blank",
             "width=800,height=600,resizable=yes,status=no," +
             "menubar=no,location=no,scrollbars=yes,toolbar=no");

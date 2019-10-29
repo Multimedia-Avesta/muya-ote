@@ -60,7 +60,7 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
          //if (saveDataToDB) saveDataToDB(true);
       },
       directionality: (rtl) ? "rtl" : "ltr",
-      language: (lang) ? (lang.indexOf('de') == 0 ? "de" : "en") : "en",
+      language: (lang) ? (lang.indexOf('de') === 0 ? "de" : "en") : "en",
       //book : (getBook) ? getBook : "",
       witness: (getWitness) ? getWitness : "",
       manuscriptLang: (getWitnessLang) ? getWitnessLang : "",
