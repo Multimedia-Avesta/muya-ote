@@ -2482,7 +2482,7 @@
          WCEUtils.setWCEVariable(ed);
 
          var language = window.navigator.userLanguage || window.navigator.language;
-         var langEn = true; //language.substring(0, 2) === "en";
+         var language.substring(0, 2) === "en";
 
          var ek = e.keyCode || e.charCode || 0;
 
