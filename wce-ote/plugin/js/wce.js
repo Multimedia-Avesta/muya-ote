@@ -68,6 +68,8 @@ var g_mainLang = '';
 //for example: use the "corrections" menu if a whole word is highlighted as "gap"
 var isCombination = false;
 
+var abbr_expansion_prev_options = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : [];
+
 function setConstants(_type) {
    //wce_node = ed.execCommand('getWceNode', false);
    wce_node = ed.WCE_VAR.selectedNode;
@@ -618,10 +620,11 @@ function formSerialize(f, wce_name) {
       a_type = a.attr('type');
       a_id = a.attr('id');
 
-      if (!a_id || a_id == 'undefined' || a_type == 'reset' || a_id == 'insert' || a_id == 'cancel')
+      if (!a_id || a_id === 'undefined' || a_type === 'reset' ||
+           a_id === 'insert' || a_id === 'cancel')
          continue;
 
-      if (a.attr('type') == 'checkbox' && !a.is(':checked'))
+      if (a.attr('type') === 'checkbox' && !a.is(':checked'))
          continue;
 
       if (a.attr('id') === 'corrector_text') {
@@ -631,7 +634,9 @@ function formSerialize(f, wce_name) {
       } else if (a.attr('id') === 'note_text') {
          s += '&' + a.attr('id') + '=' + encodeURIComponent(note_text_editor.getContent());
       } else if (a.attr('id') === 'abbr_expansion') {
-         s += '&' + a.attr('id') + '=' + encodeURIComponent(abbr_expansion_editor.getContent());  
+         abbr_expansion_prev_options.push(abbr_expansion_editor.getContent());
+         localStorage.setItem('items', JSON.stringify(abbr_expansion_prev_options));
+         s += '&' + a.attr('id') + '=' + encodeURIComponent(abbr_expansion_editor.getContent());
       } else {
          s += '&' + a.attr('id') + '=' + encodeURIComponent(a.val());
       }

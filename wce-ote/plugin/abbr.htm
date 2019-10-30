@@ -70,6 +70,15 @@
                              WRAP="PHYSICAL" ROWS="1" COLS="30"></textarea>
                        </td>
                 </tr>
+                <tr>
+                   <td>
+                      <label id="abbr_expansion_prev_label" for "abbr_expansion_prev">{#abbr_expansion_prev}</label>
+                   </td>
+                   <td>
+                      <select id="abbr_expansion_prev" name="abbr_expansion_prev" onchange="abbr_expansion_editor.setContent($('#abbr_expansion_prev').val())">
+                      </select>
+                   </td>
+                </tr>
             </table>
         </fieldset>
         <div class="mceActionPanel">
@@ -87,6 +96,7 @@ $(document).ready(function() {
 	 translate();
 	 setConstants();
     checkstatus_abbrtype();
+    setstatus_abbr_prev();
 	 abbr_expansion_editor = new tinymce.Editor('abbr_expansion', {
 		  branding: false,
 		  mode: "textareas",
@@ -113,7 +123,7 @@ $(document).ready(function() {
 	 abbr_expansion_editor.on('init', function() {
 		  comboBindReturnEvent('insert');
 		  wceInfoInit('abbr');
-		  $('#note_text_ifr').contents().find('#tinymce').css('font-family',
+		  $('#abbr_expansion_ifr').contents().find('#tinymce').css('font-family',
 				parent.$('#wce_editor_ifr').contents().find('#tinymce').css('font-family'));
 		  readWceNodeInfo();
 		  abbr_expansion_editor.focus();
@@ -153,6 +163,32 @@ $(document).ready(function() {
             document.getElementById('abbr_type_other').style.backgroundColor = "#CCCCCC";
         }
     }
+
+    function setstatus_abbr_prev() {
+      var options = '<option value="' + '">' + '</option>';
+      var optionArray = SortLocalStorage();
+      for (i = 1; i < optionArray.length; i++) {
+         options += '<option value="' + optionArray[i] + '">' + optionArray[i] + '</option>';
+      }
+      $("#abbr_expansion_prev").html(options);
+   }
+
+   function SortLocalStorage() {
+      if (localStorage.length > 0) {
+         var localStorageArray = new Array();
+         var i = 0;
+         JSON.parse(localStorage.getItem('items')).forEach(item => {
+            localStorageArray[i] = item;
+            i++;
+         });
+      }
+      var sortedArray = localStorageArray.sort();
+      return sortedArray.filter(onlyUnique);
+   }
+
+   function onlyUnique(value, index, self) {
+      return self.indexOf(value) === index;
+   }
 
     function testOther() {
         if (document.abbrinfo.abbr_type.options[1].selected == true &&

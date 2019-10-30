@@ -33,7 +33,7 @@
 */
 
 (function() {
-   var wfce_editor = "1.4.2 (2019-10-25)";
+   var wfce_editor = "1.4.2BETA (2019-10-30)";
 
    // Load plugin specific language pack
    tinymce.PluginManager.requireLangPack('wce');
@@ -1870,7 +1870,7 @@
                            info_text = ar['abbr_type_other'];
                            break;
                      }
-                     if (ar['abbr_expansion'] && ar['abbr_expansion'] != '') {
+                     if (ar['abbr_expansion'] && ar['abbr_expansion'] !== '') {
                         info_text += '<div>' + tinymce.translate('abbr_expansion') + ': ' + ar['abbr_expansion'] + '</div>';
                      }
                      break;
@@ -1923,7 +1923,7 @@
                            	break;*/
                         case 'changeOfHand':
                            info_text += tinymce.translate('infotext_change_of_hand') + '</div>';
-                           if (ar['newHand'] != null && ar['newHand'].trim() != '')
+                           if (ar['newHand'] != null && ar['newHand'].trim() !== '')
                               info_text += '<div>' + tinymce.translate('infotext_new_hand') + ': ' + ar['newHand'] + '</div>';
                            break;
                         default:
@@ -2984,9 +2984,9 @@
                   var pos = oldwce.substring(4).indexOf('_');
                   var type = oldwce.substring(4, 4 + pos);
                }
-               if (type && (type == 'book' || type == 'chapter' || type == 'verse' ||
-                     type == 'stanza' || type == 'line' || type == 'verseline' ||
-                     type == 'ritualdirection')) {
+               if (type && (type === 'book' || type === 'chapter' || type === 'verse' ||
+                     type === 'stanza' || type === 'line' || type === 'verseline' ||
+                     type === 'ritualdirection')) {
                   items[0].disabled(true);
                   items[1].disabled(false);
                   items[2].disabled(false);
@@ -3964,12 +3964,12 @@
 
          // Add abbreviation/*********/
          ed.addCommand('mceAddAbbr', function() {
-            doWithDialog(ed, url, '/abbr.htm', 480, 320, 1, true, tinymce.translate('abbr_title'));
+            doWithDialog(ed, url, '/abbr.htm', 700, 500, 1, true, tinymce.translate('abbr_title'));
          });
 
          // Edit abbreviation
          ed.addCommand('mceEditAbbr', function() {
-            doWithDialog(ed, url, '/abbr.htm', 480, 320, 1, false, tinymce.translate('abbr_title'));
+            doWithDialog(ed, url, '/abbr.htm', 700, 500, 1, false, tinymce.translate('abbr_title'));
          });
 
          ed.addCommand('mceAddAbbr_Shortcut', function() {

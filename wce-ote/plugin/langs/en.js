@@ -232,6 +232,7 @@ tinymce.addI18n('en', {
     abbr_numeral: "Numeral",
     abbr_suspension: "Suspension",
     abbr_expansion: "Expansion",
+    abbr_expansion_prev: "Previous expansions",
     spaces_title: "Please specify the blank spaces",
     spaces_data: "Information about the blank spaces",
     reading_list: "List of corrections",

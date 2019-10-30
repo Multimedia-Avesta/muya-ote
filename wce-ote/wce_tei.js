@@ -39,6 +39,11 @@
 var wceNodeInsideW = ["hi", "unclear", "gap", "supplied", "w", "abbr", "ex"]; //TODO: more type?
 //var defaultHeaderHtml='<header><trans></trans><ms></ms><book></book><folio></folio><language name=""></language></header>';
 
+//let abbr_expansion_prev_options = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : [];
+//localStorage.setItem('items', JSON.stringify(abbr_expansion_prev_options));
+var abbr_expansion_prev_options = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : [];
+const data = JSON.parse(localStorage.getItem('items'));
+
 function Fehlerbehandlung(Nachricht, Datei, Zeile) {
    var Fehler = "Error:\n" + Nachricht + "\n" + Datei + "\n" + Zeile;
    zeigeFehler(Fehler);
@@ -1248,9 +1253,13 @@ function getHtmlByTei(inputString, args) {
       wceAttr += getWceAttributeByTei($teiNode, mapping);
       var expansion = '';
       var $parentnode = $teiNode.parentNode;
-      if ($parentnode && $parentnode.nodeName == "choice")
-         if ($teiNode.previousSibling.nodeName == "expan")
+      if ($parentnode && $parentnode.nodeName === "choice") {
+         if ($teiNode.previousSibling.nodeName === "expan") {
             var expansion = $teiNode.previousSibling.firstChild.textContent;
+            abbr_expansion_prev_options.push(expansion);
+            localStorage.setItem('items', JSON.stringify(abbr_expansion_prev_options));
+         }
+      }
       wceAttr += '&abbr_expansion=' + encodeURIComponent(expansion);
       $newNode.setAttribute('wce', wceAttr);
 
