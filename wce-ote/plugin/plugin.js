@@ -33,7 +33,7 @@
 */
 
 (function() {
-   var wfce_editor = "1.4.2BETA (2019-10-30)";
+   var wfce_editor = "1.4.2BETA (2019-10-31)";
 
    // Load plugin specific language pack
    tinymce.PluginManager.requireLangPack('wce');
@@ -2482,7 +2482,7 @@
          WCEUtils.setWCEVariable(ed);
 
          var language = window.navigator.userLanguage || window.navigator.language;
-         var language.substring(0, 2) === "en";
+         var langEn = language.substring(0, 2) === "en";
 
          var ek = e.keyCode || e.charCode || 0;
 

@@ -89,6 +89,12 @@ tinymce.PluginManager.add('punctuation', function(ed, jsUrl) {
       id: '025',
       title: 'circle + 5 petals, flower-shape'
    }, {
+      id: '036',
+      title: 'circle + 6 petals, flower-shape'
+   }, {
+      id: '037',
+      title: 'circle + 7 petals, flower-shape'
+   }, {
       id: '026',
       title: 'circle + 8 petals, star-shape'
    }, {
