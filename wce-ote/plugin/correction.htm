@@ -73,7 +73,7 @@
                         <td colspan="2">
                             <select id="reading" name="reading">
                                 <option value="corr">{#correction}</option>
-                                <option value="comm">{#commentary}</option>
+                                <option value="gloss">{#gloss}</option>
                                 <option value="alt">{#alternative}</option>
                             </select></td>
                     </tr>
@@ -96,6 +96,7 @@
                                 <option value="secundamanu">{#secunda_manu}</option>
                                 <option value="corrector1">{#corrector}1</option>
                                 <option value="corrector2">{#corrector}2</option>
+                                <option value="glossator">{#glossator}</option>
                                 <option value="other">{#other}</option>
                             </select></td>
                         <td>
@@ -283,10 +284,8 @@
     }
 
     function testOther() {
-        if ((document.readinginfo.corrector_name.options[5].selected == true &&
-             document.getElementById('corrector_name_other').value == '') ||
-             (document.readinginfo.place_corr.options[14].selected == true &&
-               document.getElementById('place_corr_other').value == ''))
+        if (($('#corrector_name').val() === 'other' && $('#corrector_name_other').val() === '') ||
+            ($('#place_corr').val() === 'other' && $('#place_corr_other').val() === ''))
             return false;
         return true;
     }
@@ -298,7 +297,7 @@
     }
 
     function checkstatus_hand() {
-        if ($('#corrector_name').val() == 'other') {
+        if ($('#corrector_name').val() === 'other') {
             $('#corrector_name_other').attr('disabled', false);
             $('#corrector_name_other').css('background', '#fff');
         } else {

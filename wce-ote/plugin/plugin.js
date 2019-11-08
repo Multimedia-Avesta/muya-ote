@@ -1941,8 +1941,8 @@
                         case 'corr':
                            corr_str += tinymce.translate('correction');
                            break;
-                        case 'comm':
-                           corr_str += tinymce.translate('commentary');
+                        case 'gloss':
+                           corr_str += tinymce.translate('gloss');
                            break;
                         case 'alt':
                            corr_str += tinymce.translate('alternative');

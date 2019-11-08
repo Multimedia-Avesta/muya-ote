@@ -524,7 +524,9 @@ function getHtmlByTei(inputString, args) {
             if ($parentnode && ($parentnode.nodeName === 'foreign' ||
                   ($parentnode.nodeName === 'ab' && $parentnode.getAttribute("type") &&
                      ($parentnode.getAttribute("type") === "translation") ||
-                     ($parentnode.getAttribute("type") === "section"))) && $parentnode.lastChild === $teiNode)
+                     ($parentnode.getAttribute("type") === "section") ||
+                     ($parentnode.getAttribute("type") === "gloss"))) &&
+                     $parentnode.lastChild === $teiNode)
                return;
             nodeAddText($htmlParent, ' ');
          }
@@ -888,14 +890,14 @@ function getHtmlByTei(inputString, args) {
          $htmlParent.appendChild($newNode);
          nodeAddText($htmlParent, ' ');
          return $htmlParent;
-      } else { //translation or section or other
+      } else { //translation or section or gloss or other
          var $newNode = $newDoc.createElement('span');
          $newNode.setAttribute('class', 'langchange');
          $newNode.setAttribute('lang', langValue);
          $newNode.setAttribute('wce_orig', getOriginalTextByTeiNode($teiNode));
          var wceAttr = '__t=langchange'
          if (type)
-            if (type == 'translation' || type == 'section')
+            if (type === 'translation' || type === 'section' || type === 'gloss')
                wceAttr += '&reason_for_language_change=' + type;
             else {
                alert("Unknown @type " + type + " for <ab> found. This will be converted to 'other'.");
@@ -1677,6 +1679,10 @@ function getHtmlByTei(inputString, args) {
             break;
          }
          typeValue = $rdg.getAttribute('type') ? $rdg.getAttribute('type') : '';
+         // handle old 'comm' entries
+         if (typeValue === 'comm')
+            typeValue = 'gloss';
+
          handValue = $rdg.getAttribute('hand') ? $rdg.getAttribute('hand') : '';
          deletionValue = $rdg.getAttribute('rend') ? $rdg.getAttribute('rend') : '';
 
@@ -1686,18 +1692,18 @@ function getHtmlByTei(inputString, args) {
             wceAttr += '@__t=corr';
 
          //Test whether handValue ends with "V" -> ut videtur
-         if (handValue.charAt(handValue.length - 1) == 'V') {
+         if (handValue.charAt(handValue.length - 1) === 'V') {
             handValue = handValue.substring(0, handValue.length - 1);
             utv = '&ut_videtur_corr=on';
          }
-         if ('@corrector@firsthand@corrector1@corrector2@corrector3'.indexOf(handValue) > -1) {
+         if ('@corrector@firsthand@corrector1@corrector2@glossator'.indexOf(handValue) > -1) {
             wceAttr += '&__n=' + handValue + utvf + '&corrector_name_other=&corrector_name=' + handValue + utv;
          } else { //other corrector
             wceAttr += '&__n=' + handValue + utvf + '&corrector_name=other&corrector_name_other=' + handValue + utv;
          }
 
          wceAttr += '&reading=' + typeValue;
-         if (origText != 'OMISSION')
+         if (origText !== 'OMISSION')
             wceAttr += '&original_firsthand_reading=' + encodeURIComponent(origText);
          else
             wceAttr += '&original_firsthand_reading=&blank_firsthand=on';
@@ -1738,7 +1744,7 @@ function getHtmlByTei(inputString, args) {
 
          if (corrector_text && corrector_text.length > 0) {
             //corrector_text = corrector_text.substr(3, corrector_text.length - 7);
-            if (corrector_text == 'OMISSION') { //Total deletion
+            if (corrector_text === 'OMISSION') { //Total deletion
                wceAttr += '&corrector_text=&blank_correction=on';
             } else
                wceAttr += '&corrector_text=' + encodeURIComponent(corrector_text);
@@ -1749,11 +1755,11 @@ function getHtmlByTei(inputString, args) {
 
          wceAttr += '&place_corr=';
          var $test = $rdg.firstChild;
-         if ($test != null && $test.nodeName == 'seg') { //seg element ahead -> place of correction
-            if ($test.getAttribute('type') == 'line') {
+         if ($test != null && $test.nodeName === 'seg') { //seg element ahead -> place of correction
+            if ($test.getAttribute('type') === 'line') {
                wceAttr += $test.getAttribute('subtype');
                //overwritten, above, below
-            } else if ($test.getAttribute('type') == 'margin') {
+            } else if ($test.getAttribute('type') === 'margin') {
                wceAttr += $test.getAttribute('subtype');
                //pagetop, pagebottom, pageleft, pageright, coltop, colbottom, colleft, colright, lineleft, lineright
             } else { //type="other"
@@ -1764,7 +1770,7 @@ function getHtmlByTei(inputString, args) {
          }
       }
 
-      if (origText != '') {
+      if (origText !== '') {
          if (origText === 'OMISSION')
             nodeAddText($newNode, "T");
          else {
@@ -1774,7 +1780,7 @@ function getHtmlByTei(inputString, args) {
          }
       }
 
-      if (wceAttr != '') {
+      if (wceAttr !== '') {
          $newNode.setAttribute('wce', wceAttr);
       }
 
@@ -3342,7 +3348,7 @@ function getTeiByHtml(inputString, args) {
          var $rdg = $newDoc.createElement('rdg');
          $rdg.setAttribute('type', arr['reading']);
          var corrector_name = arr['corrector_name'];
-         if (corrector_name == 'other') {
+         if (corrector_name === 'other') {
             if (arr['ut_videtur_corr'] === 'on')
                corrector_name = arr['corrector_name_other'].replace(/%20/g, "_") + 'V';
             else
@@ -3975,14 +3981,13 @@ function getTeiByHtml(inputString, args) {
       switch (reason) {
          case 'translation':
          case 'section':
+         case 'gloss':
             var $ab = $newDoc.createElement('ab');
             $ab.setAttribute('type', reason);
             $ab.setAttribute('n', g_bookNumber + "." + g_chapterNumber + "." + (g_stanzaNumber ? g_stanzaNumber : g_verseNumber) + String.fromCharCode(count_verse) + langID);
             var $next = $htmlNode.nextSibling;
             while ($next && $next.innerHTML == '')
                $next = $next.nextSibling;
-            //if ($next)
-            //    alert($next.innerHTML);
             if ($next && (!isStructuralElement($next) || $next == $htmlNode.parentNode.lastChild))
                alert("A structural element is missing after \"" + $htmlNode.textContent + "\"");
             break;
