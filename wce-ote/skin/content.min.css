@@ -503,14 +503,16 @@ span.langchange[lang="ae"]:after {
 
 span.langchange[lang="pal-Phli"]:before,
 span.langchange[lang="pal-Phlv"]:before,
-span.langchange[lang="pal-Gujr"]:before {
+span.langchange[lang="pal-Gujr"]:before,
+span.langchange[lang="pal-fa"]:before {
     color: purple;
     content: '→';
 }
 
 span.langchange[lang="pal-Phli"]:after,
 span.langchange[lang="pal-Phlv"]:after,
-span.langchange[lang="pal-Gujr"]:after {
+span.langchange[lang="pal-Gujr"]:after,
+span.langchange[lang="pal-fa"]:after {
     color: purple;
     content: '←';
 }

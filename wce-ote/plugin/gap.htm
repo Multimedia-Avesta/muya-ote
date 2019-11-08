@@ -151,6 +151,8 @@
                             <option value="fa">{#persian}</option>
                             <option value="fa-Phlv">{#persian_phlv}</option>
                             <option value="sa">{#sanskrit}</option>
+                            <option value="sa-Jaina">{#sanskrit_jaina}</option>
+                            <option value="sa-Deva">{#sanskrit_deva}</option>
                             <option value="ae-Avst">{#avestan_avst}</option>
                             <option value="ae-Phlv">{#avestan_phlv}</option>
                             <option value="ae-Gujr">{#avestan_gujr}</option>
@@ -158,8 +160,11 @@
                             <option value="pal-Phlv">{#pahlavi_phlv}</option>
                             <option value="pal-Gujr">{#pahlavi_gujr}</option>
                             <option value="pal-Phli">{#pahlavi_phli}</option>
+                            <option value="pal-fa">{#pahlavi_fa}</option>
                             <option value="gu-Arab">{#gujarati_arab}</option>
                             <option value="gu-Gujr">{#gujarati_gujr}</option>
+                            <option value="gu-Jaina">{#gujarati_jaina}</option>
+                            <option value="gu-Deva">{#gujarati_deva}</option>
                             <option value="ar">{#arabic}</option>
                             <option value="other">{#other}</option>
                         </select>
@@ -419,7 +424,7 @@
     }
 
     function checkstatus_language() {
-        if ($('#untranscribed_language').val() == 'other') {
+        if ($('#untranscribed_language').val() === 'other') {
             $('#untranscribed_language_other').attr('disabled', false);
             $('#untranscribed_language_other').css('background', '#fff');
             $('#untranscribed_language_other').css('background', '#fff');

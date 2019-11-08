@@ -77,6 +77,7 @@
                             <option value="pal-Phlv">{#pahlavi_phlv}</option>
                             <option value="pal-Gujr">{#pahlavi_gujr}</option>
                             <option value="pal-Phli">{#pahlavi_phli}</option>
+                            <option value="pal-fa">{#pahlavi_fa}</option>
                             <option value="gu-Arab">{#gujarati_arab}</option>
                             <option value="gu-Gujr">{#gujarati_gujr}</option>
                             <option value="gu-Jaina">{#gujarati_jaina}</option>
@@ -154,7 +155,7 @@
     }*/
 
     function checkstatus_language() {
-        if ($('#lang').val() == 'other') {
+        if ($('#lang').val() === 'other') {
             $('#lang_other').attr('disabled', false);
             $('#lang_other').css('background', '#fff');
         } else {
@@ -174,5 +175,4 @@
     }
 
 </script>
-
 </html>

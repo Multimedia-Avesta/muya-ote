@@ -378,6 +378,20 @@ function addMenuItems(ed) {
                }
             });
             menu.add({
+               text: tinymce.translate('sanskrit_jaina'),
+               icon: '',
+               onclick: function() {
+                  ed.execCommand('mce_set_language', 'sa-Jaina');
+               }
+            });
+            menu.add({
+               text: tinymce.translate('sanskrit_deva'),
+               icon: '',
+               onclick: function() {
+                  ed.execCommand('mce_set_language', 'sa-Deva');
+               }
+            });
+            menu.add({
                text: tinymce.translate('avestan_avst'),
                icon: '',
                onclick: function() {
@@ -427,6 +441,13 @@ function addMenuItems(ed) {
                }
             });
             menu.add({
+               text: tinymce.translate('pahlavi_fa'),
+               icon: '',
+               onclick: function() {
+                  ed.execCommand('mce_set_language', 'pal-fa');
+               }
+            });
+            menu.add({
                text: tinymce.translate('gujarati_arab'),
                icon: '',
                onclick: function() {
@@ -438,6 +459,20 @@ function addMenuItems(ed) {
                icon: '',
                onclick: function() {
                   ed.execCommand('mce_set_language', 'gu-Gujr');
+               }
+            });
+            menu.add({
+               text: tinymce.translate('gujarati_jaina'),
+               icon: '',
+               onclick: function() {
+                  ed.execCommand('mce_set_language', 'gu-Jaina');
+               }
+            });
+            menu.add({
+               text: tinymce.translate('gujarati_deva'),
+               icon: '',
+               onclick: function() {
+                  ed.execCommand('mce_set_language', 'gu-Deva');
                }
             });
             menu.add({
