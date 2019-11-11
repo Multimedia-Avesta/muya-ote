@@ -1321,14 +1321,14 @@ function getHtmlByTei(inputString, args) {
     */
    var Tei2Html_break = function($htmlParent, $teiNode, type) {
       //
-      // <span class="mceNonEditable brea" wce="__t=brea&amp;__n=&amp;break_type=lb&amp;number=2&amp;pb_type=&amp;fibre_type=&amp;running_title=&amp;lb_alignment=&amp;insert=Insert&amp;cancel=Cancel"> - <br /> </span>
+      // <span class="brea" wce="__t=brea&amp;__n=&amp;break_type=lb&amp;number=2&amp;pb_type=&amp;fibre_type=&amp;running_title=&amp;lb_alignment=&amp;insert=Insert&amp;cancel=Cancel"> - <br /> </span>
       //
       var $newNode = $newDoc.createElement('span');
       var cl = 0;
       var paratexttype;
       var $temp;
 
-      $newNode.setAttribute('class', 'brea mceNonEditable');
+      $newNode.setAttribute('class', 'brea');
       var _id = $teiNode.getAttribute('id');
       if (_id) {
          $newNode.setAttribute('id', _id);
@@ -1807,7 +1807,7 @@ function getHtmlByTei(inputString, args) {
       covertext = ed.translate('graphical_element');
       var _extent = parseInt(extent);
       for (var i = 0; i < _extent; i++) {
-         covertext += '<span class="brea mceNonEditable" wce="__t=brea&amp;__n=&amp;hasBreak=no&amp;break_type=lb&amp;number=&amp;rv=&amp;page_number=&amp;running_title=&amp;facs=&amp;lb_alignment=">' +
+         covertext += '<span class="brea" wce="__t=brea&amp;__n=&amp;hasBreak=no&amp;break_type=lb&amp;number=&amp;rv=&amp;page_number=&amp;running_title=&amp;facs=&amp;lb_alignment=">' +
             '<span class="format_start mceNonEditable">‹</span><br/>↵<span class="format_end mceNonEditable">›</span></span>' + ed.translate('graphical_element');
       }
 

@@ -272,7 +272,7 @@ function writeWceNodeInfo(val) {
          case 'figure':
             covertext = ed.translate('graphical_element');
             for (var i = 0; i < document.getElementById('extent').value; i++) {
-               covertext += '<span class="mceNonEditable brea" wce="__t=brea&amp;__n=&amp;hasBreak=no&amp;break_type=lb&amp;number=&amp;rv=&amp;page_number=&amp;running_title=&amp;facs=&amp;lb_alignment=">' +
+               covertext += '<span class="brea" wce="__t=brea&amp;__n=&amp;hasBreak=no&amp;break_type=lb&amp;number=&amp;rv=&amp;page_number=&amp;running_title=&amp;facs=&amp;lb_alignment=">' +
                   '<span class="format_start mceNonEditable">‹</span><br />↵<span class="format_end mceNonEditable">›</span></span>' + ed.translate('graphical_element');
             }
             new_content = '<span wce="' + newWceAttr + '"' + wceClass + '>' + startFormatHtml + covertext + endFormatHtml + '</span>';
@@ -475,7 +475,7 @@ function writeDocInfos(metadata) {
       $bookNode.appendChild($bookNode.ownerDocument.createTextNode(metadata[2]));
    }
 
-   $oldfolio = ed.dom.select('span[class="mceNonEditable brea"]')[0];
+   $oldfolio = ed.dom.select('span[class="brea"]')[0];
    if ($oldfolio) {
       if ($oldfolio.getAttribute("wce").indexOf("break_type=pb") == -1) {
          alert("No page break found at beginning of document!")
