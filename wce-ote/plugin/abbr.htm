@@ -167,7 +167,7 @@ $(document).ready(function() {
     function setstatus_abbr_prev() {
       var options = '<option value="' + '">' + '</option>';
       var optionArray = SortLocalStorage();
-      for (i = 1; i < optionArray.length; i++) {
+      for (i = 0; i < optionArray.length; i++) {
          options += '<option value="' + optionArray[i] + '">' + optionArray[i] + '</option>';
       }
       $("#abbr_expansion_prev").html(options);
@@ -175,12 +175,15 @@ $(document).ready(function() {
 
    function SortLocalStorage() {
       if (localStorage.length > 0) {
+         //if (localStorage.getItem('items') == null)
+         //   return new Array();
          var localStorageArray = new Array();
          var i = 0;
-         JSON.parse(localStorage.getItem('items')).forEach(item => {
-            localStorageArray[i] = item;
-            i++;
-         });
+         if (localStorage.getItem('items') !== null)
+            JSON.parse(localStorage.getItem('items')).forEach(item => {
+               localStorageArray[i] = item;
+               i++;
+            });
       }
       var sortedArray = localStorageArray.sort();
       return sortedArray.filter(onlyUnique);
