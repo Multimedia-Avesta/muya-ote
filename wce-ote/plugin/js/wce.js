@@ -360,6 +360,8 @@ function writeWceNodeInfo(val) {
                if (break_type === 'lb') {
                   break_indention = wceUtils.getBreakHtml(ed, break_type, break_lbpos, break_indention, 'wce="' + newWceAttr + '"', null, true);
                   wceUtils.setInnerHTML(ed, wce_node, break_indention);
+               } else if (break_type === 'pb') {
+                  wceUtils.setInnerHTML(ed, wce_node, wceUtils.getInnerHTML(wce_node).replace(/PB\s\d+[r|v]?/g, "PB " + document.breakinfo.number.value + document.breakinfo.rv.value));
                }
                wceUtils.updateBreakCounter(ed, break_type, document.breakinfo.number.value);
             }
@@ -504,7 +506,9 @@ function writeDocInfos(metadata) {
       }
    } else {
       oldcontent = ed.getContent();
-      ed.setContent(oldcontent + xml2String($bookNode) + wceUtils.getBreakHtml(ed, 'pb', 'lb', null, 'wce="' + newWceAttr + '"', null, false) + '&nbsp;');
+      ed.setContent(oldcontent + xml2String($bookNode)
+         + wceUtils.getBreakHtml(ed, 'pb', 'lb', null, 'wce="'
+         + newWceAttr + '"', null, false) + '&nbsp;');
    }
 
    if (wceUtils) {

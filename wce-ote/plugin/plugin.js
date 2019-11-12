@@ -33,7 +33,7 @@
 */
 
 (function() {
-   var wfce_editor = "1.4.2 (2019-11-11)";
+   var wfce_editor = "1.4.3BETA (2019-11-12)";
 
    // Load plugin specific language pack
    tinymce.PluginManager.requireLangPack('wce');
@@ -113,15 +113,9 @@
 
          // set only the one correct counter
          switch (bt) {
-            case 'gb':
-               c.qcnt = n >= c.qcnt ? n : c.qcnt;
-               break;
             case 'pb':
                c.pcnt = n >= c.pcnt ? n : c.pcnt;
                break;
-               /*case 'cb':
-               	c.ccnt = n >= c.ccnt ? n : c.ccnt;
-               	break;*/
             case 'lb':
                c.lcnt = n >= c.lcnt ? n : c.lcnt;
                break;
@@ -134,15 +128,9 @@
       addToCounter: function(ed, bt, n) {
          var c = ed.WCE_VAR;
          switch (bt) {
-            case 'gb':
-               c.qcnt = parseInt(c.qcnt) + parseInt(n);
-               break;
             case 'pb':
                c.pcnt = parseInt(c.pcnt) + parseInt(n);
                break;
-               /*case 'cb':
-               	c.ccnt = parseInt(c.ccnt) + parseInt(n);
-               	break;*/
             case 'lb':
                c.lcnt = parseInt(c.lcnt) + parseInt(n);
                break;
@@ -2279,8 +2267,8 @@
          if (!node)
             return '';
          var n = node.cloneNode(true);
-         $(n).find('span[sf]').remove();
-         $(n).find('span[ef]').remove();
+         $(n).find('span.format_start').remove();
+         $(n).find('span.format_end').remove();
          return $(n).html();
       },
 
@@ -2290,7 +2278,6 @@
       setInnerHTML: function(ed, node, newStr) {
          if (!node)
             return '';
-
          node.innerHTML = ed.WCE_CON.startFormatHtml + newStr + ed.WCE_CON.endFormatHtml;
       },
 
