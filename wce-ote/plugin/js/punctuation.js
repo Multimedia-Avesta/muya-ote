@@ -117,6 +117,9 @@ tinymce.PluginManager.add('punctuation', function(ed, jsUrl) {
    }, {
       id: '032',
       title: 'Two parallel lines above letters'
+   }, {
+      id: '038',
+      title: 'Two parallel lines at the end of a line, right side up'
    }];
 
    var menuItemsAddOther = [{
