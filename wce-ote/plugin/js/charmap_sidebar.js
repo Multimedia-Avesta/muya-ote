@@ -428,7 +428,7 @@ tinymce.PluginManager.add('wcecharmapsidebar', function(ed) {
          ['g+0x0308', 'Small letter g with diaeresis'],
          ['G+0x0308', 'Capital letter G with diaeresis'],
          ['H+0x0323', 'Capital letter H with dot below'],
-         ['H+0x0302', 'Capital letter H with circumflex'],         
+         ['H+0x0302', 'Capital letter H with circumflex'],
          ['0x00EF', 'Small letter i with diaeresis'],
          ['k+0x0331', 'Small letter k with macron below'],
          ['K+0x0331', 'Capital letter K with macron below'],
@@ -488,6 +488,8 @@ tinymce.PluginManager.add('wcecharmapsidebar', function(ed) {
          ['Z+0x0331', 'Capital letter Z with macron below'],
          ['z+0x0302+0x0331', 'Small letter z with circumflex and macron below'],
          ['Z+0x0302+0x0331', 'Capital letter Z with circumflex and macron below'],
+         ['z+0x0308+0x0331', 'Small letter z with diaresis and macron below'],
+         ['Z+0x0308+0x0331', 'Capital letter Z with diaresis and macron below'],
       ];
    }
 
