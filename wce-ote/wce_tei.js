@@ -4355,7 +4355,7 @@ function isOther(lang) {
       lang === "ae-Gujr" || lang === "pal-Avst" || lang === "pal-Phlv" ||
       lang === "pal-Gujr" || lang === "pal-Phli" || lang === "gu-Arab" ||
       lang === "gu-Gujr" || lang === "gu-Jaina" || lang === "gu-Deva" ||
-      lang === "ar" || lang === "") {
+      lang === "pal-fa" ||  lang === "ar" || lang === "") {
       return false;
    } else {
       return true;
