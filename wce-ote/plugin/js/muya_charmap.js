@@ -521,6 +521,8 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
          ['Z+0x0331', 'Capital letter Z with macron below'],
          ['z+0x0302+0x0331', 'Small letter z with circumflex and macron below'],
          ['Z+0x0302+0x0331', 'Capital letter Z with circumflex and macron below'],
+         ['z+0x0308+0x0331', 'Small letter z with diaresis and macron below'],
+         ['Z+0x0308+0x0331', 'Capital letter Z with diaresis and macron below'],
       ];
    }
 
@@ -718,7 +720,7 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
                align: 'center',
                spacing: 5,
                minWidth: 300,
-               minHeight: 300,
+               minHeight: 400,
                items: [{
                      type: 'label',
                      name: 'preview',
@@ -742,7 +744,7 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
                      direction: 'column',
                      html: radioHtml,
                      minWidth: 300,
-                     minHeight: 120,
+                     minHeight: 200,
                      onclick: function(e) {
                         var target = e.target;
                         if (target.nodeName && target.nodeName.toLocaleLowerCase() == 'input') {

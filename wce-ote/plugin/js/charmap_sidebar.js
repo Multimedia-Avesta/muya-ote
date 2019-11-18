@@ -497,6 +497,8 @@ tinymce.PluginManager.add('wcecharmapsidebar', function(ed) {
          ['Z+0x0331', 'Capital letter Z with macron below'],
          ['z+0x0302+0x0331', 'Small letter z with circumflex and macron below'],
          ['Z+0x0302+0x0331', 'Capital letter Z with circumflex and macron below'],
+         ['z+0x0308+0x0331', 'Small letter z with diaresis and macron below'],
+         ['Z+0x0308+0x0331', 'Capital letter Z with diaresis and macron below'],
       ];
    }
 
