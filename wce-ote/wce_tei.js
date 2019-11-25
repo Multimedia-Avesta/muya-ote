@@ -524,8 +524,7 @@ function getHtmlByTei(inputString, args) {
             if ($parentnode && ($parentnode.nodeName === 'foreign' ||
                   ($parentnode.nodeName === 'ab' && $parentnode.getAttribute("type") &&
                      ($parentnode.getAttribute("type") === "translation") ||
-                     ($parentnode.getAttribute("type") === "section") ||
-                     ($parentnode.getAttribute("type") === "gloss"))) &&
+                     ($parentnode.getAttribute("type") === "section"))) &&
                      $parentnode.lastChild === $teiNode)
                return;
             nodeAddText($htmlParent, ' ');
@@ -890,14 +889,14 @@ function getHtmlByTei(inputString, args) {
          $htmlParent.appendChild($newNode);
          nodeAddText($htmlParent, ' ');
          return $htmlParent;
-      } else { //translation or section or gloss or other
+      } else { //translation or section or other
          var $newNode = $newDoc.createElement('span');
          $newNode.setAttribute('class', 'langchange');
          $newNode.setAttribute('lang', langValue);
          $newNode.setAttribute('wce_orig', getOriginalTextByTeiNode($teiNode));
          var wceAttr = '__t=langchange'
          if (type)
-            if (type === 'translation' || type === 'section' || type === 'gloss')
+            if (type === 'translation' || type === 'section')
                wceAttr += '&reason_for_language_change=' + type;
             else {
                alert("Unknown @type " + type + " for <ab> found. This will be converted to 'other'.");
