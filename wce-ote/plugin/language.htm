@@ -152,10 +152,11 @@
     }*/
 
     function checkstatus_language() {
-      if (parent.tinymce.activeEditor.id === 'corrector_text')
+      if (parent.tinymce.activeEditor.id === 'corrector_text') {
          $("option[value='section']").attr("disabled", "disabled");
          $("option[value='translation']").attr("disabled", "disabled");
          $("option[value='other']").attr("selected", "selected");
+      }
         /*if ($('#lang').val() === 'other') {
             $('#lang_other').attr('disabled', false);
             $('#lang_other').css('background', '#fff');
