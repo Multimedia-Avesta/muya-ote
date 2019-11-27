@@ -33,7 +33,7 @@
 */
 
 (function() {
-   var wfce_editor = "1.4.5 (2019-11-25)";
+   var wfce_editor = "1.4.5 (2019-11-27)";
 
    // Load plugin specific language pack
    tinymce.PluginManager.requireLangPack('wce');
@@ -3917,11 +3917,11 @@
 
          // Add note/*********/
          ed.addCommand('mceAddNote', function() {
-            doWithDialog(ed, url, '/note.htm', 700, 500, 1, true, tinymce.translate('note_title'));
+            doWithDialog(ed, url, '/note.htm', 1100, 700, 1, true, tinymce.translate('note_title'));
          });
          // Edit note
          ed.addCommand('mceEditNote', function() {
-            doWithDialog(ed, url, '/note.htm', 700, 500, 1, false, tinymce.translate('note_title'));
+            doWithDialog(ed, url, '/note.htm', 1100, 700, 1, false, tinymce.translate('note_title'));
          });
 
          ed.addCommand('mceAddNote_Shortcut', function() {
