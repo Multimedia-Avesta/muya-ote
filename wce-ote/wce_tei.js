@@ -1496,7 +1496,7 @@ function getHtmlByTei(inputString, args) {
       else
          $teiNode.setAttribute("rend", '');
 
-      if ($teiNode.nodeName == 'seg') {
+      if ($teiNode.nodeName === 'seg') {
          var mapping = {
             'n': '&number=',
             'rend': '&paratext_alignment='
@@ -1520,7 +1520,7 @@ function getHtmlByTei(inputString, args) {
          var $next = $teiNode.parentNode;
       }
 
-      if ($next != null && $next.nodeName == 'seg') { // seg element as parent node (has to be that way, testing anyway); as well used for isolated marginals
+      if ($next != null && $next.nodeName === 'seg') { // seg element as parent node (has to be that way, testing anyway); as well used for isolated marginals
          wceAttr += '&paratext_position=';
          if ($next.getAttribute('type') === 'margin' || $next.getAttribute('type') === 'line') //standard values
             wceAttr += $next.getAttribute('subtype') + '&paratext_position_other=';
@@ -3816,10 +3816,10 @@ function getTeiByHtml(inputString, args) {
 
       // alignment
       var rendValue = arr['paratext_alignment'];
-      if (fwType != 'isolated' && rendValue && rendValue != '') {
+      if (fwType !== 'isolated' && rendValue && rendValue != '') {
          rend += "align(" + rendValue + ")";
       }
-      if (rend != '')
+      if (rend !== '')
          $paratext.setAttribute('rend', rend.trim());
 
       var lang = arr['language_name'] ? arr['language_name'] : '';
@@ -3830,7 +3830,7 @@ function getTeiByHtml(inputString, args) {
          }
          lang = '';
       }
-      if (fwType == 'isolated') {
+      if (fwType === 'isolated') {
          var $seg;
          isSeg = true;
          $seg = $newDoc.createElement('seg');
@@ -3853,9 +3853,11 @@ function getTeiByHtml(inputString, args) {
          html2Tei_paratextAddChildren($paratext, arr['marginals_text']);
          //nodeAddText($paratext, decodeURIComponent(arr['marginals_text']));
          var $seg;
+         if (lang !== '')
+            $paratext.setAttribute("xml:lang", lang);
          if (placeValue === '') {
-            if (lang !== '')
-               $paratext.setAttribute("xml:lang", lang);
+            //if (lang !== '')
+            //   $paratext.setAttribute("xml:lang", lang);
             $teiParent.appendChild($paratext);
          } else {
             if (placeValue === 'pageleft' || placeValue === 'pageright' || placeValue === 'pagetop' || placeValue === 'pagebottom') { //define <seg> element for marginal material
@@ -3884,8 +3886,8 @@ function getTeiByHtml(inputString, args) {
                $seg.setAttribute('subtype', placeValue);
                $seg.setAttribute('n', '@' + 'P' + g_pageNumber + 'L' + g_lineNumber + '-' + g_witValue);
             }
-            if (lang !== '')
-               $seg.setAttribute('xml:lang', lang);
+            //if (lang !== '')
+            //   $paratext.setAttribute('xml:lang', lang);
             $seg.appendChild($paratext);
             $teiParent.appendChild($seg);
          }
