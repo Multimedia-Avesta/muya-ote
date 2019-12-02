@@ -287,7 +287,8 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
          ['8204', 'zero width non-joiner'],
          ['8205', 'zero width joiner'],
          ['8206', 'left-to-right mark'],
-         ['8207', 'right-to-left mark']
+         ['8207', 'right-to-left mark'],
+         ['0x207A', 'Superscript Plus Sign']
       ];
    }
 
