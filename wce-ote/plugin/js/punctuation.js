@@ -132,6 +132,9 @@ tinymce.PluginManager.add('punctuation', function(ed, jsUrl) {
       id: '035',
       title: 'large v-shaped interpunction sign'
    }, {
+      id: '039',
+      title: 'insertion sign x-shaped'
+   }, {
       id: '999',
       title: 'Other'
    }];

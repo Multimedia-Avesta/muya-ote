@@ -3849,13 +3849,13 @@
             } else if (wceNode && wceAttr && wceAttr.match(/corr/)) {
                _add_new_wce_node = false;
             }
-            doWithDialog(ed, url, '/correction.htm', 1100, 700, 1, _add_new_wce_node, tinymce.translate('reading_title'));
+            doWithDialog(ed, url, '/correction.htm', 1300, 650, 1, _add_new_wce_node, tinymce.translate('reading_title'));
 
          });
 
          // Edit corrections
          ed.addCommand('mceEditCorrection', function() {
-            doWithDialog(ed, url, '/correction.htm', 1100, 700, 1, false, tinymce.translate('reading_title'));
+            doWithDialog(ed, url, '/correction.htm', 1300, 650, 1, false, tinymce.translate('reading_title'));
          });
 
          ed.addCommand('mceAddCorrection_Shortcut', function() {
