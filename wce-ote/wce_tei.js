@@ -3402,7 +3402,7 @@ function getTeiByHtml(inputString, args) {
                html2Tei_correctionAddW($seg, corrector_text);
             }
             $rdg.appendChild($seg);
-         } else if (place === 'overwritten' || place === 'above' || place === 'below') {
+         } else if (place === 'overwritten' || place === 'above' || place === 'below' || place === 'ontheline') {
             $seg = $newDoc.createElement('seg');
             isSeg = true;
             $seg.setAttribute('type', 'line');

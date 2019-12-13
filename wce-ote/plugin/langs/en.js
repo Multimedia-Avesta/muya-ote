@@ -226,6 +226,7 @@ tinymce.addI18n('en', {
     position_below: "Below line",
     position_thispoint: "Here",
     position_overwritten: "Overwritten text",
+    position_ontheline: "On the line",
     alignment_l: "Left",
     alignment_r: "Right",
     alignment_c: "Center",

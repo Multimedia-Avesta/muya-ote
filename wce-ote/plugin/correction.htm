@@ -125,6 +125,7 @@
                                 <option value="lineleft">{#position_lineleft}</option>
                                 <option value="lineright">{#position_lineright}</option>
                                 <option value="above">{#position_above}</option>
+                                <option value="ontheline">{#position_ontheline}</option>
                                 <option value="below">{#position_below}</option>
                                 <option value="overwritten">{#position_overwritten}</option>
                                 <option value="other">{#other}</option>
@@ -334,7 +335,7 @@
     }
 
     function checkstatus_corr_position() {
-        if (document.readinginfo.place_corr.options[14].selected == true) {
+        if (document.readinginfo.place_corr.options[15].selected == true) {
             document.readinginfo.place_corr_other.disabled = false;
             document.getElementById('place_corr_other').style.backgroundColor = "white";
         } else {
