@@ -1,5 +1,5 @@
 /*
-	Copyright (C) 2012-2019 Trier Center for Digital Humanities, Trier (Germany)
+	Copyright (C) 2012-2020 Trier Center for Digital Humanities, Trier (Germany)
 
 	This file is part of the Online Transcription Editor (OTE).
 
@@ -4352,7 +4352,7 @@ function isStructuralElement($node) {
 function isOther(lang) {
    if (lang === "ae" || lang === "gu" || lang === "fa" || lang === "fa-Phlv" ||
       lang === "sa" || lang === "sa-Jaina" || lang === "sa-Deva" ||
-      lang === "ae-Avst" || lang === "ae-Phlv" ||
+      lang === "ae-Avst" || lang === "ae-Phlv" || lang === "ae-fa" ||
       lang === "ae-Gujr" || lang === "pal-Avst" || lang === "pal-Phlv" ||
       lang === "pal-Gujr" || lang === "pal-Phli" || lang === "gu-Arab" ||
       lang === "gu-Gujr" || lang === "gu-Jaina" || lang === "gu-Deva" ||
