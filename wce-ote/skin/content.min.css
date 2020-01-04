@@ -521,9 +521,10 @@ span.langchange[lang="pal-fa"]:after {
 
 span.langchange[lang="gu"]:before,
 span.langchange[lang="gu-Arab"]:before,
-span.langchange[lang="gu-Gujr"]:before
-span.langchange[lang="gu-Nand"]:before
-span.langchange[lang="gu-Deva"]:before {
+span.langchange[lang="gu-Gujr"]:before,
+span.langchange[lang="gu-Nand"]:before,
+span.langchange[lang="gu-Deva"]:before,
+span.langchange[lang="gu-Avst"]:before {
     color: red;
     content: '→';
 }
@@ -531,8 +532,9 @@ span.langchange[lang="gu-Deva"]:before {
 span.langchange[lang="gu"]:after,
 span.langchange[lang="gu-Arab"]:after,
 span.langchange[lang="gu-Gujr"]:after
-span.langchange[lang="gu-Nand"]:before
-span.langchange[lang="gu-Deva"]:before {
+span.langchange[lang="gu-Nand"]:after
+span.langchange[lang="gu-Deva"]:after,
+span.langchange[lang="gu-Avst"]:after {
     color: red;
     content: '←';
 }
