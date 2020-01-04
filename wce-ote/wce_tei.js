@@ -1153,6 +1153,9 @@ function getHtmlByTei(inputString, args) {
          case 'displaced-below':
             className = 'formatting_displaced-below';
             break;
+         case 'displaced-margin':
+            className = 'formatting_displaced-margin';
+            break;
          case 'displaced-other':
             className = 'formatting_displaced-other';
             break;
@@ -3132,6 +3135,9 @@ function getTeiByHtml(inputString, args) {
             break;
          case 'formatting_displaced-below':
             formatting_rend = 'displaced-below';
+            break;
+         case 'formatting_displaced-margin':
+            formatting_rend = 'displaced-margin';
             break;
          case 'formatting_displaced-other':
             formatting_rend = 'displaced-other';

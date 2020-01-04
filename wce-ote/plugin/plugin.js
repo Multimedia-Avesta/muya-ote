@@ -2071,6 +2071,8 @@
                            info_text = '<div>' + tinymce.translate('infotext_dt_above') + '</div>';
                         else if (ar['__t'] === 'formatting_displaced-below')
                            info_text = '<div>' + tinymce.translate('infotext_dt_below') + '</div>';
+                        else if (ar['__t'] === 'formatting_displaced-margin')
+                           info_text = '<div>' + tinymce.translate('infotext_dt_margin') + '</div>';
                         else if (ar['__t'] === 'formatting_displaced-other')
                            info_text = '<div>' + tinymce.translate('infotext_dt_other') + '</div>';
                         else
@@ -3423,6 +3425,13 @@
                         id: 'menu-decoration-displaced-below',
                         onclick: function() {
                            ed.execCommand('mceAdd_formatting', 'displaced-below');
+                        }
+                     },
+                     {
+                        text: tinymce.translate('menu_dt_margin'),
+                        id: 'menu-decoration-displaced-margin',
+                        onclick: function() {
+                           ed.execCommand('mceAdd_formatting', 'displaced-margin');
                         }
                      },
                      {
