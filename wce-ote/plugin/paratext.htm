@@ -89,6 +89,7 @@
                             <option value="sa-Jaina">{#sanskrit_jaina}</option>
                             <option value="sa-Deva">{#sanskrit_deva}</option>
                             <option value="ae-Avst">{#avestan_avst}</option>
+                            <option value="ae-fa">{#avestan_fa}</option>
                             <option value="ae-Phlv">{#avestan_phlv}</option>
                             <option value="ae-Gujr">{#avestan_gujr}</option>
                             <option value="pal-Avst">{#pahlavi_avst}</option>
@@ -368,7 +369,7 @@
     function testOther() {
         if ((document.paratextinfo.paratext_position.options[15].selected == true && document.getElementById('paratext_position_other').value == '') ||
             (document.paratextinfo.fw_type.options[7].selected == true && document.getElementById('fw_type_other').value == '') ||
-            (document.paratextinfo.language_name.options[15].selected == true && document.getElementById('language_name_other').value == ''))
+            (document.paratextinfo.language_name.options[16].selected == true && document.getElementById('language_name_other').value == ''))
             return false;
         return true;
     }

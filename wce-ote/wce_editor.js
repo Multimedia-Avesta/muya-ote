@@ -406,6 +406,13 @@ function addMenuItems(ed) {
                }
             });
             menu.add({
+               text: tinymce.translate('avestan_fa'),
+               icon: '',
+               onclick: function() {
+                  ed.execCommand('mce_set_language', 'ae-fa');
+               }
+            });
+            menu.add({
                text: tinymce.translate('avestan_gujr'),
                icon: '',
                onclick: function() {
