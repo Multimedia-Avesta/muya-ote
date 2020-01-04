@@ -1,5 +1,5 @@
 /*
-	Copyright (C) 2012-2019 Center for Digital Humanities, Trier
+	Copyright (C) 2012-2020 Center for Digital Humanities, Trier
 
 	This file is part of the Online Transcription Editor (OTE).
 
@@ -486,6 +486,7 @@ span.ritualdirection_number {
 span.langchange[lang="pal-Avst"]:before,
 span.langchange[lang="ae-Avst"]:before,
 span.langchange[lang="ae-Phlv"]:before,
+span.langchange[lang="ae-fa"]:before,
 span.langchange[lang="ae-Gujr"]:before,
 span.langchange[lang="ae"]:before {
     color: green;
@@ -495,6 +496,7 @@ span.langchange[lang="ae"]:before {
 span.langchange[lang="pal-Avst"]:after,
 span.langchange[lang="ae-Avst"]:after,
 span.langchange[lang="ae-Phlv"]:after,
+span.langchange[lang="ae-fa"]:after,
 span.langchange[lang="ae-Gujr"]:after,
 span.langchange[lang="ae"]:after {
     color: green;

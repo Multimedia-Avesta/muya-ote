@@ -1,5 +1,5 @@
 /*
-	Copyright (C) 2012-2019 Center for Digital Humanities, Trier
+	Copyright (C) 2012-2020 Center for Digital Humanities, Trier
 
 	This file is part of the Online Transcription Editor (OTE).
 
