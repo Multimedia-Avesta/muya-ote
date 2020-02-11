@@ -33,7 +33,7 @@
 */
 
 (function() {
-   var wfce_editor = "1.4.7 (2020-01-04)";
+   var wfce_editor = "1.4.8BETA (2020-02-11)";
 
    // Load plugin specific language pack
    tinymce.PluginManager.requireLangPack('wce');

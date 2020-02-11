@@ -1800,11 +1800,13 @@ function getHtmlByTei(inputString, args) {
       var $newNode = $newDoc.createElement('span');
       $newNode.setAttribute('class', 'figure');
       var wceAttr = '__t=figure&__n=&';
-      var extent = $teiNode.getAttribute('rend').substr(5);
+      var extent = $teiNode.getAttribute('rend') ? $teiNode.getAttribute('rend').substr(5) : '';
       if ($teiNode.firstChild && $teiNode.firstChild.nodeName === 'desc') {
          wceAttr += '&graphic_desc=' + encodeURI($teiNode.firstChild.textContent);
-         wceAttr += '&extent=' + extent;
+      } else {
+         wceAttr += '&graphic_desc=';          
       }
+      wceAttr += '&extent=' + extent;
       $newNode.setAttribute('wce', wceAttr);
       covertext = ed.translate('graphical_element');
       var _extent = parseInt(extent);
