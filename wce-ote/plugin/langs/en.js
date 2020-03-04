@@ -308,6 +308,7 @@ tinymce.addI18n('en', {
     verseline_remove: 'Remove the following verse line(s) completely: ',
     ritualdirection_insert: 'Insert ritual direction number: ',
     ritualdirection_remove: 'Remove the following ritual direction(s) completely: ',
+    translation_insert: 'Insert other language (translation)',
     book: 'Book',
     chapter: 'Chapter',
     verse: 'Verse',

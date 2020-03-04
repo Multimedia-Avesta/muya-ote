@@ -483,6 +483,53 @@ span.ritualdirection_number {
     font-size: 20px;
 }
 
+span.language_start[lang="pal-Avst"],
+span.language_start[lang="ae-Avst"],
+span.language_start[lang="ae-Phlv"],
+span.language_start[lang="ae-fa"],
+span.language_start[lang="ae-Gujr"],
+span.language_start[lang="ae"] {
+/*span.language_end[lang="pal-Avst"],
+span.language_end[lang="ae-Avst"],
+span.language_end[lang="ae-Phlv"],
+span.language_end[lang="ae-fa"],
+span.language_end[lang="ae-Gujr"],
+span.language_end[lang="ae"] {*/
+    color: green;
+}
+
+span.language_start[lang="pal-Phli"],
+span.language_start[lang="pal-Phlv"],
+span.language_start[lang="pal-Gujr"],
+span.language_start[lang="pal-fa"] {
+    color: purple;
+}
+
+span.language_start[lang="gu"],
+span.language_start[lang="gu-Arab"],
+span.language_start[lang="gu-Gujr"],
+span.language_start[lang="gu-Nand"],
+span.language_start[lang="gu-Deva"],
+span.language_start[lang="gu-Avst"] {
+    color: red;
+}
+
+span.language_start[lang="fa"],
+span.language_start[lang="fa-Phlv"] {
+    color: yellow;
+}
+
+span.language_start[lang="sa"],
+span.language_start[lang="sa-Jaina"],
+span.language_start[lang="sa-Deva"] {
+    color: blue;
+}
+
+span.language_start,
+span.language_end {
+   color: gray;
+}
+
 span.langchange[lang="pal-Avst"]:before,
 span.langchange[lang="ae-Avst"]:before,
 span.langchange[lang="ae-Phlv"]:before,
@@ -531,8 +578,8 @@ span.langchange[lang="gu-Avst"]:before {
 
 span.langchange[lang="gu"]:after,
 span.langchange[lang="gu-Arab"]:after,
-span.langchange[lang="gu-Gujr"]:after
-span.langchange[lang="gu-Nand"]:after
+span.langchange[lang="gu-Gujr"]:after,
+span.langchange[lang="gu-Nand"]:after,
 span.langchange[lang="gu-Deva"]:after,
 span.langchange[lang="gu-Avst"]:after {
     color: red;
@@ -552,15 +599,15 @@ span.langchange[lang="fa-Phlv"]:after {
 }
 
 
-span.langchange[lang="sa"]:before
-span.langchange[lang="sa-Jaina"]:before
+span.langchange[lang="sa"]:before,
+span.langchange[lang="sa-Jaina"]:before,
 span.langchange[lang="sa-Deva"]:before {
     color: blue;
     content: '→';
 }
 
-span.langchange[lang="sa"]:after
-span.langchange[lang="sa-Jaina"]:after
+span.langchange[lang="sa"]:after,
+span.langchange[lang="sa-Jaina"]:after,
 span.langchange[lang="sa-Deva"]:after {
     color: blue;
     content: '←';
