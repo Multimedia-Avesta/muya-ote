@@ -520,11 +520,15 @@
             }
             return;
         } else if ($('#insertTranslationRadio').is(':checked')) {
-            //newNumber = $('#insertRitualdirectionNumber').val().trim();
-            //newNumber = newNumber.replace(/\D/g, '');
+            var wce_node = ed.WCE_VAR.selectedNode;
+            var wceUtils = ed.WCEUtils;
+            /*if (wce_node) {
+               ed.selection.select(wce_node);
+            }*/
+            var selected_content = ed.selection.getContent() ? ed.selection.getContent() : ' ';
             ed.insertContent('<span class="language_start mceNonEditable" wce="__t=language_start&lang=' + langValue + '&partial=' + partValue + '"'
                                  + ' lang="' + langValue + '"' + 'id="' + ed.dom.uniqueId('translation') + '"> ' + '→' + '</span> '
-                                 + ' '
+                                 + selected_content
                                  + '<span class="language_end mceNonEditable" wce="__t=language_end"'
                                  + 'id="' + ed.dom.uniqueId('translation') + '"> ' + '←' + '</span> ');
             return;
