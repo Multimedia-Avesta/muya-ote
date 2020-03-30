@@ -461,6 +461,8 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
          ['G+0x0302', 'Capital letter G with circumflex'],
          ['g+0x0308', 'Small letter g with diaeresis'],
          ['G+0x0308', 'Capital letter G with diaeresis'],
+         ['g+0x0323', 'Small letter g with dot below'],
+         ['G+0x0323', 'Capital letter G with dot below'],
          ['0x1E23', 'Small letter h with dot above'],
          ['0x1E22', 'Capital letter H with dot above'],
          ['H+0x0323', 'Capital letter H with dot below'],
