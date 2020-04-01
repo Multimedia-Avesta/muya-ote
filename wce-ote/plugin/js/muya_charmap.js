@@ -441,6 +441,7 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
       return [
          ['712', 'final stroke'],
          ['0x02be', 'Aleph'],
+         ['0x02be+0x0324', 'Aleph with two dots below'],
          ['0x02bf', 'Ayin'],
          ['b+0x0331', 'Small letter b with macron below'],
          ['B+0x0331', 'Capital letter B with macron below'],
