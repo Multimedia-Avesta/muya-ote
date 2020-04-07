@@ -935,7 +935,7 @@ function getHtmlByTei(inputString, args) {
          }
          langValue = '';
       }
-      if (nValue === 'otherlanguage') {
+      if (nValue === 'translation') {
          $newNode.setAttribute('class', 'language_start');
          $newNode.setAttribute('lang', langValue);
          var wceAttr = '__t=language_start';
@@ -4082,7 +4082,7 @@ function getTeiByHtml(inputString, args) {
       var partial = arr['partial'] ? arr['partial'] : '';
       var $ab = $newDoc.createElement('foreign');
       //$ab.setAttribute("xml:id", "otherlanguage" + uniqueId('translation'));
-      $ab.setAttribute("n", "otherlanguage");
+      $ab.setAttribute("n", "translation");
       if (lang.indexOf("Avst") > -1)
          langID = 'A';
       else if (lang.indexOf("pal") > -1 || lang.indexOf("Phlv") > -1)
