@@ -33,7 +33,7 @@
 */
 
 (function() {
-   var wfce_editor = "1.5.1BETA (2020-03-30)";
+   var wfce_editor = "1.5.0BETA (2020-04-07)";
 
    // Load plugin specific language pack
    tinymce.PluginManager.requireLangPack('wce');
@@ -212,7 +212,9 @@
                typeName == 'line_number' ||
                typeName == 'verse_number' ||
                typeName == 'verseline_number' ||
-               typeName == 'ritualdirection_number') {
+               typeName == 'ritualdirection_number' ||
+               typeName == 'language_start' ||
+               typeName == 'language_end') {
                return $(node).hasClass(typeName);
             }
 
@@ -2121,10 +2123,12 @@
                         ar['extent'] + ' ' + tinymce.translate('infotext_lines_covered');
                      break;
                   case 'langchange':
-                     info_text = '<div>' + tinymce.translate(ar['reason_for_language_change']) + '</div>';
-                     info_text += '<div>' + tinymce.translate('langchange');
-                     if (ar['lang']) {
-                        var lang = ar['lang'];
+                  case 'language'://TODO: for _end this should not be applied. Maybe add some extra if clause
+                     var lang = ar['lang'] ? ar['lang'] : '';
+                     info_text = '';
+                     if (lang !== '') {
+                        info_text = '<div>' + tinymce.translate(ar['reason_for_language_change']) + '</div>';
+                        info_text += '<div>' + tinymce.translate('langchange');
                         info_text += ' ' + tinymce.translate(lang.replace("-", "")) + '</div>';
                      }
                      if (ar['partial']) {

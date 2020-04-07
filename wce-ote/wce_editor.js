@@ -1,5 +1,5 @@
 /*
-	Copyright (C) 2012-2019 Trier Center for Digital Humanities, Trier (Germany)
+	Copyright (C) 2012-2020 Trier Center for Digital Humanities, Trier (Germany)
 
 	This file is part of the Online Transcription Editor (OTE).
 
@@ -310,7 +310,7 @@ function addMenuItems(ed) {
             type = oldwce.substring(4);
          if (type === 'book_number' || type === 'chapter_number' || type === 'verse_number' ||
             type === 'stanza_number' || type === 'line_number' || type === 'verseline_number' ||
-            type === 'ritualdirection_number' || type == 'langchange') {
+            type === 'ritualdirection_number' || type == 'language_start' || type == 'langchange') {
             menu.add({
                text: tinymce.translate('initial_portion'),
                icon: '',
