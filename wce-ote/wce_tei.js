@@ -939,7 +939,6 @@ function getHtmlByTei(inputString, args) {
          $newNode.setAttribute('class', 'language_start');
          $newNode.setAttribute('lang', langValue);
          var wceAttr = '__t=language_start';
-         wceAttr += '&partial=' + partValue;
          wceAttr += '&lang=' + langValue;
          $newNode.setAttribute('wce', wceAttr);
          nodeAddText($newNode,'→');
@@ -4098,8 +4097,6 @@ function getTeiByHtml(inputString, args) {
 
       if (lang !== '')
          $ab.setAttribute('xml:lang', lang);
-      if (partial !== '')
-         $ab.setAttribute('part', partial);
 
       //var $tempParent = $newDoc.createElement('t');
       var siblingList = $($htmlNode).nextUntil(".language_end");
