@@ -3287,7 +3287,7 @@ function getTeiByHtml(inputString, args) {
             $newNode.setAttribute('xml:lang', langAttr);
          var finished;
 
-         //test if gap exist independent
+         //test if gap exists independently
          if ($newNode.getAttribute('unit') !== 'word') {
             var pre = $htmlNode.previousSibling;
             var next = $htmlNode.nextSibling;
@@ -3312,11 +3312,13 @@ function getTeiByHtml(inputString, args) {
                $teiParent.appendChild($newNode);
                finished = 1;
             }
-         }
 
-         if (!finished) { // gap in <w>: in/before/after/ word fixed: #1772
-            $newNode.setAttribute('removeText', 'true');
-            appendNodeInW($teiParent, $newNode, $htmlNode);
+            if (!finished) { // gap in <w>: in/before/after/ word fixed: #1772
+               $newNode.setAttribute('removeText', 'true');
+               appendNodeInW($teiParent, $newNode, $htmlNode);
+            }
+         } else {
+            $teiParent.appendChild($newNode);
          }
       } else { //($newNode.nodeName === 'supplied') {
          $htmlNode = removeBracketOfSupplied($htmlNode);
