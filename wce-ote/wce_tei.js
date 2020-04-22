@@ -4452,8 +4452,8 @@ function isStructuralElement($node) {
 };
 
 function isOther(lang) {
-   if (lang === "ae" || lang === "gu" || lang === "fa" || lang === "fa-Phlv" ||
-      lang === "sa" || lang === "sa-Jaina" || lang === "sa-Deva" ||
+   if (lang === "ae" || lang === "gu" || lang === "fa" || lang === "fa-Avst" ||
+      lang === "fa-Phlv" || lang === "sa" || lang === "sa-Jaina" || lang === "sa-Deva" ||
       lang === "ae-Avst" || lang === "ae-Phlv" || lang === "ae-fa" ||
       lang === "ae-Gujr" || lang === "pal-Avst" || lang === "pal-Phlv" ||
       lang === "pal-Gujr" || lang === "pal-Phli" || lang === "gu-Arab" ||

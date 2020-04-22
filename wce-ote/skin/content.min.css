@@ -515,6 +515,7 @@ span.language_start[lang="gu-Avst"] {
 }
 
 span.language_start[lang="fa"],
+span.language_start[lang="fa-Avst"],
 span.language_start[lang="fa-Phlv"] {
     color: yellow;
 }
@@ -587,12 +588,14 @@ span.langchange[lang="gu-Avst"]:after {
 }
 
 span.langchange[lang="fa"]:before,
+span.langchange[lang="fa-Avst"]:before,
 span.langchange[lang="fa-Phlv"]:before {
     color: yellow;
     content: '→';
 }
 
 span.langchange[lang="fa"]:after,
+span.langchange[lang="fa-Avst"]:after,
 span.langchange[lang="fa-Phlv"]:after {
     color: yellow;
     content: '←';

@@ -364,6 +364,13 @@ function addMenuItems(ed) {
                }
             });
             menu.add({
+               text: tinymce.translate('persian_avst'),
+               icon: '',
+               onclick: function() {
+                  ed.execCommand('mce_set_language', 'fa-Avst');
+               }
+            });
+            menu.add({
                text: tinymce.translate('persian_phlv'),
                icon: '',
                onclick: function() {
