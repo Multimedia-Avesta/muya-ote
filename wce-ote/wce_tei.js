@@ -3285,6 +3285,8 @@ function getTeiByHtml(inputString, args) {
          var langAttr = arr['untranscribed_language'] ? arr['untranscribed_language'] : '';
          if (langAttr !== '')
             $newNode.setAttribute('xml:lang', langAttr);
+         var _id = 'gap' + new Date().getTime() + '' + Math.round(Math.random() * 1000);
+         $newNode.setAttribute('xml:id', _id);
          var finished;
 
          //test if gap exists independently
