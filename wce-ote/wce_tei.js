@@ -304,7 +304,7 @@ function getHtmlByTei(inputString, args) {
    }
 
    var Tei2Html_mergeWNode = function($node) {
-      if (!$node || $node.nodeType == 3 || $node.nodeName != 'w') {
+      if (!$node || $node.nodeType == 3 || $node.nodeName !== 'w') {
          return;
       }
       var lastChild = $node.lastChild;
@@ -3285,6 +3285,8 @@ function getTeiByHtml(inputString, args) {
          var langAttr = arr['untranscribed_language'] ? arr['untranscribed_language'] : '';
          if (langAttr !== '')
             $newNode.setAttribute('xml:lang', langAttr);
+         //var _id = 'gap' + new Date().getTime() + '' + Math.round(Math.random() * 1000);
+         //$newNode.setAttribute('xml:id', _id);
          var finished;
 
          //test if gap exists independently
@@ -4191,6 +4193,9 @@ var compareNodes = function($n1, $n2) {
       return false;
    }
    if ($n1.nodeName != $n2.nodeName) {
+      return false;
+   }
+   if ($n1.nodeName === 'gap') {
       return false;
    }
 
