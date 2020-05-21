@@ -1034,6 +1034,7 @@ function getHtmlByTei(inputString, args) {
          '&gap_reason_dummy_inferredPage=inferredPage' +
          '&gap_reason_dummy_paperRepaired=paperRepaired' +
          '&gap_reason_dummy_abbreviatedText=abbreviatedText';
+         '&gap_reason_dummy_abbreviatedText=nonExpected';
       var mapping = {
          'reason': '&gap_reason=',
          'unit': {

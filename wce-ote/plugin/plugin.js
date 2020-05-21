@@ -33,7 +33,7 @@
 */
 
 (function() {
-   var wfce_editor = "1.5.3 (2020-04-28)";
+   var wfce_editor = "1.5.4 (2020-05-21)";
 
    // Load plugin specific language pack
    tinymce.PluginManager.requireLangPack('wce');
@@ -2019,6 +2019,8 @@
                         info_text += tinymce.translate('paperRepaired') + '</div>';
                      } else if (ar['gap_reason'] === 'abbreviatedText') {
                         info_text += tinymce.translate('abbreviatedText') + '</div>';
+                     } else if (ar['gap_reason'] === 'notExpected') {
+                        info_text += tinymce.translate('notExpected') + '</div>';
                      } else {
                         info_text += tinymce.translate('unspecified') + '</div>';
                      }
@@ -3881,11 +3883,11 @@
 
          // Add gaps/*********/
          ed.addCommand('mceAddGap', function() {
-            doWithDialog(ed, url, '/gap.htm', 1024, 320, 1, true, tinymce.translate('gap_title'));
+            doWithDialog(ed, url, '/gap.htm', 1200, 320, 1, true, tinymce.translate('gap_title'));
          });
          // Edit gaps and spacing
          ed.addCommand('mceEditGap', function() {
-            doWithDialog(ed, url, '/gap.htm', 1024, 320, 1, false, tinymce.translate('gap_title'));
+            doWithDialog(ed, url, '/gap.htm', 1200, 320, 1, false, tinymce.translate('gap_title'));
          });
 
          ed.addCommand('mceAddGap_Shortcut', function() {

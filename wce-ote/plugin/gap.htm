@@ -83,6 +83,10 @@
                         <label for="gap_reason_dummy_abbreviatedText">{#abbreviatedText}</label>
                     </td>
                     <td>
+                        <input type="radio" id="gap_reason_dummy_notExpected" name="gap_reason_dummy" value="notExpected" onchange="checkstatus_gapreason()">
+                        <label for="gap_reason_dummy_notExpected">{#notExpected}</label>
+                    </td>
+                    <td>
                         <input id="gap_reason" name="gap_reason" value="" type="hidden" />
                     </td>
                 </tr>
@@ -281,6 +285,8 @@
             document.gapinfo.gap_reason.value = "paperRepaired";
         else if (radioWert(document.gapinfo.gap_reason_dummy) === "abbreviatedText")
             document.gapinfo.gap_reason.value = "abbreviatedText";
+        else if (radioWert(document.gapinfo.gap_reason_dummy) === "notExpected")
+            document.gapinfo.gap_reason.value = "notExpected";
         else {
             document.gapinfo.gap_reason.value = "unspecified";
             if (info)
@@ -310,6 +316,8 @@
             document.gapinfo.gap_reason_dummy_paperRepaired.checked = true;
         else if (document.gapinfo.gap_reason.value == "abbreviatedText")
             document.gapinfo.gap_reason_dummy_abbreviatedText.checked = true;
+        else if (document.gapinfo.gap_reason.value == "notExpected")
+            document.gapinfo.gap_reason_dummy_notExpected.checked = true;
         else //default
             document.gapinfo.gap_reason_dummy_illegible.checked = true;
         checkstatus_language();
