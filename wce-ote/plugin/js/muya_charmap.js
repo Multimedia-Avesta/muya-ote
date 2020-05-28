@@ -446,6 +446,7 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
          ['b+0x0331', 'Small letter b with macron below'],
          ['B+0x0331', 'Capital letter B with macron below'],
          ['B+0x0302+0x0331', 'Capital letter B with circumflex and macron below'],
+         ['B+0x0308+0x0331', 'Capital letter B with diaresis above and macron below'],
          ['d+0x0331', 'Small letter d with macron below'],
          ['D+0x0331', 'Capital letter D with macron below'],
          ['d+0x0302', 'Small letter d with circumflex'],
