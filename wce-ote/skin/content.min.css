@@ -468,9 +468,21 @@ span.verse_number[wce="__t=verse_number&lang=pal-Phli"] {
     font-size: 24px;
 }
 
+span.line_number::after {
+    color: lightskyblue;
+    font-size: 20px;
+    content: attr(subtype);
+}
+
 span.line_number {
     color: lightskyblue;
     font-size: 20px;
+}
+
+span.verseline_number::after {
+   color: lightseagreen;
+   font-size: 20px;
+   content: attr(subtype);
 }
 
 span.verseline_number {
@@ -478,8 +490,24 @@ span.verseline_number {
     font-size: 20px;
 }
 
+span.ritualdirection_number::after {
+    color: #FF3933;
+    font-size: 20px;
+    content: attr(subtype);
+}
+
 span.ritualdirection_number {
     color: #FF3933;
+    font-size: 20px;
+}
+
+span.ab_commentary {
+    color: gray;
+    font-size: 20px;
+}
+
+span.ab_translation {
+    color: gray;
     font-size: 20px;
 }
 
@@ -896,10 +924,6 @@ span[class*='wce_abbr_numeral_Overline'] {
 header {
     display: none
 }
-
-/*div.mce-charmap-sidebar {
-    flex: none | [1 1 || auto];
-}*/
 
 input[disabled] {
     pointer-events: none

@@ -1,5 +1,5 @@
 /*
-	Copyright (C) 2012-2018 Center for Digital Humanities, Trier
+	Copyright (C) 2012-2020 Center for Digital Humanities, Trier
 
 	This file is part of the Online Transcription Editor (OTE).
 
@@ -626,3 +626,33 @@ span[class*='wce_abbr_numeral_Overline'] {
     border: 0px;
     z-index: 999;
 }
+
+#insertSubtypeDiv {
+  margin: 0 auto;
+  margin-top: 20px;;
+  background: #F2F2F2;
+  border: 1px solid #ccc;
+  box-shadow: 1px 1px 2px #fff inset,
+              -1px -1px 2px #fff inset;
+  border-radius: 3px/6px;
+}
+
+#insertStructureDiv {
+  margin: 0 auto;
+  margin-top: 20px;;
+  background: #F2F2F2;
+  border: 1px solid #ccc;
+  box-shadow: 1px 1px 2px #fff inset,
+              -1px -1px 2px #fff inset;
+  border-radius: 3px/6px;
+}
+
+input[type=checkbox], input[type=radio] {
+  vertical-align: middle;
+  position: relative;
+  bottom: 1px;
+}
+
+input[type=radio] {
+  bottom: 2px;
+} 

@@ -46,7 +46,7 @@ function setWceEditor(_id, rtl, finishCallback, lang, myBaseURL, getWitness, get
       theme: "modern",
       menubar: false,
       skin_url: tinymce.baseURL + "../../../wce-ote/skin/",
-      extended_valid_elements: 'span[class|wce_orig|style|wce|ext|id|lang|partial]',
+      extended_valid_elements: 'span[class|wce_orig|style|wce|ext|id|lang|partial|subtype]',
       forced_root_block: false,
       force_br_newlines: true,
       //force_p_newlines : false, //DEPRECATED!
