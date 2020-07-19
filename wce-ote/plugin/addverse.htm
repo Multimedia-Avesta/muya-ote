@@ -406,7 +406,6 @@
         $('#insertLineNumber').focus();
         $('#insertVerselineNumber').prop('disabled', true);
         $('#insertRitualdirectionNumber').prop('disabled', true);
-        $('#insertRitualdirectionNumber').prop('disabled', true);
         $('#insertTranslationCB').prop('disabled', false);
         $('#insertCommentaryCB').prop('disabled', false);
         $('#bookList').prop('disabled', true);
@@ -432,7 +431,6 @@
         $('#insertVerselineNumber').prop('disabled', false);
         $('#insertVerselineNumber').focus();
         $('#insertRitualdirectionNumber').prop('disabled', true);
-        $('#insertRitualdirectionNumber').prop('disabled', true);
         $('#insertTranslationCB').prop('disabled', false);
         $('#insertCommentaryCB').prop('disabled', false);
         $('#chapterList').prop('disabled', true);
@@ -455,10 +453,9 @@
         $('#insertVerseNumber').prop('disabled', true);
         $('#insertLineNumber').prop('disabled', true);
         $('#insertVerselineNumber').prop('disabled', true);
-        $('#insertRitualdirectionNumber').prop('disabled', false);
         $('#insertRitualdirectionRadio').prop('checked', true);
-        $('#insertRitualdirectionNumber').focus();
         $('#insertRitualdirectionNumber').prop('disabled', false);
+        $('#insertRitualdirectionNumber').focus();
         $('#insertTranslationCB').prop('disabled', false);
         $('#insertCommentaryCB').prop('disabled', false);
         $('#chapterList').prop('disabled', true);
@@ -474,69 +471,30 @@
     }
 
     function canInsertTranslation() {
-        /*$('#insertBookName').prop('disabled', true);
-        $('#insertBookName_other').prop('disabled', true);
-        $('#insertChapterNumber').prop('disabled', true);
-        $('#insertStanzaNumber').prop('disabled', true);
-        $('#insertVerseNumber').prop('disabled', true);*/
-        /*$('#insertLineNumber').prop('disabled', true);
-        $('#insertVerselineNumber').prop('disabled', true);
-        $('#insertRitualdirectionNumber').prop('disabled', true);
-        $('#insertTranslationRadio').prop('checked', true);
-        //$('#insertCommentaryRadio').prop('disabled', true);*/
-        /*$('#chapterList').prop('disabled', true);
-        $('#bookList').prop('disabled', true);
-        $('#stanzaList').prop('disabled', true);
-        $('#verseList').prop('disabled', true);*/
-        /*$('#lineList').prop('disabled', true);
-        $('#verselineList').prop('disabled', true);
-        $('#ritualdirectionList').prop('disabled', true);
-        $('#partial').prop('disabled', true);
-        $('#partial').css('background', '#ccc');
-        $('#lang').css('background', '#fff');*/
         $('#insertCommentaryCB').prop('checked', false);
     }
 
     function canInsertCommentary() {
-/*        $('#insertBookName').prop('disabled', true);
-        $('#insertBookName_other').prop('disabled', true);
-        $('#insertChapterNumber').prop('disabled', true);
-        $('#insertStanzaNumber').prop('disabled', true);
-        $('#insertVerseNumber').prop('disabled', true);
-        $('#insertLineNumber').prop('disabled', true);
-        $('#insertVerselineNumber').prop('disabled', true);
-        $('#insertRitualdirectionNumber').prop('disabled', true);
-        $('#insertCommentaryRadio').prop('checked', true);
-        $('#chapterList').prop('disabled', true);
-        $('#bookList').prop('disabled', true);
-        $('#stanzaList').prop('disabled', true);
-        $('#verseList').prop('disabled', true);
-        $('#lineList').prop('disabled', true);
-        $('#verselineList').prop('disabled', true);
-        $('#ritualdirectionList').prop('disabled', true);
-        $('#partial').prop('disabled', true);
-        $('#partial').css('background', '#ccc');
-        $('#lang').css('background', '#fff');*/
         $('#insertTranslationCB').prop('checked', false);
     }
 
     function canInsertStandalone() {
       var b = $('#insertStandaloneCB').is(':checked')
-         $('#insertBookRadio').prop('disabled', b);
+        $('#insertBookRadio').prop('disabled', b);
         $('#insertBookName').prop('disabled', b);
         $('#insertBookName_other').prop('disabled', b);
         $('#insertChapterRadio').prop('disabled', b);
         $('#insertChapterNumber').prop('disabled', b);
         $('#insertStanzaRadio').prop('disabled', b);
-       $('#insertStanzaNumber').prop('disabled', b);
-       $('#insertVerseRadio').prop('disabled', b);
-       $('#insertVerseNumber').prop('disabled', b);
-       $('#insertLineRadio').prop('disabled', b);
-       $('#insertLineNumber').prop('disabled', b);
-       $('#insertVerselineRadio').prop('disabled', b);
-       $('#insertVerselineNumber').prop('disabled', b);
-       $('#insertRitualdirectionRadio').prop('disabled', b);
-       $('#insertRitualdirectionNumber').prop('disabled', b);
+        $('#insertStanzaNumber').prop('disabled', b);
+        $('#insertVerseRadio').prop('disabled', b);
+        $('#insertVerseNumber').prop('disabled', b);
+        $('#insertLineRadio').prop('disabled', b);
+        $('#insertLineNumber').prop('disabled', b);
+        $('#insertVerselineRadio').prop('disabled', b);
+        $('#insertVerselineNumber').prop('disabled', b);
+        $('#insertRitualdirectionRadio').prop('disabled', b);
+        $('#insertRitualdirectionNumber').prop('disabled', b);
         $('#insertTranslationCB').prop('disabled', false);
         $('#insertCommentaryCB').prop('disabled', false);
         $('#chapterList').prop('disabled', b);
