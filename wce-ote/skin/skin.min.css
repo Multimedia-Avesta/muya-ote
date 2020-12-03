@@ -31,7 +31,7 @@
     Sie sollten eine Kopie der GNU Lesser General Public License zusammen mit diesem
     Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
 */
-@font-face {
+/*@font-face {
    font-family: MUYA;
    src: url(fonts/NotoSans-Regular.ttf) format('truetype');
    font-style: normal;
@@ -75,7 +75,7 @@
 @font-face {
    font-family: Fallback;
    src: url(fonts/UnicodeBMPFallback.ttf) format('truetype');
-}
+}*/
 
 .mce-container,
 .mce-container *,
@@ -201,6 +201,7 @@ div.mce-edit-area {
 .mce-charmap td div {
    text-align: center;
    font-family: MUYA, FreeSans, sans-serif, Fallback;
+   font-size: 18px;
 }
 
 .mce-charmap td:hover {
