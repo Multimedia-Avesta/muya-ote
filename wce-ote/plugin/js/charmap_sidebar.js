@@ -434,6 +434,8 @@ tinymce.PluginManager.add('wcecharmapsidebar', function(ed) {
          ['G+0x0308', 'Capital letter G with diaeresis'],
          ['g+0x0323', 'Small letter g with dot below'],
          ['G+0x0323', 'Capital letter G with dot below'],
+         ['g+0x0324', 'Small letter g with diaresis below'],
+         ['G+0x0324', 'Capital letter G with diaresis below'],
          ['0x1E23', 'Small letter h with dot above'],
          ['0x1E22', 'Capital letter H with dot above'],
          ['H+0x0323', 'Capital letter H with dot below'],
