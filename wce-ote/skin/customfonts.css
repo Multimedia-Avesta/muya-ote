@@ -41,7 +41,7 @@
 /*Syriac*/
 @font-face {
     font-family: MUYA;
-    src: url(fonts/NotoSansSyriacEastern-Regular.ttf) format('truetype');
+    src: url(fonts/NotoSansSyriac-Regular.ttf) format('truetype');
     font-style: normal;
     unicode-range: U+0700-074F;
 }
@@ -134,11 +134,12 @@
     unicode-range: U+10B00-10B3F;
 }
 
+/*Brahmi*/
 @font-face {
     font-family: MUYA;
-    src: url(fonts/NotoSansInscriptionalPahlavi-Regular.ttf) format('truetype');
+    src: url(fonts/NotoSansBrahmi-Regular.ttf) format('truetype');
     font-style: normal;
-    unicode-range: U+10B60-10B7F;
+    unicode-range: U+11000-1107F;
 }
 
 @font-face {
