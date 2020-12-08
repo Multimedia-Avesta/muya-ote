@@ -12,6 +12,7 @@
 
 tinymce.PluginManager.add('muyacharmap', function(editor) {
    var isArray = tinymce.util.Tools.isArray;
+   var charmap_filter_value = "";
 
    function getDefaultCharMap() {
       return [
@@ -632,8 +633,11 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
       ];
    }
 
-   function isInterpunctionSign(currindex) {
-      return (currindex >= getPaCharMap().length + getAvCharMap().length + getGuCharMap().length);
+   function isInterpunctionSign(currindex, charmapname) {
+      if (charmapname == 'interpunction_signs_only')
+         return true;
+      else
+         return (currindex >= getDefaultCharMap().length + getPaCharMap().length + getAvCharMap().length + getGuCharMap().length);
    }
 
    function charmapFilter(charmap) {
@@ -672,11 +676,11 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
       return extendCharMap(getDefaultCharMap().concat(getPaCharMap()).concat(getAvCharMap()).concat(getGuCharMap().concat(getInterpunctionSigns())));
    }
 
-   function insertChar(chr, chrindex) {
+   function insertChar(chr, chrindex, charmapname) {
       editor.fire('insertCustomChar', {
          chr: chr
       }).chr;
-      if (isInterpunctionSign(chrindex)) 
+      if (isInterpunctionSign(chrindex, charmapname)) 
          editor.execCommand('mceAdd_pc_simple', chr);
       else
          editor.execCommand('mceInsertContent', false, chr);
@@ -694,7 +698,6 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
             var index = y * width + x;
             if (index < charmap.length) {
                var chr = charmap[index];
-
                gridHtml += '<td title="' + chr[1] + '"><div tabindex="' + index + '" title="' + chr[1] + '" role="button">' +
                   (chr ? parseSomeInt(chr[0]) : '&nbsp;') + '</div></td>';
             } else {
@@ -779,7 +782,7 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
             if (/^(TD|DIV)$/.test(target.nodeName)) {
                if (getParentTd(target) && getParentTd(target).firstChild) {
                   insertChar(tinymce.trim(target.innerText || target.textContent),
-                     target.getAttribute("tabindex"));
+                     target.getAttribute("tabindex"), charmap_filter_value);
                   if (!e.ctrlKey) {
                      win.close();
                   }
@@ -846,6 +849,7 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
                               }
                            });
                            if (radioInput) {
+                              charmap_filter_value = filterValue;
                               var newGridHtml = getGridHtml(radioInput.charmap());
                               win.$el.find('div[class="mce-charmap-wrapper"]').html(newGridHtml);
                            }
@@ -892,7 +896,7 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
       }
       return out;
    }
-
+   
    return {
       getCharMap: getCharMap,
       insertChar: insertChar

@@ -47,8 +47,6 @@ tinymce.PluginManager.add('wcecharmapsidebar', function(ed) {
       }
    ];
 
-
-
    function getDefaultCharMap() {
       return [
          ['160', 'no-break space'],
@@ -609,7 +607,10 @@ tinymce.PluginManager.add('wcecharmapsidebar', function(ed) {
    }
 
    function isInterpunctionSign(currindex) {
-      return (currindex >= getPaCharMap().length + getAvCharMap().length + getGuCharMap().length);
+      if (charmap_filter_value == 'interpunction_signs_only')
+         return true;
+      else   
+         return (currindex >= getDefaultCharMap().length + getPaCharMap().length + getAvCharMap().length + getGuCharMap().length);
    }
 
    function charmapFilter(charmap) {
