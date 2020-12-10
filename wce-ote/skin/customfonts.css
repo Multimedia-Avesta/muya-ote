@@ -32,14 +32,117 @@
     Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
 */
 
-
-
 @font-face {
     font-family: MUYA;
     src: url(fonts/NotoSans-Regular.ttf) format('truetype');
     font-style: normal;
 }
 
+/*Syriac*/
+@font-face {
+    font-family: MUYA;
+    src: url(fonts/NotoSansSyriac-Regular.ttf) format('truetype');
+    font-style: normal;
+    unicode-range: U+0700-074F;
+}
+
+/*NKo*/
+@font-face {
+    font-family: MUYA;
+    src: url(fonts/NotoSansNKo-Regular.ttf) format('truetype');
+    font-style: normal;
+    unicode-range: U+07C0-07FF;
+}
+
+/*Devanagari*/
+@font-face {
+    font-family: MUYA;
+    src: url(fonts/NotoSansDevanagari-Regular.ttf) format('truetype');
+    font-style: normal;
+    unicode-range: U+0900-097F, U+A8E0-A8FF;
+}
+
+/*Gujarati*/
+@font-face {
+    font-family: MUYA;
+    src: url(fonts/NotoSansGujarati-Regular.ttf) format('truetype');
+    font-style: normal;
+    unicode-range: U+0A80-0AFF;
+}
+
+/*Thai*/
+@font-face {
+    font-family: MUYA;
+    src: url(fonts/NotoSansThai-Regular.ttf) format('truetype');
+    font-style: normal;
+    unicode-range: U+0E00-0E7F;
+}
+
+/*Myanmar*/
+@font-face {
+    font-family: MUYA;
+    src: url(fonts/NotoSansMyanmar-Regular.ttf) format('truetype');
+    font-style: normal;
+    unicode-range: U+1000-109F;
+}
+
+/*Ethiopic*/
+@font-face {
+    font-family: MUYA;
+    src: url(fonts/NotoSansEthiopic-Regular.ttf) format('truetype');
+    font-style: normal;
+    unicode-range: U+1200-139F, U+2D80-2DDF, U+AB00–AB2F;
+}
+
+/*Khmer*/
+@font-face {
+    font-family: MUYA;
+    src: url(fonts/NotoSansKhmer-Regular.ttf) format('truetype');
+    font-style: normal;
+    unicode-range: U+1780-17FF;
+}
+
+/*Tifinagh*/
+@font-face {
+    font-family: MUYA;
+    src: url(fonts/NotoSansTifinagh-Regular.ttf) format('truetype');
+    font-style: normal;
+    unicode-range: U+2D30-2D7F;
+}
+
+/*Yi*/
+@font-face {
+    font-family: MUYA;
+    src: url(fonts/NotoSansYi-Regular.ttf) format('truetype');
+    font-style: normal;
+    unicode-range: U+A000-A48F;
+}
+
+/*Vai*/
+@font-face {
+    font-family: MUYA;
+    src: url(fonts/NotoSansVai-Regular.ttf) format('truetype');
+    font-style: normal;
+    unicode-range: U+A500-A63F;
+}
+
+/*Syloti Nagri*/
+@font-face {
+    font-family: MUYA;
+    src: url(fonts/NotoSansSylotiNagri-Regular.ttf) format('truetype');
+    font-style: normal;
+    unicode-range: U+A800-A82F;
+}
+
+/*Rejang*/
+@font-face {
+    font-family: MUYA;
+    src: url(fonts/NotoSansRejang-Regular.ttf) format('truetype');
+    font-style: normal;
+    unicode-range: U+A930-A95F;
+}
+
+/*Avestan*/
 @font-face {
     font-family: MUYA;
     src: url(fonts/NotoSansAvestan-Regular.ttf) format('truetype');
@@ -47,38 +150,18 @@
     unicode-range: U+10B00-10B3F;
 }
 
+/*Brahmi*/
 @font-face {
     font-family: MUYA;
-    src: url(fonts/NotoSansGujaratiUI-Regular.ttf) format('truetype');
+    src: url(fonts/NotoSansBrahmi-Regular.ttf) format('truetype');
     font-style: normal;
-    unicode-range: U+0A80-0AFF;
+    unicode-range: U+11000-1107F;
 }
 
-@font-face {
-    font-family: MUYA;
-    src: url(fonts/NotoSansSyriacEastern-Regular.ttf) format('truetype');
-    font-style: normal;
-    unicode-range: U+0745-0746;
-}
-
-@font-face {
-    font-family: MUYA;
-    src: url(fonts/NotoSansDevanagariUI-Regular.ttf) format('truetype');
-    font-style: normal;
-    unicode-range: U+0900-097F, U+A8E0-A8FF;
-}
-
-@font-face {
-    font-family: MUYA;
-    src: url(fonts/NotoSansInscriptionalPahlavi-Regular.ttf) format('truetype');
-    font-style: normal;
-    unicode-range: U+10B60-10B7F;
-}
-
-@font-face {
+/*@font-face {
     font-family: FreeSans;
     src: url(fonts/FreeSans.ttf) format('truetype');
-}
+}*/
 
 @font-face {
     font-family: Fallback;

@@ -139,6 +139,79 @@ tinymce.PluginManager.add('punctuation', function(ed, jsUrl) {
       title: 'Other'
    }];
 
+   var menuItemsAddCharGeneral = [{
+         title: '\u00F7 (obelus)',
+         code: '\u00F7'
+      },
+
+      {
+         title: '\u003A (two dots vertical)',
+         code: '\u003A'
+      },
+      {
+         title: '\u0964 (danda)',
+         code: '\u0964'
+      },
+      {
+         title: '\u0965 (double danda)',
+         code: '\u0965'
+      },
+      {
+         title: 'Other',
+         onclick: function () {
+            ed.execCommand('mceAdd_pc_char_other');
+         }
+      }
+   ];
+
+   var menuItemsAddCharAvestan = [{
+      title: '\u{10B39} (Avestan Abbreviation Mark)',
+      code: '\u{10B39}'
+   },
+   {
+      title: '\u{10B3A} (Tiny Two Dots Over One Dot Punctuation)',
+      code: '\u{10B3A}'
+   },
+   {
+      title: '\u{10B3B} (Small Two Dots Over One Dot Punctuation)',
+      code: '\u{10B3B}'
+   },
+   {
+      title: '\u{10B3C} (Large Two Dots Over One Dot Punctuation)',
+      code: '\u{10B3C}'
+   },
+   {
+      title: '\u{10B3D} (Large One Dot Over Two Dots Punctuation (pyramid shape))',
+      code: '\u{10B3D}'
+   },
+   {
+      title: '\u{10B3E} (Large Two Rings Over One Ring Punctuation (v-shape))',
+      code: '\u{10B3E}'
+   },
+   {
+      title: '\u{10B3F} (Large One Ring Over Two Rings Punctuation)',
+      code: '\u{10B3F}'
+   }
+];
+
+   var menuItemsAddCharPahlavi = [{
+      title: '\u{10B99} (Psalter Pahlavi Section Mark',
+      code: '\u{10B99}'
+   },
+   {
+      title: '\u{10B9A} (Psalter Pahlavi Turned Section Mark)',
+      code: '\u{10B9A}'
+   },
+   {
+      title: '\u{10B9B} (Psalter Pahlavi Four Dots with Cross)',
+      code: '\u{10B9B}'
+   },
+   {
+      title: '\u{10B9C} (Psalter Pahlavi Four Dots with Dot)',
+      code: '\u{10B9C}'
+   }
+];
+
    menuItemsAddDots.forEach(function(it) {
       it.text = it.id + ' ' + it.title;
       if (!it.onclick) {
@@ -223,35 +296,40 @@ tinymce.PluginManager.add('punctuation', function(ed, jsUrl) {
       }
    });
 
-   var menuItemsAddChar = [{
-         title: '\u00F7 (obelus)',
-         code: '\u00F7'
-      },
-
-      {
-         title: '\u003A (two dots vertical)',
-         code: '\u003A'
-      },
-      {
-         title: '\u0964 (danda)',
-         code: '\u0964'
-      },
-      {
-         title: '\u0965 (double danda)',
-         code: '\u0965'
-      },
-      {
-         title: 'Other',
-         onclick: function() {
-            ed.execCommand('mceAdd_pc_char_other');
-         }
-      }
-   ];
-
-   menuItemsAddChar.forEach(function(it) {
+   menuItemsAddCharGeneral.forEach(function(it) {
       it.text = it.title;
       if (!it.onclick) {
          it.onclick = function() {
+            if (!tinyMCE.activeEditor.settings.insertpunctuation) {
+               tinyMCE.activeEditor.settings.insertpunctuation = true;
+               ed.execCommand('mceAdd_pc_simple', it.code);
+               tinyMCE.activeEditor.settings.insertpunctuation = false;
+            } else {
+               ed.execCommand('mceAdd_pc_simple', it.code);
+            }
+         }
+      }
+   });
+
+   menuItemsAddCharAvestan.forEach(function (it) {
+      it.text = it.title;
+      if (!it.onclick) {
+         it.onclick = function () {
+            if (!tinyMCE.activeEditor.settings.insertpunctuation) {
+               tinyMCE.activeEditor.settings.insertpunctuation = true;
+               ed.execCommand('mceAdd_pc_simple', it.code);
+               tinyMCE.activeEditor.settings.insertpunctuation = false;
+            } else {
+               ed.execCommand('mceAdd_pc_simple', it.code);
+            }
+         }
+      }
+   });
+
+   menuItemsAddCharPahlavi.forEach(function (it) {
+      it.text = it.title;
+      if (!it.onclick) {
+         it.onclick = function () {
             if (!tinyMCE.activeEditor.settings.insertpunctuation) {
                tinyMCE.activeEditor.settings.insertpunctuation = true;
                ed.execCommand('mceAdd_pc_simple', it.code);
@@ -321,7 +399,22 @@ tinymce.PluginManager.add('punctuation', function(ed, jsUrl) {
          },
          {
             text: tinymce.translate('menu_punctuation_add_char'),
-            menu: menuItemsAddChar,
+            menu: [{
+                  text: tinymce.translate('menu_punctuation_add_char_general'),
+                  id: 'menu-punctuation-char-general',
+                  menu: menuItemsAddCharGeneral
+               },
+               {
+                  text: tinymce.translate('menu_punctuation_add_char_avestan'),
+                  id: 'menu-punctuation-char-avestan',
+                  menu: menuItemsAddCharAvestan
+               },
+               {
+                  text: tinymce.translate('menu_punctuation_add_char_pahlavi'),
+                  id: 'menu-punctuation-char-pahlavi',
+                  menu: menuItemsAddCharPahlavi
+               }
+            ]
          },
          {
             text: tinymce.translate('menu_blank_spaces'),

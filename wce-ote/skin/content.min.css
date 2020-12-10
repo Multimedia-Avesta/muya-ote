@@ -41,7 +41,10 @@
     background: transparent;
     text-decoration: none;
     color: black;
-    font-family: MUYA, FreeSans, sans-serif, Fallback;
+    font-family: MUYA,
+        /*FreeSans, 
+        sans-serif,*/
+        Fallback;
     font-size: 11px;
     text-shadow: none;
     float: none;
@@ -59,8 +62,8 @@
     box-sizing: content-box;
     direction: ltr;
     max-width: none;
-    //overflow-x: scroll;
-    //overflow-y: scroll,
+    /*overflow-x: scroll;
+    overflow-y: scroll,*/
 }
 
 .mce-object {
@@ -220,7 +223,10 @@ th[data-mce-selected] {
 }
 
 .mce-content-body .mce-reset {
-    font-family: MUYA, FreeSans, sans-serif, Fallback;
+    font-family: MUYA,
+        /*FreeSans, 
+        sans-serif,*/
+        Fallback;
 }
 
 body,
@@ -230,8 +236,18 @@ pre {
     font-size: 24px;
     margin: 8px;
     line-height: 48px;
-    font-family: MUYA, FreeSans, sans-serif, Fallback;
+    font-family: MUYA,
+    /*FreeSans,
+    sans-serif,*/
+    Fallback;
 }
+/*.muya-fonts-loaded body,td,pre{
+    font-family: MUYA,
+    FreeSans,
+    sans-serif,
+    Fallback;
+}*/
+
 
 body {
     background-color: #FFE6BB;

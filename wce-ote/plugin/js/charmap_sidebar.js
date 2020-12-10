@@ -47,8 +47,6 @@ tinymce.PluginManager.add('wcecharmapsidebar', function(ed) {
       }
    ];
 
-
-
    function getDefaultCharMap() {
       return [
          ['160', 'no-break space'],
@@ -432,8 +430,12 @@ tinymce.PluginManager.add('wcecharmapsidebar', function(ed) {
          ['G+0x0302', 'Capital letter G with circumflex'],
          ['g+0x0308', 'Small letter g with diaeresis'],
          ['G+0x0308', 'Capital letter G with diaeresis'],
+         ['0x0121', 'Small letter g with dot above'],
+         ['0x0120', 'Capital letter G with dot above'],
          ['g+0x0323', 'Small letter g with dot below'],
          ['G+0x0323', 'Capital letter G with dot below'],
+         ['g+0x0324', 'Small letter g with diaresis below'],
+         ['G+0x0324', 'Capital letter G with diaresis below'],
          ['0x1E23', 'Small letter h with dot above'],
          ['0x1E22', 'Capital letter H with dot above'],
          ['H+0x0323', 'Capital letter H with dot below'],
@@ -492,6 +494,8 @@ tinymce.PluginManager.add('wcecharmapsidebar', function(ed) {
          ['Y+0x0304', 'Capital letter Y with macron'],
          ['y+0x0302', 'Small letter y with circumflex'],
          ['Y+0x0302', 'Capital letter Y with circumflex'],
+         ['0x1E8F', 'Small letter y with dot above'],
+         ['0x1E8E', 'Capital letter Y with dot above'],
          ['y+0x0323', 'Small letter y with dot below'],
          ['Y+0x0323', 'Capital letter Y with dot below'],
          ['y+0x0308', 'Small letter y with diaeresis'],
@@ -517,21 +521,100 @@ tinymce.PluginManager.add('wcecharmapsidebar', function(ed) {
 
    function getInterpunctionSigns() {
       return [
+         ['.', 'Full stop within word'], 
          ['0x0964', 'danda'],
          ['0x0965', 'double danda'],
-         /*['0x10B39', 'AVESTAN ABBREVIATION MARK'],
-         ['0x10B3A', 'TINY TWO DOTS OVER ONE DOT PUNCTUATION'],
-         ['0x10B3B', 'SMALL TWO DOTS OVER ONE DOT PUNCTUATION'],
-         ['0x10B3C', 'LARGE TWO DOTS OVER ONE DOT PUNCTUATION'],*/
-         ['0x10B3D', 'Three dots (pyramid shape)'],
-         ['0x10B3E', 'Three dots (v-shape)'],
-         ['.', 'Full stop within word'],
-         //['0x10B3F', 'LARGE ONE RING OVER TWO RINGS PUNCTUATION'],
+         ['0x10B39', 'Avestan Abbreviation Mark'],
+         ['0x10B3A', 'Tiny Two Dots Over One Dot Punctuation'],
+         ['0x10B3B', 'Small Two Dots Over One Dot Punctuation'],
+         ['0x10B3C', 'Large Two Dots Over One Dot Punctuation'],
+         ['0x10B3D', 'Large One Dot Over Two Dots Punctuation (pyramid shape)'],
+         ['0x10B3E', 'Large Two Rings Over One Ring Punctuation (v-shape)'],
+         ['0x10B3F', 'Large One Ring Over Two Rings Punctuation'],
+         ['0x10B99', 'Psalter Pahlavi Section Mark'],
+         ['0x10B9A', 'Psalter Pahlavi Turned Section Mark'],
+         ['0x10B9B', 'Psalter Pahlavi Four Dots with Cross'],
+         ['0x10B9C', 'Psalter Pahlavi Four Dots with Dot'],
+         ['0x1104D', 'Brahmi Punctuation Lotus'],
+         ['0x11140', 'Chakma Section Mark'],
+         ['0x1368', 'Ethiopic Paragraph Separator'],
+         ['0x11302', 'Grantha Sign Anusvara'],
+         ['0x11303', 'Grantha Sign Visarga'],
+         ['0x11320', 'Grantha Letter Ttha'],
+         ['0x11302', 'Grantha Sign Anusvara'],
+         ['0x1133C', 'Grantha Sign Nukta'],
+         ['0x10A55', 'Kharoshthi Punctuation Lotus'],
+         ['0x17D9', 'Khmer Sign Phnaek Muan'],
+         ['0x11236', 'Khojki Sign Nukta'],
+         ['0x1000F', 'Linear B Syllable B077 Ka'],
+         ['0x10AF0', 'Manichaean Punctuation Star'],
+         ['0x10AF1', 'Manichaean Punctuation Fleuron'],
+         ['0x10AF2', 'Manichaean Punctuation Double Dot Within Dot'],
+         ['0x10AF3', 'Manichaean Punctuation Dot Within Dot'],
+         ['0x10AF4', 'Manichaean Punctuation Dot'],
+         ['0x10AF5', 'Manichaean Punctuation Two Dots'],
+         ['0x10AF6', 'Manichaean Punctuation Line Filler'],
+         ['0x2055', 'Flower punctuation mark'],
+         ['0x1E827', 'Mende Kikakui Syllable M165 Oo'],
+         ['0x1E82A', 'Mende Kikakui Syllable M131 In'],
+         ['0x1E82C', 'Mende Kikakui Syllable M195 An'],
+         ['0x1E83B', 'Mende Kikakui Syllable M054 Loo'],
+         ['0x1E838', 'Mende Kikakui Syllable M054 Loo'],
+         ['0x1E83C', 'Mende Kikakui Syllable M153 Lo'],
+         ['0x1E85A', 'Mende Kikakui Syllable M034 Fi'],
+         ['0x1E85B', 'Mende Kikakui Syllable M035 Fa'],
+         ['0x1E85C', 'Mende Kikakui Syllable M036 Fu'],
+         ['0x1E8A1', 'Mende Kikakui Syllable M074 Kpu'],
+         ['0x1E8A2', 'Mende Kikakui Syllable M044 Kpee'],
+         ['0x1E8A3', 'Mende Kikakui Syllable M108 Kpe'],
+         ['0x1E8A6', 'Mende Kikakui Syllable M124 Gbi'],
+         ['0x1E8A8', 'Mende Kikakui Syllable M148 Gbu'],
+         ['0x1E8A9', 'Mende Kikakui Syllable M093 Gbee'],
+         ['0x1E8AB', 'Mende Kikakui Syllable M071 Gboo'],
+         ['0x1E8B9', 'Mende Kikakui Syllable M182 Vi'],
+         ['0x11643', 'Modi Abbreviation Sign'],
+         ['0x105C', 'Myanmar Letter Mon Bba'],
+         ['0x07F7', 'Nko Symbol Gbakurunen'],
+         ['0x1031F', 'Old Italic Letter Ess'],
+         ['0x10A8F', 'Old North Arabian Letter Es - 3'],
+         ['0x16B30', '𖬰Pahawh Hmong Mark Cim Tub'],
+         ['0x10B99', 'Psalter Pahlavi Section Mark'],
+         ['0x10B9A', 'Psalter Pahlavi Turned Section Mark'],
+         ['0x10B9B', 'Psalter Pahlavi Four Dots with Cross'],
+         ['0x10B9C', 'Psalter Pahlavi Four Dots with Dot'],
+         ['0xA95F', 'Rejang Section Mark'],
+         ['0x115D1', 'Siddham Section Mark with Double Crescents'],
+         ['0x115C9', 'Siddham End of Text Mark'],
+         ['0xA829', 'Syloti Nagri Poetry Mark - 2'],
+         ['0xA82A', 'Syloti Nagri Poetry Mark - 3'],
+         ['0xA82B', 'Syloti Nagri Poetry Mark - 4'],
+         ['0x0E4F', 'Thai Character Fongman'],
+         ['0x2D3E', 'Tifinagh Letter Tuareg Yak'],
+         ['0x2D42', 'Tifinagh Letter Tuareg Yah'],
+         ['0x2D46', 'Tifinagh Letter Tuareg Yakh'],
+         ['0x2D57', 'Tifinagh Letter Tuareg Yagh'],
+         ['0x2D58', 'Tifinagh Letter Ayer Yagh'],
+         ['0xA537', 'Vai Syllable Li'],
+         ['0xA539', 'Vai Syllable Di'],
+         ['0xA562', 'Vai Syllable Sa'],
+         ['0xA563', 'Vai Syllable Sha'],
+         ['0xA564', 'Vai Syllable Za'],
+         ['0xA565', 'Vai Syllable Zha'],
+         ['0xA57A', 'Vai Syllable Kpoo'],
+         ['0xA57B', 'Vai Syllable Mgboo'],
+         ['0xA59C', 'Vai Syllable Bhu'],
+         ['0xA5B4', 'Vai Syllable Ku'],
+         ['0xA5DD', 'Vai Syllable Go'],
+         ['0xA60E', 'Vai Full Stop'],
+         ['0xA058', 'Yi Syllable Bbi'],
       ];
    }
 
    function isInterpunctionSign(currindex) {
-      return (currindex >= getPaCharMap().length + getAvCharMap().length + getGuCharMap().length);
+      if (charmap_filter_value == 'interpunction_signs_only')
+         return true;
+      else   
+         return (currindex >= getDefaultCharMap().length + getPaCharMap().length + getAvCharMap().length + getGuCharMap().length);
    }
 
    function charmapFilter(charmap) {
@@ -575,7 +658,7 @@ tinymce.PluginManager.add('wcecharmapsidebar', function(ed) {
          chr: chr
       }).chr;
       if (isInterpunctionSign(chrindex))
-         ed.execCommand('mceInsertContent', false, chr);
+         ed.execCommand('mceAdd_pc_simple', chr);
       else
          ed.execCommand('mceInsertContent', false, chr);
    }

@@ -629,3 +629,9 @@ var strToArray = function(str) {
    }
    return outArr;
 };
+
+/*document.fonts.load('1em MUYA')
+   .then(function () {
+      var docEl = document.documentElement;
+      docEl.className += ' muya-fonts-loaded';
+   });*/
