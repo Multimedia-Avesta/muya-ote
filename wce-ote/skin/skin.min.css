@@ -90,7 +90,10 @@
    background: transparent;
    text-decoration: none;
    color: #333;
-   font-family: MUYA, FreeSans, sans-serif, Fallback;
+   font-family: MUYA,
+      /*FreeSans,
+      sans-serif,*/
+      Fallback;
    font-size: 14px;
    text-shadow: none;
    float: none;
@@ -200,7 +203,10 @@ div.mce-edit-area {
 
 .mce-charmap td div {
    text-align: center;
-   font-family: MUYA, FreeSans, sans-serif, Fallback;
+   font-family: MUYA,
+      /*FreeSans,
+      sans-serif,*/
+      Fallback;
    font-size: 18px;
 }
 
@@ -2445,7 +2451,10 @@ i.mce-i-backcolor {
 	margin-top: -3px !important;
 }*/
 .mce-container {
-   font-family: MUYA, FreeSans, sans-serif, Fallback;
+   font-family: MUYA,
+      /*FreeSans,
+      sans-serif,*/
+      Fallback;
 }
 
 .mce-btn button {
