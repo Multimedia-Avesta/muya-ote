@@ -91,8 +91,7 @@
    text-decoration: none;
    color: #333;
    font-family: MUYA,
-      /*FreeSans,
-      sans-serif,*/
+      FreeSerif,
       Fallback;
    font-size: 14px;
    text-shadow: none;
@@ -204,8 +203,7 @@ div.mce-edit-area {
 .mce-charmap td div {
    text-align: center;
    font-family: MUYA,
-      /*FreeSans,
-      sans-serif,*/
+      FreeSerif,
       Fallback;
    font-size: 18px;
 }
@@ -2452,8 +2450,7 @@ i.mce-i-backcolor {
 }*/
 .mce-container {
    font-family: MUYA,
-      /*FreeSans,
-      sans-serif,*/
+      FreeSerif,
       Fallback;
 }
 

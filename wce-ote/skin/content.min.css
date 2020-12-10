@@ -42,8 +42,7 @@
     text-decoration: none;
     color: black;
     font-family: MUYA,
-        /*FreeSans, 
-        sans-serif,*/
+        FreeSerif, 
         Fallback;
     font-size: 11px;
     text-shadow: none;
@@ -224,8 +223,7 @@ th[data-mce-selected] {
 
 .mce-content-body .mce-reset {
     font-family: MUYA,
-        /*FreeSans, 
-        sans-serif,*/
+        FreeSerif, 
         Fallback;
 }
 
@@ -237,8 +235,7 @@ pre {
     margin: 8px;
     line-height: 48px;
     font-family: MUYA,
-    /*FreeSans,
-    sans-serif,*/
+    FreeSerif,
     Fallback;
 }
 /*.muya-fonts-loaded body,td,pre{

@@ -634,6 +634,23 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
          ['0xA5DD', 'Vai Syllable Go'],
          ['0xA60E', 'Vai Full Stop'],
          ['0xA058', 'Yi Syllable Bbi'],
+         ['0x1360', 'Ethiopic Section Mark'],
+         ['0x112E9', 'Khudawadi Sign Nukta'],
+         ['0x11174', 'Mahajani Abbreviation Sign'],
+         ['0x2735', 'Eight Pointed Pinwheel Star New Year, Christmas'],
+         ['0x269D', 'Outlined White Star New Year, Christmas'],
+         ['0x2749', 'Balloon - Spoked Asterisk jack, New Year, Christmas'],
+         ['0x2739', 'Twelve Pointed Black Star New Year, Christmas '],
+         ['0x2743', 'Heavy Teardrop - Spoked Pinwheel Asterisk'],
+         ['0x1091F', 'Phoenician Word Separator'],
+         ['0x2219', 'Bullet Operator'],
+         ['0x22C5', 'Dot Operator'],
+         ['0x26AB', 'Medium Black Circle Emoji record, New Year, Christmas'],
+         ['0x1F311', 'New Moon Symbol Emoji'],
+         ['0x22EF', 'Midline Horizontal Ellipsis'],
+         ['0x22F0', 'Up Right Diagonal Ellipsis'],
+         ['0x22F1', 'Down Right Diagonal Ellipsis'],
+         ['0x1A1E', 'Buginese Pallawa'],
       ];
    }
 
