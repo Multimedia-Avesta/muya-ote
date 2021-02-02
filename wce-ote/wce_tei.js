@@ -3437,6 +3437,8 @@ function getTeiByHtml(inputString, args) {
          if (lastTextNode && lastTextNode.nodeType == 3) {
             lastTextNode.nodeValue = lastTextNode.nodeValue.replace(/\]$/, "");
          }
+         if (lastTextNode.nodeValue === '')
+            lastW.removeChild(lastTextNode)
       }
       return $htmlNode;
    };
