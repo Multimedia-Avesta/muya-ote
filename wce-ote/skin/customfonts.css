@@ -85,7 +85,7 @@
     font-family: MUYA;
     src: url(fonts/NotoSansEthiopic-Regular.ttf) format('truetype');
     font-style: normal;
-    unicode-range: U+1200-139F, U+2D80-2DDF, U+AB00–AB2F;
+    unicode-range: U+1200-139F, U+2D80-2DDF, U+AB00-AB2F;
 }
 
 /*Khmer*/
