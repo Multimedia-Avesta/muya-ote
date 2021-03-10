@@ -1,5 +1,5 @@
 /*
-	Copyright (C) 2012-2020 Trier Center for Digital Humanities, Trier (Germany)
+	Copyright (C) 2012-2021 Trier Center for Digital Humanities, Trier (Germany)
 
 	This file is part of the Online Transcription Editor (OTE).
 
@@ -914,3 +914,10 @@ function createEditableSelect(dest) {
 
    selectBoxIds = selectBoxIds + 1;
 }
+
+function isRTL(s) {
+   var rtlChars = '\u0591-\u07FF\u200F\u202B\u202E\uFB1D-\uFDFD\uFE70-\uFEFC',
+      rtlDirCheck = new RegExp('^[^' + rtlChars + ']*?[' + rtlChars + ']');
+
+   return rtlDirCheck.test(s);
+};

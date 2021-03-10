@@ -396,6 +396,7 @@ tinymce.PluginManager.add('wcecharmapsidebar', function(ed) {
          ['0x007a', 'AVESTAN LETTER ZE'],
          ['0x0161', 'AVESTAN LETTER SHE'],
          ['0x0161+0x0301', 'AVESTAN LETTER ZHE'],
+         ['0x0161+0x0302', 'AVESTAN LETTER SHE with circumflex'],
          ['0x0161+0x0323', 'AVESTAN LETTER SHYE'],
          ['0x017e', 'AVESTAN LETTER SSHE'],
          ['0x0068', 'AVESTAN LETTER HE'],

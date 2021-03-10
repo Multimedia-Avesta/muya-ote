@@ -1,5 +1,5 @@
 /*
-	Copyright (C) 2012-2020 Trier Center for Digital Humanities, Trier (Germany)
+	Copyright (C) 2012-2021 Trier Center for Digital Humanities, Trier (Germany)
 
 	This file is part of the Online Transcription Editor (OTE).
 
@@ -33,7 +33,7 @@
 */
 
 (function() {
-   var wfce_editor = "1.5.8 (2020-12-10)";
+   var wfce_editor = "1.5.9 (2021-03-10)";
 
    // Load plugin specific language pack
    tinymce.PluginManager.requireLangPack('wce');
@@ -2415,7 +2415,7 @@
             case 'pc':
                wceClass = ' class="pc"';
                wceAttr = ' wce="' + '__t' + '=' + wceType + '" wce_orig=""';
-               _setContent(ed, '<span' + wceAttr + wceClass + '>' + startFormatHtml + character + endFormatHtml + '</span> ');
+               _setContent(ed, '<span' + wceAttr + wceClass + '>' + startFormatHtml + character + '&lrm;' + endFormatHtml + '</span> ');
                break;
             case 'abbr':
                // style = 'style="border: 1px dotted #f00; margin:0px; padding:0;"';

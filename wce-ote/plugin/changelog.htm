@@ -1,6 +1,5 @@
-﻿
-<!--
-	Copyright (C) 2012-2020 Trier Center for Digital Humanities, Trier (Germany)
+﻿<!--
+	Copyright (C) 2012-2021 Trier Center for Digital Humanities, Trier (Germany)
 
 	This file is part of the Online Transcription Editor (OTE).
 
@@ -40,7 +39,7 @@
    <title>Changelog</title>
    <script type="text/javascript" src="../jquery-3.4.1.min.js"></script>
    <script type="text/javascript">
-      $(document).ready(function() {
+      $(document).ready(function () {
          var _ed = window.opener.tinymce.activeEditor;
          translate();
       });
@@ -52,14 +51,14 @@
          if (parent.tinymce.isIE) {
             c = c.replace(/ (value|title|alt)=([^"][^\s>]+)/gi, ' $1="$2"')
          }
-         a = c.replace(/\{\#([^\}]+)\}/g, function(a, b) {
+         a = c.replace(/\{\#([^\}]+)\}/g, function (a, b) {
             var c = parent.tinymce.translate(b);
             return (c != b) ? c : '{#' + b + '}';
          });
          if (a != c) {
             document.body.innerHTML = a
          }
-         a = d.replace(/\{\#([^\}]+)\}/g, function(a, b) {
+         a = d.replace(/\{\#([^\}]+)\}/g, function (a, b) {
             var c = parent.tinymce.translate(b);
             return (c != b) ? c : '{#' + b + '}';
          });
@@ -73,15 +72,25 @@
 <body>
    <div>
       <font size="+1">
-         <p>The Online Transcription Editor (OTE) was initiated as part of the joined project "Workspace for Collaborative Editing" and then further developed as part of the joint project MUYA. It was funded by the <a
-               href="http://www.dfg.de/">DFG</a> and the <a href="http://www.ahrc.ac.uk/">AHRC</a> and the European Research Council (ERC).</p>
+         <p>The Online Transcription Editor (OTE) was initiated as part of the joined project "Workspace for
+            Collaborative Editing" and then further developed as part of the joint project MUYA. It was funded by the <a
+               href="http://www.dfg.de/">DFG</a> and the <a href="http://www.ahrc.ac.uk/">AHRC</a> and the European
+            Research Council (ERC).</p>
          <p>This software is based on TinyMCE v4 and is thus published as opensource under the terms of the
             <a href="https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html">LGPL v2.1</a>.
          </p>
       </font>
-      <p>Recent version 1.5.8 (2020-12-10)</p>
+      <p>Recent version 1.5.9 (2021-03-10)</p>
       <br />
       <h1>Changelog</h1>
+      <h2>Version 1.5.9</h2>
+      <ul>
+         <li>Add function to correct structure of `<pc>` inside `<supplied>` (#10317)</li>
+         <li>Fix spacing of `<supplied>`</li>
+         <li>Remove redundant empty word node, when pc element was last in gap (#10317)</li>
+         <li>Move the left-to-right marker</li>
+         <li>Add s with hacek and circumflex on top (#10263)</li>
+      </ul>
       <h2>Version 1.5.8</h2>
       <ul>
          <li>Add some more interpunction characters</li>
@@ -107,18 +116,18 @@
       <ul>
          <li>Add reasion "Not Expected" for gaps (deficiency menu) (#9190)</li>
       </ul>
-<h2>Version 1.5.3</h2>
-<ul>
-   <li>Fix bug with "same" gap nodes being merged</li>
-</ul>
-   <h2>Version 1.5.2</h2>
-   <ul>
-      <li>Add language New Persian in Avestan Script (#9089)</li>
-   </ul>
-   <h2>Version 1.5.1</h2>
-	<ul>
-	<li>Fix bug with <gap> elements (#9080)</li>
-</ul>
+      <h2>Version 1.5.3</h2>
+      <ul>
+         <li>Fix bug with "same" gap nodes being merged</li>
+      </ul>
+      <h2>Version 1.5.2</h2>
+      <ul>
+         <li>Add language New Persian in Avestan Script (#9089)</li>
+      </ul>
+      <h2>Version 1.5.1</h2>
+      <ul>
+         <li>Fix bug with <gap> elements (#9080)</li>
+      </ul>
       <h2>Version 1.5.0</h2>
       <ul>
          <li>Add g with dot below (#9005)</li>
@@ -195,21 +204,21 @@
       <h2>Version 1.3.1</h2>
       <ul>
          <li>Fix #8161</li>
-      <li>Fix #8160</li>
-      <li>Fix #8162</li>
-   </ul>
+         <li>Fix #8160</li>
+         <li>Fix #8162</li>
+      </ul>
       <h2>Version 1.3</h2>
       <ul>
          <li>Fix for #8052</li>
-      <li>Change parameters for local autosave plugin</li>
-      <li>Add test for invalid extent values</li>
-      <li>Add tooltip for extent input</li>
-      <li>handshift->handShift (#8134)</li>
-      <li>Fix #8082</li>
-      <li>Fix #8121</li>
-      <li>Add different punctuation handling (#8072)</li>
-      <li>Solve #7934 (part 2)</li>
-   </ul>
+         <li>Change parameters for local autosave plugin</li>
+         <li>Add test for invalid extent values</li>
+         <li>Add tooltip for extent input</li>
+         <li>handshift->handShift (#8134)</li>
+         <li>Fix #8082</li>
+         <li>Fix #8121</li>
+         <li>Add different punctuation handling (#8072)</li>
+         <li>Solve #7934 (part 2)</li>
+      </ul>
       <h2>Version 1.2</h2>
       <ul>
          <li>Add support for special characters in note dialogue</li>
@@ -287,7 +296,8 @@
          <li>Change size for character panel (#7430)</li>
          <li>Add characters to the character panel (incl. reordering) (#7410,#7427,#7428,#7431,#7434,#7435)</li>
          <li>Add new book identifier "DrYt" (#7412)</li>
-         <li>Remove all @xml:id from &lt;ab&gt; and &lt;div&gt; and rename @n to book.chapter.stanza|verse.line|verseline|ritualdirection (#7413,#7414,#7415.#7416)</li>
+         <li>Remove all @xml:id from &lt;ab&gt; and &lt;div&gt; and rename @n to
+            book.chapter.stanza|verse.line|verseline|ritualdirection (#7413,#7414,#7415.#7416)</li>
          <li>Remove automatic annotation of classical punctuation marks for ,;? and middledot (#7425)</li>
       </ul>
       <h2>Version 0.9.3beta</h2>
@@ -388,7 +398,8 @@
       </ul>
       <h2>Version 0.5.2beta</h2>
       <ul>
-         <li>Added 'danda' and 'double danda' to character map. Changed functions for inputting punctuations accordingly. (#5959)</li>
+         <li>Added 'danda' and 'double danda' to character map. Changed functions for inputting punctuations
+            accordingly. (#5959)</li>
          <li>Added filter to character map</li>
       </ul>
       <br />
