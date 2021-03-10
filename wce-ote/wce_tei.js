@@ -1031,15 +1031,15 @@ function getHtmlByTei(inputString, args) {
          nodeAddText($newNode, 'P+999');
          addFormatElement($newNode);
          $htmlParent.appendChild($newNode);
-         //if ($teiNode.parentNode.lastChild !== $teiNode)
-         nodeAddText($htmlParent, ' ');
+         if (!$teiNode.parentNode || $teiNode.parentNode.nodeName !== 'supplied')
+            nodeAddText($htmlParent, ' ');
          return null;
       } else {
          $newNode.setAttribute('wce', '__t=pc');
          addFormatElement($newNode);
          $htmlParent.appendChild($newNode);
-         //if ($teiNode.parentNode.lastChild !== $teiNode)
-         nodeAddText($htmlParent, ' ');
+         if (!$teiNode.parentNode || $teiNode.parentNode.nodeName !== 'supplied')
+            nodeAddText($htmlParent, ' ');
          return $newNode;
       }
    };
@@ -1125,6 +1125,7 @@ function getHtmlByTei(inputString, args) {
             while ($tempParent.hasChildNodes()) {
                $newNode.appendChild($tempParent.firstChild);
             }
+            
             nodeAddText($newNode, ']');
          }
       } else { // gap
@@ -2022,9 +2023,10 @@ function getTeiByHtml(inputString, args) {
          }
       }
 
-      html2Tei_mergeNodes($newRoot, true);
+      html2Tei_mergeNodes($newRoot, true);//true for removal for the attributes of <w>
       html2Tei_removeBlankW_addAttributePartI($newRoot);
       html2Tei_handleLanguageChange($newRoot);
+      html2Tei_handlePcInSupplied($newRoot);
 
       //ticket #6130
       args.inner_hi ? html2Tei_handleHiNode($newRoot) : '';
@@ -2060,6 +2062,20 @@ function getTeiByHtml(inputString, args) {
       //add <w> for each textNode
       $node = addWElement2Html($node);
       return $node;
+   };
+
+   var html2Tei_handlePcInSupplied = function($node) {
+      var pcNodes = $node.querySelectorAll("w > supplied > pc")
+      if (pcNodes) {
+         pcNodes.forEach(function(pcItem) {
+            if (!$(pcItem).nextSibling) {
+               var parentsupplied = pcItem.parentNode;
+               var parentw = parentsupplied.parentNode;
+               parentw.parentNode.replaceChild(parentsupplied, parentw);
+            }
+         });
+      }
+      return $node; 
    };
 
    var html2Tei_handleLanguageChange = function($node) {
@@ -2246,6 +2262,7 @@ function getTeiByHtml(inputString, args) {
          return;
       }
 
+      console.log($teiNode.nodeName);
       var tNext = $teiNode.firstChild;
       while (tNext) {
          html2Tei_mergeNodes(tNext, removeAttr);
@@ -2415,6 +2432,7 @@ function getTeiByHtml(inputString, args) {
       if ($r.nodeType !== 1 && $r.nodeType !== 11)
          return;
 
+      // Remove <w/>   
       var nName = $r.nodeName;
       if (nName === 'w' && !$r.firstChild) {
          $r.parentNode.removeChild($r);
@@ -2442,7 +2460,7 @@ function getTeiByHtml(inputString, args) {
 
          var part = $r.getAttribute('part'); //
          if (part) {
-            //get first <W>
+            //get first <w>
             var _first = $r.firstChild;
             while (_first && _first.nodeType !== 3) {
                if (_first.nodeName === 'w') {
@@ -2664,7 +2682,8 @@ function getTeiByHtml(inputString, args) {
                tempParent.appendChild(w);
             } else {
                var temp = $newDoc.createDocumentFragment();
-               getTeiNodeByHtmlNode(temp, c); //TODO: if not initHtmlContent, may be c.nodeType==3, what should to do?
+               getTeiNodeByHtmlNode(temp, c); //TODO: if not initHtmlContent, may be c.nodeType==3, what should we do?
+               //console.log(temp.innerHTML);
                while (temp.firstChild) {
                   tempParent.appendChild(temp.firstChild);
                }
@@ -2681,7 +2700,7 @@ function getTeiByHtml(inputString, args) {
                //if w is <w/>, this means that no content for $teiNode, then add only <w/>
                //in order to show there is a space and <w> stop.
                $teiParent.appendChild(tFirst);
-            } else {
+            } else {//<w> has child elements
                wrapNode = $teiNode.cloneNode(true);
                var n = wrapChildNode(tFirst, wrapNode);
                $teiParent.appendChild(n);
@@ -2720,8 +2739,8 @@ function getTeiByHtml(inputString, args) {
       //supplied in abbr //ticket #1762
       if ($wrapNode.nodeName === 'abbr' && $wrapNode.getAttribute('ext')) {
          $wrapNode.removeAttribute('ext');
-         $wrapNode = handleSupliedInAbbr($wrapNode, $newDoc.createDocumentFragment(), true);
-         //$wrapNode=handleSupliedInAbbr2($wrapNode);// both function do well
+         $wrapNode = handleSuppliedInAbbr($wrapNode, $newDoc.createDocumentFragment(), true);
+         //$wrapNode=handleSuppliedInAbbr2($wrapNode);// both function do well
       }
       //fixed #1772
       if ($wrapNode.getAttribute('removeText')) {
@@ -2737,9 +2756,9 @@ function getTeiByHtml(inputString, args) {
       return newParent;
    };
 
-   //or use function handleSupliedInAbbr2
+   //or use function handleSuppliedInAbbr2
    //supplied in abbr //ticket #1762
-   var handleSupliedInAbbr = function($node, $currNewNode, end) {
+   var handleSuppliedInAbbr = function($node, $currNewNode, end) {
       if (!$node) {
          return;
       }
@@ -2752,7 +2771,7 @@ function getTeiByHtml(inputString, args) {
 
       //if it is <supplied>
       if ($node.nodeType !== 3 && $node.nodeName !== 'abbr' && $node.getAttribute('ext')) {
-         //find <hi ovlerline>
+         //find <hi overline>
          var treeArr = new Array();
          var cp = $currNewNode,
             hi;
@@ -2796,7 +2815,7 @@ function getTeiByHtml(inputString, args) {
       var next = $node.firstChild;
       var newp;
       while (next) {
-         newP = handleSupliedInAbbr(next, nextNewParent);
+         newP = handleSuppliedInAbbr(next, nextNewParent);
          if (newP) {
             nextNewParent = newP;
          }
@@ -2807,9 +2826,9 @@ function getTeiByHtml(inputString, args) {
       }
    };
 
-   //or use function handleSupliedInAbbr
+   //or use function handleSuppliedInAbbr
    //supplied in abbr //ticket #1762
-   var handleSupliedInAbbr2 = function($node) {
+   var handleSuppliedInAbbr2 = function($node) {
       if (!$node || $node.nodeType == 3) {
          return;
       }
@@ -2845,7 +2864,7 @@ function getTeiByHtml(inputString, args) {
       }
 
       for (var x = 0, y = childList.length; x < y; x++) {
-         handleSupliedInAbbr2(childList[x]);
+         handleSuppliedInAbbr2(childList[x]);
       }
 
       if ($node.nodeName === 'abbr') {
@@ -3379,6 +3398,7 @@ function getTeiByHtml(inputString, args) {
          if ($newNode.getAttribute('unit') !== 'word') {
             var pre = $htmlNode.previousSibling;
             var next = $htmlNode.nextSibling;
+            // go to last <w> of previous sibling and store @after attribute
             while (pre) {
                if (pre.nodeName === 'w') {
                   var lastAfter = pre.getAttribute('after');
@@ -3387,6 +3407,7 @@ function getTeiByHtml(inputString, args) {
                pre = pre.lastChild;
             }
 
+            // go to first <w> child of next sibling and store @before attribute
             while (next) {
                if (next.nodeName === 'w') {
                   var nextBefore = next.getAttribute('before');
@@ -3639,12 +3660,12 @@ function getTeiByHtml(inputString, args) {
    };
 
    var isLastNodeOf = function($node, nName) {
-      var parent = $node.ParentNode;
+      var parent = $node.parentNode;
       while (parent) {
          if (parent.nodeName == nName) {
             return true;
          }
-         parent = parent.ParentNode;
+         parent = parent.parentNode;
       }
       return false;
    };
@@ -3909,7 +3930,7 @@ function getTeiByHtml(inputString, args) {
    var html2Tei_pc = function(arr, $teiParent, $htmlNode) {
       //Fixed #1766
       var pre = $htmlNode.previousSibling;
-      var next = $htmlNode.nextSibing;
+      var next = $htmlNode.nextSibling;
       if (pre && pre.nodeName === 'w') {
          pre.setAttribute('after', '1');
       }
@@ -4283,7 +4304,7 @@ var compareNodes = function($n1, $n2) {
    if ($n1.nodeName != $n2.nodeName) {
       return false;
    }
-   if ($n1.nodeName === 'gap') {
+   if ($n1.nodeName === 'gap') {//Might be obsolent as now an id is added to each <gap>
       return false;
    }
 
