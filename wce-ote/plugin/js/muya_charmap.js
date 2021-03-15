@@ -364,6 +364,8 @@ tinymce.PluginManager.add('muyacharmap', function(editor) {
          ['0x015B', 'Small letter s with acute'],
          ['0x1E6D', 'Small letter t with dot below'],
          ['363', 'Small letter u with macron'],
+         ['0x0964', 'danda'],
+         ['0x0965', 'double danda'],
       ];
    }
 

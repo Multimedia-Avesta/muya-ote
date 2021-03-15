@@ -330,6 +330,8 @@ tinymce.PluginManager.add('wcecharmapsidebar', function(ed) {
          ['0x015B', 'Small letter s with acute'],
          ['0x1E6D', 'Small letter t with dot below'],
          ['363', 'Small letter u with macron'],
+         ['0x0964', 'danda'],
+         ['0x0965', 'double danda'],
       ];
    }
 
@@ -377,7 +379,7 @@ tinymce.PluginManager.add('wcecharmapsidebar', function(ed) {
          ['0x03b2', 'AVESTAN LETTER BHE'],
          ['0x014b', 'AVESTAN LETTER NGE'],
          ['0x014b+0x0301', 'AVESTAN LETTER NGYE'],
-         ['0x014b++0x200b+0x036e', 'AVESTAN LETTER NGVE'],
+         ['0x014b+0x200b+0x036e', 'AVESTAN LETTER NGVE'],
          ['0x006e', 'AVESTAN LETTER NE'],
          ['0x0144', 'AVESTAN LETTER NYE'],
          ['0x1e45', 'AVESTAN LETTER NYE'],
