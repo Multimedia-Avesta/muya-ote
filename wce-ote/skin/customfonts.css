@@ -1,5 +1,5 @@
 /*
-	Copyright (C) 2012-2019 Center for Digital Humanities, Trier
+	Copyright (C) 2012-2021 Center for Digital Humanities, Trier
 
 	This file is part of the Online Transcription Editor (OTE).
 
@@ -34,7 +34,7 @@
 
 /*Syriac*/
 @font-face {
-    font-family: MUYA;
+    font-family: 'MUYA';
     src: url(fonts/NotoSansSyriac-Regular.ttf) format('truetype');
     font-style: normal;
     unicode-range: U+0700-074F;
@@ -42,7 +42,7 @@
 
 /*NKo*/
 @font-face {
-    font-family: MUYA;
+    font-family: 'MUYA';
     src: url(fonts/NotoSansNKo-Regular.ttf) format('truetype');
     font-style: normal;
     unicode-range: U+07C0-07FF;
@@ -50,7 +50,7 @@
 
 /*Devanagari*/
 @font-face {
-    font-family: MUYA;
+    font-family: 'MUYA';
     src: url(fonts/NotoSansDevanagari-Regular.ttf) format('truetype');
     font-style: normal;
     unicode-range: U+0900-097F, U+A8E0-A8FF;
@@ -58,7 +58,7 @@
 
 /*Gujarati*/
 @font-face {
-    font-family: MUYA;
+    font-family: 'MUYA';
     src: url(fonts/NotoSansGujarati-Regular.ttf) format('truetype');
     font-style: normal;
     unicode-range: U+0A80-0AFF;
@@ -66,7 +66,7 @@
 
 /*Thai*/
 @font-face {
-    font-family: MUYA;
+    font-family: 'MUYA';
     src: url(fonts/NotoSansThai-Regular.ttf) format('truetype');
     font-style: normal;
     unicode-range: U+0E00-0E7F;
@@ -74,7 +74,7 @@
 
 /*Myanmar*/
 @font-face {
-    font-family: MUYA;
+    font-family: 'MUYA';
     src: url(fonts/NotoSansMyanmar-Regular.ttf) format('truetype');
     font-style: normal;
     unicode-range: U+1000-109F;
@@ -82,7 +82,7 @@
 
 /*Ethiopic*/
 @font-face {
-    font-family: MUYA;
+    font-family: 'MUYA';
     src: url(fonts/NotoSansEthiopic-Regular.ttf) format('truetype');
     font-style: normal;
     unicode-range: U+1200-139F, U+2D80-2DDF, U+AB00-AB2F;
@@ -90,14 +90,14 @@
 
 /*Khmer*/
 @font-face {
-    font-family: MUYA;
+    font-family: 'MUYA';
     src: url(fonts/NotoSansKhmer-Regular.ttf) format('truetype');
     font-style: normal;
     unicode-range: U+1780-17FF;
 }
 /*Tifinagh*/
 @font-face {
-    font-family: MUYA;
+    font-family: 'MUYA';
     src: url(fonts/NotoSansTifinagh-Regular.ttf) format('truetype');
     font-style: normal;
     unicode-range: U+2D30-2D7F;
@@ -105,7 +105,7 @@
 
 /*Yi*/
 @font-face {
-    font-family: MUYA;
+    font-family: 'MUYA';
     src: url(fonts/NotoSansYi-Regular.ttf) format('truetype');
     font-style: normal;
     unicode-range: U+A000-A48F;
@@ -113,7 +113,7 @@
 
 /*Vai*/
 @font-face {
-    font-family: MUYA;
+    font-family: 'MUYA';
     src: url(fonts/NotoSansVai-Regular.ttf) format('truetype');
     font-style: normal;
     unicode-range: U+A500-A63F;
@@ -121,7 +121,7 @@
 
 /*Syloti Nagri*/
 @font-face {
-    font-family: MUYA;
+    font-family: 'MUYA';
     src: url(fonts/NotoSansSylotiNagri-Regular.ttf) format('truetype');
     font-style: normal;
     unicode-range: U+A800-A82F;
@@ -129,33 +129,158 @@
 
 /*Rejang*/
 @font-face {
-    font-family: MUYA;
+    font-family: 'MUYA';
     src: url(fonts/NotoSansRejang-Regular.ttf) format('truetype');
     font-style: normal;
     unicode-range: U+A930-A95F;
 }
 
+/*Linear B*/
+@font-face {
+    font-family: 'MUYA';
+    src: url(fonts/NotoSansLinearB-Regular.ttf) format('truetype');
+    font-style: normal;
+    unicode-range: U+10000-1007F;
+}
+
+/*Old Italic*/
+@font-face {
+    font-family: 'MUYA';
+    src: url(fonts/NotoSansOldItalic-Regular.ttf) format('truetype');
+    font-style: normal;
+    unicode-range: U+10300-1032F;
+}
+
+/*Phoenician*/
+@font-face {
+    font-family: 'MUYA';
+    src: url(fonts/NotoSansPhoenician-Regular.ttf) format('truetype');
+    font-style: normal;
+    unicode-range: U+10900-1091F;
+}
+
+/*Kharoshthi*/
+@font-face {
+    font-family: 'MUYA';
+    src: url(fonts/NotoSansKharoshthi-Regular.ttf) format('truetype');
+    font-style: normal;
+    unicode-range: U+10A00-10A5F;
+}
+
+/*Old North Arabian*/
+@font-face {
+    font-family: 'MUYA';
+    src: url(fonts/NotoSansOldNorthArabian-Regular.ttf) format('truetype');
+    font-style: normal;
+    unicode-range: U+10A80-10A9F;
+}
+
+/*Manichaean*/
+@font-face {
+    font-family: 'MUYA';
+    src: url(fonts/NotoSansManichaean-Regular.ttf) format('truetype');
+    font-style: normal;
+    unicode-range: U+10AC0-10AFF;
+}
+
 /*Avestan*/
 @font-face {
-    font-family: MUYA;
+    font-family: 'MUYA';
     src: url(fonts/NotoSansAvestan-Regular.ttf) format('truetype');
     font-style: normal;
     unicode-range: U+10B00-10B3F;
 }
 
+/*Pahlavi*/
+@font-face {
+    font-family: 'MUYA';
+    src: url(fonts/NotoSansPsalterPahlavi-Regular.ttf) format('truetype');
+    font-style: normal;
+    unicode-range: U+10B80-10BAF;
+}
+
 /*Brahmi*/
 @font-face {
-    font-family: MUYA;
+    font-family: 'MUYA';
     src: url(fonts/NotoSansBrahmi-Regular.ttf) format('truetype');
     font-style: normal;
     unicode-range: U+11000-1107F;
 }
 
-/*Siddham,
-U+11580 - U+115FF*/
+/*Mahajani*/
+@font-face {
+    font-family: 'MUYA';
+    src: url(fonts/NotoSansMahajani-Regular.ttf) format('truetype');
+    font-style: normal;
+    unicode-range: U+11150-1117F;
+}
+
+/*Khojki*/
+@font-face {
+    font-family: 'MUYA';
+    src: url(fonts/NotoSansKhojki-Regular.ttf) format('truetype');
+    font-style: normal;
+    unicode-range: U+11200-1124F;
+}
+
+/*Khudawadi*/
+@font-face {
+    font-family: 'MUYA';
+    src: url(fonts/NotoSansKhudawadi-Regular.ttf) format('truetype');
+    font-style: normal;
+    unicode-range: U+112B0-112FF;
+}
+
+/*Grantha*/
+@font-face {
+    font-family: 'MUYA';
+    src: url(fonts/NotoSansGrantha-Regular.ttf) format('truetype');
+    font-style: normal;
+    unicode-range: U+11300-1137F;
+}
+
+/*Siddham*/
+@font-face {
+    font-family: 'MUYA';
+    src: url(fonts/NotoSansSiddham-Regular.ttf) format('truetype');
+    font-style: normal;
+    unicode-range: U+11580-115FF;
+}
+
+/*Modi*/
+@font-face {
+    font-family: 'MUYA';
+    src: url(fonts/NotoSansModi-Regular.ttf) format('truetype');
+    font-style: normal;
+    unicode-range: U+11600-1165F;
+}
+
+/*Pahawh Hmong*/
+@font-face {
+    font-family: 'MUYA';
+    src: url(fonts/NotoSansPahawhHmong-Regular.ttf) format('truetype');
+    font-style: normal;
+    unicode-range: U+16B00-16B8F;
+}
+
+/*Mende Kikakui*/
+@font-face {
+    font-family: 'MUYA';
+    src: url(fonts/NotoSansMendeKikakui-Regular.ttf) format('truetype');
+    font-style: normal;
+    unicode-range: U+1E800-1E8DF;
+}
+
+/*Emoji*/
+@font-face {
+    font-family: 'MUYA';
+    src: url(fonts/NotoEmoji-Regular.ttf) format('truetype');
+    font-style: normal;
+    unicode-range: U+1F300-1F5FF;
+}
 
 @font-face {
-    font-family: MUYA;
+    font-family: 'MUYA';
     src: url(fonts/NotoSans-Regular.ttf) format('truetype');
     font-style: normal;
 }

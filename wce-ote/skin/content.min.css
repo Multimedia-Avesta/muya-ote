@@ -31,7 +31,7 @@
     Sie sollten eine Kopie der GNU Lesser General Public License zusammen mit diesem
     Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
 */
-
+@import url('customfonts.css');
 .mce-content-body .mce-reset {
     margin: 0;
     padding: 0;
@@ -41,9 +41,7 @@
     background: transparent;
     text-decoration: none;
     color: black;
-    font-family: MUYA,
-        FreeSerif, 
-        Fallback;
+    font-family: 'MUYA',FreeSerif,Fallback;
     font-size: 11px;
     text-shadow: none;
     float: none;
@@ -222,9 +220,7 @@ th[data-mce-selected] {
 }
 
 .mce-content-body .mce-reset {
-    font-family: MUYA,
-        FreeSerif, 
-        Fallback;
+    font-family: 'MUYA',FreeSerif,Fallback;
 }
 
 body,
@@ -234,12 +230,10 @@ pre {
     font-size: 24px;
     margin: 8px;
     line-height: 48px;
-    font-family: MUYA,
-    FreeSerif,
-    Fallback;
+    font-family: 'MUYA',FreeSerif,Fallback;
 }
-/*.muya-fonts-loaded body,td,pre{
-    font-family: MUYA,
+/*.'MUYA'-fonts-loaded body,td,pre{
+    font-family: 'MUYA',
     FreeSans,
     sans-serif,
     Fallback;
