@@ -1,5 +1,5 @@
 /*
-	Copyright (C) 2012-2019 Center for Digital Humanities, Trier
+	Copyright (C) 2012-2021 Center for Digital Humanities, Trier
 
 	This file is part of the Online Transcription Editor (OTE).
 
@@ -31,52 +31,8 @@
     Sie sollten eine Kopie der GNU Lesser General Public License zusammen mit diesem
     Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
 */
-/*@font-face {
-   font-family: MUYA;
-   src: url(fonts/NotoSans-Regular.ttf) format('truetype');
-   font-style: normal;
-}
 
-@font-face {
-   font-family: MUYA;
-   src: url(fonts/NotoSansAvestan-Regular.ttf) format('truetype');
-   font-style: normal;
-   unicode-range: U+10B00-10B3F;
-}
-
-@font-face {
-   font-family: MUYA;
-   src: url(fonts/NotoSansGujaratiUI-Regular.ttf) format('truetype');
-   font-style: normal;
-   unicode-range: U+0A80-0AFF;
-}
-
-@font-face {
-   font-family: MUYA;
-   src: url(fonts/NotoSansSyriacEastern-Regular.ttf) format('truetype');
-   font-style: normal;
-   unicode-range: U+0745-0746;
-}
-
-@font-face {
-   font-family: MUYA;
-   src: url(fonts/NotoSansDevanagariUI-Regular.ttf) format('truetype');
-   font-style: normal;
-   unicode-range: U+0900-097F, U+A8E0-A8FF;
-}
-
-@font-face {
-   font-family: MUYA;
-   src: url(fonts/NotoSansInscriptionalPahlavi-Regular.ttf) format('truetype');
-   font-style: normal;
-   unicode-range: U+10B60-10B7F;
-}
-
-@font-face {
-   font-family: Fallback;
-   src: url(fonts/UnicodeBMPFallback.ttf) format('truetype');
-}*/
-
+@import url('customfonts.css');
 .mce-container,
 .mce-container *,
 .mce-widget,
@@ -90,9 +46,7 @@
    background: transparent;
    text-decoration: none;
    color: #333;
-   font-family: MUYA,
-      FreeSerif,
-      Fallback;
+   font-family: 'MUYA',FreeSerif,Fallback;
    font-size: 14px;
    text-shadow: none;
    float: none;
@@ -202,7 +156,7 @@ div.mce-edit-area {
 
 .mce-charmap td div {
    text-align: center;
-   font-family: MUYA,
+   font-family: 'MUYA',
       FreeSerif,
       Fallback;
    font-size: 18px;
@@ -2449,7 +2403,7 @@ i.mce-i-backcolor {
 	margin-top: -3px !important;
 }*/
 .mce-container {
-   font-family: MUYA,
+   font-family: 'MUYA',
       FreeSerif,
       Fallback;
 }

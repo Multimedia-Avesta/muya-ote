@@ -2027,6 +2027,8 @@ function getTeiByHtml(inputString, args) {
       html2Tei_removeBlankW_addAttributePartI($newRoot);
       html2Tei_handleLanguageChange($newRoot);
       html2Tei_handlePcInSupplied($newRoot);
+      html2Tei_handleAppInSupplied($newRoot);
+      html2Tei_removeAllWAttributes($newRoot);
 
       //ticket #6130
       args.inner_hi ? html2Tei_handleHiNode($newRoot) : '';
@@ -2077,6 +2079,29 @@ function getTeiByHtml(inputString, args) {
       }
       return $node; 
    };
+
+   var html2Tei_handleAppInSupplied = function($node) {
+      var appNodes = $node.querySelectorAll("w > supplied > app")
+      if (appNodes) {
+         appNodes.forEach(function(appItem) {
+            if (!$(appItem).nextSibling) {
+               var parentsupplied = appItem.parentNode;
+               var parentw = parentsupplied.parentNode;
+               parentw.parentNode.replaceChild(parentsupplied, parentw);
+            }
+         });
+      }
+      return $node; 
+   };
+
+   var html2Tei_removeAllWAttributes = function($node) {
+      var wNodes = $node.querySelectorAll("w")
+      if (wNodes) {
+         wNodes.forEach(function(witem) {
+            removeAllAttribute(witem);
+         });
+      }
+   }
 
    var html2Tei_handleLanguageChange = function($node) {
       var abNodes = $node.querySelectorAll('ab');
